@@ -2104,33 +2104,37 @@ function checkDeath(list, isPlayer = false){
     return { newList, deathMessages };
 }
 
-// 玩家死亡检测
+// 玩家死亡检测：返回 null（未死）或死因字符串
 function checkPlayerDeath(){
     let age = gameData.age;
     let prob = 0;
+    let cause = null; // "stamina" | "natural"
     
     // 体质影响的死亡率（不看年龄）
     let stamina = gameData.stamina;
     if(stamina <= 20){
-        prob += 0.3; // 0-20死亡率为30%
+        prob += 0.3; cause = "stamina";
     }else if(stamina <= 40){
-        prob += 0.08; // 21-40死亡率为8%
+        prob += 0.08; cause = "stamina";
     }else if(stamina <= 60){
-        prob += 0.02; // 41-60死亡率为2%
+        prob += 0.02;
     }else if(stamina <= 75){
-        prob += 0.005; // 61-75死亡率为0.5%
+        prob += 0.005;
     }
     // 75以上无死亡率
     
-    // 65岁后叠加自然死亡概率
-    if(age >= 90) prob += 0.95;
-    else if(age >= 85) prob += 0.7;
-    else if(age >= 80) prob += 0.5;
-    else if(age >= 75) prob += 0.3;
-    else if(age >= 70) prob += 0.15;
-    else if(age >= 65) prob += 0.05;
+    // 65岁后叠加自然死亡概率（只有体质非主因时才标记为寿终）
+    if(age >= 90) { prob += 0.95; if(!cause) cause = "natural"; }
+    else if(age >= 85) { prob += 0.7; if(!cause) cause = "natural"; }
+    else if(age >= 80) { prob += 0.5; if(!cause) cause = "natural"; }
+    else if(age >= 75) { prob += 0.3; if(!cause) cause = "natural"; }
+    else if(age >= 70) { prob += 0.15; if(!cause) cause = "natural"; }
+    else if(age >= 65) { prob += 0.05; if(!cause) cause = "natural"; }
     
-    return prob > 0 && Math.random() < prob;
+    if(prob > 0 && Math.random() < prob){
+        return cause || "natural";
+    }
+    return null;
 }
 
 function getRand1To4(){return 1+Math.floor(Math.random()*4);}
@@ -3641,11 +3645,12 @@ function growAge(){
     gameData.actionNum += getCarriageActionBonus(); // 马车行动加成
 
     // 玩家死亡检测（65岁后开始有自然死亡概率）
-    if(checkPlayerDeath()){
+    let deathCause = checkPlayerDeath();
+    if(deathCause){
         isYearAdvancing = false;
         notificationQueue = [];
         pendingChildMarriagePopups = [];
-        handleDeath();
+        handleDeath(deathCause);
         return;
     }
 
@@ -8895,7 +8900,13 @@ function showGameOver(){
 }
 
 // ========== 死亡处理 ==========
-function handleDeath(){
+function handleDeath(cause){
+    let isStaminaDeath = cause === "stamina";
+    let deathTitle = isStaminaDeath ? "积劳猝死" : "寿终正寝";
+    let deathDesc = isStaminaDeath 
+        ? `身体过于虚弱，积劳成疾，不幸猝然离世，享年${gameData.age}岁。`
+        : `${gameData.playerName}去世了，享年${gameData.age}岁。`;
+    
     gameData.isDead = true;
     gameData.actionNum = 0;
     saveData();
@@ -8907,8 +8918,8 @@ function handleDeath(){
     let html = `
         <div class="mask" id="deathMask">
             <div class="modal" id="deathModal">
-                <p style="color:#e74c3c; font-size:24px;">寿终正寝</p>
-                <p>${gameData.playerName}去世了，享年${gameData.age}岁。</p>
+                <p style="color:#e74c3c; font-size:24px;">${deathTitle}</p>
+                <p>${deathDesc}</p>
                 ${heirText}
                 <div class="modal-btn-group">
                     <button class="modal-btn" onclick="resolveDeath()">确定</button>
