@@ -1404,6 +1404,17 @@
     </div>
 </div>
 
+<div class="mask hidden" id="forcedMarriageMask">
+    <div class="modal">
+        <h2 class="modal-title" style="color:#e74c3c;">父母逼婚</h2>
+        <div id="forcedMarriageMsg"></div>
+        <div class="modal-btn-group">
+            <button class="modal-btn" id="forcedMarriageAccept">遵从父母之命</button>
+            <button class="modal-btn" id="forcedMarriageRefuse">宁死不从</button>
+        </div>
+    </div>
+</div>
+
 <div class="mask hidden" id="modeMask">
     <div class="modal">
         <h2 class="modal-title">选择开局模式</h2>
@@ -1644,8 +1655,16 @@
 
 <script>
 const surnameList = ["赵","钱","孙","李","周","吴","郑","王","冯","陈","褚","卫","蒋","沈","韩","杨","朱","秦","尤","许"];
-const maleName = ["文远","子谦","景行","明轩","承宇","彦昭","沐风","砚秋","临川","伯言","仲安","修然"];
-const femaleName = ["清婉","月瑶","知予","灵汐","慕凝","晚晴","书瑶","若曦","芷兰","云舒","念慈","素心"];
+// 将原名拆为单字池，随机两两组合，大幅增加名字多样性
+const maleChars = ["文","远","子","谦","景","行","明","轩","承","宇","彦","昭","沐","风","砚","秋","临","川","伯","言","仲","安","修","然"];
+const femaleChars = ["清","婉","月","瑶","知","予","灵","汐","慕","凝","晚","晴","书","若","曦","芷","兰","云","舒","念","慈","素","心"];
+function genName(gender){
+    let pool = gender === "男" ? maleChars : femaleChars;
+    let c1 = getRandom(pool);
+    let c2;
+    do { c2 = getRandom(pool); } while(c2 === c1 && pool.length > 1);
+    return c1 + c2;
+}
 
 const maleCommonJobs = ["农民","渔民","木匠","厨子"];
 const femaleCommonJobs = ["绣娘","厨娘","织女","丫鬟"];
@@ -2744,7 +2763,7 @@ function createNewFriend(){
     let g=Math.random()>0.5?"男":"女";
     let s=getRandom(surnameList);
     let exist=getAllExistingNames();
-    let n;do{n=s+getRandom(g=="男"?maleName:femaleName);}while(exist.includes(n));
+    let n;do{n=s+genName(g);}while(exist.includes(n));
     let fv=20+Math.floor(Math.random()*20);
     let str=Math.floor(Math.random()*100);
     let a=Math.max(5,gameData.age-8+Math.floor(Math.random()*17));
@@ -2905,10 +2924,10 @@ function initFamily() {
         gameData.fatherSur = fs; gameData.motherSur = ms;
         let existNames = getAllExistingNames();
         let fatherName;
-        do { fatherName = fs + getRandom(maleName); } while(existNames.includes(fatherName));
+        do { fatherName = fs + genName("男"); } while(existNames.includes(fatherName));
         existNames.push(fatherName);
         let motherName;
-        do { motherName = ms + getRandom(femaleName); } while(existNames.includes(motherName));
+        do { motherName = ms + genName("女"); } while(existNames.includes(motherName));
         existNames.push(motherName);
         
         gameData.familyList.push(
@@ -2921,7 +2940,7 @@ function initFamily() {
             let isBrother = Math.random() > 0.5;
             let sibAge = 5 + Math.floor(Math.random() * 15);
             let sibName;
-            do { sibName = (Math.random() > 0.5 ? fs : ms) + getRandom(isBrother ? maleName : femaleName); } while(existNames.includes(sibName));
+            do { sibName = (Math.random() > 0.5 ? fs : ms) + genName(isBrother ? "男" : "女"); } while(existNames.includes(sibName));
             gameData.familyList.push({
                 name: sibName, title: isBrother ? "兄长" : "姐姐", type: "sibling",
                 job: isBrother ? maleSibJob : femaleSibJob,
@@ -3029,10 +3048,10 @@ function initFamily() {
 
     let existNames = getAllExistingNames();
     let fn;
-    do { fn = fs + getRandom(maleName); } while(existNames.includes(fn));
+    do { fn = fs + genName("男"); } while(existNames.includes(fn));
     existNames.push(fn);
     let mn;
-    do { mn = ms + getRandom(femaleName); } while(existNames.includes(mn));
+    do { mn = ms + genName("女"); } while(existNames.includes(mn));
     existNames.push(mn);
     gameData.familyList.push(
         {name:fn,title:"父亲",type:"parent",job:fj,officerRank:fRank,age:fatherAge,favor:50,strength:Math.floor(Math.random()*100),hasStrength:true,gender:"男"},
@@ -3041,7 +3060,7 @@ function initFamily() {
     if(Math.random()>0.5){
         let isBrother=Math.random()>0.5;
         let name;
-        do { name=(Math.random()>0.5?fs:ms)+getRandom(isBrother?maleName:femaleName); } while(existNames.includes(name));
+        do { name=(Math.random()>0.5?fs:ms)+genName(isBrother?"男":"女"); } while(existNames.includes(name));
         let sibAge = 5+Math.floor(Math.random()*15);
         let sibStr = Math.floor(Math.random()*100);
         let sibTal = Math.floor(Math.random()*100);
@@ -3057,7 +3076,7 @@ function initPlayer() {
     let sur = Math.random() > 0.5 ? gameData.fatherSur : gameData.motherSur;
     let existNames = getAllExistingNames();
     let pn;
-    do { pn = sur + getRandom(gameData.playerGender == "男" ? maleName : femaleName); } while(existNames.includes(pn));
+    do { pn = sur + genName(gameData.playerGender); } while(existNames.includes(pn));
     gameData.playerName = pn;
     let b = 20, add = gameData.familyLevel * 5;
     gameData.appearance = Math.min(100, b + add + Math.floor(Math.random() * 10));
@@ -3698,20 +3717,21 @@ function doAction(act){
     switch(act){
         case "rest":
             if(gameData.isSick){
-                // 生病时休息：40%概率恢复健康，15%概率精力+2，其余45%无效果
-                let r = Math.random();
-                if(r < 0.4){
+                // 生病时休息：40%概率恢复健康
+                if(Math.random() < 0.4){
                     gameData.isSick = false;
                     addActionLog("休息", "身体康复了");
-                }else if(r < 0.55){
-                    gameData.stamina = Math.min(100, gameData.stamina + 2);
-                    addActionLog("休息", `精力恢复了一些，体质 +2`);
                 }else{
                     addActionLog("休息", "身体不适，休息后感觉稍好一些");
                 }
             }else{
-                gameData.stamina=Math.min(100,gameData.stamina+add);
-                addActionLog("休息", `体质 +${add}`);
+                // 正常休息：30%概率额外获得2次行动机会
+                if(Math.random() < 0.3){
+                    gameData.actionNum += 2;
+                    addActionLog("休息", "精力充沛，获得2次额外行动机会！");
+                }else{
+                    addActionLog("休息", "休息恢复精力");
+                }
             }
             break;
         case "exercise":
@@ -4374,7 +4394,7 @@ function triggerMeetChild(){
     let sur = getRandom(surnameList);
     let exist = getAllExistingNames();
     let givenName;
-    do { givenName = sur + getRandom(childGender === "男" ? maleName : femaleName); } while(exist.includes(givenName));
+    do { givenName = sur + genName(childGender); } while(exist.includes(givenName));
 
     let child = {
         name: givenName,
@@ -4503,7 +4523,7 @@ function generateMatchmakingCandidate(){
     let s = getRandom(surnameList);
     let exist = getAllExistingNames();
     let n;
-    do{n = s + getRandom(g === "男" ? maleName : femaleName);}while(exist.includes(n));
+    do{n = s + genName(g);}while(exist.includes(n));
     let app = getRandRange(30, 85);
     let tal = getRandRange(20, 80);
     let str = getRandRange(20, 80);
@@ -5025,7 +5045,7 @@ function triggerForcedMarriage(friend){
     let existNames = getAllExistingNames();
     let npcName;
     do{
-        npcName = getRandom(surnameList) + getRandom(oppositeGender === "男" ? maleName : femaleName);
+        npcName = getRandom(surnameList) + genName(oppositeGender);
     }while(existNames.includes(npcName));
     
     let npcApp = getRandRange(30, 95);
@@ -5069,7 +5089,10 @@ function triggerForcedMarriage(friend){
 
 // 初始化逼婚弹窗按钮事件
 (function(){
-    document.getElementById("forcedMarriageAccept").onclick = function(){
+    var acceptBtn = document.getElementById("forcedMarriageAccept");
+    var refuseBtn = document.getElementById("forcedMarriageRefuse");
+    if(!acceptBtn || !refuseBtn) return;
+    acceptBtn.onclick = function(){
         hideDiv("forcedMarriageMask");
         let friend = (gameData.friendList || []).find(f => f.name === pendingSameSexFriendName);
         
@@ -5140,7 +5163,7 @@ function triggerForcedMarriage(friend){
         saveData();
         refreshPage();
     };
-    document.getElementById("forcedMarriageRefuse").onclick = function(){
+    refuseBtn.onclick = function(){
         hideDiv("forcedMarriageMask");
         forcedMarriageNPC = null;
         pendingSameSexFriendName = null;
@@ -6940,7 +6963,7 @@ function marryChild(child){
     if(child.pendingSpouse) existNames.push(child.pendingSpouse.name);
     let spouseName;
     do{
-        spouseName = getRandom(surnameList) + getRandom(spouseGender === "男" ? maleName : femaleName);
+        spouseName = getRandom(surnameList) + genName(spouseGender);
     }while(existNames.includes(spouseName));
     
     let spouseAge = getRandRange(child.age - 3, child.age + 5);
@@ -7162,7 +7185,7 @@ function checkHusbandConcubine(){
     // 生成妾室信息（确保不重名）
     let existNames = getAllExistingNames();
     let n;
-    do { n = getRandom(surnameList) + getRandom(femaleName); } while(existNames.includes(n));
+    do { n = getRandom(surnameList) + genName("女"); } while(existNames.includes(n));
     pendingHusbandConcubine = {name: n, age: 18, favor: 50};
 
     let msg = `你的丈夫${gameData.spouse.name}想要纳${n}为妾。\n\n`;
@@ -9476,20 +9499,15 @@ function generateUniqueName(gender, excludeNamesList = null){
 // 通用唯一子女生名：指定姓氏 + 性别，自动查重，确保不重名
 function generateUniqueChildName(sur, gender){
     let existNames = getAllExistingNames();
-    let namePool = gender === "男" ? maleName : femaleName;
     let attempts = 0;
     let name;
     do {
-        name = sur + getRandom(namePool);
+        name = sur + genName(gender);
         attempts++;
-        // 名字池耗尽时，换用大池子
-        if(attempts > 50 && existNames.includes(name)){
-            let bigPool = gender === "男" ? maleGivenNames : femaleGivenNames;
-            name = sur + getRandom(bigPool);
-            if(attempts > 150){
-                name = sur + getRandom(bigPool) + Math.floor(Math.random() * 100);
-                break;
-            }
+        // 名字池耗尽时，追加数字避免死循环
+        if(attempts > 150){
+            name = sur + genName(gender) + Math.floor(Math.random() * 100);
+            break;
         }
     } while(existNames.includes(name));
     return name;
@@ -9969,7 +9987,7 @@ function generateGrandchild(parent, parentSpouse){
     let existNames = getAllExistingNames();
     let childName;
     do{
-        childName = childSur + getRandom(childGender === "男" ? maleName : femaleName);
+        childName = childSur + genName(childGender);
     }while(existNames.includes(childName));
     
     let childType = childGender === "男" ? "嫡子" : "嫡女"; // 孙辈标记为嫡出
