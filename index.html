@@ -404,8 +404,10 @@
         .full-page-mask .modal {
             max-width: 700px;
             max-height: 88vh;
-            overflow-y: auto;
-            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            overflow: hidden;
         }
         .page-back-btn {
             display: inline-flex;
@@ -425,6 +427,45 @@
         .page-back-btn:hover {
             background: rgba(139,69,19,0.15);
             border-color: #8b4513;
+        }
+        /* 统一弹窗标题栏 */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 24px 0 24px;
+            flex-shrink: 0;
+        }
+        .modal-header h2 {
+            margin: 0;
+        }
+        .modal-body {
+            overflow-y: auto;
+            padding: 16px 24px 24px 24px;
+            flex: 1;
+        }
+        .modal-close-x {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            font-size: 18px;
+            background: #8b2020;
+            border: 2px solid #5a1515;
+            border-radius: 2px;
+            color: #f8f0e6;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+        .modal-close-x:hover {
+            background: #a03030;
+            transform: scale(1.05);
         }
 
         /* ========== 成员卡片（家人/好友页） ========== */
@@ -490,7 +531,9 @@
             .stats-grid .attr-item { font-size: 12px; }
             .card { padding: 10px; margin-bottom: 8px; }
             .card-title { font-size: 15px; margin-bottom: 6px; }
-            .full-page-mask .modal { max-width: 90vw; max-height: 92vh; padding: 14px; }
+            .full-page-mask .modal { max-width: 90vw; max-height: 92vh; padding: 0; }
+            .full-page-mask .modal-header { padding: 16px 16px 0 16px; }
+            .full-page-mask .modal-body { padding: 12px 16px 16px 16px; }
             .modal { max-width: 90vw; min-width: auto; padding: 20px; }
             .member-card { flex-direction: column; align-items: flex-start; gap: 6px; padding: 8px 10px; }
             .member-actions { width: 100%; justify-content: flex-start; margin-left: 0; }
@@ -511,7 +554,9 @@
             .card { padding: 8px; margin-bottom: 6px; }
             .card-title { font-size: 14px; }
             .action-log-card { min-height: 120px; max-height: 160px; }
-            .full-page-mask .modal { max-width: 92vw; padding: 12px; }
+            .full-page-mask .modal { max-width: 92vw; padding: 0; }
+            .full-page-mask .modal-header { padding: 14px 14px 0 14px; }
+            .full-page-mask .modal-body { padding: 10px 14px 14px 14px; }
             .modal { max-width: 92vw; padding: 16px; }
             .start-page { padding: 0 20px; }
             .game-title { font-size: 28px; margin-bottom: 32px; letter-spacing: 6px; }
@@ -682,6 +727,22 @@
             background: linear-gradient(180deg, #e4d4b8 0%, #c8b088 100%);
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(160,136,96,0.3);
+        }
+        .heir-btn {
+            background: linear-gradient(180deg, #f0d060 0%, #c8a020 100%);
+            border-color: #8a7010;
+            color: #3d2817;
+            font-weight: bold;
+            animation: goldPulse 2s infinite;
+        }
+        .heir-btn:hover {
+            background: linear-gradient(180deg, #f8e080 0%, #d8b030 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(200,160,32,0.5);
+        }
+        @keyframes goldPulse {
+            0%,100% { box-shadow: 0 2px 4px rgba(200,160,32,0.3); }
+            50% { box-shadow: 0 2px 12px rgba(200,160,32,0.7); }
         }
         .action-log-card {
             min-height: 160px;
@@ -1037,13 +1098,13 @@
 
 <div class="mask hidden" id="aiConfigMask">
     <div class="modal">
-        <h2 class="modal-title">AI配置</h2>
+        <h2 class="modal-title">智谋配置</h2>
         <div class="form-item">
-            API URL:<br>
+            接口地址:<br>
             <input type="text" id="apiUrl" placeholder="例如：https://api.openai.com/v1/chat/completions">
         </div>
         <div class="form-item">
-            API Key:<br>
+            密钥:<br>
             <input type="text" id="apiKey" placeholder="Bearer 后的密钥">
         </div>
         <div class="form-item">
@@ -1152,33 +1213,41 @@
 
 <div class="mask hidden full-page-mask" id="familyPageMask">
     <div class="modal">
-        <button class="page-back-btn" onclick="closeFamilyPage()">← 返回</button>
-        <h2 class="modal-title">家中亲人</h2>
-        <div id="familyPageContent"></div>
+        <div class="modal-header">
+            <h2 class="modal-title">家中亲人</h2>
+            <button class="close-btn" onclick="closeFamilyPage()" style="position:static;">✕</button>
+        </div>
+        <div class="modal-body" id="familyPageContent"></div>
     </div>
 </div>
 
 <div class="mask hidden full-page-mask" id="friendsPageMask">
     <div class="modal">
-        <button class="page-back-btn" onclick="closeFriendsPage()">← 返回</button>
-        <h2 class="modal-title">好友名录</h2>
-        <div id="friendsPageContent"></div>
+        <div class="modal-header">
+            <h2 class="modal-title">好友名录</h2>
+            <button class="close-btn" onclick="closeFriendsPage()" style="position:static;">✕</button>
+        </div>
+        <div class="modal-body" id="friendsPageContent"></div>
     </div>
 </div>
 
 <div class="mask hidden full-page-mask" id="assetsPageMask">
     <div class="modal">
-        <button class="page-back-btn" onclick="closeAssetsPage()">← 返回</button>
-        <h2 class="modal-title">资产总览</h2>
-        <div id="assetsPageContent"></div>
+        <div class="modal-header">
+            <h2 class="modal-title">资产总览</h2>
+            <button class="close-btn" onclick="closeAssetsPage()" style="position:static;">✕</button>
+        </div>
+        <div class="modal-body" id="assetsPageContent"></div>
     </div>
 </div>
 
 <div class="mask hidden full-page-mask" id="outsidePageMask">
     <div class="modal">
-        <button class="page-back-btn" onclick="closeOutsidePage()">← 返回</button>
-        <h2 class="modal-title" id="outsidePageTitle">红颜知己</h2>
-        <div id="outsidePageContent"></div>
+        <div class="modal-header">
+            <h2 class="modal-title" id="outsidePageTitle">红颜知己</h2>
+            <button class="close-btn" onclick="closeOutsidePage()" style="position:static;">✕</button>
+        </div>
+        <div class="modal-body" id="outsidePageContent"></div>
     </div>
 </div>
 
@@ -1266,6 +1335,29 @@
     </div>
 </div>
 
+<div class="mask hidden" id="sameSexPartnerMask">
+    <div class="modal">
+        <h2 class="modal-title">私定终身</h2>
+        <div id="sameSexPartnerMsg"></div>
+        <div class="modal-btn-group">
+            <button class="modal-btn" id="sameSexPartnerCancel">听从父母</button>
+            <button class="modal-btn" id="sameSexPartnerConfirm">坚持相守</button>
+        </div>
+    </div>
+</div>
+
+<div class="mask hidden" id="meetChildMask">
+    <div class="modal">
+        <h2 class="modal-title" id="meetChildTitle">街头偶遇</h2>
+        <div id="meetChildMsg"></div>
+        <div class="modal-btn-group">
+            <button class="modal-btn" id="meetChildOpt1">善良</button>
+            <button class="modal-btn" id="meetChildOpt2">友善</button>
+            <button class="modal-btn" id="meetChildOpt3">冷漠</button>
+        </div>
+    </div>
+</div>
+
 <div class="mask hidden" id="interactSpouseMask">
     <div class="modal">
         <h2 class="modal-title">配偶互动</h2>
@@ -1286,6 +1378,17 @@
             <button class="close-btn" id="closeShop" style="position:static;">✕</button>
         </div>
         <div id="shopContent" style="overflow-y:auto; padding:16px 24px 24px 24px; flex:1;"></div>
+    </div>
+</div>
+
+<!-- 立嗣界面 -->
+<div class="mask hidden" id="heirMask">
+    <div class="modal" style="display:flex; flex-direction:column; max-height:80vh; padding:0; overflow:hidden;">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:24px 24px 0 24px; flex-shrink:0;">
+            <h2 class="modal-title" style="margin:0;">指定继承人</h2>
+            <button class="close-btn" id="closeHeir" style="position:static;">✕</button>
+        </div>
+        <div id="heirContent" style="overflow-y:auto; padding:16px 24px 24px 24px; flex:1;"></div>
     </div>
 </div>
 
@@ -1409,11 +1512,14 @@
 <!-- 年度裁决事件面板 -->
 <div class="mask hidden" id="eventPanelMask">
     <div class="modal" style="max-width: 750px; background: #fdf6ec;">
-        <h2 class="modal-title">年度裁决</h2>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <h2 class="modal-title" style="margin:0;">年度裁决</h2>
+            <button class="close-btn" onclick="hideDiv('eventPanelMask')" style="position:static; color:#c0392b;">✕</button>
+        </div>
         <div style="text-align:center; color:#8B7355; font-size:13px; margin-bottom:16px;" id="eventPanelSubtitle"></div>
         <div id="eventPanelContent"></div>
         <div class="modal-btn-group">
-            <button class="modal-btn hidden" id="eventPanelDoneBtn">处理完毕，进入下一年</button>
+            <button class="modal-btn hidden" id="eventPanelDoneBtn">完成</button>
         </div>
     </div>
 </div>
@@ -1435,9 +1541,9 @@
                 目标进度：<span id="careerProgressText"></span>
             </div>
             <div class="info-text">
-                AI状态：<span id="aiStatus" class="ai-status ai-off">离线模式</span>
+                智谋状态：<span id="aiStatus" class="ai-status ai-off">离线模式</span>
                 &nbsp;&nbsp;
-                <button class="action-btn" id="openAiConfig">AI配置</button>
+                <button class="action-btn" id="openAiConfig">智谋配置</button>
                 &nbsp;&nbsp;
                 <button class="action-btn save-game-btn" id="saveGameBtn">💾 存档</button>
             </div>
@@ -1497,6 +1603,7 @@
                         <button class="action-btn light-btn hidden" id="trainStrength" data-act="train">习武</button>
                         <button class="action-btn" id="seekDoctor">求医</button>
                         <button class="action-btn" id="btnBanquet">参加宴会</button>
+                        <button class="action-btn heir-btn hidden" id="btnHeir" onclick="openHeirSelection()">立嗣</button>
                         <button class="action-btn hidden" id="takeExam" data-act="exam">参加科举</button>
                         <button class="action-btn gambling-btn" id="openGambling">赌坊</button>
                         <button class="action-btn light-btn hidden" id="btnErrand" data-act="errand">跑腿赚钱</button>
@@ -1738,13 +1845,13 @@ function confirmAchieveUnlock(){
     if(closeBtn) closeBtn.onclick = confirmAchieveUnlock;
 })();
 
-// 房产配置（增加妻妾数量限制）
+// 房产配置（增加妻妾数量限制、孩子数量限制）
 const houseConfig = {
-    "茅草屋": {price: 800, description: "简陋的茅草屋，遮风挡雨尚可", prestige: 1, maxSpouses: 1},
-    "瓦房": {price: 2000, description: "坚固的瓦房，冬暖夏凉", prestige: 3, maxSpouses: 2},
-    "四合院": {price: 5000, description: "宽敞的四合院，气派非凡", prestige: 6, maxSpouses: 3},
-    "府邸": {price: 15000, description: "豪华府邸，尽显身份", prestige: 10, maxSpouses: 4},
-    "豪宅": {price: 50000, description: "顶级豪宅，富丽堂皇", prestige: 15, maxSpouses: 6}
+    "茅草屋": {price: 800, description: "简陋的茅草屋，遮风挡雨尚可", prestige: 1, maxSpouses: 1, maxChildren: 2},
+    "瓦房": {price: 2000, description: "坚固的瓦房，冬暖夏凉", prestige: 3, maxSpouses: 2, maxChildren: 3},
+    "四合院": {price: 5000, description: "宽敞的四合院，气派非凡", prestige: 6, maxSpouses: 3, maxChildren: 4},
+    "府邸": {price: 15000, description: "豪华府邸，尽显身份", prestige: 10, maxSpouses: 4, maxChildren: 6},
+    "豪宅": {price: 50000, description: "顶级豪宅，富丽堂皇", prestige: 15, maxSpouses: 6, maxChildren: 8}
 };
 
 // 商店物品配置
@@ -1844,6 +1951,7 @@ let gameData = {
     marriageYear:0,
     lastChildYear:0,
     spouseLostYear:0, // 失妻年份，用于控制扶正条件
+    sameSexAdoptedChild:false, // 同性伴侣继子事件是否已触发
     primaryWifeChildlessYears:0, // 原配无子年数（女玩家妾室扶正用）
     // 背包系统
     inventory:[], // [{id, name, type, favorBonus, description}]
@@ -1858,7 +1966,10 @@ let gameData = {
     // 家族继承系统
     familyTree:[], // 家族树记录
     heir:"", // 指定继承人名字
-    inheritanceAlert:false // 是否需要立嗣提醒
+    inheritanceAlert:false, // 是否需要立嗣提醒
+    noChildWarned50:false, // 是否已提醒50岁无子
+    noHeirWarned50:false, // 是否已提醒50岁有成年子女未立嗣
+    heirUnderageWarned50:false // 是否已提醒50岁有子女但未满16
 };
 
 let aiConfig = {apiUrl:"",apiKey:"",model:"gpt-3.5-turbo"};
@@ -2074,17 +2185,18 @@ migrateOldData();
     }
 })();
 
-// 死亡检测，返回死亡消息
-function checkDeath(list, isPlayer = false){
+// 死亡检测，返回死亡消息（label: 称呼，如"家人""好友"）
+function checkDeath(list, isPlayer = false, label = "家人"){
     let newList = [];
     let deathMessages = [];
     for(let p of list){
         let age = Math.max(0, p.age + (jobLifeEffect[p.job]||0));
         let prob = 0;
-        if(age >= 80) prob = 0.8;
+        if(age >= 90) prob = 0.95;
+        else if(age >= 80) prob = 0.8;
         else if(age >= 75) prob = 0.5;
         else if(age >= 70) prob = 0.3;
-        else if(age >= 65) prob = 0.1;
+        else if(age >= 60) prob = 0.15;
         
         // 40岁后每年2.5%意外死亡率（仅对NPC生效，玩家不受此影响），与自然死亡叠加
         if(!isPlayer && age >= 40){
@@ -2095,7 +2207,8 @@ function checkDeath(list, isPlayer = false){
             if(isPlayer){
                 deathMessages.push(`你不幸离世，享年${p.age}岁`);
             }else{
-                deathMessages.push(`你的${p.title} ${p.name} 不幸离世，享年${p.age}岁`);
+                let title = p.title || label;
+                deathMessages.push(`你的${title} ${p.name} 不幸离世，享年${p.age}岁`);
             }
         }else{
             newList.push(p);
@@ -2107,15 +2220,18 @@ function checkDeath(list, isPlayer = false){
 // 玩家死亡检测：返回 null（未死）或死因字符串
 function checkPlayerDeath(){
     let age = gameData.age;
+    let stamina = gameData.stamina;
+    
+    // 100岁寿终正寝，必死
+    if(age >= 100) return "natural";
+    
     let prob = 0;
-    let cause = null; // "stamina" | "natural"
     
     // 体质影响的死亡率（不看年龄）
-    let stamina = gameData.stamina;
     if(stamina <= 20){
-        prob += 0.3; cause = "stamina";
+        prob += 0.3;
     }else if(stamina <= 40){
-        prob += 0.08; cause = "stamina";
+        prob += 0.08;
     }else if(stamina <= 60){
         prob += 0.02;
     }else if(stamina <= 75){
@@ -2123,16 +2239,19 @@ function checkPlayerDeath(){
     }
     // 75以上无死亡率
     
-    // 65岁后叠加自然死亡概率（只有体质非主因时才标记为寿终）
-    if(age >= 90) { prob += 0.95; if(!cause) cause = "natural"; }
-    else if(age >= 85) { prob += 0.7; if(!cause) cause = "natural"; }
-    else if(age >= 80) { prob += 0.5; if(!cause) cause = "natural"; }
-    else if(age >= 75) { prob += 0.3; if(!cause) cause = "natural"; }
-    else if(age >= 70) { prob += 0.15; if(!cause) cause = "natural"; }
-    else if(age >= 65) { prob += 0.05; if(!cause) cause = "natural"; }
+    // 60岁后叠加自然死亡概率
+    if(age >= 90) prob += 0.95;
+    else if(age >= 85) prob += 0.7;
+    else if(age >= 80) prob += 0.5;
+    else if(age >= 75) prob += 0.3;
+    else if(age >= 70) prob += 0.15;
+    else if(age >= 60) prob += 0.08;
+    
+    // 体质≤60 且 年龄≤35 → 写猝死，其余写寿终正寝
+    let cause = (stamina <= 60 && age <= 35) ? "stamina" : "natural";
     
     if(prob > 0 && Math.random() < prob){
-        return cause || "natural";
+        return cause;
     }
     return null;
 }
@@ -2624,7 +2743,7 @@ function submitExamFunc(){
 function createNewFriend(){
     let g=Math.random()>0.5?"男":"女";
     let s=getRandom(surnameList);
-    let exist=[gameData.playerName,...(gameData.familyList || []).map(x=>x.name),...(gameData.friendList || []).map(x=>x.name)];
+    let exist=getAllExistingNames();
     let n;do{n=s+getRandom(g=="男"?maleName:femaleName);}while(exist.includes(n));
     let fv=20+Math.floor(Math.random()*20);
     let str=Math.floor(Math.random()*100);
@@ -2980,6 +3099,7 @@ function initPlayer() {
     gameData.children = [];
     gameData.concubines = [];
     gameData.pregnancy = null;
+    gameData.pendingDivorceAction = null;
     gameData.marriageYear = 0;
     gameData.lastChildYear = 0;
     gameData.concubinePregnancies = {};
@@ -3002,6 +3122,9 @@ function initPlayer() {
     gameData.familyTree = [];
     gameData.heir = "";
     gameData.inheritanceAlert = false;
+    gameData.noChildWarned50 = false;
+    gameData.noHeirWarned50 = false;
+    gameData.heirUnderageWarned50 = false;
 }
 
 function createRandomRole() {
@@ -3112,12 +3235,20 @@ function refreshPage() {
     }
     document.getElementById("attrStrength").innerText = gameData.hasStrength ? gameData.strength : "未解锁";
     gameData.hasStrength ? showDiv("trainStrength") : hideDiv("trainStrength");
-    document.getElementById("charStatus").innerText = gameData.isSick ? "生病" : (gameData.pregnancy ? "怀孕" : "健康");
+    let isAnyPregnant = gameData.pregnancy || (gameData.concubines || []).some(c => c.isPregnant && gameData.playerGender === "女");
+    document.getElementById("charStatus").innerText = gameData.isSick ? "生病" : (isAnyPregnant ? "怀孕" : "健康");
     document.getElementById("eraName").innerText = gameData.era.name;
 
     hideDiv("btnErrand"); hideDiv("btnCopy"); hideDiv("btnWork"); hideDiv("takeExam"); hideDiv("btnPawn");
     if (gameData.age >= 10) { showDiv("btnErrand"); showDiv("btnCopy"); }
     if (gameData.age >= 15) { showDiv("takeExam"); showDiv("btnWork"); showDiv("btnPawn"); }
+
+    // 立嗣按钮：有成年子女（16岁+）才显示
+    if(getEligibleHeirs().length > 0){
+        showDiv("btnHeir");
+    } else {
+        hideDiv("btnHeir");
+    }
 
     // 家中亲人分类折叠显示
     let familyCategories = {
@@ -3205,9 +3336,11 @@ function refreshPage() {
             }else{
                 // 其他家人：陪伴/玩耍、送礼、同房、和离等按钮
                 let t = it.type === "parent" ? "陪伴" : "玩耍";
-                // 配偶/妾同房按钮（男玩家对妾室也可同房）
+                // 配偶/妾同房按钮（男玩家对妾室也可同房；同性伴侣显示花前月下）
+                let isSameSexPartner = gameData.spouse && gameData.spouse.isSameSex && it.type === "spouse";
+                let intimacyLabel = isSameSexPartner ? "花前月下" : "同房";
                 let intimacyBtn = (it.type === "spouse" || (gameData.playerGender === "男" && it.type === "concubine")) ?
-                    (it.favor > 70 ? `<button class="action-btn" onclick="spouseIntimacyFromFamily('${it.name}')">同房</button>` : `<button class="action-btn" disabled style="opacity:0.4">同房（好感需>70）</button>`) : "";
+                    (it.favor > 70 ? `<button class="action-btn" onclick="spouseIntimacyFromFamily('${it.name}')">${intimacyLabel}</button>` : `<button class="action-btn" disabled style="opacity:0.4">${intimacyLabel}（好感需>70）</button>`) : "";
 
                 // 女玩家对妾室的互动按钮
                 let concubineBtns = "";
@@ -3250,17 +3383,23 @@ function refreshPage() {
                     divorceBtn = `<button class="action-btn" onclick="divorceSpouse()">和离</button>`;
                 }
 
+                let isDisownedMember = gameData.disowned && (it.type === "parent" || it.type === "sibling");
+                
                 // 只有在非限制情况下才使用通用按钮组
                 if(!isLimitedConcubineWife && it.type !== "spouse"){
-                    let pocketBtn = (it.type==="parent"||it.type==="sibling") ?
-                        `<button class="action-btn" onclick="askPocketMoney('${it.name}')">索要零花钱</button>` : "";
-                    btnGroup = `
-                        <button class="action-btn" onclick="interactFamily('${it.name}','${t}')">${t}</button>
-                        <button class="action-btn" onclick="giveGift('${it.name}')">送礼</button>
-                        ${pocketBtn}
-                        ${intimacyBtn}
-                        ${concubineBtns}
-                        ${divorceBtn}`;
+                    if(isDisownedMember){
+                        btnGroup = `<span style="color:#999;font-size:12px;">（与家中断绝来往）</span>`;
+                    }else{
+                        let pocketBtn = (it.type==="parent"||it.type==="sibling") ?
+                            `<button class="action-btn" onclick="askPocketMoney('${it.name}')">索要零花钱</button>` : "";
+                        btnGroup = `
+                            <button class="action-btn" onclick="interactFamily('${it.name}','${t}')">${t}</button>
+                            <button class="action-btn" onclick="giveGift('${it.name}')">送礼</button>
+                            ${pocketBtn}
+                            ${intimacyBtn}
+                            ${concubineBtns}
+                            ${divorceBtn}`;
+                    }
                 }
             }
 
@@ -3319,8 +3458,9 @@ function refreshPage() {
                     let hasConcubine = gameData.concubines && gameData.concubines.length > 0;
                     
                     if(hasSpouse){
-                        // 已有妻子：不能明媒正娶，只能纳妾（非皇室）或结为知己
-                        if(!isRoyal){
+                        // 已有妻子：不能明媒正娶，只能纳妾（非皇室）或结为知己（同性伴侣不可纳妾）
+                        let isSameSexSpouse = gameData.spouse && gameData.spouse.isSameSex;
+                        if(!isRoyal && !isSameSexSpouse){
                             marriageBtn = `<button class="action-btn" onclick="proposeToFriend('${f.name}', 'concubine')">纳妾</button>`;
                         }
                         confidantBtn = `<button class="action-btn" onclick="confirmConfidant('${f.name}')">结为知己</button>`;
@@ -3349,6 +3489,20 @@ function refreshPage() {
                 }
             }
             
+            // 收养街头孩子按钮（好感≥70、是街头孩子、养子+养女未满2个）
+            let adoptedTotal = (gameData.children || []).filter(c => c.childType === "养子" || c.childType === "养女").length;
+            let adoptBtn = "";
+            if(f.isStreetChild && f.favor >= 70 && adoptedTotal < 2){
+                let adoptLabel = f.gender === "男" ? "收为养子" : "收为养女";
+                adoptBtn = `<button class="action-btn" onclick="adoptStreetChild('${f.name}')" style="background:linear-gradient(180deg,#5a8a3a 0%,#3a6a18 100%);color:#c9e0a0;">${adoptLabel}</button>`;
+            }
+
+            // 同性私定终身按钮（好感100、同性别、未婚、才华>70、声望>50）
+            let sameSexBtn = "";
+            if(f.gender === gameData.playerGender && f.favor >= 100 && !gameData.spouse && gameData.talent > 70 && gameData.reputation > 50){
+                sameSexBtn = `<button class="action-btn" onclick="initiateSameSexPartner('${f.name}')" style="background:linear-gradient(180deg,#8b5a3a 0%,#5a3018 100%);color:#c9a060;">私定终身</button>`;
+            }
+
             ff+=`<div class="relation-item">
                 <div class="rel-name">${f.name}（${f.gender}）</div>
                 <div class="rel-info">
@@ -3362,8 +3516,10 @@ function refreshPage() {
                     <button class="action-btn" onclick="playWithFriend('${f.name}')">玩耍</button>
                     ${talentBtn}
                     <button class="action-btn" onclick="giveGift('${f.name}')">送礼</button>
+                    ${adoptBtn}
                     ${marriageBtn}
                     ${confidantBtn}
+                    ${sameSexBtn}
                     <button class="action-btn" onclick="breakFriendRelation('${f.name}')" style="background:linear-gradient(180deg,#8b2020 0%,#5a1515 100%);color:#f8f0e6;">断绝关系</button>
                 </div>
             </div>`;
@@ -3458,10 +3614,15 @@ function applyEvent(e){
         }
     }
     if(ef.makeFriend){
-        let fr=createNewFriend();
-        gameData.friendList.push(fr);
-        addActionLog("奇遇", `结识：${fr.name}`);
-        checkStrengthUnlock();
+        // 40岁后散步：50%概率遇到街头孩子
+        if(gameData.age >= 40 && Math.random() < 0.5){
+            triggerMeetChild();
+        }else{
+            let fr=createNewFriend();
+            gameData.friendList.push(fr);
+            addActionLog("奇遇", `结识：${fr.name}`);
+            checkStrengthUnlock();
+        }
     }
     if(ef.conscription&&gameData.age>=16&&Math.random()<gameData.era.conscriptRate){
         document.getElementById("conscriptMsg").innerText="边关征召壮丁！";showDiv("conscriptionMask");
@@ -3640,11 +3801,8 @@ function growAge(){
     if(gameData.isDead) return showToast("你已不在人世，无法继续游戏");
     isYearAdvancing = true;
     gameData.age++;
-    // 女玩家怀孕期间行动点数为3
-    gameData.actionNum = (gameData.playerGender === "女" && gameData.pregnancy) ? 3 : 4;
-    gameData.actionNum += getCarriageActionBonus(); // 马车行动加成
-
-    // 玩家死亡检测（65岁后开始有自然死亡概率）
+    
+    // 玩家死亡检测（65岁后开始有自然死亡概率）—— 必须最先执行
     let deathCause = checkPlayerDeath();
     if(deathCause){
         isYearAdvancing = false;
@@ -3654,19 +3812,70 @@ function growAge(){
         return;
     }
 
+    // ===== 怀孕检测（提前到所有死亡/事件处理之前，确保孩子一定出生） =====
+    if(gameData.pregnancy){
+        checkPregnancy();
+    }
+    // 男玩家：配偶怀孕——下一年直接生产（同性伴侣不触发）
+    if(gameData.playerGender === "男" && gameData.spouse && gameData.spouse.isPregnant && !gameData.spouse.isSameSex){
+        autoBirth(true);
+        gameData.spouse.isPregnant = false;
+        gameData.spouse.pregnancyMonths = 0;
+    }
+    // 男玩家：妾室怀孕——下一年直接生产
+    if(gameData.playerGender === "男" && gameData.concubinePregnancies){
+        for(let name in gameData.concubinePregnancies){
+            autoBirth(false, name);
+            delete gameData.concubinePregnancies[name];
+        }
+    }
+
+    // 女玩家怀孕期间行动点数为3（含配偶怀孕和蓝颜知己怀孕）
+    let isPregnantAny = gameData.pregnancy || (gameData.concubines || []).some(c => c.isPregnant);
+    gameData.actionNum = (gameData.playerGender === "女" && isPregnantAny) ? 3 : 4;
+    gameData.actionNum += getCarriageActionBonus(); // 马车行动加成
+
     // 生病时体质-3
     if(gameData.isSick){
         gameData.stamina = Math.max(0, gameData.stamina - 3);
     }
 
     const familyRes = checkDeath(gameData.familyList || []);
-    const friendRes = checkDeath(gameData.friendList || []);
+    const friendRes = checkDeath(gameData.friendList || [], false, "好友");
     gameData.familyList = familyRes.newList;
     gameData.friendList = friendRes.newList;
 
     // 添加死亡消息到公告队列
     for (const msg of familyRes.deathMessages) popMsg(msg);
     for (const msg of friendRes.deathMessages) popMsg(msg);
+
+    // ===== 先处理外室怀孕生产（必须在死亡检测之前，否则死亡后 isPregnant 丢失） =====
+    checkOutsidePregnancy();
+    
+    // 红颜知己/蓝颜知己死亡检测（只有外室，妾室已在familyList中检测）
+    if(gameData.concubines && gameData.concubines.length > 0){
+        let aliveConcs = [];
+        for(let c of gameData.concubines){
+            if(c.isOutside){
+                let effAge = c.age + (jobLifeEffect[c.job]||0);
+                let prob = 0;
+                if(effAge >= 90) prob = 0.95;
+                else if(effAge >= 80) prob = 0.8;
+                else if(effAge >= 75) prob = 0.5;
+                else if(effAge >= 70) prob = 0.3;
+                else if(effAge >= 60) prob = 0.15;
+                if(effAge >= 40) prob += 0.025;
+                if(prob > 0 && Math.random() < prob){
+                    let label = c.title || (gameData.playerGender === "男" ? "红颜知己" : "蓝颜知己");
+                    popMsg(`你的${label} ${c.name} 不幸离世，享年${c.age}岁`);
+                    // 不加入 aliveConcs，视为死亡
+                    continue;
+                }
+            }
+            aliveConcs.push(c);
+        }
+        gameData.concubines = aliveConcs;
+    }
 
     // 检测配偶是否死亡（从familyList中消失）
     let spouseDied = false;
@@ -3682,8 +3891,8 @@ function growAge(){
         }
         if(!spouseInList && gameData.playerGender === "女"){
             // 丈夫死亡：移除配偶关联，不再有丈夫限制
+            // 若正在怀孕则保留，孩子照常出生（父亲记为未知）
             gameData.spouse = null;
-            gameData.pregnancy = null;
             gameData.marriageYear = 0;
             gameData.isPrimaryWife = false;
         }
@@ -3726,25 +3935,26 @@ function growAge(){
                 popMsg(`${childType}${ch.name}竟不是你的孩子！已被亲生父亲认回。`);
                 gameData.children = gameData.children.filter(c => c.name !== ch.name);
             }else if(gameData.playerGender === "女" && (ch.childType === "蓝颜之子" || ch.childType === "蓝颜之女") && gameData.spouse){
-                // 女玩家：蓝颜之子16岁有10%概率被丈夫发现
+                // 女玩家：蓝颜之子16岁有10%概率被配偶发现
                 if(Math.random() < 0.1){
+                    let spTitle = gameData.spouse.isSameSex ? "伴侣" : "丈夫";
                     let rand = Math.random();
                     if(rand < 0.2){
                         // 20%概率和离
-                        popMsg(`丈夫${gameData.spouse.name}发现${ch.childType}${ch.name}不是自己的孩子，愤怒之下提出和离！`);
+                        popMsg(`${spTitle}${gameData.spouse.name}发现${ch.childType}${ch.name}不是自己的孩子，愤怒之下提出和离！`);
                         divorceSpouse(true);
                     }else if(rand < 0.5){
                         // 30%概率扣好感10
                         gameData.spouse.favor = Math.max(0, gameData.spouse.favor - 10);
                         let spouseInFamily = gameData.familyList.find(f => f.type === "spouse");
                         if(spouseInFamily) spouseInFamily.favor = gameData.spouse.favor;
-                        popMsg(`丈夫${gameData.spouse.name}发现${ch.childType}${ch.name}不是自己的孩子，非常不满，好感-10`);
+                        popMsg(`${spTitle}${gameData.spouse.name}发现${ch.childType}${ch.name}不是自己的孩子，非常不满，好感-10`);
                     }else{
                         // 50%概率扣好感5
                         gameData.spouse.favor = Math.max(0, gameData.spouse.favor - 5);
                         let spouseInFamily = gameData.familyList.find(f => f.type === "spouse");
                         if(spouseInFamily) spouseInFamily.favor = gameData.spouse.favor;
-                        popMsg(`丈夫${gameData.spouse.name}发现${ch.childType}${ch.name}不是自己的孩子，忍气吞声，好感-5`);
+                        popMsg(`${spTitle}${gameData.spouse.name}发现${ch.childType}${ch.name}不是自己的孩子，忍气吞声，好感-5`);
                     }
                 }
             }
@@ -3783,24 +3993,38 @@ function growAge(){
                             c.children = c.children.filter(ch => ch.name !== child.name);
                         }
                     }
+                    
+                    // 红颜知己/蓝颜知己子女死亡检测（全年龄段2%概率）
+                    let aliveChildren = [];
+                    const deathReasons = ["不幸夭折","染病身亡","意外坠亡","溺水身亡","被野兽袭击","风寒不治","食物中毒","急症暴毙","失踪后确认死亡","被贼人杀害"];
+                    for(let child of c.children){
+                        if(Math.random() < 0.02){
+                            let reason = deathReasons[Math.floor(Math.random() * deathReasons.length)];
+                            popMsg(`${child.childType || ""}${child.name}${reason}，令人惋惜...`);
+                            outsideCost -= 300; // 已死不再收抚养费
+                        } else {
+                            aliveChildren.push(child);
+                        }
+                    }
+                    c.children = aliveChildren;
                 }
                 
                 // 红颜知己/蓝颜知己被发现概率（每年5%，每个只触发一次）
                 if(!c.discovered && gameData.spouse && Math.random() < 0.05){
                     c.discovered = true;
                     let title = gameData.playerGender === "男" ? "红颜知己" : "蓝颜知己";
-                    let spouseTitle = gameData.playerGender === "男" ? "正妻" : "丈夫";
+                    let spouseTitle = gameData.spouse && gameData.spouse.isSameSex ? "伴侣" : (gameData.playerGender === "男" ? "正妻" : "丈夫");
                     popMsg(`你的${title}${c.name}被${spouseTitle}发现了！`);
                     // 配偶有20%概率和离
                     if(Math.random() < 0.2){
-                        let spouseName = gameData.playerGender === "男" ? "妻子" : "丈夫";
+                        let spouseName = gameData.spouse && gameData.spouse.isSameSex ? "伴侣" : (gameData.playerGender === "男" ? "妻子" : "丈夫");
                         popMsg(`${spouseName}${gameData.spouse.name}愤怒之下选择和离！`);
                         divorceSpouse(true);
                     }else{
                         gameData.spouse.favor = Math.max(0, gameData.spouse.favor - 20);
                         let spouseInFamily = gameData.familyList.find(f => f.type === "spouse");
                         if(spouseInFamily) spouseInFamily.favor = gameData.spouse.favor;
-                        let spouseName = gameData.playerGender === "男" ? "妻子" : "丈夫";
+                        let spouseName = gameData.spouse && gameData.spouse.isSameSex ? "伴侣" : (gameData.playerGender === "男" ? "妻子" : "丈夫");
                         popMsg(`${spouseName}${gameData.spouse.name}非常生气，好感-20`);
                     }
                 }
@@ -3812,8 +4036,7 @@ function growAge(){
             popMsg(`${title}及子女费用：-${outsideCost}文`);
         }
         
-        // 检查红颜知己/蓝颜知己生子
-        checkOutsidePregnancy();
+        // 红颜/蓝颜生产已在 death check 之前处理，此处不再重复
     }
 
     // 子女抚养费扣除（每个孩子每年80文）
@@ -3861,26 +4084,6 @@ function growAge(){
         }
     }
 
-    // 怀孕检测
-    if(gameData.pregnancy){
-        checkPregnancy();
-    }
-
-    // 男玩家：妻子怀孕——下一年直接生产
-    if(gameData.playerGender === "男" && gameData.spouse && gameData.spouse.isPregnant){
-        autoBirth(true);
-        gameData.spouse.isPregnant = false;
-        gameData.spouse.pregnancyMonths = 0;
-    }
-
-    // 男玩家：妾室怀孕——下一年直接生产
-    if(gameData.playerGender === "男" && gameData.concubinePregnancies){
-        for(let name in gameData.concubinePregnancies){
-            autoBirth(false, name);
-            delete gameData.concubinePregnancies[name];
-        }
-    }
-
     let inc = getYearIncome();
     gameData.money += inc;
 
@@ -3920,8 +4123,16 @@ function growAge(){
     }
 
     // 官员/武将/商人：生成年度执务事件（可选处理，不强制弹窗）
-    if((gameData.job === officerJob || gameData.job === "从军" || gameData.job === "商人") && !gameData.yearlyEventsDone){
+    if(gameData.job === officerJob || gameData.job === "从军" || gameData.job === "商人"){
         generateYearlyEvents();
+    }
+
+    // 同性伴侣继子事件：玩家>30岁、同性伴侣>5年、30%概率、仅触发一次
+    if(!gameData.sameSexAdoptedChild && gameData.spouse && gameData.spouse.isSameSex && gameData.age > 30){
+        let yearsSinceSameSexMarriage = gameData.age - gameData.marriageYear;
+        if(yearsSinceSameSexMarriage > 5 && Math.random() < 0.3){
+            triggerSameSexAdoptedChild();
+        }
     }
 
     triggerEvent();
@@ -4120,13 +4331,177 @@ document.getElementById("joinArmyBtn").onclick=()=>{
 // 年度裁决面板：处理完毕按钮
 document.getElementById("eventPanelDoneBtn").onclick=()=>{finishYearlyEvents();};
 
-// ========== 婚姻系统 ==========
+// ========== 街头遇孩系统（40岁后散步触发） ==========
+const meetChildScenarios = [
+    {
+        story:"街边有个卖糖葫芦的小贩，红艳艳的山楂裹着晶莹的糖衣，散发着诱人的甜香。你正要买一串尝尝，忽然发现旁边站着一个孩子，衣衫虽旧却干干净净，正眼巴巴地望着那糖葫芦，一言不发。",
+        opts:["买一串糖葫芦递给他/她","掰下半串分给他/她尝尝","装作没看见，径自离开"],
+        failMsg:["孩子接过半串糖葫芦，小口小口地吃着，默默站在原地目送你远去。","你转身离去，余光瞥见那孩子还站在那里，眼里的光一点点暗了下去。"],
+        successMsg:"孩子接过糖葫芦，眼睛一下子亮了起来，拽着你的衣角不肯松手。「谢谢你！」他/她脆生生地说道。"
+    },
+    {
+        story:"集市上有个手艺人正在捏泥人，五指翻飞间，一只栩栩如生的小老虎便成了形。一个孩子蹲在摊前，眼睛一眨不眨地盯着，小手紧紧攥着衣角，看得出神又羡慕。",
+        opts:["买一个泥人送给这孩子","朝他/她笑一笑夸一句好看","还有事要办，抬脚便走"],
+        failMsg:["孩子腼腆地笑了笑，低下头去，手指在地上画着圈。","孩子望着你匆匆离去的背影，又转过头去盯着那摊上的泥人发呆。"],
+        successMsg:"孩子抱着泥人，眼眶竟有些湿润。「从来没有人给我买过……」他/她小声说着，跟在你身后不肯离去。"
+    },
+    {
+        story:"春风吹拂，几个孩子在空地上放风筝，笑声阵阵。你路过时，却见一个孩子独自蹲在墙根下，手里攥着一只断了线的破风筝，眼眶红红的，像是刚刚哭过。",
+        opts:["蹲下来帮他把风筝修好","安慰几句让他去找小伙伴","一只破风筝而已，径直走了"],
+        failMsg:["孩子点点头，擦了擦眼泪，站起身朝那群孩子走去。","身后传来一声轻轻的吸鼻子的声音，然后便没了动静。"],
+        successMsg:"你花了些功夫把风筝修好，还加了一根更结实的线。孩子破涕为笑，拉着你的手说：「你真厉害！」"
+    },
+    {
+        story:"巷口的蒸笼冒着热气，白胖的馒头散发出麦香。一个瘦弱的孩子站在寒风里，搓着冻红的小手，偶尔偷瞄一眼那热气腾腾的蒸笼，又赶紧低下头去。",
+        opts:["买几个热馒头塞到他/她手里","掏出几文钱让他/她自己买","各家有各家的难处，叹口气走了"],
+        failMsg:["孩子接过铜钱，小心翼翼地攥在手心，朝你腼腆地笑了笑。","你走出几步，回头望了一眼，那孩子缩着肩膀，似乎更冷了些。"],
+        successMsg:"孩子捧着热馒头，咬了一大口，眼里闪着光。「好好吃……」他/她含糊不清地说着，跟在你身后不肯走。"
+    },
+    {
+        story:"街头拐角处，一个孩子左顾右盼，满脸焦急，似乎和家人走散了。来往行人匆匆，没人停下来理会。孩子咬着嘴唇，快要哭出来的样子。",
+        opts:["上前询问，帮他/她找家人","指给他/她附近巡街衙役的方向","不关自己的事，绕道而行"],
+        failMsg:["孩子懵懂地点点头，朝着衙役的方向走去，还不时回头望你。","你绕开那个拐角，身后隐约传来孩子压抑的哭声。"],
+        successMsg:"你蹲下来轻声询问，孩子哭着说他/她其实是被拐来的，已经好几天没见到爹娘了。「求求你带上我吧……」"
+    }
+];
+
+let pendingMeetChild = null; // 暂存当前遇到的孩子数据
+let pendingMeetScenario = null; // 暂存当前场景索引
+let pendingMeetOptLabels = null; // 暂存当前选项标签
+
+function triggerMeetChild(){
+    let childGender = Math.random() < 0.5 ? "男" : "女";
+    let sur = getRandom(surnameList);
+    let exist = getAllExistingNames();
+    let givenName;
+    do { givenName = sur + getRandom(childGender === "男" ? maleName : femaleName); } while(exist.includes(givenName));
+
+    let child = {
+        name: givenName,
+        gender: childGender,
+        age: 5 + Math.floor(Math.random() * 9), // 5~13
+        appearance: 20 + Math.floor(Math.random() * 31), // 20~50
+        talent: 20 + Math.floor(Math.random() * 31),
+        strength: 20 + Math.floor(Math.random() * 31),
+        favor: 25 + Math.floor(Math.random() * 16), // 25~40
+        job: "无",
+        family: "贫穷",
+        isStreetChild: true
+    };
+
+    let scenarioIdx = Math.floor(Math.random() * meetChildScenarios.length);
+    let scenario = meetChildScenarios[scenarioIdx];
+
+    pendingMeetChild = child;
+    pendingMeetScenario = scenarioIdx;
+    pendingMeetOptLabels = scenario.opts;
+
+    // 显示弹窗
+    let childDesc = childGender === "男" ? "男孩" : "女孩";
+    document.getElementById("meetChildTitle").innerText = "街头偶遇";
+    document.getElementById("meetChildMsg").innerHTML = `
+        <p style="font-size:15px; line-height:1.8;">${scenario.story}</p>
+        <p style="color:#8B7355; margin-top:8px;">（一个约${child.age}岁的${childDesc}，衣衫朴素，面容清秀）</p>
+    `;
+    document.getElementById("meetChildOpt1").innerText = scenario.opts[0];
+    document.getElementById("meetChildOpt2").innerText = scenario.opts[1];
+    document.getElementById("meetChildOpt3").innerText = scenario.opts[2];
+    showDiv("meetChildMask");
+}
+
+function handleMeetChild(choice){
+    // choice: 0=善良, 1=友善, 2=冷漠
+    let child = pendingMeetChild;
+    let scenario = meetChildScenarios[pendingMeetScenario];
+    let childPronoun = child.gender === "男" ? "他" : "她";
+
+    hideDiv("meetChildMask");
+
+    if(choice === 0){
+        // 善良：结交好友
+        gameData.friendList.push(child);
+        popMsg(scenario.successMsg.replace("他/她", childPronoun));
+        addActionLog("奇遇", `在街头结识了${child.name}（${child.gender === "男" ? "男孩" : "女孩"}，${child.age}岁）`);
+    }else{
+        // 友善或冷漠：不能结交
+        let msg = scenario.failMsg[choice - 1].replace("他/她", childPronoun);
+        if(choice === 1){
+            addActionLog("散步", msg);
+        }else{
+            addActionLog("散步", msg);
+        }
+    }
+
+    pendingMeetChild = null;
+    pendingMeetScenario = null;
+    pendingMeetOptLabels = null;
+    saveData();
+    refreshPage();
+}
+
+// 初始化遇孩弹窗按钮
+(function(){
+    document.getElementById("meetChildOpt1").onclick = function(){ handleMeetChild(0); };
+    document.getElementById("meetChildOpt2").onclick = function(){ handleMeetChild(1); };
+    document.getElementById("meetChildOpt3").onclick = function(){ handleMeetChild(2); };
+})();
+
+// 收养街头孩子为养子/养女
+function adoptStreetChild(friendName){
+    let friendIdx = (gameData.friendList || []).findIndex(f => f.name === friendName);
+    if(friendIdx < 0) return showToast("该孩子已不在好友列表中");
+    let child = gameData.friendList[friendIdx];
+    if(!child.isStreetChild) return showToast("此人并非街头结识的孩子");
+    if(child.favor < 70) return showToast("好感不足70，孩子还不愿跟你回家");
+
+    // 养子+养女最多共2个
+    let adoptedCount = (gameData.children || []).filter(c => c.childType === "养子" || c.childType === "养女").length;
+    if(adoptedCount >= 2) return showToast("你已收养了两个孩子，无力再收养更多了");
+
+    let childType = child.gender === "男" ? "养子" : "养女";
+    let newChild = {
+        name: child.name,
+        age: child.age,
+        gender: child.gender,
+        appearance: child.appearance,
+        talent: child.talent,
+        strength: child.strength,
+        favor: 70,
+        fatherName: gameData.playerName,
+        motherName: (gameData.spouse ? gameData.spouse.name : ""),
+        fatherSur: child.name[0],
+        isAdopted: true,
+        education: "放养",
+        educationYears: 0,
+        childType: childType
+    };
+
+    // 从好友列表移除
+    gameData.friendList.splice(friendIdx, 1);
+
+    // 添加到子女列表和亲人列表
+    gameData.children.push(newChild);
+    gameData.familyList.push({
+        name: child.name, age: child.age, gender: child.gender,
+        type: "child", title: childType,
+        appearance: child.appearance, talent: child.talent,
+        strength: child.strength, favor: 70,
+        officerRank: 0, officerTitle: "",
+        family: gameData.familyType, job: ""
+    });
+
+    popMsg(`${child.name}正式成为你的${childType}，从此有了一个家。`);
+    saveData();
+    refreshPage();
+}
+
+// ========== 相亲对象管理 ==========
 
 // 生成相亲对象
 function generateMatchmakingCandidate(){
     let g = gameData.playerGender === "男" ? "女" : "男";
     let s = getRandom(surnameList);
-    let exist = [gameData.playerName, gameData.spouse ? gameData.spouse.name : null, ...(gameData.familyList || []).map(x=>x.name), ...(gameData.friendList || []).map(x=>x.name), ...(gameData.children || []).map(x=>x.name)];
+    let exist = getAllExistingNames();
     let n;
     do{n = s + getRandom(g === "男" ? maleName : femaleName);}while(exist.includes(n));
     let app = getRandRange(30, 85);
@@ -4534,6 +4909,7 @@ function becomeConfidant(friendName){
         job: friend.job,
         favor: 50,
         isOutside: true,
+        title: title,
         type: "outside",
         title: title,
         discovered: false,
@@ -4542,6 +4918,330 @@ function becomeConfidant(friendName){
     });
     
     showToast(`已与${friend.name}结为${title}！`);
+    saveData();
+    refreshPage();
+}
+
+// ========== 同性私定终身 ==========
+let pendingSameSexFriendName = null;
+
+function initiateSameSexPartner(friendName){
+    let friend = (gameData.friendList || []).find(f => f.name === friendName);
+    if(!friend) return showToast("该好友已不在好友列表中");
+    if(gameData.spouse) return showToast("你已有配偶，无法私定终身");
+    if(friend.favor < 100) return showToast("好感度不足100，无法私定终身");
+    if(gameData.talent <= 70) return showToast("才华不足70，无法打动对方");
+    if(gameData.reputation <= 50) return showToast("声望不足50，无法抗衡世俗");
+
+    pendingSameSexFriendName = friendName;
+    pendingParentsOpposed = false;
+    
+    // 70%概率父母出面反对，30%默许
+    let parents = (gameData.familyList || []).filter(p => p.type === "parent");
+    if(parents.length > 0 && Math.random() < 0.7){
+        // 父母反对
+        pendingParentsOpposed = true;
+        let parentNames = parents.map(p => p.title).join("、");
+        document.getElementById("sameSexPartnerMsg").innerHTML = `
+            <p style="font-size:16px; margin-bottom:10px;">你与<b>${friend.name}</b>心意相通，欲私定终身。</p>
+            <p style="color:#c08060;">不料${parentNames}得知后雷霆大怒，坚决反对此事。</p>
+            <p style="margin-top:8px;">若执意相守，恐有家中变故。</p>
+        `;
+        document.getElementById("sameSexPartnerCancel").style.display = "";
+        document.getElementById("sameSexPartnerCancel").innerText = "听从父母";
+        document.getElementById("sameSexPartnerConfirm").innerText = "坚持相守";
+    }else{
+        // 无父母或父母默许，直接确认
+        let msg = parents.length > 0 
+            ? `<p style="font-size:16px; margin-bottom:10px;">你与<b>${friend.name}</b>心意相通，欲私定终身。</p><p>父母虽不情愿，但并未强行阻拦。</p>`
+            : `<p style="font-size:16px; margin-bottom:10px;">你与<b>${friend.name}</b>心意相通，欲私定终身。</p>`;
+        document.getElementById("sameSexPartnerMsg").innerHTML = msg;
+        document.getElementById("sameSexPartnerCancel").style.display = "none";
+        document.getElementById("sameSexPartnerConfirm").innerText = "确认相守";
+    }
+    
+    showDiv("sameSexPartnerMask");
+}
+
+// 初始化私定终身弹窗按钮事件
+(function(){
+    document.getElementById("sameSexPartnerCancel").onclick = function(){
+        hideDiv("sameSexPartnerMask");
+        showToast("你听从了父母的安排，与对方断绝了这层关系……");
+        // 好友好感下降
+        let friend = (gameData.friendList || []).find(f => f.name === pendingSameSexFriendName);
+        if(friend) friend.favor = Math.max(0, friend.favor - 30);
+        pendingSameSexFriendName = null;
+        pendingParentsOpposed = false;
+        saveData();
+        refreshPage();
+    };
+    document.getElementById("sameSexPartnerConfirm").onclick = function(){
+        hideDiv("sameSexPartnerMask");
+        let friend = (gameData.friendList || []).find(f => f.name === pendingSameSexFriendName);
+        if(!friend){
+            pendingSameSexFriendName = null;
+            pendingParentsOpposed = false;
+            return;
+        }
+        
+        if(pendingParentsOpposed){
+            let roll = Math.random();
+            if(roll < 0.7){
+                let parents = (gameData.familyList || []).filter(p => p.type === "parent");
+                parents.forEach(p => { p.favor = Math.max(0, p.favor - 20); });
+                (gameData.familyList || []).forEach(p => {
+                    if(p.type === "sibling") p.favor = Math.max(0, p.favor - 10);
+                });
+                showToast("不顾家人反对，你坚持与" + friend.name + "相守。父母好感-20，兄弟姐妹好感-10。");
+                makeSameSexPartner(friend);
+            }else if(roll < 0.95){
+                disownFromFamily(friend);
+            }else{
+                pendingSameSexFriendName = friend.name;
+                triggerForcedMarriage(friend);
+                return;
+            }
+        }else{
+            makeSameSexPartner(friend);
+        }
+        pendingSameSexFriendName = null;
+        pendingParentsOpposed = false;
+    };
+})();
+
+// 家中断绝关系
+function disownFromFamily(friend){
+    gameData.disowned = true;
+    gameData.familyList = (gameData.familyList || []).filter(p => p.type !== "parent" && p.type !== "sibling");
+    showToast("家中得知你执意与同性相守，怒不可遏，与你断绝了关系！");
+    makeSameSexPartner(friend);
+}
+
+// 父母强行逼婚（5%概率）
+let forcedMarriageNPC = null;
+function triggerForcedMarriage(friend){
+    let oppositeGender = gameData.playerGender === "男" ? "女" : "男";
+    let existNames = getAllExistingNames();
+    let npcName;
+    do{
+        npcName = getRandom(surnameList) + getRandom(oppositeGender === "男" ? maleName : femaleName);
+    }while(existNames.includes(npcName));
+    
+    let npcApp = getRandRange(30, 95);
+    let npcTal = getRandRange(20, 90);
+    let npcStr = getRandRange(20, 90);
+    let famTypes = ["贫穷","普通","富裕","官宦","权贵"];
+    let famIdx = famTypes.indexOf(gameData.familyType);
+    if(famIdx < 0) famIdx = 1;
+    let npcFamIdx = getRandRange(Math.max(0, famIdx - 1), Math.min(4, famIdx + 1));
+    let npcFam = famTypes[npcFamIdx];
+    let npcJob = getRandomJob(oppositeGender, npcFam, npcTal, npcStr);
+    
+    forcedMarriageNPC = {
+        name: npcName,
+        age: gameData.age,
+        gender: oppositeGender,
+        appearance: npcApp,
+        talent: npcTal,
+        strength: npcStr,
+        job: npcJob,
+        family: npcFam
+    };
+    
+    let beautyClass = npcApp < 40 ? "丑陋" : (npcApp < 60 ? "普通" : (npcApp < 80 ? "清秀" : "出众"));
+    let talentLevel = npcTal < 40 ? "愚钝" : (npcTal < 60 ? "普通" : (npcTal < 80 ? "聪慧" : "天才"));
+    let parents = (gameData.familyList || []).filter(p => p.type === "parent");
+    let parentNames = parents.map(p => p.title).join("、");
+    
+    document.getElementById("forcedMarriageMsg").innerHTML = 
+        '<p style="font-size:16px; margin-bottom:10px;">' + parentNames + '坚决反对你与<b>' + friend.name + '</b>之事，</p>' +
+        '<p style="color:#c08060;">连夜为你寻来一位异性，逼你即刻成婚！</p>' +
+        '<div style="background:rgba(160,120,80,0.1); padding:12px; margin:10px 0; border-radius:4px;">' +
+        '<p><b>' + npcName + '</b> · ' + oppositeGender + ' · ' + gameData.age + '岁 · ' + (npcJob || "无业") + '</p>' +
+        '<p>颜值：' + npcApp + '（' + beautyClass + '）| 才华：' + npcTal + '（' + talentLevel + '）| 武力：' + npcStr + '</p>' +
+        '<p>门第：' + npcFam + '</p>' +
+        '</div>' +
+        '<p style="color:#e74c3c; margin-top:8px;">若拒绝，恐被乱棍打死！</p>';
+    
+    showDiv("forcedMarriageMask");
+}
+
+// 初始化逼婚弹窗按钮事件
+(function(){
+    document.getElementById("forcedMarriageAccept").onclick = function(){
+        hideDiv("forcedMarriageMask");
+        let friend = (gameData.friendList || []).find(f => f.name === pendingSameSexFriendName);
+        
+        if(friend && Math.random() < 0.5){
+            gameData.friendList = (gameData.friendList || []).filter(f => f.name !== friend.name);
+            popMsg(friend.name + '愤怒地说：“我对你很失望。”从此与你绝交。');
+        }else if(friend){
+            let confidantTitle = friend.gender === "男" ? "蓝颜知己" : "红颜知己";
+            if(!gameData.concubines) gameData.concubines = [];
+            gameData.concubines.push({
+                name: friend.name,
+                age: friend.age,
+                gender: friend.gender,
+                appearance: friend.appearance,
+                talent: friend.talent,
+                strength: friend.strength || 0,
+                family: friend.family,
+                job: friend.job,
+                favor: 50,
+                isOutside: true,
+                title: confidantTitle,
+                type: "outside",
+                discovered: false,
+                children: [],
+                personality: friend.personality || "温和"
+            });
+            gameData.friendList = (gameData.friendList || []).filter(f => f.name !== friend.name);
+            popMsg(friend.name + "叹了口气，默默成了你的" + confidantTitle + "。");
+        }
+        
+        if(forcedMarriageNPC){
+            let npc = forcedMarriageNPC;
+            let forcedFavor = getRandRange(30, 60);
+            // 旧配偶的怀孕状态清理
+            if(gameData.spouse){
+                gameData.spouse.isPregnant = false;
+                gameData.spouse.pregnancyMonths = 0;
+            }
+            gameData.pregnancy = null;
+            gameData.spouse = {
+                name: npc.name,
+                gender: npc.gender,
+                age: npc.age,
+                appearance: npc.appearance,
+                talent: npc.talent,
+                strength: npc.strength,
+                job: npc.job,
+                family: npc.family,
+                favor: forcedFavor,
+                isSameSex: false
+            };
+            gameData.spouseLostYear = 0;
+            gameData.marriageYear = gameData.age;
+            gameData.isPrimaryWife = (gameData.playerGender === "女");
+            let spouseTitle = gameData.playerGender === "男" ? "妻子" : "丈夫";
+            gameData.familyList.push({
+                name: npc.name, age: npc.age, gender: npc.gender, type: "spouse",
+                title: spouseTitle, job: npc.job, family: npc.family,
+                appearance: npc.appearance, talent: npc.talent, strength: npc.strength,
+                favor: forcedFavor, officerRank: 0, officerTitle: ""
+            });
+            popMsg("你听从了父母之命，与" + npc.name + "成婚。");
+        }
+        
+        forcedMarriageNPC = null;
+        pendingSameSexFriendName = null;
+        pendingParentsOpposed = false;
+        saveData();
+        refreshPage();
+    };
+    document.getElementById("forcedMarriageRefuse").onclick = function(){
+        hideDiv("forcedMarriageMask");
+        forcedMarriageNPC = null;
+        pendingSameSexFriendName = null;
+        pendingParentsOpposed = false;
+        gameData.isDead = true;
+        gameData.actionNum = 0;
+        saveData();
+        refreshPage();
+        let html = '<div class="mask" id="beatDeathMask"><div class="modal">' +
+            '<h2 class="modal-title" style="color:#e74c3c;">乱棍打死</h2>' +
+            '<p>你拒绝了父母安排的婚事，怒不可遏的家人将你乱棍打死，享年' + gameData.age + '岁。</p>' +
+            '<p style="color:#e74c3c;">因无后而终，家族断绝……</p>' +
+            '<div class="modal-btn-group"><button class="modal-btn" onclick="clearSaveAndRestart()">确定</button></div>' +
+            '</div></div>';
+        document.body.insertAdjacentHTML('beforeend', html);
+        showDiv("beatDeathMask");
+    };
+})();
+
+// 同性伴侣继子事件：宗族过继一个孩子
+function triggerSameSexAdoptedChild(){
+    gameData.sameSexAdoptedChild = true;
+    let childGender = Math.random() < 0.5 ? "男" : "女";
+    // 姓氏：随机选择玩家姓氏或伴侣姓氏
+    let usePlayerSur = Math.random() < 0.5;
+    let sur = usePlayerSur ? gameData.playerName[0] : gameData.spouse.name[0];
+    let whoAdopted = usePlayerSur ? "你的宗族" : gameData.spouse.name[0] + "氏宗族";
+    let maleNames = ["承嗣","继宗","延祚","绍先","续德","传业","思远","怀仁","景行","修文"];
+    let femaleNames = ["继芳","承华","慧娘","兰儿","秀娘","贞儿","淑儿","灵儿","巧姐","玉儿"];
+    // 确保不重名
+    let existNames = getAllExistingNames();
+    let childName;
+    let attempts = 0;
+    let namePool = childGender === "男" ? maleNames : femaleNames;
+    do {
+        childName = sur + getRandom(namePool);
+        attempts++;
+    } while(existNames.includes(childName) && attempts < 50);
+    let childType = childGender === "男" ? "继子" : "继女";
+    
+    let newChild = {
+        name: childName,
+        age: Math.floor(Math.random() * 6) + 3, // 3~8岁
+        gender: childGender,
+        appearance: Math.floor(Math.random() * 31) + 20, // 20~50
+        talent: Math.floor(Math.random() * 31) + 20,
+        strength: Math.floor(Math.random() * 31) + 20,
+        favor: 70,
+        fatherName: gameData.playerName,
+        motherName: gameData.spouse.name,
+        fatherSur: sur,
+        isAdopted: true,
+        education: "放养",
+        educationYears: 0,
+        childType: childType
+    };
+    gameData.children.push(newChild);
+    gameData.familyList.push({
+        name: childName, age: newChild.age, gender: childGender,
+        type: "child", title: childType,
+        appearance: newChild.appearance, talent: newChild.talent,
+        strength: newChild.strength, favor: 70,
+        officerRank: 0, officerTitle: "",
+        family: gameData.familyType, job: ""
+    });
+    popMsg(`${whoAdopted}为你过继了一个孩子——${childName}（${childType}，${newChild.age}岁）！`);
+}
+
+function makeSameSexPartner(friend){
+    // 从好友列表移除
+    gameData.friendList = (gameData.friendList || []).filter(f => f.name !== friend.name);
+    
+    // 设为配偶
+    gameData.spouse = {
+        name: friend.name,
+        gender: friend.gender,
+        age: friend.age,
+        appearance: friend.appearance,
+        talent: friend.talent,
+        strength: friend.strength || 0,
+        job: friend.job,
+        family: friend.family,
+        favor: friend.favor,
+        isSameSex: true,
+        personality: friend.personality || "温和"
+    };
+    gameData.spouseLostYear = 0;
+    gameData.marriageYear = gameData.age;
+    // 女玩家设为正妻身份
+    if(gameData.playerGender === "女") gameData.isPrimaryWife = true;
+    
+    // 添加到亲人列表
+    gameData.familyList.push({
+        name: friend.name, age: friend.age, gender: friend.gender, type: "spouse",
+        title: "伴侣", job: friend.job, family: friend.family,
+        appearance: friend.appearance, talent: friend.talent, strength: friend.strength || 0,
+        favor: friend.favor,
+        officerRank: 0, officerTitle: ""
+    });
+    
+    popMsg(`你与${friend.name}私定终身，从此相守一生。`);
     saveData();
     refreshPage();
 }
@@ -4665,10 +5365,12 @@ function acceptAsConcubineWife(){
     
     // 检查钱财（女玩家嫁给对方，不需要支付礼金）
     
-    // 女玩家作为妾嫁给对方
+    // 女玩家作为妾嫁给相亲对象
+    let concubineWifeFavor = getRandRange(50,70);
+    gameData.pregnancy = null; // 旧怀孕清理
     gameData.spouse = {
         name:sp.name, gender:sp.gender, appearance:sp.appearance, 
-        job:sp.job, family:sp.family, age:sp.age, favor:60, 
+        job:sp.job, family:sp.family, age:sp.age, favor:concubineWifeFavor, 
         personality:sp.personality, strength:sp.strength || 0
     };
     gameData.spouseLostYear = 0; // 有新配偶，清除失妻记录
@@ -4680,7 +5382,7 @@ function acceptAsConcubineWife(){
     gameData.familyList.push({
         name:sp.name, age:sp.age, gender:sp.gender, type:"spouse",
         title:"丈夫", job:sp.job, family:sp.family,
-        appearance:sp.appearance, talent:sp.talent, strength:sp.strength || 0, favor:60,
+        appearance:sp.appearance, talent:sp.talent, strength:sp.strength || 0, favor:concubineWifeFavor,
         officerRank:0, officerTitle:""
     });
     
@@ -4705,9 +5407,10 @@ function acceptMarriage(){
         return;
     }
     
-    // 检查是否已有妻子（男玩家）
+    // 检查是否已有配偶（男玩家）
     if(gameData.playerGender === "男" && gameData.spouse){
-        showToast(`你已有妻子${gameData.spouse.name}，若想再娶，请先与原配和离！`);
+        let spouseLabel = gameData.spouse.isSameSex ? "伴侣" : "妻子";
+        showToast(`你已有${spouseLabel}${gameData.spouse.name}，若想再娶，请先与原配和离！`);
         hideDiv("marriageMask");
         return;
     }
@@ -4750,12 +5453,17 @@ function acceptMarriage(){
     }
     gameData.money -= 1000;
     
+    // 好感：好友结婚继承原有好感，相亲随机50~70
+    let marriageFavor = (gameData.matchmakingCandidates && gameData.matchmakingCandidates.length > 0) ? getRandRange(50,70) : sp.favor;
+
     // 如果对方原本是好友，从好友列表移除
     if(gameData.friendList){
         gameData.friendList = gameData.friendList.filter(f => f.name !== sp.name);
     }
     
-    gameData.spouse = {name:sp.name, gender:sp.gender, appearance:sp.appearance, job:sp.job, family:sp.family, age:sp.age, favor:70, personality:sp.personality, talent:sp.talent, strength:sp.strength || 0};
+    gameData.spouse = {name:sp.name, gender:sp.gender, appearance:sp.appearance, job:sp.job, family:sp.family, age:sp.age, favor:marriageFavor, personality:sp.personality, talent:sp.talent, strength:sp.strength || 0};
+    // 旧配偶怀孕状态清理
+    gameData.pregnancy = null;
     gameData.spouseLostYear = 0; // 有新配偶，清除失妻记录
     
     // 女玩家作为正妻嫁给对方
@@ -4768,7 +5476,7 @@ function acceptMarriage(){
     gameData.familyList.push({
         name:sp.name, age:sp.age, gender:sp.gender, type:"spouse",
         title:spouseTitle, job:sp.job, family:sp.family,
-        appearance:sp.appearance, talent:sp.talent, strength:sp.strength || 0, favor:70,
+        appearance:sp.appearance, talent:sp.talent, strength:sp.strength || 0, favor:marriageFavor,
         officerRank:0, officerTitle:""
     });
     gameData.marriageYear = gameData.age;
@@ -4856,13 +5564,16 @@ function acceptAsConcubine(){
     // 从好友列表移除（如果在好友列表中）
     gameData.friendList = gameData.friendList.filter(f => f.name !== sp.name);
     
+    // 好感：好友纳妾继承原有好感，相亲随机50~70
+    let concubineFavor = (gameData.matchmakingCandidates && gameData.matchmakingCandidates.length > 0) ? getRandRange(50,70) : sp.favor;
+
     // 添加为妾室
     if(!gameData.concubines) gameData.concubines = [];
-    gameData.concubines.push({name:sp.name, gender:sp.gender, appearance:sp.appearance, job:sp.job, family:sp.family, age:sp.age, favor:70, personality:sp.personality, talent:sp.talent, strength:sp.strength || 0});
+    gameData.concubines.push({name:sp.name, gender:sp.gender, appearance:sp.appearance, job:sp.job, family:sp.family, age:sp.age, favor:concubineFavor, personality:sp.personality, talent:sp.talent, strength:sp.strength || 0});
     gameData.familyList.push({
         name:sp.name, age:sp.age, gender:sp.gender, type:"concubine",
         title:"妾室", job:sp.job, family:sp.family,
-        appearance:sp.appearance, talent:sp.talent, strength:sp.strength || 0, favor:70,
+        appearance:sp.appearance, talent:sp.talent, strength:sp.strength || 0, favor:concubineFavor,
         officerRank:0, officerTitle:""
     });
     
@@ -4887,12 +5598,21 @@ function rejectMarriage(){
 function showSpouseInteraction(){
     if(!gameData.spouse) return;
     let sp = gameData.spouse;
+    let relName = sp.isSameSex ? "伴侣互动" : "配偶互动";
+    // 动态修改弹窗标题
+    let mask = document.getElementById("interactSpouseMask");
+    if(mask){
+        let titleEl = mask.querySelector(".modal-title");
+        if(titleEl) titleEl.innerText = relName;
+    }
     document.getElementById("spouseInfo").innerHTML = `
         <p>${sp.name}（${sp.gender}）</p>
         <p>年龄：${sp.age + (gameData.age - gameData.marriageYear)}岁 | 颜值：${sp.appearance}</p>
         <p>职业：${sp.job || "无"} | 家庭：${sp.family || "未知"}</p>
         <p>好感度：${sp.favor}</p>
     `;
+    // 同性伴侣将"同房"改为"花前月下"
+    document.getElementById("spouseIntimacy").innerText = sp.isSameSex ? "花前月下" : "同房";
     showDiv("interactSpouseMask");
 }
 
@@ -4936,10 +5656,21 @@ function spouseIntimacy(){
     if(gameData.actionNum <= 0) return showToast("行动次数不足");
     if(gameData.spouse.favor < 70) return showToast("配偶好感不足70，不愿同房");
     if(gameData.pregnancy) return showToast("正在怀孕中");
+    // 女玩家：检查是否已通过蓝颜知己怀孕
+    if(gameData.playerGender === "女" && (gameData.concubines || []).some(c => c.isPregnant)){
+        return showToast("正在怀孕中");
+    }
+    // 男玩家：检查配偶是否已怀孕
+    if(gameData.playerGender === "男" && gameData.spouse && gameData.spouse.isPregnant){
+        return showToast("配偶正在怀孕中");
+    }
     
-    // 无房产时小孩数量限制（最多2个）
-    if((!gameData.houses || gameData.houses.length === 0) && gameData.children.length >= 2){
-        showToast("同房完毕（无房产，孩子数量已达上限）");
+    // 小孩数量上限（基于房产决定，茅草屋最多2个，大宅院更多）
+    let maxChildren = getMaxChildren();
+    if(gameData.children.length >= maxChildren){
+        let bestHouse = getBestHouse();
+        let houseName = bestHouse || "茅草屋";
+        showToast(`同房完毕（当前【${houseName}】最多养育${maxChildren}个孩子，已达上限，请升级房产）`);
         gameData.actionNum--;
         gameData.spouse.favor = Math.min(100, gameData.spouse.favor + 2);
         let spouseInFamily = gameData.familyList.find(f => f.type === "spouse");
@@ -4951,6 +5682,17 @@ function spouseIntimacy(){
     
     gameData.actionNum--;
     
+    // 同性伴侣无生育
+    if(gameData.spouse.isSameSex){
+        popMsg("与伴侣花前月下了一番");
+        gameData.spouse.favor = Math.min(100, gameData.spouse.favor + 2);
+        let spouseInFamily = gameData.familyList.find(f => f.type === "spouse");
+        if(spouseInFamily) spouseInFamily.favor = gameData.spouse.favor;
+        saveData();
+        refreshPage();
+        return;
+    }
+
     // 基础30%怀孕概率，避子汤生效时为5%
     // 女性玩家：检查自己的避子汤；男性玩家：检查妻子的避子汤
     let targetHasBirthControl = isBirthControlActive(gameData.playerGender === "女" ? gameData : gameData.spouse);
@@ -4960,20 +5702,26 @@ function spouseIntimacy(){
     let childCount = gameData.children.length;
     let finalChance = childCount >= 5 ? 0.01 : baseChance;
     
-    let spouseTitle = gameData.playerGender === "男" ? "妻子" : "丈夫";
+    // 年龄衰减：≥40岁怀孕率减半，≥50岁再减半
+    let ageFactor = 1;
+    if(gameData.age >= 50) ageFactor = 0.25;
+    else if(gameData.age >= 40) ageFactor = 0.5;
+    finalChance *= ageFactor;
+    
+    let spouseTitle = gameData.spouse.isSameSex ? "伴侣" : (gameData.playerGender === "男" ? "妻子" : "丈夫");
     let spouseName = gameData.spouse.name;
     let logText = `与${spouseTitle}${spouseName}度过了美好的一天`;
     let pregnantName = "";
     
     if(Math.random() < finalChance && gameData.playerGender === "女" && !gameData.spouse.isBarren){
-        gameData.pregnancy = {months:0};
+        gameData.pregnancy = {months:0, fatherName:gameData.spouse.name, fatherSur:gameData.spouse.name[0], fatherAppearance:gameData.spouse.appearance, fatherTalent:gameData.spouse.talent, fatherStrength:gameData.spouse.strength||0, fatherFamily:gameData.spouse.family, fatherJob:gameData.spouse.job};
         popMsg("同房后...有喜了！");
         logText = `与${spouseTitle}${spouseName}度过了美好的一天<br><span style="color:#e74c3c">${gameData.playerName}怀孕了！</span>`;
     }else if(gameData.playerGender === "男" && !targetHasBirthControl && Math.random() < finalChance){
-        // 男玩家妻子怀孕
+        // 男玩家配偶怀孕
         gameData.spouse.isPregnant = true;
         gameData.spouse.pregnancyMonths = 0;
-        popMsg("同房后...妻子有喜了！");
+        popMsg(`同房后...${spouseTitle}有喜了！`);
         logText = `与${spouseTitle}${spouseName}度过了美好的一天<br><span style="color:#e74c3c">${spouseName}怀孕了！</span>`;
     }else{
         if(targetHasBirthControl){
@@ -5019,7 +5767,7 @@ function checkChildDeath(){
     
     // 处理死亡的孩子
     for(let dead of deadChildren){
-        popMsg(`${dead.childType}${dead.name}${dead.reason}，令人惋惜...`);
+        popMsg(`${dead.childType || ""}${dead.name}${dead.reason}，令人惋惜...`);
         gameData.children = (gameData.children || []).filter(c => c.name !== dead.name);
         // 同时从familyList中移除
         gameData.familyList = (gameData.familyList || []).filter(f => f.name !== dead.name);
@@ -5043,11 +5791,18 @@ function spouseIntimacyFromFamily(name){
     // 检查该对象是否正在怀孕
     let concPreg = gameData.concubinePregnancies ? gameData.concubinePregnancies[name] : null;
     if(isSpouse && gameData.pregnancy) return showToast("正在怀孕中");
+    // 男玩家：检查配偶是否已怀孕（isPregnant 存储在配偶对象上）
+    if(isSpouse && gameData.playerGender === "男" && gameData.spouse && gameData.spouse.isPregnant){
+        return showToast("配偶正在怀孕中");
+    }
     if(!isSpouse && concPreg) return showToast("对方正在怀孕中");
 
-    // 无房产时小孩数量限制（最多2个）
-    if((!gameData.houses || gameData.houses.length === 0) && gameData.children.length >= 2){
-        showToast("同房完毕（无房产，孩子数量已达上限）");
+    // 小孩数量上限（基于房产决定，茅草屋最多2个，大宅院更多）
+    let maxChildren = getMaxChildren();
+    if(gameData.children.length >= maxChildren){
+        let bestHouse = getBestHouse();
+        let houseName = bestHouse || "茅草屋";
+        showToast(`同房完毕（当前【${houseName}】最多养育${maxChildren}个孩子，已达上限，请升级房产）`);
         gameData.actionNum--;
         // 更新好感
         if(isSpouse){
@@ -5066,6 +5821,17 @@ function spouseIntimacyFromFamily(name){
 
     gameData.actionNum--;
 
+    // 同性伴侣无生育
+    if(isSpouse && gameData.spouse && gameData.spouse.isSameSex){
+        popMsg("与伴侣花前月下了一番");
+        gameData.spouse.favor = Math.min(100, gameData.spouse.favor + 2);
+        let spouseInFamily = gameData.familyList.find(f => f.type === "spouse");
+        if(spouseInFamily) spouseInFamily.favor = gameData.spouse.favor;
+        saveData();
+        refreshPage();
+        return;
+    }
+
     // 避子汤检查：女性玩家检查自己，男性玩家检查配偶/妾室
     let targetHasBirthControl = false;
     if(gameData.playerGender === "女"){
@@ -5081,14 +5847,20 @@ function spouseIntimacyFromFamily(name){
     let baseChance = totalChildren >= 5 ? 0.01 : (isSpouse ? 0.3 : 0.15);
     let finalPregChance = targetHasBirthControl ? 0.05 : baseChance;
     
-    let relTitle = isSpouse ? (gameData.playerGender === "男" ? "妻子" : "丈夫") : "妾室";
+    // 年龄衰减：≥40岁怀孕率减半，≥50岁再减半
+    let ageFactor = 1;
+    if(gameData.age >= 50) ageFactor = 0.25;
+    else if(gameData.age >= 40) ageFactor = 0.5;
+    finalPregChance *= ageFactor;
+    
+    let relTitle = isSpouse ? (gameData.spouse && gameData.spouse.isSameSex ? "伴侣" : (gameData.playerGender === "男" ? "妻子" : "丈夫")) : "妾室";
     let logText = `与${relTitle}${name}度过了美好的一天`;
     let pregnantText = "";
     
     if(Math.random() < finalPregChance){
         if(isSpouse && gameData.playerGender === "女" && !gameData.spouse.isBarren){
             // 女玩家妻子怀孕
-            gameData.pregnancy = {months:0, isSpousePregnancy:true};
+            gameData.pregnancy = {months:0, isSpousePregnancy:true, fatherName:gameData.spouse.name, fatherSur:gameData.spouse.name[0], fatherAppearance:gameData.spouse.appearance, fatherTalent:gameData.spouse.talent, fatherStrength:gameData.spouse.strength||0, fatherFamily:gameData.spouse.family, fatherJob:gameData.spouse.job};
             popMsg("同房后...有喜了！");
             pregnantText = `<br><span style="color:#e74c3c">${gameData.playerName}怀孕了！</span>`;
         }else if(isSpouse && gameData.playerGender === "男"){
@@ -5138,6 +5910,13 @@ function getBestHouse(){
         if(gameData.houses.includes(h)) return h;
     }
     return gameData.houses[0];
+}
+
+// 获取当前最多可养育的孩子数量（基于最高房产）
+function getMaxChildren(){
+    let best = getBestHouse();
+    if(!best) return 2; // 无房产：最多2个
+    return houseConfig[best]?.maxChildren || 2;
 }
 
 // 检查玩家是否有资格纳妾（未婚也可纳妾）
@@ -5536,6 +6315,29 @@ function divorceSpouse(isInitiatedBySpouse = false){
     // 更新子女列表
     gameData.children = remainingChildren;
     
+    // ===== 怀孕状态处理 =====
+    // 女性玩家：若怀孕中且被丈夫离弃（丈夫主动），则保留怀孕，孩子照常出生（父亲记为离异丈夫）
+    // 若女性玩家主动和离 → 弹窗询问是否保留胎儿
+    if(gameData.pregnancy && gameData.playerGender === "女"){
+        if(!isInitiatedBySpouse){
+            // 玩家主动和离 → 保存状态并弹窗询问
+            gameData.pendingDivorceAction = {
+                tookChildren: takenChildren,
+                spouseName: spouseName,
+                spouseLostYear: gameData.age
+            };
+            saveData(); // 先保存当前状态（含待处理事务），防止浏览器关闭丢失
+            showDivorcePregnancyPopup();
+            return; // 等待玩家选择
+        }
+        // 丈夫主动离弃 → 保留怀孕，下一年照常生产
+    }
+    // 男性玩家：配偶怀孕中，清理配偶怀孕标记（孩子让对方带走）
+    if(gameData.spouse && gameData.spouse.isPregnant){
+        gameData.spouse.isPregnant = false;
+        gameData.spouse.pregnancyMonths = 0;
+    }
+    
     gameData.spouse = null;
     gameData.familyList = gameData.familyList.filter(f => f.type !== "spouse");
     
@@ -5558,6 +6360,68 @@ function divorceSpouse(isInitiatedBySpouse = false){
     
     gameData.spouseLostYear = gameData.age; // 记录失妻年份
     
+    saveData();
+    refreshPage();
+}
+
+// ========== 女玩家主动和离时妊娠选择弹窗 ==========
+function showDivorcePregnancyPopup(){
+    let info = gameData.pendingDivorceAction;
+    if(!info) return;
+    let msg = info.tookChildren.length > 0 
+        ? `你将与${info.spouseName}和离（对方将带走${info.tookChildren.length}个孩子）。你已有身孕，是否保留胎儿？`
+        : `你将与${info.spouseName}和离。你已有身孕，是否保留胎儿？`;
+    let html = `
+        <div class="modal" id="divorcePregnancyConfirm" style="max-width:420px;">
+            <p style="font-size:18px; color:#8b0000;">⚡ 和离确认</p>
+            <p style="text-align:left; line-height:1.8;">${msg}</p>
+            <p style="font-size:13px; color:#888;">保留：孩子出生后父亲记为离异丈夫<br>终止：立即终止妊娠</p>
+            <div class="modal-btn-group">
+                <button class="modal-btn" onclick="finalizeDivorceKeepPregnancy()">保留胎儿</button>
+                <button class="modal-btn" onclick="finalizeDivorceTerminatePregnancy()">终止妊娠</button>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("divorcePregnancyConfirm");
+}
+
+function finalizeDivorceKeepPregnancy(){
+    let info = gameData.pendingDivorceAction;
+    if(!info) return;
+    // 保留 gameData.pregnancy，孩子照常出生
+    gameData.spouse = null;
+    gameData.familyList = gameData.familyList.filter(f => f.type !== "spouse");
+    gameData.spouseLostYear = info.spouseLostYear;
+    if(info.tookChildren.length > 0){
+        popMsg(`与${info.spouseName}和离，${info.spouseName}带走了${info.tookChildren.length}个孩子（妊娠保留）`);
+    }else{
+        popMsg(`与${info.spouseName}和离（妊娠保留）`);
+    }
+    gameData.pendingDivorceAction = null;
+    hideDiv("divorcePregnancyConfirm");
+    let el = document.getElementById("divorcePregnancyConfirm");
+    if(el) el.remove();
+    saveData();
+    refreshPage();
+}
+
+function finalizeDivorceTerminatePregnancy(){
+    let info = gameData.pendingDivorceAction;
+    if(!info) return;
+    gameData.pregnancy = null;
+    gameData.spouse = null;
+    gameData.familyList = gameData.familyList.filter(f => f.type !== "spouse");
+    gameData.spouseLostYear = info.spouseLostYear;
+    if(info.tookChildren.length > 0){
+        popMsg(`与${info.spouseName}和离，${info.spouseName}带走了${info.tookChildren.length}个孩子`);
+    }else{
+        popMsg(`与${info.spouseName}和离`);
+    }
+    gameData.pendingDivorceAction = null;
+    hideDiv("divorcePregnancyConfirm");
+    let el = document.getElementById("divorcePregnancyConfirm");
+    if(el) el.remove();
     saveData();
     refreshPage();
 }
@@ -5676,11 +6540,12 @@ function expelConcubine(name){
     if(!c) return;
     gameData.concubines = gameData.concubines.filter(x => x.name !== name);
     gameData.familyList = gameData.familyList.filter(f => f.name !== name);
-    // 丈夫好感-20
+    // 配偶好感-20
     gameData.spouse.favor = Math.max(0, gameData.spouse.favor - 20);
     let spouseInFamily = gameData.familyList.find(f => f.type === "spouse");
     if(spouseInFamily) spouseInFamily.favor = gameData.spouse.favor;
-    popMsg(`将${name}赶出家门，丈夫好感-20`);
+    let spLabel = gameData.spouse.isSameSex ? "伴侣" : "丈夫";
+    popMsg(`将${name}赶出家门，${spLabel}好感-20`);
     saveData();
     refreshPage();
 }
@@ -5696,9 +6561,9 @@ function checkPregnancy(){
 
 // 自动生产（不弹窗取名，下一年自动生成）
 function autoBirth(isSpouse = true, motherName = null){
-    let father = gameData.playerGender === "男" ? gameData.playerName : gameData.spouse?.name || "未知";
+    let father = gameData.playerGender === "男" ? gameData.playerName : (gameData.pregnancy?.fatherName || gameData.spouse?.name || "未知");
     let mother = motherName || (gameData.playerGender === "女" ? gameData.playerName : gameData.spouse?.name || "未知");
-    let fatherSur = gameData.playerGender === "男" ? gameData.playerName[0] : (gameData.spouse?.name?.[0] || "李");
+    let fatherSur = gameData.playerGender === "男" ? gameData.playerName[0] : (gameData.pregnancy?.fatherSur || gameData.spouse?.name?.[0] || "李");
     let childGender = Math.random() > 0.5 ? "男" : "女";
     let childType = "";
     if(isSpouse){
@@ -5707,12 +6572,7 @@ function autoBirth(isSpouse = true, motherName = null){
         childType = childGender === "男" ? "庶子" : "庶女";
     }
     
-    // 自动随机取名（确保不重名）
-    let existNames = getAllExistingNames();
-    let name;
-    do { name = fatherSur + getRandom(childGender === "男" ? maleName : femaleName); } while(existNames.includes(name));
-    
-    // 找到母亲
+    // 先找到母亲对象
     let motherObj = null;
     if(isSpouse){
         motherObj = gameData.spouse;
@@ -5720,27 +6580,35 @@ function autoBirth(isSpouse = true, motherName = null){
         motherObj = gameData.concubines.find(c => c.name === mother);
     }
     
-    // 遗传计算
-    let fatherAppearance = gameData.playerGender === "男" ? gameData.appearance : (gameData.spouse?.appearance || 50);
-    let motherAppearance = motherObj?.appearance || 50;
-    let childApp = Math.floor((fatherAppearance + motherAppearance) * 0.35);
-    
-    let fatherTalent = gameData.playerGender === "男" ? gameData.talent : (gameData.spouse?.talent || 50);
-    let motherTalent = motherObj?.talent || 50;
-    let childTal = Math.floor((fatherTalent + motherTalent) * 0.35);
-    
-    let childStr = 0;
-    if(gameData.hasStrength){
-        let fatherStrength = gameData.playerGender === "男" ? gameData.strength : (gameData.spouse?.strength || 0);
-        let motherStrength = motherObj?.strength || 0;
-        childStr = Math.floor((fatherStrength + motherStrength) * 0.35);
+    // ===== 生产：10%概率难产（所有母亲均可能触发） =====
+    if(Math.random() < 0.1){
+        let childGenderText = childGender === "男" ? "男婴" : "女婴";
+        let birthMotherName = motherObj?.name || mother;
+        // 孩子没了，大人没事
+        popMsg(`<span style="color:#e74c3c;">⚕️ ${birthMotherName}难产，${childGenderText}未能保住… 大人平安</span>`);
+        addActionLog("难产", `${birthMotherName}难产，${childGenderText}夭折，大人无恙`);
+        // 清理对应怀孕状态
+        if(isSpouse){
+            if(gameData.playerGender === "女"){
+                gameData.pregnancy = null;
+            }else{
+                gameData.spouse.isPregnant = false;
+                gameData.spouse.pregnancyMonths = 0;
+            }
+        }else if(motherObj){
+            if(gameData.concubinePregnancies) delete gameData.concubinePregnancies[mother];
+            motherObj.isPregnant = false;
+            motherObj.pregnancyMonths = 0;
+        }
+        saveData();
+        return;
     }
     
-    // 姓氏判定：比较父母双方的（家庭背景等级 + 职业等级），谁更高跟谁姓
+    // ===== 先确定最终姓氏，再用最终姓氏取名（核心修复：防止随母姓导致重名） =====
     let childSur = fatherSur;
     // 计算父亲等级
-    let fatherFamilyLevel = getFamilyLevel(gameData.playerGender === "男" ? gameData.familyType : (gameData.spouse?.family || "普通"));
-    let fatherJobRank = getJobRank(gameData.playerGender === "男" ? gameData.job : (gameData.spouse?.job || ""));
+    let fatherFamilyLevel = getFamilyLevel(gameData.playerGender === "男" ? gameData.familyType : (gameData.pregnancy?.fatherFamily || gameData.spouse?.family || "普通"));
+    let fatherJobRank = getJobRank(gameData.playerGender === "男" ? gameData.job : (gameData.pregnancy?.fatherJob || gameData.spouse?.job || ""));
     let fatherTotal = fatherFamilyLevel + fatherJobRank;
     // 计算母亲等级
     let motherFamilyLevel = getFamilyLevel(gameData.playerGender === "女" ? gameData.familyType : (gameData.spouse?.family || motherObj?.family || "普通"));
@@ -5749,6 +6617,33 @@ function autoBirth(isSpouse = true, motherName = null){
     // 母亲等级高于父亲，随母姓
     if(motherTotal > fatherTotal){
         childSur = gameData.playerGender === "女" ? gameData.playerName[0] : (gameData.spouse?.name?.[0] || fatherSur);
+    }
+    
+    // 用最终姓氏生成唯一名字
+    let name = generateUniqueChildName(childSur, childGender);
+    
+    // 遗传计算
+    // 女性玩家：母亲是玩家自己，不是配偶对象
+    let motherAppearance, motherTalent, motherStrength;
+    if(gameData.playerGender === "女"){
+        motherAppearance = gameData.appearance;
+        motherTalent = gameData.talent;
+        motherStrength = gameData.strength || 0;
+    }else{
+        motherAppearance = motherObj?.appearance || 50;
+        motherTalent = motherObj?.talent || 50;
+        motherStrength = motherObj?.strength || 0;
+    }
+    let fatherAppearance = gameData.playerGender === "男" ? gameData.appearance : (gameData.pregnancy?.fatherAppearance || gameData.spouse?.appearance || 50);
+    let childApp = Math.floor((fatherAppearance + motherAppearance) * 0.35);
+    
+    let fatherTalent = gameData.playerGender === "男" ? gameData.talent : (gameData.pregnancy?.fatherTalent || gameData.spouse?.talent || 50);
+    let childTal = Math.floor((fatherTalent + motherTalent) * 0.35);
+    
+    let childStr = 0;
+    if(gameData.hasStrength){
+        let fatherStrength = gameData.playerGender === "男" ? gameData.strength : (gameData.pregnancy?.fatherStrength || gameData.spouse?.strength || 0);
+        childStr = Math.floor((fatherStrength + motherStrength) * 0.35);
     }
     
     let newChild = {
@@ -5781,9 +6676,9 @@ function autoBirth(isSpouse = true, motherName = null){
 // isSpouse = true 表示妻子生育（嫡子/嫡女），false 表示妾室生育（庶子/庶女）
 // motherName 用于妾室生育时指定母亲
 function triggerChildBirth(isSpouse = true, motherName = null){
-    let father = gameData.playerGender === "男" ? gameData.playerName : gameData.spouse?.name || "未知";
+    let father = gameData.playerGender === "男" ? gameData.playerName : (gameData.pregnancy?.fatherName || gameData.spouse?.name || "未知");
     let mother = motherName || (gameData.playerGender === "女" ? gameData.playerName : gameData.spouse?.name || "未知");
-    let fatherSur = gameData.playerGender === "男" ? gameData.playerName[0] : (gameData.spouse?.name?.[0] || "李");
+    let fatherSur = gameData.playerGender === "男" ? gameData.playerName[0] : (gameData.pregnancy?.fatherSur || gameData.spouse?.name?.[0] || "李");
     let childGender = Math.random() > 0.5 ? "男" : "女";
     let childType = "";
     if(isSpouse){
@@ -5791,10 +6686,30 @@ function triggerChildBirth(isSpouse = true, motherName = null){
     }else{
         childType = childGender === "男" ? "庶子" : "庶女";
     }
+    
+    // 先确定最终姓氏（与autoBirth逻辑一致：比较父母双方等级）
+    let motherObj = null;
+    if(isSpouse){
+        motherObj = gameData.spouse;
+    }else{
+        motherObj = gameData.concubines.find(c => c.name === mother);
+    }
+    let childSur = fatherSur;
+    let fatherFamilyLevel = getFamilyLevel(gameData.playerGender === "男" ? gameData.familyType : (gameData.pregnancy?.fatherFamily || gameData.spouse?.family || "普通"));
+    let fatherJobRank = getJobRank(gameData.playerGender === "男" ? gameData.job : (gameData.pregnancy?.fatherJob || gameData.spouse?.job || ""));
+    let fatherTotal = fatherFamilyLevel + fatherJobRank;
+    let motherFamilyLevel = getFamilyLevel(gameData.playerGender === "女" ? gameData.familyType : (gameData.spouse?.family || motherObj?.family || "普通"));
+    let motherJobRank = getJobRank(gameData.playerGender === "女" ? gameData.job : (gameData.spouse?.job || motherObj?.job || ""));
+    let motherTotal = motherFamilyLevel + motherJobRank;
+    if(motherTotal > fatherTotal){
+        childSur = gameData.playerGender === "女" ? gameData.playerName[0] : (gameData.spouse?.name?.[0] || fatherSur);
+    }
+    
     gameData.pendingChild = {
         fatherName:father,
         motherName:mother,
         fatherSur:fatherSur,
+        childSur:childSur,      // 最终姓氏（已考虑随母姓）
         gender:childGender,
         isSpouse:isSpouse,
         childType:childType
@@ -5811,40 +6726,46 @@ function confirmBabyName(){
     let name = document.getElementById("babyName").value.trim();
     let child = gameData.pendingChild;
     if(!name){
-        // 随机取名（确保不重名）
+        // 随机取名（使用最终姓氏 childSur，确保不重名）
+        name = generateUniqueChildName(child.childSur, child.gender);
+    }else{
+        // 用户手动输入名字，也需要检查重名
         let existNames = getAllExistingNames();
-        do { name = child.fatherSur + getRandom(child.gender === "男" ? maleName : femaleName); } while(existNames.includes(name));
+        if(existNames.includes(name)){
+            showToast("该名字已存在，请换一个名字");
+            return;
+        }
     }
     // 找到母亲（配偶或妾室）
     let mother = null;
     if(child.isSpouse){
         mother = gameData.spouse;
     }else{
-        // 妾室生育，找到对应的妾室
         mother = gameData.concubines.find(c => c.name === child.motherName);
     }
 
     // 颜值才华遗传：父母属性之和的35%
-    let fatherAppearance = gameData.playerGender === "男" ? gameData.appearance : (gameData.spouse?.appearance || 50);
-    let motherAppearance = mother?.appearance || 50;
+    // 女性玩家：母亲是玩家自己，不是配偶对象
+    let motherAppearance, motherTalent, motherStrength;
+    if(gameData.playerGender === "女"){
+        motherAppearance = gameData.appearance;
+        motherTalent = gameData.talent;
+        motherStrength = gameData.strength || 0;
+    }else{
+        motherAppearance = mother?.appearance || 50;
+        motherTalent = mother?.talent || 50;
+        motherStrength = mother?.strength || 0;
+    }
+    let fatherAppearance = gameData.playerGender === "男" ? gameData.appearance : (gameData.pregnancy?.fatherAppearance || gameData.spouse?.appearance || 50);
     let childApp = Math.floor((fatherAppearance + motherAppearance) * 0.35);
 
-    let fatherTalent = gameData.playerGender === "男" ? gameData.talent : (gameData.spouse?.talent || 50);
-    let motherTalent = mother?.talent || 50;
+    let fatherTalent = gameData.playerGender === "男" ? gameData.talent : (gameData.pregnancy?.fatherTalent || gameData.spouse?.talent || 50);
     let childTal = Math.floor((fatherTalent + motherTalent) * 0.35);
 
     let childStr = 0;
     if(gameData.hasStrength){
-        let fatherStrength = gameData.playerGender === "男" ? gameData.strength : (gameData.spouse?.strength || 0);
-        let motherStrength = mother?.strength || 0;
+        let fatherStrength = gameData.playerGender === "男" ? gameData.strength : (gameData.pregnancy?.fatherStrength || gameData.spouse?.strength || 0);
         childStr = Math.floor((fatherStrength + motherStrength) * 0.35);
-    }
-    // 姓氏判定：官职品级>家庭背景>声望
-    let childSur = child.fatherSur;
-    if(gameData.officerRank > 0){
-        childSur = gameData.playerName[0]; // 官员随玩家姓
-    }else if(gameData.spouse?.family === "权贵" || gameData.spouse?.family === "官宦"){
-        childSur = gameData.spouse.name[0];
     }
     let newChild = {
         name:name, age:0, gender:child.gender,
@@ -5853,7 +6774,7 @@ function confirmBabyName(){
         strength:Math.max(0, Math.min(100, childStr)),
         favor:80,
         fatherName:child.fatherName, motherName:child.motherName,
-        fatherSur:childSur, isAdopted:false,
+        fatherSur:child.childSur, isAdopted:false,
         education:"放养", educationYears:0,
         childType:child.childType || (child.isSpouse ? (child.gender === "男" ? "嫡子" : "嫡女") : (child.gender === "男" ? "庶子" : "庶女"))
     };
@@ -6011,12 +6932,11 @@ function checkChildEducationFee(){
 // ========== 子女结婚系统 ==========
 function marryChild(child){
     // 生成潜在配偶（暂不结婚，需玩家确认）
+    // 10%概率子女找同性伴侣（私定终身）
+    let isSameSex = Math.random() < 0.1;
     let gender = child.gender;
-    let spouseGender = gender === "男" ? "女" : "男";
+    let spouseGender = isSameSex ? gender : (gender === "男" ? "女" : "男");
     let existNames = getAllExistingNames();
-    for(let c of (gameData.children || [])){
-        if(c.spouse) existNames.push(c.spouse.name);
-    }
     if(child.pendingSpouse) existNames.push(child.pendingSpouse.name);
     let spouseName;
     do{
@@ -6043,7 +6963,8 @@ function marryChild(child){
         talent: spouseTal,
         strength: spouseStr,
         job: spouseJob,
-        family: spouseFam
+        family: spouseFam,
+        isSameSex: isSameSex
     };
     
     saveData();
@@ -6071,18 +6992,29 @@ function showChildMarriagePopup(child){
     let existing = document.getElementById("childMarriageMask");
     if(existing) existing.remove();
     
+    let isSameSex = sp.isSameSex || false;
+    let titleText = isSameSex ? "子女私定终身" : "子女婚配";
+    let descText = isSameSex
+        ? `<b>${child.name}</b>（${child.age}岁）与以下人士私定终身：`
+        : `<b>${child.name}</b>（${child.age}岁）想与以下人士成婚：`;
+    let btnText = isSameSex ? "默许" : "同意成亲";
+    let noteHtml = isSameSex
+        ? `<p style="color:#c08060; font-size:13px; margin-top:8px;">※ 二人性别相同，不循婚仪，但求相守</p>`
+        : "";
+
     let html = `
         <div class="mask hidden" id="childMarriageMask">
             <div class="modal" style="max-width:500px;">
-                <h2 class="modal-title">子女婚配</h2>
-                <p><b>${child.name}</b>（${child.age}岁）想与以下人士成婚：</p>
+                <h2 class="modal-title">${titleText}</h2>
+                <p>${descText}</p>
                 <div style="background:rgba(160,120,80,0.1); padding:12px; margin:10px 0; border-radius:4px;">
                     <p><b>${sp.name}</b> · ${sp.gender} · ${sp.age}岁 · ${sp.job || "无业"}</p>
-                    <p>颜值：${sp.appearance}（${beautyClass}）| 才华：${sp.talent}（${talentLevel}）| 武力：${sp.strength}</p>
-                    <p>门第：${sp.family}</p>
+                    <p>颜值：${sp.appearance}（${beautyClass}）| 才华：${sp.talent}（${talentLevel}）| 武力：${sp.strength || 0}</p>
+                    <p>门第：${sp.family || "不详"}</p>
                 </div>
+                ${noteHtml}
                 <div style="display:flex;gap:10px;justify-content:center;margin-top:15px;">
-                    <button class="modal-btn" style="background:#5a3a1a;color:#c9a060;" onclick="approveChildMarriage('${child.name}')">同意成亲</button>
+                    <button class="modal-btn" style="background:#5a3a1a;color:#c9a060;" onclick="approveChildMarriage('${child.name}')">${btnText}</button>
                     <button class="modal-btn" style="background:#8b3030;color:#fff;" onclick="rejectChildMarriage('${child.name}')">拒绝</button>
                 </div>
             </div>
@@ -6096,10 +7028,14 @@ function approveChildMarriage(childName){
     let child = gameData.children.find(c => c.name === childName);
     if(!child || !child.pendingSpouse) return;
     
+    let isSameSex = child.pendingSpouse.isSameSex || false;
     child.spouse = child.pendingSpouse;
     delete child.pendingSpouse;
     
-    showToast(`${child.name}与${child.spouse.name}成婚了！`);
+    let msg = isSameSex
+        ? `你默许了${child.name}与${child.spouse.name}相守一生。`
+        : `${child.name}与${child.spouse.name}成婚了！`;
+    showToast(msg);
     hideDiv("childMarriageMask");
     saveData();
     refreshPage();
@@ -6144,18 +7080,21 @@ function showChildSpouseModal(childName){
     let child = gameData.children.find(c => c.name === childName);
     if(!child || !child.spouse) return;
     let sp = child.spouse;
+    let isSameSex = sp.isSameSex || false;
+    let relationText = isSameSex ? `${child.name}的伴侣` : (sp.gender === "男" ? `${child.name}的夫君` : `${child.name}的妻子`);
     let beautyClass = sp.appearance < 40 ? "丑陋" : (sp.appearance < 60 ? "普通" : (sp.appearance < 80 ? "清秀" : "出众"));
     let talentLevel = sp.talent < 40 ? "愚钝" : (sp.talent < 60 ? "普通" : (sp.talent < 80 ? "聪慧" : "天才"));
     let html = `
         <div class="mask hidden" id="childSpouseMask">
             <div class="modal">
                 <h2 class="modal-title">${sp.name}</h2>
-                <p>${child.name}的${sp.gender === "男" ? "夫君" : "妻子"}</p>
+                <p>${relationText}</p>
                 <div style="padding:10px 0;">
                     <p>年龄：${sp.age}岁</p>
+                    <p>性别：${sp.gender}</p>
                     <p>颜值：${sp.appearance}（${beautyClass}）</p>
                     <p>才华：${sp.talent}（${talentLevel}）</p>
-                    <p>武力：${sp.strength}</p>
+                    <p>武力：${sp.strength || 0}</p>
                     <p>职业：${sp.job || "无"}</p>
                 </div>
                 <button class="modal-btn" onclick="hideDiv('childSpouseMask')">关闭</button>
@@ -6172,18 +7111,21 @@ function showChildSpouseModal(childName){
 function showSpouseInfoModal(){
     if(!gameData.spouse) return;
     let sp = gameData.spouse;
+    let isSameSex = sp.isSameSex || false;
+    let relationLabel = isSameSex ? "你的伴侣" : "你的配偶";
     let beautyClass = sp.appearance < 40 ? "丑陋" : (sp.appearance < 60 ? "普通" : (sp.appearance < 80 ? "清秀" : "出众"));
     let talentLevel = sp.talent < 40 ? "愚钝" : (sp.talent < 60 ? "普通" : (sp.talent < 80 ? "聪慧" : "天才"));
     let html = `
         <div class="mask hidden" id="spouseInfoMask">
             <div class="modal">
                 <h2 class="modal-title">${sp.name}</h2>
-                <p>你的配偶</p>
+                <p>${relationLabel}</p>
                 <div style="padding:10px 0;">
                     <p>年龄：${sp.age}岁</p>
+                    <p>性别：${sp.gender}</p>
                     <p>颜值：${sp.appearance}（${beautyClass}）</p>
                     <p>才华：${sp.talent}（${talentLevel}）</p>
-                    <p>武力：${sp.strength}</p>
+                    <p>武力：${sp.strength || 0}</p>
                     <p>职业：${sp.job || "无"}</p>
                 </div>
                 <button class="modal-btn" onclick="hideDiv('spouseInfoMask')">关闭</button>
@@ -6202,6 +7144,7 @@ let pendingHusbandConcubine = null;
 function checkHusbandConcubine(){
     if(gameData.playerGender !== "女") return;
     if(!gameData.spouse) return;
+    if(gameData.spouse.isSameSex) return; // 同性伴侣无纳妾之礼
     // 婚后五年无子、夫妻好感≤90时可能纳妾
     if(gameData.age - gameData.marriageYear < 5) return;
     if(gameData.children.length > 0) return; // 已有子女
@@ -6499,7 +7442,18 @@ function checkPromotion(){
         let isReturning = highestRank > 0 && currentRank > highestRank;
         let yearsSincePromotion = gameData.age - (gameData.lastPromotionYear || 0);
         let cooldown = isReturning ? 0 : (promotionCoolDowns[currentRank] || 0);
-        if(yearsSincePromotion < cooldown) return;
+        if(yearsSincePromotion < cooldown){
+            // 政绩/军功已达标但冷却未到 → 告知玩家
+            if(currentRank > 1){
+                let info = promotionThresholds[currentRank];
+                if(info && merit >= info.threshold){
+                    let remaining = cooldown - yearsSincePromotion;
+                    let nextTitle = isMilitary ? getMilitaryTitle(info.next) : getOfficerTitle(info.next);
+                    popMsg(`${isMilitary?"军功":"政绩"}已达标可晋升【${nextTitle}】，但晋升冷却中，还需等待${remaining}年。`);
+                }
+            }
+            return;
+        }
         
         // 每年最多晋升一级
         if(currentRank > 1){
@@ -6528,6 +7482,10 @@ function checkPromotion(){
                     let title = isMilitary ? gameData.militaryTitle : gameData.officerTitle;
                     let newSalary = isMilitary ? getMilitarySalary(nextRank) : getOfficialSalary(nextRank);
                     popMsg(`🎉 恭喜晋升为【${title}】！赏金 ${reward.money} 文，声望+${reward.rep}，年俸涨至 ${newSalary} 文/年！`);
+                } else {
+                    let remaining = nextCooldown - yearsSince;
+                    let nextTitle = isMilitary ? getMilitaryTitle(nextRank) : getOfficerTitle(nextRank);
+                    popMsg(`${isMilitary?"军功":"政绩"}已达标可晋升【${nextTitle}】，但该品级晋升间隔需${nextCooldown}年，还需等待${remaining}年。`);
                 }
             }
         }
@@ -6540,7 +7498,14 @@ function checkPromotion(){
         
         let yearsSincePromotion = gameData.age - (gameData.lastPromotionYear || 0);
         let cooldown = merchantPromotionCoolDowns[currentRank] || 0;
-        if(yearsSincePromotion < cooldown) return;
+        if(yearsSincePromotion < cooldown){
+            let info = merchantPromotionThresholds[currentRank];
+            if(info && gameData.merchantWealth >= info.threshold){
+                let remaining = cooldown - yearsSincePromotion;
+                popMsg(`净盈利已达标可晋升【${merchantTitles[info.next]}】，但晋升冷却中，还需等待${remaining}年。`);
+            }
+            return;
+        }
         
         while(currentRank > 1){
             let info = merchantPromotionThresholds[currentRank];
@@ -6548,7 +7513,11 @@ function checkPromotion(){
             
             let nextCooldown = merchantPromotionCoolDowns[info.next] || 0;
             let yearsSince = gameData.age - (gameData.lastPromotionYear || 0);
-            if(yearsSince < nextCooldown) break;
+            if(yearsSince < nextCooldown){
+                let remaining = nextCooldown - yearsSince;
+                popMsg(`净盈利已达标可晋升【${merchantTitles[info.next]}】，但该等级晋升间隔需${nextCooldown}年，还需等待${remaining}年。`);
+                break;
+            }
             
             let newRank = info.next;
             gameData.merchantRank = newRank;
@@ -7037,8 +8006,8 @@ function updateMarriageButtons(){
     }
     // 配偶互动按钮已隐藏，配偶在亲人列表中
     document.getElementById("btnInteractSpouse").classList.add("hidden");
-    // 纳妾/妾室管理：仅男玩家可见
-    if(gameData.playerGender === "男" && (gameData.spouse || (gameData.concubines && gameData.concubines.length > 0))){
+    // 纳妾/妾室管理：仅男玩家可见（同性伴侣不可纳妾）
+    if(gameData.playerGender === "男" && (gameData.spouse || (gameData.concubines && gameData.concubines.length > 0)) && !(gameData.spouse && gameData.spouse.isSameSex)){
         document.getElementById("btnConcubine").classList.remove("hidden");
         document.getElementById("btnConcubine").innerText = "纳妾";
     }else{
@@ -7353,7 +8322,7 @@ function showOutsidePage() {
                 for(let child of c.children){
                     html += `<div class="member-card" style="background:rgba(255,255,255,0.7);">
                         <div class="member-info">
-                            <div class="member-name">${child.childType}${child.name}（${child.age}岁）</div>
+                            <div class="member-name">${child.childType || ""}${child.name}（${child.age}岁）</div>
                             <div class="member-detail">性别：${child.gender} | 颜值：${child.appearance} | 才华：${child.talent} | 武力：${child.strength}</div>
                         </div>
                     </div>`;
@@ -7580,7 +8549,7 @@ function showGiftTarget(itemType, itemId, isFromInventory){
     targets.forEach((t, idx) => {
         let typeLabel;
         switch(t.targetType){
-            case 'spouse': typeLabel = gameData.playerGender === '男' ? '妻子' : '丈夫'; break;
+            case 'spouse': typeLabel = (gameData.spouse && gameData.spouse.isSameSex) ? '伴侣' : (gameData.playerGender === '男' ? '妻子' : '丈夫'); break;
             case 'concubine': typeLabel = t.isOutside ? '外室' : '妾室'; break;
             case 'friend': typeLabel = '好友'; break;
             default: typeLabel = t.title || '家人'; break;
@@ -8094,14 +9063,25 @@ function giftOutside(name){
 // 与红颜知己/蓝颜知己同房
 function intimacyOutside(name){
     if(gameData.actionNum <= 0) return showToast("行动次数不足");
+    // 玩家有任何形式的怀孕都不能同房
+    if(gameData.pregnancy) return showToast("正在怀孕中");
+    if((gameData.concubines || []).some(c => c.isPregnant)) return showToast("正在怀孕中");
     
     let concubine = gameData.concubines.find(c => c.name === name && c.isOutside);
     if(!concubine) return showToast("红颜知己/蓝颜知己不存在");
     if(concubine.favor < 70) return showToast("好感不足70，不愿同房");
+    // 男玩家：红颜知己已怀孕则不能同房
+    if(gameData.playerGender === "男" && concubine.isPregnant) return showToast("对方正在怀孕中");
     
     gameData.actionNum--;
     // 20%怀孕概率，避子汤生效时为5%
     let baseChance = 0.20;
+    
+    // 年龄衰减：≥40岁怀孕率减半，≥50岁再减半
+    let ageFactor = 1;
+    if(gameData.age >= 50) ageFactor = 0.25;
+    else if(gameData.age >= 40) ageFactor = 0.5;
+    baseChance *= ageFactor;
     
     let relTitle = gameData.playerGender === "男" ? "红颜知己" : "蓝颜知己";
     let logText = `与${relTitle}${name}度过了美好的一天`;
@@ -8111,6 +9091,10 @@ function intimacyOutside(name){
         let pregChance = isBirthControlActive(concubine) ? 0.05 : baseChance;
         if(Math.random() < pregChance){
             concubine.isPregnant = true;
+            // 记录怀孕时的父亲数据（用于生产时遗传计算）
+            concubine.pregnancyFatherAppearance = gameData.appearance;
+            concubine.pregnancyFatherTalent = gameData.talent;
+            concubine.pregnancyFatherStrength = gameData.strength || 0;
             popMsg(`与${name}同房，她怀孕了！`);
             logText = `与${relTitle}${name}度过了美好的一天<br><span style="color:#e74c3c">${name}怀孕了！</span>`;
         }else{
@@ -8121,6 +9105,10 @@ function intimacyOutside(name){
         let pregChance = isBirthControlActive(gameData) ? 0.05 : baseChance;
         if(Math.random() < pregChance){
             concubine.isPregnant = true;
+            // 记录怀孕时的父亲数据（用于生产时遗传计算）
+            concubine.pregnancyFatherAppearance = concubine.appearance;
+            concubine.pregnancyFatherTalent = concubine.talent;
+            concubine.pregnancyFatherStrength = concubine.strength || 0;
             popMsg(`与${name}同房，你怀孕了！`);
             logText = `与${relTitle}${name}度过了美好的一天<br><span style="color:#e74c3c">${gameData.playerName}怀孕了！</span>`;
         }else{
@@ -8328,10 +9316,27 @@ function checkOutsidePregnancy(){
     for(let c of gameData.concubines){
         if(c.isOutside && c.isPregnant){
             let gender = Math.random() > 0.5 ? "男" : "女";
+            let title = gameData.playerGender === "男" ? "红颜知己" : "蓝颜知己";
+            
+            // ===== NPC母亲生产：10%概率难产 =====
+            if(Math.random() < 0.1){
+                let childGenderText = gender === "男" ? "男婴" : "女婴";
+                popMsg(`<span style="color:#e74c3c;">⚕️ ${title}${c.name}难产，${childGenderText}未能保住… 大人平安</span>`);
+                addActionLog("难产", `${title}${c.name}难产，${childGenderText}夭折，大人无恙`);
+                c.isPregnant = false;
+                c.pregnancyMonths = 0;
+                saveData();
+                continue;
+            }
+            
+            // 使用怀孕时记录的父亲数据（如有），否则用当前数据
+            let fatherApp = c.pregnancyFatherAppearance !== undefined ? c.pregnancyFatherAppearance : gameData.appearance;
+            let fatherTal = c.pregnancyFatherTalent !== undefined ? c.pregnancyFatherTalent : gameData.talent;
+            let fatherStr = c.pregnancyFatherStrength !== undefined ? c.pregnancyFatherStrength : (gameData.strength || 0);
             // 遗传颜值和才华
-            let childApp = Math.max(20, Math.min(100, Math.round((gameData.appearance + c.appearance) * 0.35)));
-            let childTal = Math.max(20, Math.min(100, Math.round((gameData.talent + c.talent) * 0.35)));
-            let childStr = Math.max(10, Math.min(100, Math.round((gameData.strength + (c.strength || 0)) * 0.35)));
+            let childApp = Math.max(20, Math.min(100, Math.round((fatherApp + c.appearance) * 0.35)));
+            let childTal = Math.max(20, Math.min(100, Math.round((fatherTal + c.talent) * 0.35)));
+            let childStr = Math.max(10, Math.min(100, Math.round((fatherStr + (c.strength || 0)) * 0.35)));
             
             // 男玩家：红颜知己的孩子有10%概率不是亲生的
             let isNotBiological = gameData.playerGender === "男" && Math.random() < 0.1;
@@ -8368,7 +9373,6 @@ function checkOutsidePregnancy(){
             
             c.isPregnant = false;
             
-            let title = gameData.playerGender === "男" ? "红颜知己" : "蓝颜知己";
             popMsg(`${title}${c.name}生下${childType}，取名${child.name}`);
         }
     }
@@ -8403,7 +9407,7 @@ const femaleGivenNames = [
     "琴音", "棋语", "书韵", "画影", "诗涵", "墨香", "纸鸢", "砚冰"
 ];
 
-// 获取所有已存在的NPC姓名
+// 获取所有已存在的NPC姓名（保证任意角色名字不重复）
 function getAllExistingNames(){
     let names = [];
     
@@ -8415,9 +9419,19 @@ function getAllExistingNames(){
     }
     for(let c of (gameData.concubines || [])){
         names.push(c.name);
+        // 红颜/蓝颜的孩子（存在各自对象上）
+        if(c.children){
+            for(let ch of c.children){
+                names.push(ch.name);
+            }
+        }
     }
     for(let child of (gameData.children || [])){
         names.push(child.name);
+        // 子女的配偶
+        if(child.spouse){
+            names.push(child.spouse.name);
+        }
     }
     for(let f of (gameData.friendList || [])){
         names.push(f.name);
@@ -8459,22 +9473,39 @@ function generateUniqueName(gender, excludeNamesList = null){
     return surname + givenName + Math.floor(Math.random() * 100);
 }
 
-// 生成子女名字
+// 通用唯一子女生名：指定姓氏 + 性别，自动查重，确保不重名
+function generateUniqueChildName(sur, gender){
+    let existNames = getAllExistingNames();
+    let namePool = gender === "男" ? maleName : femaleName;
+    let attempts = 0;
+    let name;
+    do {
+        name = sur + getRandom(namePool);
+        attempts++;
+        // 名字池耗尽时，换用大池子
+        if(attempts > 50 && existNames.includes(name)){
+            let bigPool = gender === "男" ? maleGivenNames : femaleGivenNames;
+            name = sur + getRandom(bigPool);
+            if(attempts > 150){
+                name = sur + getRandom(bigPool) + Math.floor(Math.random() * 100);
+                break;
+            }
+        }
+    } while(existNames.includes(name));
+    return name;
+}
+
+// 生成子女名字（确保不重名）—— 红颜/蓝颜知己生育用，子女随玩家姓
 function generateChildName(gender){
-    const surnames = ["赵","钱","孙","李","周","吴","郑","王","冯","陈"];
-    const maleNames = ["小明","小华","小强","小军","小杰","小龙","小虎","小豹","小狼","小鹰"];
-    const femaleNames = ["小花","小草","小雪","小雨","小云","小月","小星","小霞","小燕","小蝶"];
-    
-    let sur = gameData.playerName ? gameData.playerName[0] : surnames[Math.floor(Math.random() * surnames.length)];
-    let name = gender === "男" ? maleNames[Math.floor(Math.random() * maleNames.length)] : 
-                               femaleNames[Math.floor(Math.random() * femaleNames.length)];
-    return sur + name;
+    let sur = gameData.playerName ? gameData.playerName[0] : getRandom(surnameList);
+    return generateUniqueChildName(sur, gender);
 }
 
 // 商店按钮已移至导航栏，直接通过onclick="showShop()"调用
 document.getElementById("closeShop").onclick=()=>{hideDiv("shopMask");};
 document.getElementById("closeGift").onclick=()=>{hideDiv("giftMask"); selectedGiftIndex=-1; currentGiftRecipient=null;};
 document.getElementById("confirmGift").onclick=confirmGift;
+document.getElementById("closeHeir").onclick=closeHeirSelection;
 
 // 宴会按钮绑定
 document.getElementById("btnBanquet").onclick=attendBanquet;
@@ -8624,6 +9655,37 @@ function getInheritanceHeirs(){
     return eligible;
 }
 
+function openHeirSelection(){
+    let heirs = getEligibleHeirs();
+    if(heirs.length === 0){
+        popMsg("没有可指定的继承人（需要年满16岁的子女）");
+        return;
+    }
+    
+    let designated = gameData.heir || "";
+    
+    let html = `<p style="margin-bottom:16px; color:#a09070;">选择一位成年子女作为继承人，传代时将由其继承家业。</p>`;
+    
+    for(let h of heirs){
+        let isDesignated = h.name === designated;
+        let childTypeLabel = h.childType || (h.gender === "男" ? "子" : "女");
+        let status = isDesignated ? `<span style="color:#f0d060;">【现任继承人】</span>` : "";
+        html += `
+            <div class="relation-item" style="margin-bottom:12px; padding:12px; background:${isDesignated ? 'rgba(240,208,96,0.1)' : ''}; border:${isDesignated ? '1px solid rgba(240,208,96,0.4)' : ''}; border-radius:4px;">
+                <div class="rel-name" style="font-size:15px;">${h.name}（${childTypeLabel}）- ${h.age}岁 ${status}</div>
+                <div class="rel-info" style="margin:6px 0;">颜值：${h.appearance} | 才华：${h.talent} | 武力：${h.strength || 0}</div>
+                <button class="modal-btn" onclick="selectHeir('${h.name}')" style="margin-top:6px;">${isDesignated ? '重新指定为继承人' : '选为继承人'}</button>
+            </div>`;
+    }
+    
+    document.getElementById("heirContent").innerHTML = html;
+    showDiv("heirMask");
+}
+
+function closeHeirSelection(){
+    hideDiv("heirMask");
+}
+
 function selectHeir(childName){
     let child = gameData.children.find(c => c.name === childName);
     if(child && child.age >= 16){
@@ -8631,6 +9693,8 @@ function selectHeir(childName){
         gameData.inheritanceAlert = false;
         popMsg(`指定${childName}为继承人`);
         saveData();
+        closeHeirSelection();
+        refreshPage();
     }
 }
 
@@ -8690,6 +9754,15 @@ function confirmInheritance(childName){
         gameData.familyLevel = degradeTo === "官宦" ? 3 : 2;
     }
     
+    // 保存其他子女（排除继承人），initPlayer会清空children
+    let siblings = (gameData.children || []).filter(c => c.name !== selectedHeir.name);
+    
+    // 保存父母数据（initPlayer会清空spouse/concubines）
+    let oldPlayerName = gameData.playerName;
+    let oldPlayerGender = gameData.playerGender;
+    let oldSpouse = gameData.spouse ? {...gameData.spouse} : null;
+    let oldConcubines = gameData.concubines ? gameData.concubines.map(c => ({...c})) : [];
+    
     // 重置游戏数据，继承属性
     initPlayer();
     gameData.isDead = false; // 继承人开始新的人生
@@ -8705,8 +9778,8 @@ function confirmInheritance(childName){
     gameData.appearance = selectedHeir.appearance;
     gameData.talent = selectedHeir.talent;
     gameData.strength = selectedHeir.strength;
-    gameData.stamina = selectedHeir.stamina;
-    gameData.luck = selectedHeir.luck;
+    gameData.stamina = getRandRange(10, 50);
+    gameData.luck = getRandRange(0, 30);
     
     // 继承配偶：子女的配偶成为玩家的配偶
     if(heirSpouse){
@@ -8719,13 +9792,14 @@ function confirmInheritance(childName){
             job: heirSpouse.job,
             family: heirSpouse.family,
             age: heirSpouse.age,
-            favor: 80
+            favor: 80,
+            isSameSex: heirSpouse.isSameSex || false
         };
         gameData.spouseLostYear = 0; // 清除失妻记录
         // 配偶加入家人列表
         gameData.familyList.push({
             name: heirSpouse.name,
-            title: heirSpouse.gender === "男" ? "夫君" : "妻子",
+            title: heirSpouse.isSameSex ? "伴侣" : (heirSpouse.gender === "男" ? "夫君" : "妻子"),
             type: "spouse",
             gender: heirSpouse.gender,
             age: heirSpouse.age,
@@ -8748,10 +9822,102 @@ function confirmInheritance(childName){
         }
     }
     
-    // 子女从家族移除（成为新玩家）
-    gameData.children = gameData.children.filter(c => c.name !== selectedHeir.name);
-    // 家人列表中移除该子女（已变成玩家）
+    // 原来其他子女变成兄弟姐妹（按性别和年龄判定称呼）
+    let playerAge = gameData.age;
+    for(let sib of siblings){
+        let title;
+        if(sib.gender === "男"){
+            title = sib.age >= playerAge ? "兄长" : "弟弟";
+        } else {
+            title = sib.age >= playerAge ? "姐姐" : "妹妹";
+        }
+        gameData.familyList.push({
+            name: sib.name,
+            title: title,
+            type: "sibling",
+            gender: sib.gender,
+            age: sib.age,
+            appearance: sib.appearance || 50,
+            talent: sib.talent || 50,
+            strength: sib.strength || 0,
+            favor: 50,
+            hasStrength: true,
+            job: sib.job || (sib.age < 18 ? "无" : getRandomJob(sib.gender, gameData.familyType, sib.talent || 50, sib.strength || 0))
+        });
+    }
+    
+    // 家人列表中移除继承人（已变成玩家）
     gameData.familyList = gameData.familyList.filter(f => !(f.type === "child" && f.name === selectedHeir.name));
+    
+    // ===== 将继承人父母加入家人列表 =====
+    let heirChildType = selectedHeir.childType || "";
+    let isLegitOrAdopted = ["嫡子","嫡女","养子","养女","继子","继女"].includes(heirChildType);
+    let isConcubine = heirChildType === "庶子" || heirChildType === "庶女";
+    let isRedConfidant = heirChildType === "红颜之子" || heirChildType === "红颜之女";
+    let isBlueConfidant = heirChildType === "蓝颜之子" || heirChildType === "蓝颜之女";
+    
+    if(isLegitOrAdopted && oldSpouse){
+        // 嫡子女/养子女/继子女：父母为旧玩家 + 正妻/丈夫
+        let parentTitle;
+        if(oldSpouse.isSameSex){
+            // 同性伴侣：按配偶性别判定父亲/母亲
+            parentTitle = oldSpouse.gender === "男" ? "父亲" : "母亲";
+        }else{
+            parentTitle = oldPlayerGender === "女" ? "父亲" : "母亲";
+        }
+        gameData.familyList.push({
+            name: oldSpouse.name,
+            title: parentTitle,
+            type: "parent",
+            gender: oldSpouse.gender,
+            age: oldSpouse.age,
+            appearance: oldSpouse.appearance || 50,
+            talent: oldSpouse.talent || 50,
+            strength: oldSpouse.strength || 0,
+            job: oldSpouse.job || "",
+            favor: 60,
+            family: oldSpouse.family || "普通",
+            hasStrength: true
+        });
+    }else if(isConcubine || isRedConfidant){
+        // 庶子女/红颜子女：旧男玩家是父亲（已逝），生母是妾室/红颜知己
+        let bioMother = oldConcubines.find(c => c.name === selectedHeir.motherName);
+        if(bioMother){
+            gameData.familyList.push({
+                name: bioMother.name,
+                title: "生母",
+                type: "parent",
+                gender: "女",
+                age: bioMother.age,
+                appearance: bioMother.appearance || 50,
+                talent: bioMother.talent || 50,
+                strength: bioMother.strength || 0,
+                job: bioMother.job || "",
+                favor: 60,
+                family: bioMother.family || "普通",
+                hasStrength: true
+            });
+        }
+    }else if(isBlueConfidant){
+        // 蓝颜子女：旧女玩家是母亲（已逝），生父是蓝颜知己
+        let bioFather = oldConcubines.find(c => c.name === selectedHeir.fatherName);
+        if(bioFather){
+            gameData.familyList.push({
+                name: bioFather.name,
+                title: "生父",
+                type: "parent",
+                gender: "男",
+                age: bioFather.age,
+                appearance: bioFather.appearance || 50,
+                talent: bioFather.talent || 50,
+                strength: bioFather.strength || 0,
+                job: bioFather.job || "",
+                favor: 60,
+                family: bioFather.family || "普通",
+                hasStrength: true
+            });
+        }
+    }
     
     popMsg(`${selectedHeir.name}继承了家业，开始新的人生！`);
     gameData.actionNum += getCarriageActionBonus(); // 继承后加上马车加成
@@ -8847,53 +10013,101 @@ function generateGrandchild(parent, parentSpouse){
 }
 
 function checkInheritanceAlert(){
-    // 50岁以上且无继承人，每年提醒
-    if(gameData.age >= 50 && !gameData.heir && getEligibleHeirs().length > 0){
-        gameData.inheritanceAlert = true;
-        showInheritanceAlert();
-    }
-}
+    if(gameData.age < 50) return;
 
-function showInheritanceAlert(){
-    let html = `
-        <div class="modal" id="inheritanceAlert">
-            <p style="color:#e74c3c; font-size:18px;">立嗣提醒</p>
-            <p>你已年过半百，尚未指定继承人，请尽快立嗣！</p>
-            <div class="modal-btn-group">
-                <button class="modal-btn" onclick="showHeirSelection()">选择继承人</button>
-                <button class="modal-btn" onclick="hideDiv('inheritanceAlert')">稍后处理</button>
-            </div>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', html);
-    showDiv("inheritanceAlert");
-}
-
-function showHeirSelection(){
-    let heirs = getEligibleHeirs();
-    if(heirs.length === 0){
-        popMsg("没有成年子女可立为继承人");
+    // 情况1：50岁以上且无子女
+    if(!gameData.children || gameData.children.length === 0){
+        if(!gameData.noChildWarned50){
+            gameData.noChildWarned50 = true;
+            let html = `
+                <div class="mask" id="noChildAlert">
+                    <div class="modal">
+                        <p style="color:#e74c3c; font-size:18px;">香火堪忧</p>
+                        <p>你已年过五十，膝下无子，家族香火堪忧！</p>
+                        <div class="modal-btn-group">
+                            <button class="modal-btn" onclick="hideDiv('noChildAlert'); document.getElementById('noChildAlert').remove();">确定</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', html);
+            showDiv("noChildAlert");
+        }
         return;
     }
-    
-    let html = `
-        <div class="modal" id="heirSelection">
-            <p style="font-size:18px;">选择继承人</p>
-            <div style="max-height:300px; overflow-y:auto;">
-                ${heirs.map(h => `
-                    <div class="relation-item" style="margin-bottom:10px;">
-                        <div class="rel-name">${h.name}（${h.gender === '男' ? '子' : '女'}）-${h.age}岁</div>
-                        <div class="rel-info">颜值：${h.appearance} | 才华：${h.talent} | 武力：${h.strength}</div>
-                        <button class="modal-btn" onclick="selectHeir('${h.name}'); hideDiv('heirSelection'); hideDiv('inheritanceAlert')">选为继承人</button>
+
+    let eligibleHeirs = getEligibleHeirs();
+
+    // 情况2：有年满16岁的子女但未立嗣
+    if(eligibleHeirs.length > 0 && !gameData.heir){
+        if(!gameData.noHeirWarned50){
+            gameData.noHeirWarned50 = true;
+            let html = `
+                <div class="mask" id="heirRemindAlert">
+                    <div class="modal">
+                        <p style="color:#e67e22; font-size:18px;">家业传承</p>
+                        <p>你已年过半百，子女已到立嗣之龄，但尚未指定继承人。请尽快立嗣，以保家业后继有人。</p>
+                        <div class="modal-btn-group">
+                            <button class="modal-btn" onclick="hideDiv('heirRemindAlert'); document.getElementById('heirRemindAlert').remove(); openHeirSelection();">前往立嗣</button>
+                            <button class="modal-btn" onclick="hideDiv('heirRemindAlert'); document.getElementById('heirRemindAlert').remove();">稍后处理</button>
+                        </div>
                     </div>
-                `).join('')}
-            </div>
-            <button class="modal-btn" style="margin-top:10px;" onclick="hideDiv('heirSelection')">取消</button>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', html);
-    showDiv("heirSelection");
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', html);
+            showDiv("heirRemindAlert");
+        }
+        return;
+    }
+
+    // 情况3：有子女但全员未满16岁
+    if(!gameData.heir){
+        if(!gameData.heirUnderageWarned50){
+            gameData.heirUnderageWarned50 = true;
+            let eldestDi = getEldestLegitimateChild();
+            let defaultHeirInfo;
+            if(eldestDi){
+                let title = eldestDi.childType === "嫡子" ? "嫡长子" : "嫡长女";
+                defaultHeirInfo = `届时若未指定继承人，将默认由${title}「${eldestDi.name}」继承家业。`;
+            } else {
+                let eldest = [...gameData.children].sort((a,b) => a.age - b.age)[0];
+                if(eldest){
+                    let title = eldest.childType;
+                    if(title === "庶子") title = "庶长子";
+                    else if(title === "庶女") title = "庶长女";
+                    else if(title === "蓝颜之子") title = "蓝颜之子";
+                    else if(title === "蓝颜之女") title = "蓝颜之女";
+                    // 红颜之子/红颜之女 保留原样
+                    defaultHeirInfo = `届时若未指定继承人，将默认由${title}「${eldest.name}」继承家业。`;
+                } else {
+                    defaultHeirInfo = '';
+                }
+            }
+            let html = `
+                <div class="mask" id="underageHeirAlert">
+                    <div class="modal">
+                        <p style="color:#3498db; font-size:18px;">膝下有子</p>
+                        <p>你已年过五十，膝下有子女但均未成年。待长子女年满十六岁，即可指定其为继承人。${defaultHeirInfo}</p>
+                        <div class="modal-btn-group">
+                            <button class="modal-btn" onclick="hideDiv('underageHeirAlert'); document.getElementById('underageHeirAlert').remove();">确定</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', html);
+            showDiv("underageHeirAlert");
+        }
+    }
 }
+
+// 获取最年长的嫡子女（嫡子/嫡女）
+function getEldestLegitimateChild(){
+    let diChildren = gameData.children.filter(c => c.childType === "嫡子" || c.childType === "嫡女");
+    if(diChildren.length === 0) return null;
+    diChildren.sort((a,b) => a.age - b.age); // 按年龄升序，取最后=最年长
+    return diChildren[diChildren.length - 1]; // 最年长的
+}
+
 
 function showGameOver(){
     clearSaveAndRestart();
