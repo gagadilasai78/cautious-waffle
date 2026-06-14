@@ -757,6 +757,11 @@
             border-color: #b0b0b0;
             opacity: 0.9;
         }
+        .eloped-item {
+            background: rgba(200, 180, 170, 0.5);
+            border-color: #c9a87c;
+            opacity: 0.75;
+        }
         .rel-info {
             font-size: 14px;
             line-height: 1.7;
@@ -3163,6 +3168,9 @@ function refreshPage() {
             }else if(it.type === "outside"){
                 itemClass += " outside-item";
                 nameStyle = "color: #808080; font-style: italic;"; // 灰色斜体
+            }else if(it.eloped){
+                itemClass += " eloped-item";
+                nameStyle = "color: #999; font-style: italic;"; // 灰斜体 - 私奔
             }
 
             // 按钮组
@@ -3171,11 +3179,16 @@ function refreshPage() {
             if(it.type === "child"){
                 // 子女配偶显示
                 extraInfo += getChildSpouseInfoHtml(it.name);
-                // 子女互动按钮：教育、陪伴、更改培养方式
-                let eduBtn = it.age < 18 ? `<button class="action-btn" onclick="educateChildFromFamily('${it.name}')">教育</button>` : "";
-                let accompanyBtn = `<button class="action-btn" onclick="accompanyChild('${it.name}')">陪伴</button>`;
-                let changeEduBtn = it.age < 18 ? `<button class="action-btn" onclick="showChildEducationOptions('${it.name}')">培养方式</button>` : "";
-                btnGroup = eduBtn + accompanyBtn + changeEduBtn;
+                if(it.eloped){
+                    extraInfo += `<br><span style="color:#c0392b;">⚠ 已私奔，无法互动</span>`;
+                    btnGroup = `<span style="color:#999;font-size:12px;">（与家中断绝来往）</span>`;
+                }else{
+                    // 子女互动按钮：教育、陪伴、更改培养方式
+                    let eduBtn = it.age < 18 ? `<button class="action-btn" onclick="educateChildFromFamily('${it.name}')">教育</button>` : "";
+                    let accompanyBtn = `<button class="action-btn" onclick="accompanyChild('${it.name}')">陪伴</button>`;
+                    let changeEduBtn = it.age < 18 ? `<button class="action-btn" onclick="showChildEducationOptions('${it.name}')">培养方式</button>` : "";
+                    btnGroup = eduBtn + accompanyBtn + changeEduBtn;
+                }
             }else{
                 // 其他家人：陪伴/玩耍、送礼、同房、和离等按钮
                 let t = it.type === "parent" ? "陪伴" : "玩耍";
@@ -3673,9 +3686,9 @@ function growAge(){
     // 子女年龄增长
     for(let ch of (gameData.children || [])){ ch.age++; if(ch.age >= 18) assignNpcJob(ch, gameData.familyType); }
     
-    // 子女结婚检测（18岁后每年20%概率，每人仅一次）
+    // 子女结婚检测（18岁后每年20%概率，每人仅一次，已私奔/待确认不触发）
     for(let ch of (gameData.children || [])){
-        if(ch.age >= 18 && !ch.spouse){
+        if(ch.age >= 18 && !ch.spouse && !ch.pendingSpouse && !ch.eloped){
             if(Math.random() < 0.2){
                 marryChild(ch);
             }
@@ -5979,19 +5992,19 @@ function checkChildEducationFee(){
 
 // ========== 子女结婚系统 ==========
 function marryChild(child){
+    // 生成潜在配偶（暂不结婚，需玩家确认）
     let gender = child.gender;
     let spouseGender = gender === "男" ? "女" : "男";
     let existNames = getAllExistingNames();
-    // 加上已有子女的配偶名
     for(let c of (gameData.children || [])){
         if(c.spouse) existNames.push(c.spouse.name);
     }
+    if(child.pendingSpouse) existNames.push(child.pendingSpouse.name);
     let spouseName;
     do{
         spouseName = getRandom(surnameList) + getRandom(spouseGender === "男" ? maleName : femaleName);
     }while(existNames.includes(spouseName));
     
-    // 随机配偶属性（受父母家庭背景影响）
     let spouseAge = getRandRange(child.age - 3, child.age + 5);
     if(spouseAge < 18) spouseAge = 18;
     let spouseApp = getRandRange(30, 95);
@@ -6004,7 +6017,7 @@ function marryChild(child){
     let spouseFam = famTypes[spouseFamIdx];
     let spouseJob = getRandomJob(spouseGender, spouseFam, spouseTal, spouseStr);
     
-    child.spouse = {
+    child.pendingSpouse = {
         name: spouseName,
         age: spouseAge,
         gender: spouseGender,
@@ -6015,8 +6028,76 @@ function marryChild(child){
         family: spouseFam
     };
     
-    popMsg(`${child.name}与${spouseName}成婚了！`);
     saveData();
+    showChildMarriagePopup(child);
+}
+
+function showChildMarriagePopup(child){
+    let sp = child.pendingSpouse;
+    if(!sp) return;
+    let beautyClass = sp.appearance < 40 ? "丑陋" : (sp.appearance < 60 ? "普通" : (sp.appearance < 80 ? "清秀" : "出众"));
+    let talentLevel = sp.talent < 40 ? "愚钝" : (sp.talent < 60 ? "普通" : (sp.talent < 80 ? "聪慧" : "天才"));
+    
+    let existing = document.getElementById("childMarriageMask");
+    if(existing) existing.remove();
+    
+    let html = `
+        <div class="mask hidden" id="childMarriageMask">
+            <div class="modal" style="max-width:500px;">
+                <h2 class="modal-title">子女婚配</h2>
+                <p><b>${child.name}</b>（${child.age}岁）想与以下人士成婚：</p>
+                <div style="background:rgba(160,120,80,0.1); padding:12px; margin:10px 0; border-radius:4px;">
+                    <p><b>${sp.name}</b> · ${sp.gender} · ${sp.age}岁 · ${sp.job || "无业"}</p>
+                    <p>颜值：${sp.appearance}（${beautyClass}）| 才华：${sp.talent}（${talentLevel}）| 武力：${sp.strength}</p>
+                    <p>门第：${sp.family}</p>
+                </div>
+                <div style="display:flex;gap:10px;justify-content:center;margin-top:15px;">
+                    <button class="modal-btn" style="background:#5a3a1a;color:#c9a060;" onclick="approveChildMarriage('${child.name}')">同意成亲</button>
+                    <button class="modal-btn" style="background:#8b3030;color:#fff;" onclick="rejectChildMarriage('${child.name}')">拒绝</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("childMarriageMask");
+}
+
+function approveChildMarriage(childName){
+    let child = gameData.children.find(c => c.name === childName);
+    if(!child || !child.pendingSpouse) return;
+    
+    child.spouse = child.pendingSpouse;
+    delete child.pendingSpouse;
+    
+    popMsg(`${child.name}与${child.spouse.name}成婚了！`);
+    hideDiv("childMarriageMask");
+    saveData();
+    refreshPage();
+}
+
+function rejectChildMarriage(childName){
+    let child = gameData.children.find(c => c.name === childName);
+    if(!child || !child.pendingSpouse) return;
+    let sp = child.pendingSpouse;
+    
+    if(Math.random() < 0.5){
+        // 50%: 拒婚成功，无事发生
+        delete child.pendingSpouse;
+        popMsg(`你拒绝了${child.name}的婚事，${child.name}虽有不甘但也无奈接受。`);
+    }else{
+        // 50%: 私奔
+        child.spouse = child.pendingSpouse;
+        child.eloped = true;
+        delete child.pendingSpouse;
+        popMsg(`${child.name}不顾你的反对，与${child.spouse.name}私奔了！从此与你断绝往来……`);
+        // 同步标记 familyList 中的成员
+        let famMember = gameData.familyList.find(f => f.name === childName && f.type === "child");
+        if(famMember) famMember.eloped = true;
+    }
+    
+    hideDiv("childMarriageMask");
+    saveData();
+    refreshPage();
 }
 
 // 获取子女配偶信息HTML（用于面板显示）
