@@ -1876,11 +1876,17 @@ function hideDiv(id){document.getElementById(id).classList.add("hidden");}
 
 // 公告消息队列
 let notificationQueue = [];
+let pendingChildMarriagePopups = [];
 let isNotificationShown = false;
+let isYearAdvancing = false;
 
-// 添加消息到公告队列
+// 智能消息：年度增长期间入队排队，日常操作立刻弹窗
 function popMsg(text) {
-    notificationQueue.push(text);
+    if(isYearAdvancing){
+        notificationQueue.push(text);
+    } else {
+        showToast(text);
+    }
 }
 
 // 添加行动日志到中间区域
@@ -1945,6 +1951,7 @@ function showActionResult(title, content) {
 
 // 显示公告栏（所有消息一次性显示）
 function showNotificationPanel() {
+    isYearAdvancing = false;
     if(isNotificationShown || notificationQueue.length === 0) return;
     isNotificationShown = true;
     
@@ -1966,6 +1973,8 @@ function showNotificationPanel() {
         hideDiv("msgMask");
         isNotificationShown = false;
         notificationQueue = [];
+        // 通告关闭后，额外弹出子女婚配弹窗
+        setTimeout(showPendingChildMarriages, 200);
     };
 }
 
@@ -3388,7 +3397,7 @@ window.interactFamily=function(n,t){
     if(p.type==="spouse" && gameData.spouse){
         gameData.spouse.favor = p.favor;
     }
-    popMsg(`${n} 好感提升 +${add}`);saveData();refreshPage();
+    showToast(`${n} 好感提升 +${add}`);saveData();refreshPage();
 };
 
 
@@ -3400,23 +3409,23 @@ window.askPocketMoney=function(n){
     // 家庭背景年收入基准
     const baseIncomeMap={"贫穷":20,"普通":50,"富裕":120,"官宦":180,"权贵":260};
     let baseIncome=baseIncomeMap[gameData.familyType]||50;
-    if(p.age<16)return popMsg(`${n}还未成年，没有零花钱可以给你……`);
+    if(p.age<16)return showToast(`${n}还未成年，没有零花钱可以给你……`);
     if(p.favor>70){
         let pct=0.3+Math.random()*0.3; // 年收入30%~60%
         let amount=Math.floor(baseIncome*pct);
         gameData.money+=amount;
         if(!gameData.pocketMoneyTutShown){
             gameData.pocketMoneyTutShown=true;
-            popMsg(`💡 索要零花钱：16岁以上家人好感>70才会给零花钱（年收入30%~60%），好感太低可要不到哦！不消耗行动力，逢年过节都可以要。`);
+            showToast(`💡 索要零花钱：16岁以上家人好感>70才会给零花钱（年收入30%~60%），好感太低可要不到哦！不消耗行动力，逢年过节都可以要。`);
         }
-        popMsg(`${n}对你甚是溺爱，笑呵呵地塞给你 ${amount} 文零花钱！`);
+        showToast(`${n}对你甚是溺爱，笑呵呵地塞给你 ${amount} 文零花钱！`);
     } else {
         let reasons=[
             `${n}叹了口气：“家里近来手头紧，你先自己省着点吧。”`,
             `${n}板着脸道：“小小年纪乱花什么钱，不行。”`,
             `${n}摇了摇头：“莫要养成伸手要钱的习惯，自己去挣。”`
         ];
-        popMsg(reasons[Math.floor(Math.random()*reasons.length)]);
+        showToast(reasons[Math.floor(Math.random()*reasons.length)]);
     }
     saveData();refreshPage();
 };
@@ -3625,6 +3634,7 @@ function checkAllChildrenEducation(){
 // 年龄增长：公告栏显示所有消息
 function growAge(){
     if(gameData.isDead) return showToast("你已不在人世，无法继续游戏");
+    isYearAdvancing = true;
     gameData.age++;
     // 女玩家怀孕期间行动点数为3
     gameData.actionNum = (gameData.playerGender === "女" && gameData.pregnancy) ? 3 : 4;
@@ -3632,6 +3642,9 @@ function growAge(){
 
     // 玩家死亡检测（65岁后开始有自然死亡概率）
     if(checkPlayerDeath()){
+        isYearAdvancing = false;
+        notificationQueue = [];
+        pendingChildMarriagePopups = [];
         handleDeath();
         return;
     }
@@ -4090,13 +4103,13 @@ document.getElementById("saveAiConfig").onclick=()=>{
     aiConfig.apiKey=document.getElementById("apiKey").value.trim();
     aiConfig.model=document.getElementById("modelName").value.trim()||"gpt-3.5-turbo";
     localStorage.setItem("aiConfig",JSON.stringify(aiConfig));
-    popMsg("保存成功");hideDiv("aiConfigMask");
+    showToast("保存成功");hideDiv("aiConfigMask");
 };
 document.getElementById("submitExam").onclick=submitExamFunc;
 document.getElementById("closeExam").onclick=()=>{hideDiv("examMask");};
 document.getElementById("joinArmyBtn").onclick=()=>{
     if(!gameData.hasStrength || gameData.strength < 70){showToast("武力不足70，无法从军");return;}
-    gameData.job="从军";gameData.militaryRank=9;gameData.militaryTitle="士兵";gameData.lastPromotionYear=gameData.age;gameData.lastPromotionRank=9;gameData.armyCareer=true;updateHighestRank(9, true);popMsg("从军成功，成为士兵");hideDiv("conscriptionMask");saveData();refreshPage();
+    gameData.job="从军";gameData.militaryRank=9;gameData.militaryTitle="士兵";gameData.lastPromotionYear=gameData.age;gameData.lastPromotionRank=9;gameData.armyCareer=true;updateHighestRank(9, true);showToast("从军成功，成为士兵");hideDiv("conscriptionMask");saveData();refreshPage();
 };
 
 // 年度裁决面板：处理完毕按钮
@@ -4196,7 +4209,7 @@ function acceptParentMatchmaking(){
 
 function refuseParentMatchmaking(){
     hideDiv("parentMatchmakingMask");
-    popMsg("你拒绝了父母安排的相亲");
+    showToast("你拒绝了父母安排的相亲");
     saveData();
 }
 
@@ -4227,14 +4240,14 @@ function acceptTalentRecruitment(){
     updateHighestRank(9, false);
     gameData.job = officerJob;
     gameData.politicalMerit = 0;
-    popMsg(`📜 你欣然接受朝廷征辟，即日起为【${getOfficerTitle(9)}】，俸禄${getOfficialSalary(9)}文/年。`);
+    showToast(`📜 你欣然接受朝廷征辟，即日起为【${getOfficerTitle(9)}】，俸禄${getOfficialSalary(9)}文/年。`);
     refreshPage();
     saveData();
 }
 
 function refuseTalentRecruitment(){
     hideDiv("talentRecruitmentMask");
-    popMsg("你婉言谢绝了朝廷征辟，继续过着闲云野鹤的生活。声望+5。");
+    showToast("你婉言谢绝了朝廷征辟，继续过着闲云野鹤的生活。声望+5。");
     gameData.reputation += 5;
     saveData();
 }
@@ -4412,7 +4425,7 @@ function showMatchmaking(){
 function noMatchChosen(){
     gameData.matchmakingCandidates = [];
     hideDiv("matchmakingMask");
-    popMsg("你拒绝了所有相亲对象");
+    showToast("你拒绝了所有相亲对象");
     saveData();
 }
 
@@ -4523,7 +4536,7 @@ function becomeConfidant(friendName){
         personality: friend.personality || "温和"
     });
     
-    popMsg(`已与${friend.name}结为${title}！`);
+    showToast(`已与${friend.name}结为${title}！`);
     saveData();
     refreshPage();
 }
@@ -4669,7 +4682,7 @@ function acceptAsConcubineWife(){
     gameData.marriageYear = gameData.age;
     gameData.pendingSpouse = null;
     gameData.matchmakingCandidates = [];
-    popMsg(`恭喜！您作为妾室嫁入${sp.name}家中！`);
+    showToast(`恭喜！您作为妾室嫁入${sp.name}家中！`);
     hideDiv("marriageMask");
     saveData();
     refreshPage();
@@ -6029,7 +6042,19 @@ function marryChild(child){
     };
     
     saveData();
-    showChildMarriagePopup(child);
+    // 不在通告面板里出现，等通告关闭后额外弹窗
+    pendingChildMarriagePopups.push(child.name);
+}
+
+// 通告关闭后，逐一弹出子女婚配窗口
+function showPendingChildMarriages(){
+    if(pendingChildMarriagePopups.length === 0) return;
+    let childName = pendingChildMarriagePopups.shift();
+    let child = gameData.children.find(c => c.name === childName);
+    if(child && child.pendingSpouse){
+        showChildMarriagePopup(child);
+    }
+    // 如果还有待处理的，当前弹窗关闭后会继续弹出（在 approve/reject 中递归调用）
 }
 
 function showChildMarriagePopup(child){
@@ -6069,10 +6094,11 @@ function approveChildMarriage(childName){
     child.spouse = child.pendingSpouse;
     delete child.pendingSpouse;
     
-    popMsg(`${child.name}与${child.spouse.name}成婚了！`);
+    showToast(`${child.name}与${child.spouse.name}成婚了！`);
     hideDiv("childMarriageMask");
     saveData();
     refreshPage();
+    setTimeout(showPendingChildMarriages, 300);
 }
 
 function rejectChildMarriage(childName){
@@ -6081,15 +6107,15 @@ function rejectChildMarriage(childName){
     let sp = child.pendingSpouse;
     
     if(Math.random() < 0.5){
-        // 50%: 拒婚成功，无事发生
+        // 50%: 拒婚成功
         delete child.pendingSpouse;
-        popMsg(`你拒绝了${child.name}的婚事，${child.name}虽有不甘但也无奈接受。`);
+        showToast(`你拒绝了${child.name}的婚事，${child.name}虽有不甘但也无奈接受。`);
     }else{
-        // 50%: 私奔
+        // 50%: 私奔 → 立刻弹窗
         child.spouse = child.pendingSpouse;
         child.eloped = true;
         delete child.pendingSpouse;
-        popMsg(`${child.name}不顾你的反对，与${child.spouse.name}私奔了！从此与你断绝往来……`);
+        showToast(`${child.name}不顾你的反对，与${child.spouse.name}私奔了！从此与你断绝往来……`);
         // 同步标记 familyList 中的成员
         let famMember = gameData.familyList.find(f => f.name === childName && f.type === "child");
         if(famMember) famMember.eloped = true;
@@ -6098,6 +6124,7 @@ function rejectChildMarriage(childName){
     hideDiv("childMarriageMask");
     saveData();
     refreshPage();
+    setTimeout(showPendingChildMarriages, 300);
 }
 
 // 获取子女配偶信息HTML（用于面板显示）
@@ -7021,10 +7048,10 @@ function updateMarriageButtons(){
     }
 }
 
-document.getElementById("refuseArmyBtn").onclick=()=>{gameData.reputation-=10;popMsg("拒绝从军，声望-10");hideDiv("conscriptionMask");saveData();refreshPage();};
+document.getElementById("refuseArmyBtn").onclick=()=>{gameData.reputation-=10;showToast("拒绝从军，声望-10");hideDiv("conscriptionMask");saveData();refreshPage();};
 document.getElementById("replaceArmyBtn").onclick=()=>{
-    if(gameData.money < 500){popMsg("钱财不足500文");return;}
-    gameData.money -= 500; popMsg("雇人代役，花费500文");hideDiv("conscriptionMask");saveData();refreshPage();
+    if(gameData.money < 500){showToast("钱财不足500文");return;}
+    gameData.money -= 500; showToast("雇人代役，花费500文");hideDiv("conscriptionMask");saveData();refreshPage();
 };
 document.getElementById("btnGrowAge").onclick=growAge;
 document.getElementById("seekDoctor").onclick=openDoctorConfirm;
