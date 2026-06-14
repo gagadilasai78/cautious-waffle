@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -308,6 +308,199 @@
             bottom: 4px;
             border: 1px solid rgba(160,120,80,0.15);
             pointer-events: none;
+        }
+
+        /* ========== 导航大按钮 ========== */
+        .nav-btn-row {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-icon-btn {
+            flex: 1;
+            min-width: 100px;
+            max-width: 170px;
+            padding: 16px 8px 14px;
+            border-radius: 6px;
+            border: 2px solid #c9a87c;
+            background: linear-gradient(180deg, rgba(255,251,240,0.9) 0%, rgba(235,220,195,0.85) 100%);
+            cursor: pointer;
+            transition: all 0.25s;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(90,58,26,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-icon-btn::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(255,215,0,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .nav-icon-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(90,58,26,0.18);
+            border-color: #8b4513;
+            background: linear-gradient(180deg, rgba(255,253,246,0.95) 0%, rgba(242,228,203,0.9) 100%);
+        }
+        .nav-icon-btn .nav-icon {
+            font-size: 38px;
+            display: block;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+        .nav-icon-btn .nav-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #5a3a1a;
+            letter-spacing: 2px;
+        }
+
+        /* ========== 紧凑属性网格 ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 18px;
+        }
+        .stats-grid .attr-item {
+            margin: 1px 0;
+            padding: 2px 0;
+            font-size: 14px;
+            border-bottom: 1px dashed rgba(160,120,80,0.12);
+        }
+
+        /* ========== 两栏布局 ========== */
+        .row-two-col {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .col-main {
+            flex: 1.1;
+            min-width: 330px;
+        }
+        .col-side {
+            flex: 0.9;
+            min-width: 270px;
+        }
+
+        /* ========== 行动按钮网格 ========== */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+        }
+        .action-grid .action-btn {
+            text-align: center;
+            width: 100%;
+            font-size: 14px;
+            padding: 7px 10px;
+        }
+
+        /* ========== 全屏页面Mask ========== */
+        .full-page-mask .modal {
+            max-width: 700px;
+            max-height: 88vh;
+            overflow-y: auto;
+            padding: 30px;
+        }
+        .page-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            font-size: 14px;
+            background: rgba(139,69,19,0.08);
+            border: 1px solid #b8956a;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #5a3a1a;
+            margin-bottom: 18px;
+            font-family: "Noto Serif SC", serif;
+            transition: all 0.2s;
+        }
+        .page-back-btn:hover {
+            background: rgba(139,69,19,0.15);
+            border-color: #8b4513;
+        }
+
+        /* ========== 成员卡片（家人/好友页） ========== */
+        .member-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 16px;
+            margin: 8px 0;
+            background: rgba(255,255,255,0.55);
+            border: 1px solid #d4c4a8;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .member-card:hover {
+            background: rgba(255,255,255,0.85);
+            border-color: #b8956a;
+            box-shadow: 0 2px 8px rgba(90,58,26,0.06);
+        }
+        .member-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .member-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #3d2817;
+            letter-spacing: 1px;
+        }
+        .member-detail {
+            font-size: 13px;
+            color: #7a5a3a;
+            margin-top: 3px;
+            line-height: 1.5;
+        }
+        .member-actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+        .member-actions .action-btn {
+            padding: 5px 10px;
+            font-size: 13px;
+        }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 820px) {
+            .main-page { padding: 12px; }
+            .top-bar { padding: 10px 12px; gap: 4px; }
+            .top-bar .info-text { font-size: 13px; }
+            .nav-btn-row { gap: 8px; }
+            .nav-icon-btn { min-width: 70px; max-width: none; padding: 10px 4px 8px; }
+            .nav-icon-btn .nav-icon { font-size: 26px; }
+            .nav-icon-btn .nav-label { font-size: 12px; letter-spacing: 1px; }
+            .row-two-col { flex-direction: column; }
+            .col-main, .col-side { min-width: 100%; flex: auto; }
+            .action-grid { grid-template-columns: repeat(3, 1fr); gap: 5px; }
+            .action-grid .action-btn { font-size: 13px; padding: 6px 6px; }
+            .stats-grid { gap: 2px 10px; }
+            .stats-grid .attr-item { font-size: 13px; }
+            .card { padding: 12px; margin-bottom: 12px; }
+            .card-title { font-size: 16px; margin-bottom: 10px; }
+            .full-page-mask .modal { max-width: 96vw; max-height: 92vh; padding: 16px; }
+            .member-card { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px 12px; }
+            .member-actions { width: 100%; justify-content: flex-start; margin-left: 0; }
+            .top-bar .save-game-btn { padding: 4px 8px; font-size: 12px; }
+        }
+        @media (max-width: 480px) {
+            .action-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-icon-btn { min-width: 60px; }
+            .nav-icon-btn .nav-icon { font-size: 22px; }
+            .nav-icon-btn .nav-label { font-size: 11px; }
+            .top-bar { flex-direction: column; align-items: flex-start; }
         }
         .card-title {
             font-size: 20px;
@@ -895,6 +1088,87 @@
     </div>
 </div>
 
+<div class="mask hidden" id="talentRecruitmentMask">
+    <div class="modal">
+        <h2 class="modal-title">朝廷征辟</h2>
+        <div id="talentRecruitmentContent" style="padding:20px;"></div>
+    </div>
+</div>
+
+<div class="mask hidden" id="careerChoiceMask">
+    <div class="modal">
+        <h2 class="modal-title">及冠·立业</h2>
+        <div id="careerChoiceContent" style="padding:20px;"></div>
+    </div>
+</div>
+
+<div class="mask hidden" id="age12NoticeMask">
+    <div class="modal">
+        <h2 class="modal-title">志学之岁</h2>
+        <div id="age12NoticeContent" style="padding:20px;"></div>
+    </div>
+</div>
+
+<div class="mask hidden" id="jobChangeStoryMask">
+    <div class="modal">
+        <h2 class="modal-title">另择他途</h2>
+        <div id="jobChangeStoryContent" style="padding:20px;"></div>
+    </div>
+</div>
+
+<div class="mask hidden" id="jobChangeWarnMask">
+    <div class="modal">
+        <h2 class="modal-title">⚠️ 弃官另就</h2>
+        <div id="jobChangeWarnContent" style="padding:20px;"></div>
+    </div>
+</div>
+
+<div class="mask hidden" id="familyDegradationMask">
+    <div class="modal">
+        <h2 class="modal-title">门庭渐衰</h2>
+        <div id="familyDegradationContent" style="padding:20px;"></div>
+    </div>
+</div>
+
+<div class="mask hidden full-page-mask" id="familyPageMask">
+    <div class="modal">
+        <button class="page-back-btn" onclick="closeFamilyPage()">← 返回</button>
+        <h2 class="modal-title">家中亲人</h2>
+        <div id="familyPageContent"></div>
+    </div>
+</div>
+
+<div class="mask hidden full-page-mask" id="friendsPageMask">
+    <div class="modal">
+        <button class="page-back-btn" onclick="closeFriendsPage()">← 返回</button>
+        <h2 class="modal-title">好友名录</h2>
+        <div id="friendsPageContent"></div>
+    </div>
+</div>
+
+<div class="mask hidden full-page-mask" id="assetsPageMask">
+    <div class="modal">
+        <button class="page-back-btn" onclick="closeAssetsPage()">← 返回</button>
+        <h2 class="modal-title">资产总览</h2>
+        <div id="assetsPageContent"></div>
+    </div>
+</div>
+
+<div class="mask hidden full-page-mask" id="outsidePageMask">
+    <div class="modal">
+        <button class="page-back-btn" onclick="closeOutsidePage()">← 返回</button>
+        <h2 class="modal-title" id="outsidePageTitle">红颜知己</h2>
+        <div id="outsidePageContent"></div>
+    </div>
+</div>
+
+<div class="mask hidden" id="comingOfAgeMask">
+    <div class="modal">
+        <h2 class="modal-title">弱冠之年</h2>
+        <div id="comingOfAgeContent" style="padding:20px;"></div>
+    </div>
+</div>
+
 <div class="mask hidden" id="matchmakingMask">
     <div class="modal">
         <h2 class="modal-title">相亲</h2>
@@ -1137,6 +1411,9 @@
                 &nbsp;&nbsp;时代：<span id="eraName" class="era-tag">太平</span>
                 &nbsp;&nbsp;|&nbsp;&nbsp;成就：<span id="achieveBar"></span>
             </div>
+            <div class="info-text" id="careerProgress" style="display:none;">
+                目标进度：<span id="careerProgressText"></span>
+            </div>
             <div class="info-text">
                 AI状态：<span id="aiStatus" class="ai-status ai-off">离线模式</span>
                 &nbsp;&nbsp;
@@ -1149,23 +1426,49 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-left">
+        <!-- 导航大按钮 -->
+        <div class="nav-btn-row">
+            <div class="nav-icon-btn" id="navFamily" onclick="showFamilyPage()">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">家人</span>
+            </div>
+            <div class="nav-icon-btn" id="navShop" onclick="showShop()">
+                <span class="nav-icon">🛒</span>
+                <span class="nav-label">商店</span>
+            </div>
+            <div class="nav-icon-btn" id="navFriends" onclick="showFriendsPage()">
+                <span class="nav-icon">🤝</span>
+                <span class="nav-label">好友</span>
+            </div>
+            <div class="nav-icon-btn" id="navJobChange" onclick="showJobChange()">
+                <span class="nav-icon">💼</span>
+                <span class="nav-label">换职业</span>
+            </div>
+            <div class="nav-icon-btn" id="navOutside" onclick="showOutsidePage()" style="display:none;">
+                <span class="nav-icon">💕</span>
+                <span class="nav-label">红颜</span>
+            </div>
+        </div>
+
+        <div class="row-two-col">
+            <div class="col-main">
                 <div class="card">
                     <h3 class="card-title">人物属性</h3>
-                    <div class="attr-item">体质：<span id="attrFitness"></span></div>
-                    <div class="attr-item">颜值：<span id="attrBeauty"></span></div>
-                    <div class="attr-item">才华：<span id="attrTalent"></span></div>
-                    <div class="attr-item">武力：<span id="attrStrength">未解锁</span></div>
-                    <div class="attr-item">运气：<span id="charLuck"></span></div>
-                    <div class="attr-item">声望：<span id="charRepu"></span></div>
-                    <div class="attr-item">政绩：<span id="charAchieve"></span></div>
+                    <div class="stats-grid">
+                        <div class="attr-item">体质：<span id="attrFitness"></span></div>
+                        <div class="attr-item">颜值：<span id="attrBeauty"></span></div>
+                        <div class="attr-item">才华：<span id="attrTalent"></span></div>
+                        <div class="attr-item">武力：<span id="attrStrength">未解锁</span></div>
+                        <div class="attr-item">运气：<span id="charLuck"></span></div>
+                        <div class="attr-item">声望：<span id="charRepu"></span></div>
+                        <div class="attr-item" style="grid-column:1/-1">政绩：<span id="charAchieve"></span></div>
+                    </div>
                 </div>
 
                 <div class="card">
                     <h3 class="card-title">日常行动</h3>
-                    <p style="margin-bottom:12px;">本年度剩余行动次数：<span id="actCount"></span></p>
-                    <div class="action-btn-group">
+                    <p style="margin-bottom:10px;">本年度剩余行动次数：<span id="actCount"></span></p>
+                    <div class="action-grid">
                         <button class="action-btn light-btn" data-act="rest">休息</button>
                         <button class="action-btn light-btn" data-act="exercise">锻炼</button>
                         <button class="action-btn light-btn" data-act="study">学习</button>
@@ -1173,8 +1476,6 @@
                         <button class="action-btn light-btn" data-act="walk">散步</button>
                         <button class="action-btn light-btn hidden" id="trainStrength" data-act="train">习武</button>
                         <button class="action-btn" id="seekDoctor">求医</button>
-                        <button class="action-btn" id="changeJob">更换职业</button>
-                        <button class="action-btn" id="openShop">商店</button>
                         <button class="action-btn" id="btnBanquet">参加宴会</button>
                         <button class="action-btn hidden" id="takeExam" data-act="exam">参加科举</button>
                         <button class="action-btn gambling-btn" id="openGambling">赌坊</button>
@@ -1187,60 +1488,35 @@
                         <button class="action-btn" id="btnConcubine">纳妾</button>
                         <button class="action-btn" id="btnChildrenEdu">子女培养</button>
                     </div>
-                    <div style="margin-top:15px;">
-                        <button class="action-btn" id="btnGrowAge">增长年岁</button>
+                    <div style="margin-top:12px;">
+                        <button class="action-btn" id="btnGrowAge" style="width:100%;padding:10px;font-size:16px;">增长年岁</button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-center">
+            <div class="col-side">
                 <div class="card action-log-card">
                     <h3 class="card-title">行动日志</h3>
                     <div class="action-log-content" id="actionLogContent">
                         <p class="log-placeholder">行动结果将显示在这里...</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-right">
-                <div class="card">
+                <div class="card" style="cursor:pointer;" onclick="showAssetsPage()">
                     <h3 class="card-title">资产</h3>
                     <div id="houseDisplay"></div>
                     <div id="carriageDisplay"></div>
+                    <div id="assetsBrief" style="font-size:11px; color:#8B7355; margin-top:4px;"></div>
                 </div>
-                <div class="card" id="inventoryCard" style="display:none;">
-                    <h3 class="card-title" onclick="toggleInventory()" style="cursor:pointer;">背包 <span id="inventoryToggle">▶</span></h3>
-                    <div id="inventoryDisplay" style="display:none;"></div>
-                </div>
-                <div class="card" id="spouseCard" style="display:none;">
-                    <h3 class="card-title">配偶</h3>
-                    <div id="spouseDisplay"></div>
-                </div>
-                <div class="card" id="concubineCard" style="display:none;">
-                    <h3 class="card-title">妾室</h3>
-                    <div id="concubineDisplay"></div>
-                </div>
-                <div class="card" id="outsideCard" style="display:none;">
-                    <h3 class="card-title" id="outsideTitle">红颜知己</h3>
-                    <div id="outsideDisplay"></div>
-                </div>
-                <div class="card">
-                    <h3 class="card-title" onclick="toggleFamilySection('parents')">家中亲人</h3>
-                    <div id="relList"></div>
-                </div>
-
-                <div class="card" id="eventCard" style="display:none;">
+                <div class="card hidden" id="eventCard">
                     <h3 class="card-title">年度执务</h3>
                     <div id="eventCardBrief" style="font-size:12px; color:#8B7355; margin-bottom:8px;"></div>
                     <button class="action-btn" id="openEventPanelBtn" onclick="showYearlyEventPanel()">处理执务</button>
                 </div>
-
-                <div class="card">
-                    <h3 class="card-title" onclick="toggleFamilySection('friends')">好友名录</h3>
-                    <div id="friendList">暂无好友，外出散步或许能结识知己</div>
-                </div>
             </div>
         </div>
+        <!-- 隐藏容器：用于预渲染家人/好友内容 -->
+        <div id="relList" style="display:none;"></div>
+        <div id="friendList" style="display:none;"></div>
     </div>
 </div>
 
@@ -1273,41 +1549,43 @@ const militaryRanks = [
 // ========== 年度裁决事件池 ==========
 // 难度分三档：⭐简易(2~3) ⭐⭐中等(4~6) ⭐⭐⭐棘手(7~9)
 // 成功率 = 10 + 属性加成 - 难度 (上限95%，下限5%)
+// merit 公式: 5 + difficulty * 2
 const civilEvents = [
-    {title:"审理冤案",desc:"有百姓击鼓鸣冤，状告当地豪强侵占田产，案情错综复杂。",difficulty:4,level:"⭐⭐",merit:12},
-    {title:"赈灾救民",desc:"辖区遭遇旱灾，粮价飞涨，百姓流离失所，需你主持赈灾。",difficulty:6,level:"⭐⭐",merit:15},
-    {title:"修建水利",desc:"河道淤塞已久，每逢雨季便泛滥成灾，需组织民夫疏浚河道。",difficulty:5,level:"⭐⭐",merit:13},
-    {title:"审理重案",desc:"一桩命案牵扯到地方权贵，各方势力施压，需秉公断案。",difficulty:8,level:"⭐⭐⭐",merit:18},
-    {title:"制定赋税",desc:"朝廷下令清查田亩、重新核定赋税，需权衡各方利益。",difficulty:6,level:"⭐⭐",merit:14},
-    {title:"接待使节",desc:"邻国使节来访，需妥善安排接待，既不失国体又不铺张浪费。",difficulty:4,level:"⭐⭐",merit:11},
-    {title:"编纂方志",desc:"朝廷命各地编纂地方志，记录山川人物、风俗物产。",difficulty:2,level:"⭐",merit:10},
-    {title:"平定民乱",desc:"山中有匪寇聚众闹事，需调兵遣将予以清剿。",difficulty:9,level:"⭐⭐⭐",merit:20},
-    {title:"选拔贤才",desc:"朝廷开科取士，命你推荐地方贤才，需慧眼识人。",difficulty:3,level:"⭐",merit:10},
-    {title:"整顿吏治",desc:"下属官员贪腐成风，需整肃吏治、清理门户。",difficulty:7,level:"⭐⭐⭐",merit:16},
+    {title:"审理冤案",desc:"有百姓击鼓鸣冤，状告当地豪强侵占田产，案情错综复杂。",difficulty:4,level:"⭐⭐",merit:13},
+    {title:"赈灾救民",desc:"辖区遭遇旱灾，粮价飞涨，百姓流离失所，需你主持赈灾。",difficulty:6,level:"⭐⭐",merit:17},
+    {title:"修建水利",desc:"河道淤塞已久，每逢雨季便泛滥成灾，需组织民夫疏浚河道。",difficulty:5,level:"⭐⭐",merit:15},
+    {title:"审理重案",desc:"一桩命案牵扯到地方权贵，各方势力施压，需秉公断案。",difficulty:8,level:"⭐⭐⭐",merit:21},
+    {title:"制定赋税",desc:"朝廷下令清查田亩、重新核定赋税，需权衡各方利益。",difficulty:6,level:"⭐⭐",merit:17},
+    {title:"接待使节",desc:"邻国使节来访，需妥善安排接待，既不失国体又不铺张浪费。",difficulty:4,level:"⭐⭐",merit:13},
+    {title:"编纂方志",desc:"朝廷命各地编纂地方志，记录山川人物、风俗物产。",difficulty:2,level:"⭐",merit:9},
+    {title:"平定民乱",desc:"山中有匪寇聚众闹事，需调兵遣将予以清剿。",difficulty:9,level:"⭐⭐⭐",merit:23},
+    {title:"选拔贤才",desc:"朝廷开科取士，命你推荐地方贤才，需慧眼识人。",difficulty:3,level:"⭐",merit:11},
+    {title:"整顿吏治",desc:"下属官员贪腐成风，需整肃吏治、清理门户。",difficulty:7,level:"⭐⭐⭐",merit:19},
 ];
 const militaryEvents = [
-    {title:"边境巡逻",desc:"率部巡视边境，发现敌军斥候踪迹，需果断处置。",difficulty:4,level:"⭐⭐",merit:12},
-    {title:"操练新兵",desc:"朝廷拨下新兵，需加紧操练以备战事。",difficulty:2,level:"⭐",merit:10},
-    {title:"剿灭山贼",desc:"山中盗匪为祸乡里，百姓苦不堪言，需率军剿灭。",difficulty:5,level:"⭐⭐",merit:14},
-    {title:"驻防要塞",desc:"奉命驻守边关要塞，需修缮城防、储备粮草。",difficulty:6,level:"⭐⭐",merit:15},
-    {title:"护送粮草",desc:"押运大军粮草穿越敌境，需谨慎行军、防备偷袭。",difficulty:7,level:"⭐⭐⭐",merit:17},
-    {title:"夜袭敌营",desc:"探得敌军营寨空虚，可趁夜色奇袭。",difficulty:8,level:"⭐⭐⭐",merit:20},
-    {title:"构筑工事",desc:"前线需紧急构筑防御工事，工期紧迫、人手不足。",difficulty:4,level:"⭐⭐",merit:12},
-    {title:"招募乡勇",desc:"边境告急，需就地招募乡勇补充兵力。",difficulty:3,level:"⭐",merit:10},
-    {title:"抵御入侵",desc:"敌军大举来犯，需坚守城池待援。",difficulty:9,level:"⭐⭐⭐",merit:22},
-    {title:"安抚降卒",desc:"收编了一批降卒，需妥善安置以防生变。",difficulty:5,level:"⭐⭐",merit:13},
+    {title:"边境巡逻",desc:"率部巡视边境，发现敌军斥候踪迹，需果断处置。",difficulty:4,level:"⭐⭐",merit:13},
+    {title:"操练新兵",desc:"朝廷拨下新兵，需加紧操练以备战事。",difficulty:2,level:"⭐",merit:9},
+    {title:"剿灭山贼",desc:"山中盗匪为祸乡里，百姓苦不堪言，需率军剿灭。",difficulty:5,level:"⭐⭐",merit:15},
+    {title:"驻防要塞",desc:"奉命驻守边关要塞，需修缮城防、储备粮草。",difficulty:6,level:"⭐⭐",merit:17},
+    {title:"护送粮草",desc:"押运大军粮草穿越敌境，需谨慎行军、防备偷袭。",difficulty:7,level:"⭐⭐⭐",merit:19},
+    {title:"夜袭敌营",desc:"探得敌军营寨空虚，可趁夜色奇袭。",difficulty:8,level:"⭐⭐⭐",merit:21},
+    {title:"构筑工事",desc:"前线需紧急构筑防御工事，工期紧迫、人手不足。",difficulty:4,level:"⭐⭐",merit:13},
+    {title:"招募乡勇",desc:"边境告急，需就地招募乡勇补充兵力。",difficulty:3,level:"⭐",merit:11},
+    {title:"抵御入侵",desc:"敌军大举来犯，需坚守城池待援。",difficulty:9,level:"⭐⭐⭐",merit:23},
+    {title:"安抚降卒",desc:"收编了一批降卒，需妥善安置以防生变。",difficulty:5,level:"⭐⭐",merit:15},
 ];
+// d2/d3 赚多亏少(入门友好)，d4+ 等额对赌
 const merchantEvents = [
-    {title:"大宗交易",desc:"有外商携大量货物求售，价格诱人但需一次性付清。",difficulty:4,level:"⭐⭐",earn:180,lose:80},
-    {title:"开拓商路",desc:"发现一条通往西域的新商路，但路途艰险、投入巨大。",difficulty:6,level:"⭐⭐",earn:300,lose:150},
-    {title:"承办采购",desc:"官府招标采买军需物资，利润丰厚但要求严苛。",difficulty:5,level:"⭐⭐",earn:220,lose:100},
-    {title:"海运贸易",desc:"有船商邀你合伙出海贸易，风险大但利润惊人。",difficulty:8,level:"⭐⭐⭐",earn:400,lose:200},
-    {title:"开设分号",desc:"打算在邻县开设分号，需选址、招人、备货。",difficulty:3,level:"⭐",earn:160,lose:70},
-    {title:"囤积奇货",desc:"听说某种货物即将紧缺，是否大量囤积以待高价？",difficulty:6,level:"⭐⭐",earn:250,lose:120},
-    {title:"投资织坊",desc:"有人邀你投资新式织坊，前景不明但潜力巨大。",difficulty:4,level:"⭐⭐",earn:200,lose:90},
-    {title:"承接工程",desc:"朝廷发包修建官道，工期长但收益稳定。",difficulty:2,level:"⭐",earn:150,lose:60},
-    {title:"竞标盐引",desc:"盐引竞标在即，需筹措巨资参与。",difficulty:7,level:"⭐⭐⭐",earn:350,lose:180},
-    {title:"放贷收息",desc:"多位商人来借钱周转，利息可观但恐有坏账。",difficulty:5,level:"⭐⭐",earn:240,lose:110},
+    {title:"大宗交易",desc:"有外商携大量货物求售，价格诱人但需一次性付清。",difficulty:4,level:"⭐⭐",earn:8000,lose:8000},
+    {title:"开拓商路",desc:"发现一条通往西域的新商路，但路途艰险、投入巨大。",difficulty:6,level:"⭐⭐",earn:18000,lose:18000},
+    {title:"承办采购",desc:"官府招标采买军需物资，利润丰厚但要求严苛。",difficulty:5,level:"⭐⭐",earn:12500,lose:12500},
+    {title:"海运贸易",desc:"有船商邀你合伙出海贸易，风险大但利润惊人。",difficulty:8,level:"⭐⭐⭐",earn:32000,lose:32000},
+    {title:"开设分号",desc:"打算在邻县开设分号，需选址、招人、备货。",difficulty:3,level:"⭐",earn:4500,lose:2250},
+    {title:"囤积奇货",desc:"听说某种货物即将紧缺，是否大量囤积以待高价？",difficulty:6,level:"⭐⭐",earn:18000,lose:18000},
+    {title:"投资织坊",desc:"有人邀你投资新式织坊，前景不明但潜力巨大。",difficulty:4,level:"⭐⭐",earn:8000,lose:8000},
+    {title:"承接工程",desc:"朝廷发包修建官道，工期长但收益稳定。",difficulty:2,level:"⭐",earn:2000,lose:1000},
+    {title:"竞标盐引",desc:"盐引竞标在即，需筹措巨资参与。",difficulty:7,level:"⭐⭐⭐",earn:24500,lose:24500},
+    {title:"放贷收息",desc:"多位商人来借钱周转，利息可观但恐有坏账。",difficulty:5,level:"⭐⭐",earn:12500,lose:12500},
 ];
 
 const rankTitleMap = {
@@ -1325,7 +1603,7 @@ const rankTitleMap = {
 const jobLifeEffect = {
     "农民":5,"渔民":3,"木匠":2,"厨子":0,"绣娘":2,"厨娘":0,"织女":1,"丫鬟":-3,
     "书生":8,"私塾先生":12,"猎户":-5,"镖师":-10,"从军":-15,"女猎户":-5,"女镖师":-10,
-    "掌柜":10,"公子":15,"小姐":15,"富商":8
+    "掌柜":10,"公子":15,"小姐":15,"商人":8
 };
 
 const examQuestions = [
@@ -1536,8 +1814,9 @@ let gameData = {
     luck:20,reputation:0,achievement:0,money:0,actionNum:4,isSick:false,
     fatherSur:"",motherSur:"",familyList:[],friendList:[],
     era:{name:"太平",price:1,examDiff:1,conscriptRate:0},
-    armyCareer:false,job:"",officerRank:0,officerTitle:"",militaryRank:0,militaryTitle:"",examYear:0,
-    politicalMerit:0,militaryMerit:0,yearlyEvents:[],yearlyEventsDone:false,
+    armyCareer:false,job:"",officerRank:0,officerTitle:"",militaryRank:0,militaryTitle:"",merchantRank:0,merchantTitle:"",examYear:0,
+    highestOfficerRank:0,highestMilitaryRank:0,familyDegradationCount:0,
+    politicalMerit:0,militaryMerit:0,merchantWealth:0,yearlyEvents:[],yearlyEventsDone:false,
     richMerchantUnlocked:false,
     gambleConsecutiveWin:0,gambleTotalEarned:0,achievementDushen:false,achievementDuwang:false,
     isRoyal:false, // 是否为皇室成员（皇子/公主/世子/郡主）
@@ -1550,6 +1829,7 @@ let gameData = {
     marriageYear:0,
     lastChildYear:0,
     spouseLostYear:0, // 失妻年份，用于控制扶正条件
+    primaryWifeChildlessYears:0, // 原配无子年数（女玩家妾室扶正用）
     // 背包系统
     inventory:[], // [{id, name, type, favorBonus, description}]
     // 资产系统
@@ -1850,8 +2130,8 @@ function getJobRank(job){
     if(level1Jobs.includes(job)) return 1;
     if(job.includes("公子") || job.includes("小姐") || job.includes("之子") || job.includes("之女")) return 1;
     
-    // 2：官员/从军（7-9品）、富商、内当家
-    if(job === "富商" || job === "内当家") return 2;
+    // 2：官员/从军（7-9品）、商人、内当家
+    if(job === "商人" || job === "内当家") return 2;
     
     // 官员等级判断
     if(job.includes("官员")){
@@ -1895,6 +2175,19 @@ function getOfficerTitle(rank){
     return rankTitleMap[rank] || "九品·巡检";
 }
 
+// 更新最高官衔/军衔纪录（数字越小品级越高）
+function updateHighestRank(rank, isMilitary){
+    if(isMilitary){
+        if(rank > 0 && (gameData.highestMilitaryRank === 0 || rank < gameData.highestMilitaryRank)){
+            gameData.highestMilitaryRank = rank;
+        }
+    } else {
+        if(rank > 0 && (gameData.highestOfficerRank === 0 || rank < gameData.highestOfficerRank)){
+            gameData.highestOfficerRank = rank;
+        }
+    }
+}
+
 // 获取武官俸禄
 function getMilitarySalary(rank){
     let militaryRank = militaryRanks.find(r => r.rank === rank);
@@ -1904,7 +2197,7 @@ function getMilitarySalary(rank){
 // 获取武官头衔
 function getMilitaryTitle(rank){
     let militaryRank = militaryRanks.find(r => r.rank === rank);
-    return militaryRank ? militaryRank.title : "士兵";
+    return militaryRank ? militaryRank.name : "士兵";
 }
 
 function getYearIncome(){
@@ -1918,7 +2211,7 @@ function getYearIncome(){
     const jobMap = {
         "农民":40,"渔民":45,"木匠":60,"厨子":50,"绣娘":40,"厨娘":45,"织女":42,"丫鬟":35,
         "书生":65,"私塾先生":85,"猎户":55,"镖师":90,"女猎户":55,"女镖师":90,
-        "掌柜":110,"公子":90,"小姐":90,"富商":300
+        "掌柜":110,"公子":90,"小姐":90,"商人":300
     };
     return jobMap[gameData.job]||0;
 }
@@ -1960,25 +2253,11 @@ function assignJob(){
     if(gameData.job && gameData.job !== "无" && !gameData.job.endsWith("之子") && !gameData.job.endsWith("之女")) return;
 
     if(gameData.money>10000) gameData.richMerchantUnlocked=true;
-    let pool=[];
     let g=gameData.playerGender;
-    
-    // 才华足够时，男女都可以选择书生类职业
-    if(gameData.talent>=70) pool.push(...scholarJobs);
-    // 武力足够时，选择对应性别的武力职业
-    if(gameData.hasStrength && gameData.strength>=70) pool.push(...(g==="男"?maleForceJobs:femaleForceJobs));
-    
     let ft=gameData.familyType;
 
-    if(ft==="贫穷"||ft==="普通"){
-        // 无论男女，都可以选择普通职业
-        pool.push(...maleCommonJobs);
-        pool.push(...femaleCommonJobs);
-    }else if(ft==="富裕"){
-        pool.push("掌柜");
-    }else if(ft==="官宦"){
-        pool.push(g==="男"?"公子":"小姐");
-    }else if(ft==="权贵"){
+    // 权贵自动继承
+    if(ft==="权贵"){
         let f=gameData.familyList.find(x=>x.title==="父亲");
         let j=f?f.job:"世家";
         let suffix = g === "男" ? "之子" : "之女";
@@ -1986,10 +2265,145 @@ function assignJob(){
         popMsg(`成年！职业：${gameData.job}`); saveData(); refreshPage(); return;
     }
 
+    // 展示职业选择弹窗
+    showCareerChoice();
+    saveData(); refreshPage();
+}
+
+// 成年立业：根据属性展示可选职业路径
+function showCareerChoice(){
+    let g=gameData.playerGender;
+    let ft=gameData.familyType;
+    
+    // 检测条件（不显示给玩家）
+    let canMilitary = gameData.hasStrength && gameData.strength >= 70;
+    let canMerchant = gameData.money > 10000;
+    let canScholar = gameData.talent >= 70;
+
+    // ====== 按属性写个性化剧情 ======
+    let story = "";
+    let traits = [];
+    if(canMilitary) traits.push("武");
+    if(canScholar) traits.push("文");
+    if(canMerchant) traits.push("财");
+
+    if(traits.length === 0){
+        // 全不达标：自动分配，直接告知结果
+        let pool = getFreePathPool();
+        gameData.job = pool.length > 0 ? getRandom(pool) : (g === "男" ? "农民" : "绣娘");
+        story = `你已年满十八，行过冠礼。虽未见惊世之才，然天道酬勤，天地广阔，总有一席之地。<br><br>从此，你便是<b>${gameData.job}</b>，凭双手吃饭，日子踏实。天地广阔，且看这平凡一生能走出怎样的不凡之路。`;
+        let html = `<p style="line-height:2.4; font-size:17px; text-align:justify; text-indent:2em; margin-bottom:24px;">${story}</p>
+        <div class="modal-btn-group" style="justify-content:center;">
+            <button class="modal-btn" onclick="closeCareerChoice()">确定</button>
+        </div>`;
+        document.getElementById("careerChoiceContent").innerHTML = html;
+        showDiv("careerChoiceMask");
+        return;
+    } else if(traits.length === 1){
+        if(canMilitary){
+            story = `你已年满十八，行过冠礼。自幼闻鸡起舞，勤练不辍，如今一身筋骨铁打般结实，拳脚生风，寻常三五人近不得身。乡里都说你是块当兵打仗的好料子。<br><br>这般身手，岂能埋没于市井？人生之路，从何而起？`;
+        } else if(canScholar){
+            story = `你已年满十八，行过冠礼。自幼手不释卷，满腹经纶，谈吐不俗，写的一手好文章。乡里都说你是天生读书种子，日后必成大器。<br><br>腹有诗书气自华。人生之路，从何而起？`;
+        } else if(canMerchant){
+            story = `你已年满十八，行过冠礼。家中颇有余财，而你更精于算计，对银钱往来别有一番天赋。邻里都说你这脑瓜天生是块做生意的料。<br><br>万贯家财在手，何愁无路？人生之路，从何而起？`;
+        }
+    } else if(traits.length === 2){
+        if(canMilitary && canScholar){
+            story = `你已年满十八，行过冠礼。能提笔成文，亦能上马杀敌——十里八乡提起你，无不称一声文武双全。这般良材美质，不知羡煞多少人。<br><br>才兼文武，天下何处去不得？人生之路，从何而起？`;
+        } else if(canMilitary && canMerchant){
+            story = `你已年满十八，行过冠礼。武艺超群，又家财万贯——十里八乡提起你，无不竖起大拇指。有身手亦有本钱，天下大可去得。<br><br>这般人物，怎能甘于平庸？人生之路，从何而起？`;
+        } else if(canScholar && canMerchant){
+            story = `你已年满十八，行过冠礼。腹有诗书，家有余财——才财兼备，多少人几世修不来的福分。邻里提起你，只说这孩子前途无量。<br><br>才财双全，往后的路你自己选。人生之路，从何而起？`;
+        }
+    } else { // 三个都有
+        story = `你已年满十八，行过冠礼。十里八乡提起你，无人不竖大拇指——文武双全、家财万贯、才华横溢，真乃人中龙凤，百年难遇的全才。<br><br>这般人物，天下何处去不得？人生之路，从何而起？`;
+    }
+
+    // ====== 选项按钮 ======
+    let buttons = "";
+
+    if(canMilitary){
+        buttons += `<button class="modal-btn" onclick="chooseMilitaryPath()" style="width:100%; text-align:left; padding:12px 20px;">
+            <span style="font-size:18px;">⚔️ 从军报国</span><br>
+            <span style="font-size:14px; opacity:0.8;">凭一身武艺投身行伍，沙场建功，封侯拜将。</span>
+        </button>`;
+    }
+    if(canMerchant){
+        buttons += `<button class="modal-btn" onclick="chooseMerchantPath()" style="width:100%; text-align:left; padding:12px 20px;">
+            <span style="font-size:18px;">💰 经商致富</span><br>
+            <span style="font-size:14px; opacity:0.8;">以万贯家财行商天下，市井淘金，富甲一方。</span>
+        </button>`;
+    }
+    buttons += `<button class="modal-btn" onclick="chooseFreePath()" style="width:100%; text-align:left; padding:12px 20px;">
+        <span style="font-size:18px;">🍃 自由自在</span><br>
+        <span style="font-size:14px; opacity:0.8;">不拘一格，随性而为。凭家世或手艺安身立命。</span>
+    </button>`;
+
+    let html = `<p style="line-height:2.2; font-size:17px; text-align:justify; text-indent:2em; margin-bottom:24px;">
+        ${story}</p>
+        <div class="modal-btn-group" style="flex-direction:column; gap:10px;">
+            ${buttons}
+        </div>`;
+    document.getElementById("careerChoiceContent").innerHTML = html;
+    showDiv("careerChoiceMask");
+}
+
+function chooseMilitaryPath(){
+    hideDiv("careerChoiceMask");
+    gameData.job = "从军";
+    gameData.militaryRank = 9;
+    gameData.militaryTitle = getMilitaryTitle(9);
+    gameData.militaryMerit = 0;
+    gameData.lastPromotionYear = gameData.age;
+    gameData.lastPromotionRank = 9;
+    updateHighestRank(9, true);
+    popMsg(`⚔️ 你投身行伍，成为一名【${getMilitaryTitle(9)}】。`);
+    saveData(); refreshPage();
+}
+
+function chooseMerchantPath(){
+    hideDiv("careerChoiceMask");
+    gameData.job = "商人";
+    gameData.merchantRank = 6;
+    gameData.merchantTitle = merchantTitles[6];
+    gameData.merchantWealth = 0;
+    popMsg(`💰 你走上经商之路，从此以【${merchantTitles[6]}】身份行走天下。`);
+    saveData(); refreshPage();
+}
+
+function getFreePathPool(){
+    let g=gameData.playerGender;
+    let ft=gameData.familyType;
+    let pool=[];
+
+    if(gameData.talent>=70) pool.push(...scholarJobs);
+    if(gameData.hasStrength && gameData.strength>=70) pool.push(...(g==="男"?maleForceJobs:femaleForceJobs));
+
+    if(ft==="贫穷"||ft==="普通"){
+        pool.push(...maleCommonJobs);
+        pool.push(...femaleCommonJobs);
+    }else if(ft==="富裕"){
+        pool.push("掌柜");
+    }else if(ft==="官宦"){
+        pool.push(g==="男"?"公子":"小姐");
+    }
+
     pool = [...new Set(pool.filter(j => j !== banJob && j !== officerJob))];
-    if (pool.length === 0) pool = g === "男" ? ["农民"] : ["绣娘"];
+    if(pool.length === 0) pool = g === "男" ? ["农民"] : ["绣娘"];
+    return pool;
+}
+
+function chooseFreePath(){
+    hideDiv("careerChoiceMask");
+    let pool = getFreePathPool();
     gameData.job = getRandom(pool);
-    popMsg(`成年！职业：${gameData.job}`); saveData(); refreshPage();
+    popMsg(`🍃 你选择了自由之路。职业：${gameData.job}`);
+    saveData(); refreshPage();
+}
+
+function closeCareerChoice(){
+    hideDiv("careerChoiceMask");
+    saveData(); refreshPage();
 }
 
 function showJobChange(){
@@ -2004,8 +2418,8 @@ function showJobChange(){
     if (g === "男") jobs.push(...maleForceJobs);
     else jobs.push(...femaleForceJobs);
     
-    // 富商职业需要10000文
-    if (gameData.money > 10000) jobs.push("富商");
+    // 商人职业需要10000文
+    if (gameData.money > 10000) jobs.push("商人");
     
     jobs = [...new Set(jobs.filter(j => j !== banJob && j !== officerJob))];
     let html = "";
@@ -2021,21 +2435,84 @@ function showJobChange(){
 }
 
 function selectJob(j) {
-    // 如果之前是官员，现在选择其他职业，清除官职信息
-    if (gameData.job === officerJob && j !== officerJob) {
+    // 文官/武将换其他职业：先弹警告确认
+    if ((gameData.job === officerJob && j !== officerJob) || (gameData.job === "从军" && j !== "从军")) {
+        pendingJobChange = j;
+        showJobChangeWarning(j);
+        return;
+    }
+    applyJobChange(j);
+}
+
+let pendingJobChange = null;
+
+function showJobChangeWarning(newJob){
+    let isOfficer = gameData.job === officerJob;
+    let meritName = isOfficer ? "政绩" : "军功";
+    let curMerit = isOfficer ? (gameData.politicalMerit || 0) : (gameData.militaryMerit || 0);
+    let afterMerit = Math.floor(curMerit / 2);
+    let curTitle = isOfficer ? gameData.officerTitle : gameData.militaryTitle;
+    let html = `<p style="line-height:2.4; font-size:17px; text-align:justify; text-indent:2em; margin-bottom:20px;">
+        你身为<b>${curTitle}</b>，若卸任另谋他业，多年积攒的<b>${meritName}将减半</b>（${curMerit} → ${afterMerit}），官职亦将不复存在。
+        <br><br>一朝弃官，再无回头路。你可想清楚了？
+    </p>
+    <div class="modal-btn-group" style="justify-content:center;">
+        <button class="modal-btn" onclick="confirmJobChange()">决意弃官</button>
+        <button class="modal-btn" onclick="cancelJobChange()">还是留下</button>
+    </div>`;
+    document.getElementById("jobChangeWarnContent").innerHTML = html;
+    showDiv("jobChangeWarnMask");
+}
+
+function confirmJobChange(){
+    let newJob = pendingJobChange;
+    let isOfficer = gameData.job === officerJob;
+
+    // 政绩/军功减半
+    if(isOfficer){
+        gameData.politicalMerit = Math.floor((gameData.politicalMerit || 0) / 2);
         gameData.officerRank = 0;
         gameData.officerTitle = "无";
-    }
-    // 如果之前是从军，现在选择其他职业，清除军衔信息
-    if (gameData.job === "从军" && j !== "从军") {
+    } else {
+        gameData.militaryMerit = Math.floor((gameData.militaryMerit || 0) / 2);
         gameData.militaryRank = 0;
         gameData.militaryTitle = "";
     }
-    gameData.job = j;
-    popMsg("职业已更换");
+
+    // 清除商人信息（如果新职业不是商人）
+    if(gameData.job === "商人" && newJob !== "商人"){
+        gameData.merchantRank = 0;
+        gameData.merchantTitle = "";
+        gameData.merchantWealth = 0;
+    }
+
+    hideDiv("jobChangeWarnMask");
+    applyJobChange(newJob);
+}
+
+function cancelJobChange(){
+    hideDiv("jobChangeWarnMask");
+    pendingJobChange = null;
+}
+
+function applyJobChange(j){
     hideDiv("jobMask");
-    saveData();
-    refreshPage();
+    // 如果之前是商人，现在选择其他职业，清除商人信息
+    if (gameData.job === "商人" && j !== "商人") {
+        gameData.merchantRank = 0;
+        gameData.merchantTitle = "";
+        gameData.merchantWealth = 0;
+    }
+    // 新选商人的初始化
+    if(j === "商人" && gameData.merchantRank === 0){
+        gameData.merchantRank = 6;
+        gameData.merchantTitle = "行脚商";
+        gameData.merchantWealth = 0;
+        gameData.lastPromotionYear = gameData.age;
+        gameData.lastPromotionRank = 6;
+    }
+    gameData.job = j;
+    showJobChangeStory(j);
 }
 
 function openDoctorConfirm() {
@@ -2098,9 +2575,12 @@ function submitExamFunc(){
         if(s>=95){r="状元";rank=7;repuAdd=8;}
         else if(s>=90){r="榜眼";rank=7;repuAdd=6;}
         else if(s>=85){r="探花";rank=7;repuAdd=5;}
-        else {r="进士";rank=8;repuAdd=3;}
+        else {r="进士";rank=Math.random()<0.6?8:9;repuAdd=3;}
         gameData.officerRank = rank;
         gameData.officerTitle = `${r} · ${getOfficerTitle(rank)}`;
+        gameData.lastPromotionYear = gameData.age;
+        gameData.lastPromotionRank = rank;
+        updateHighestRank(rank, false);
         gameData.job=officerJob;gameData.reputation+=repuAdd;
         
         // 检查国家赠予房产
@@ -2321,6 +2801,12 @@ function initFamily() {
         motherIsOfficer = true;
     }
 
+    // 权贵双当官：一方三品以上(1~3)，另一方全品级(1~9)
+    let nobleHighIsFather = true;
+    if (canBeOfficer >= 2 && gameData.familyType === "权贵") {
+        nobleHighIsFather = Math.random() > 0.5; // 随机谁当高官
+    }
+
     // 分配父亲职业
     // 职业等级必须与家庭背景匹配：
     // 贫穷(1): 只能level 0（农民、渔民、木匠、厨子、猎户、樵夫、书生等）
@@ -2331,7 +2817,11 @@ function initFamily() {
     let fj = "平民", fRank = 0;
     if (fatherIsOfficer) {
         // 父亲担任文官或武官（仅官宦/权贵）
-        fRank = gameData.familyType === "权贵" ? getRandRange(1, 3) : getRandRange(4, 9);
+        if (gameData.familyType === "权贵") {
+            fRank = nobleHighIsFather ? getRandRange(1, 3) : getRandRange(1, 9);
+        } else {
+            fRank = getRandRange(4, 9);
+        }
         if (Math.random() < 0.35) {
             fj = getMilitaryTitle(fRank);
         } else {
@@ -2360,7 +2850,11 @@ function initFamily() {
     let mj = "主妇", mRank = 0;
     if (motherIsOfficer) {
         // 母亲担任文官或武官（仅官宦/权贵）
-        mRank = gameData.familyType === "权贵" ? getRandRange(1, 3) : getRandRange(4, 9);
+        if (gameData.familyType === "权贵") {
+            mRank = nobleHighIsFather ? getRandRange(1, 9) : getRandRange(1, 3);
+        } else {
+            mRank = getRandRange(4, 9);
+        }
         if (Math.random() < 0.35) {
             mj = getMilitaryTitle(mRank);
         } else {
@@ -2436,13 +2930,23 @@ function initPlayer() {
         gameData.job = gameData.royalTitle;
     } else {
         gameData.job = "";
+        gameData.royalTitle = "";
     }
     gameData.officerRank = 0; gameData.officerTitle = "";
+    gameData.militaryRank = 0; gameData.militaryTitle = "";
+    gameData.highestOfficerRank = 0; gameData.highestMilitaryRank = 0;
+    gameData.merchantRank = 0; gameData.merchantTitle = ""; gameData.merchantWealth = 0;
+    gameData.politicalMerit = 0; gameData.militaryMerit = 0;
+    gameData.armyCareer = false;
+    gameData.lastPromotionYear = 0; gameData.lastPromotionRank = 0;
     gameData.examYear = -100; gameData.richMerchantUnlocked = false;
     gameData.era = getRandom(eraEvents);
+    gameData.isDead = false;
     // 赌坊数据初始化
     gameData.gambleConsecutiveWin = 0;
     gameData.gambleTotalEarned = 0;
+    gameData.achievementDushen = false;
+    gameData.achievementDuwang = false;
     // 婚姻系统初始化
     gameData.spouse = null;
     gameData.children = [];
@@ -2452,6 +2956,7 @@ function initPlayer() {
     gameData.lastChildYear = 0;
     gameData.concubinePregnancies = {};
     gameData.isPrimaryWife = false;
+    gameData.primaryWifeChildlessYears = 0;
     gameData.unmarriedYearsSince20 = 0;
     gameData.matchmakingProb = 30;
     // 资产系统初始化
@@ -2517,8 +3022,66 @@ function refreshPage() {
         officerText = gameData.officerTitle || "无";
     } else if (gameData.job === "从军") {
         officerText = getMilitaryTitle(gameData.militaryRank || 9);
+    } else if (gameData.job === "商人") {
+        officerText = gameData.merchantTitle || "行脚商";
     }
     document.getElementById("charOfficer").innerText = officerText;
+    // 职业进度（下一级条件）
+    let progDiv = document.getElementById("careerProgress");
+    let progText = document.getElementById("careerProgressText");
+    if (gameData.job === officerJob && gameData.officerRank >= 1) {
+        if (gameData.officerRank === 1) {
+            progDiv.style.display = "";
+            progText.innerText = "已位极人臣";
+        } else {
+            // 找到当前rank对应的晋升阈值（rank 8/9 没有直接定义，用7的）
+            let info = promotionThresholds[gameData.officerRank];
+            let cur = gameData.officerRank;
+            while (!info && cur > 1) { cur--; info = promotionThresholds[cur]; }
+            if (info) {
+                let need = info.threshold;
+                let nextTitle = getOfficerTitle(info.next);
+                progDiv.style.display = "";
+                progText.innerText = `政绩 ${gameData.politicalMerit} / ${need}  → ${nextTitle}`;
+            } else {
+                progDiv.style.display = "none";
+            }
+        }
+    } else if (gameData.job === "从军" && gameData.militaryRank >= 1) {
+        if (gameData.militaryRank === 1) {
+            progDiv.style.display = "";
+            progText.innerText = "已是大将军";
+        } else {
+            let info = promotionThresholds[gameData.militaryRank];
+            let cur = gameData.militaryRank;
+            while (!info && cur > 1) { cur--; info = promotionThresholds[cur]; }
+            if (info) {
+                let need = info.threshold;
+                let nextTitle = getMilitaryTitle(info.next);
+                progDiv.style.display = "";
+                progText.innerText = `军功 ${gameData.militaryMerit} / ${need}  → ${nextTitle}`;
+            } else {
+                progDiv.style.display = "none";
+            }
+        }
+    } else if (gameData.job === "商人" && gameData.merchantRank >= 1) {
+        if (gameData.merchantRank === 1) {
+            progDiv.style.display = "";
+            progText.innerText = "已是天下首富";
+        } else {
+            let info = merchantPromotionThresholds[gameData.merchantRank];
+            if (info) {
+                let need = info.threshold;
+                let nextTitle = merchantTitles[info.next];
+                progDiv.style.display = "";
+                progText.innerText = `净盈利 ${gameData.merchantWealth} / ${need}  → ${nextTitle}`;
+            } else {
+                progDiv.style.display = "none";
+            }
+        }
+    } else {
+        progDiv.style.display = "none";
+    }
     document.getElementById("attrStrength").innerText = gameData.hasStrength ? gameData.strength : "未解锁";
     gameData.hasStrength ? showDiv("trainStrength") : hideDiv("trainStrength");
     document.getElementById("charStatus").innerText = gameData.isSick ? "生病" : (gameData.pregnancy ? "怀孕" : "健康");
@@ -2653,9 +3216,12 @@ function refreshPage() {
 
                 // 只有在非限制情况下才使用通用按钮组
                 if(!isLimitedConcubineWife && it.type !== "spouse"){
+                    let pocketBtn = (it.type==="parent"||it.type==="sibling") ?
+                        `<button class="action-btn" onclick="askPocketMoney('${it.name}')">索要零花钱</button>` : "";
                     btnGroup = `
                         <button class="action-btn" onclick="interactFamily('${it.name}','${t}')">${t}</button>
                         <button class="action-btn" onclick="giveGift('${it.name}')">送礼</button>
+                        ${pocketBtn}
                         ${intimacyBtn}
                         ${concubineBtns}
                         ${divorceBtn}`;
@@ -2773,16 +3339,13 @@ function refreshPage() {
     // 资产显示
     updatePropertyUI();
 
-    // 背包显示
-    updateInventoryUI();
-
     // 婚姻系统UI更新
     updateMarriageUI();
     updateMarriageButtons();
 
     // 年度执务卡片：官员/武将/商人有未处理事件时显示
     let hasYearlyEvents = gameData.yearlyEvents && gameData.yearlyEvents.length > 0 && !gameData.yearlyEventsDone;
-    let canAdjudicate = gameData.job === officerJob || gameData.job === "从军" || gameData.job === "富商";
+    let canAdjudicate = gameData.job === officerJob || gameData.job === "从军" || gameData.job === "商人";
     if(canAdjudicate && hasYearlyEvents){
         let unresolved = gameData.yearlyEvents.filter(e => !e.resolved).length;
         let jobLabel = gameData.job === officerJob ? "官员" : (gameData.job === "从军" ? "武将" : "商人");
@@ -2804,16 +3367,35 @@ window.interactFamily=function(n,t){
     }
     popMsg(`${n} 好感提升 +${add}`);saveData();refreshPage();
 };
-window.giveGift=function(n){
-    if(gameData.actionNum<=0||gameData.money<15)return showToast("次数或钱财不足");
-    let p=gameData.familyList.find(x=>x.name===n);if(!p)return;
-    let add=getRand1To4();
-    gameData.money-=15;p.favor=Math.min(100,p.favor+add);gameData.actionNum--;
-    // 同步更新配偶好感
-    if(p.type==="spouse" && gameData.spouse){
-        gameData.spouse.favor = p.favor;
+
+
+// 索要零花钱（仅父母/兄弟姐妹，不消耗行动力）
+window.askPocketMoney=function(n){
+    let p=gameData.familyList.find(x=>x.name===n);
+    if(!p)return;
+    if(p.type!=="parent"&&p.type!=="sibling")return showToast("只能向父母兄弟姐妹索要零花钱");
+    // 家庭背景年收入基准
+    const baseIncomeMap={"贫穷":20,"普通":50,"富裕":120,"官宦":180,"权贵":260};
+    let baseIncome=baseIncomeMap[gameData.familyType]||50;
+    if(p.age<16)return popMsg(`${n}还未成年，没有零花钱可以给你……`);
+    if(p.favor>70){
+        let pct=0.3+Math.random()*0.3; // 年收入30%~60%
+        let amount=Math.floor(baseIncome*pct);
+        gameData.money+=amount;
+        if(!gameData.pocketMoneyTutShown){
+            gameData.pocketMoneyTutShown=true;
+            popMsg(`💡 索要零花钱：16岁以上家人好感>70才会给零花钱（年收入30%~60%），好感太低可要不到哦！不消耗行动力，逢年过节都可以要。`);
+        }
+        popMsg(`${n}对你甚是溺爱，笑呵呵地塞给你 ${amount} 文零花钱！`);
+    } else {
+        let reasons=[
+            `${n}叹了口气：“家里近来手头紧，你先自己省着点吧。”`,
+            `${n}板着脸道：“小小年纪乱花什么钱，不行。”`,
+            `${n}摇了摇头：“莫要养成伸手要钱的习惯，自己去挣。”`
+        ];
+        popMsg(reasons[Math.floor(Math.random()*reasons.length)]);
     }
-    popMsg(`${n} 好感提升 +${add}`);saveData();refreshPage();
+    saveData();refreshPage();
 };
 
 function applyEvent(e){
@@ -2827,13 +3409,16 @@ function applyEvent(e){
     if(ef.声望)gameData.reputation+=ef.声望;
     if(ef.患病){
         gameData.isSick=true;
-        gameData.stamina = 3; // 生病时精力为3
+        gameData.stamina = Math.max(0, gameData.stamina - 3); // 生病时体质-3
     }
     if(ef.unlockStrength){
         if(!gameData.hasStrength){
             gameData.hasStrength=true;
             gameData.strength=10;
+            popMsg("武学宗师招生，成功解锁武力属性与习武功能！");
             addActionLog("奇遇", "武学宗师招生，成功解锁武力属性与习武功能！");
+        } else {
+            return; // 已解锁，跳过此事件（不再重复记载“武学宗师招生”）
         }
     }
     if(ef.makeFriend){
@@ -3200,22 +3785,30 @@ function growAge(){
     // 检查所有子女的培养方式，如果钱财不足则自动更换为放养
     checkAllChildrenEducation();
 
-    // 女玩家为妾时：检测是否可被扶正
+    // 女玩家为妾时：检测是否可被扶正（需原配三年无子）
     if(gameData.playerGender === "女" && gameData.spouse && !gameData.isPrimaryWife){
-        // 正妻已死亡或无子
         let spouseInFamily = gameData.familyList.find(f => f.type === "spouse");
-        let hasChildren = gameData.children.length > 0;
         let wifeExists = spouseInFamily && spouseInFamily.name !== gameData.playerName;
-        let wifeNoChildren = wifeExists && gameData.children.length === 0;
-        
-        if(!wifeExists || wifeNoChildren){
-            // 正妻已死亡或无子，满足条件则检测是否被扶正
-            if(gameData.spouse.favor > 90 && hasChildren && Math.random() < 0.6){
-                // 触发扶正弹窗
+        // 检查原配是否有嫡子女
+        let wifeHasChild = false;
+        if(wifeExists){
+            wifeHasChild = gameData.children.some(c => c.motherName === spouseInFamily.name || c.childType === "嫡子" || c.childType === "嫡女");
+        }
+        if(!wifeExists){
+            // 原配已死，直接可以扶正
+            gameData.primaryWifeChildlessYears = 999;
+        } else if(!wifeHasChild){
+            gameData.primaryWifeChildlessYears++;
+        } else {
+            gameData.primaryWifeChildlessYears = 0;
+        }
+        // 原配三年无子或无原配，且丈夫好感>90，玩家有子女，方可扶正
+        if(gameData.primaryWifeChildlessYears >= 3 && gameData.spouse.favor > 90 && gameData.children.some(c => c.motherName === gameData.playerName)){
+            if(Math.random() < 0.6){
                 let raiseToWifeHtml = `
                     <div class="modal" id="raiseToWifeConfirm">
                         <p style="color:#e74c3c; font-size:18px;">恭喜！</p>
-                        <p>你的丈夫${gameData.spouse.name}决定将你扶为正妻！</p>
+                        <p>原配${wifeExists ? "三年无子" : "已故"}，丈夫${gameData.spouse.name}决定将你扶为正妻！</p>
                         <div class="modal-btn-group">
                             <button class="modal-btn" onclick="confirmRaiseToWife()">接受</button>
                         </div>
@@ -3253,6 +3846,11 @@ function growAge(){
     // 添加年岁增长消息到公告队列
     popMsg(`年岁增长，获得${inc}文${gameData.children.length > 0 ? ', 支付子女抚养费' + gameData.children.length * 80 + '文' : ''}`);
 
+    // 12岁提醒：三年后可参加科举
+    if(gameData.age === 12 && gameData.job !== officerJob){
+        showAge12Notice();
+    }
+
     // 只在18岁成年时判定职业一次（非官员情况下）
     if(gameData.age === 18 && gameData.job !== officerJob){
         assignJob();
@@ -3273,8 +3871,15 @@ function growAge(){
         checkHusbandConcubine();
     }
 
+    // 成年才俊直招为官：才华>50、声望>40，60%概率弹窗询问是否接受征辟
+    if(gameData.age >= 18 && gameData.talent > 50 && gameData.reputation > 40 
+        && gameData.job !== officerJob && gameData.job !== "从军" && gameData.job !== "商人"
+        && Math.random() < 0.6){
+        showTalentRecruitmentAsk();
+    }
+
     // 官员/武将/商人：生成年度执务事件（可选处理，不强制弹窗）
-    if((gameData.job === officerJob || gameData.job === "从军" || gameData.job === "富商") && !gameData.yearlyEventsDone){
+    if((gameData.job === officerJob || gameData.job === "从军" || gameData.job === "商人") && !gameData.yearlyEventsDone){
         generateYearlyEvents();
     }
 
@@ -3453,7 +4058,7 @@ document.getElementById("confirmCustom").onclick=()=>{
     let lv=["贫穷","普通","富裕","官宦","权贵"].indexOf(f);
     createCustomRole(g,f,lv);hideDiv("customMask");document.getElementById("mainPage").style.display="block";refreshPage();
 };
-document.getElementById("changeJob").onclick=showJobChange;
+// 更换职业按钮已移至导航栏，直接通过onclick="showJobChange()"调用
 document.getElementById("closeJob").onclick=()=>{hideDiv("jobMask");};
 document.getElementById("openAiConfig").onclick=()=>{showDiv("aiConfigMask");};
 document.getElementById("closeAiConfig").onclick=()=>{hideDiv("aiConfigMask");};
@@ -3468,7 +4073,7 @@ document.getElementById("submitExam").onclick=submitExamFunc;
 document.getElementById("closeExam").onclick=()=>{hideDiv("examMask");};
 document.getElementById("joinArmyBtn").onclick=()=>{
     if(!gameData.hasStrength || gameData.strength < 70){showToast("武力不足70，无法从军");return;}
-    gameData.job="从军";gameData.militaryRank=9;gameData.militaryTitle="士兵";gameData.armyCareer=true;popMsg("从军成功，成为士兵");hideDiv("conscriptionMask");saveData();refreshPage();
+    gameData.job="从军";gameData.militaryRank=9;gameData.militaryTitle="士兵";gameData.lastPromotionYear=gameData.age;gameData.lastPromotionRank=9;gameData.armyCareer=true;updateHighestRank(9, true);popMsg("从军成功，成为士兵");hideDiv("conscriptionMask");saveData();refreshPage();
 };
 
 // 年度裁决面板：处理完毕按钮
@@ -3570,6 +4175,175 @@ function refuseParentMatchmaking(){
     hideDiv("parentMatchmakingMask");
     popMsg("你拒绝了父母安排的相亲");
     saveData();
+}
+
+// 显示朝廷征辟弹窗（玩家可选择接受或拒绝）
+function showTalentRecruitmentAsk(){
+    let title = getOfficerTitle(9);
+    let salary = getOfficialSalary(9);
+    let html = `<p style="text-align:center; font-size:18px; line-height:2; margin-bottom:10px;">
+        朝廷听闻你才华出众（才华${gameData.talent}）、声望卓著（声望${gameData.reputation}），</p>
+        <p style="text-align:center; font-size:18px; line-height:2; margin-bottom:20px;">
+        特下诏征辟你为 <b style="color:#5a3a1a;">【${title}】</b>，俸禄 <b>${salary}文/年</b>。</p>
+        <p style="text-align:center; font-size:16px; color:#8b6914; margin-bottom:20px;">你是否愿意接受朝廷征辟，入仕为官？</p>
+    <div class="modal-btn-group" style="justify-content:center;">
+        <button class="modal-btn" onclick="acceptTalentRecruitment()">欣然接受</button>
+        <button class="modal-btn" onclick="refuseTalentRecruitment()">婉言谢绝</button>
+    </div>`;
+    document.getElementById("talentRecruitmentContent").innerHTML = html;
+    showDiv("talentRecruitmentMask");
+}
+
+function acceptTalentRecruitment(){
+    hideDiv("talentRecruitmentMask");
+    hideDiv("careerChoiceMask"); // 征辟优先，关掉成年立业弹窗
+    gameData.officerRank = 9;
+    gameData.officerTitle = getOfficerTitle(9);
+    gameData.lastPromotionYear = gameData.age;
+    gameData.lastPromotionRank = 9;
+    updateHighestRank(9, false);
+    gameData.job = officerJob;
+    gameData.politicalMerit = 0;
+    popMsg(`📜 你欣然接受朝廷征辟，即日起为【${getOfficerTitle(9)}】，俸禄${getOfficialSalary(9)}文/年。`);
+    refreshPage();
+    saveData();
+}
+
+function refuseTalentRecruitment(){
+    hideDiv("talentRecruitmentMask");
+    popMsg("你婉言谢绝了朝廷征辟，继续过着闲云野鹤的生活。声望+5。");
+    gameData.reputation += 5;
+    saveData();
+}
+
+// 成年分职业剧情弹窗
+function showComingOfAgeStory(job){
+    // 按职业生成不同的成年剧情文字
+    let story = "";
+    let scholarJobs = ["书生","私塾先生"];
+    let forceJobs = ["猎户","镖师","女猎户","女镖师","从军"];
+
+    if(job === "商人"){
+        story = `你已年满十八，行过冠礼，从此便是顶天立地的成年人了。<br><br>
+        家中有些积蓄，你自幼耳濡目染，对商贾之事颇有心得。如今自立门户，以贩货营生。一杆秤、一本账，市井之中亦有天地。<br><br>
+        从此，你便是<b>商人</b>。`;
+    } else if(scholarJobs.includes(job)){
+        story = `你已年满十八，行过冠礼，从此便是顶天立地的成年人了。<br><br>
+        十年寒窗，青灯黄卷。你虽未入仕途，却已满腹经纶。如今及冠，以<b>${job}</b>为业，或可传道授业，亦或待时而动、他日再赴考场。<br><br>
+        腹有诗书气自华，何愁前路无知己。`;
+    } else if(forceJobs.includes(job)){
+        story = `你已年满十八，行过冠礼，从此便是顶天立地的成年人了。<br><br>
+        自幼筋骨强健，好舞枪弄棒。如今成年，凭一身武艺立足。山野江湖，皆为舞台；刀光剑影，且看今朝。<br><br>
+        从此，你便是<b>${job}</b>。`;
+    } else if(job === "掌柜"){
+        story = `你已年满十八，行过冠礼，从此便是顶天立地的成年人了。<br><br>
+        家中颇有产业，你成年后接手一间铺子，成了<b>掌柜</b>。算盘珠响，银钱往来；商海沉浮，步步为营。<br><br>
+        和气生财，诚信为本。这条商道，且行且看。`;
+    } else if(job === "公子" || job === "小姐"){
+        story = `你已年满十八，行过冠礼，从此便是顶天立地的成年人了。<br><br>
+        生于官宦之家，自幼锦衣玉食。成年后承袭门风，往来皆鸿儒，谈笑有白丁。世人唤你一声<b>${job}</b>，敬你三分门第。<br><br>
+        然门楣之下，亦有千斤重担。`;
+    } else if(job.endsWith("之子") || job.endsWith("之女")){
+        story = `你已年满十八，行过冠礼，从此便是顶天立地的成年人了。<br><br>
+        出身权贵世家，朱门绣户，仆从环伺。成年后承袭门楣，身份尊为<b>${job}</b>。一言一行，皆系家族荣辱。<br><br>
+        世人羡你冠盖满京华，你却知高处不胜寒。`;
+    } else {
+        // 普通职业：农民、渔民、木匠、厨子、绣娘、厨娘、织女、丫鬟
+        story = `你已年满十八，行过冠礼，从此便是顶天立地的成年人了。<br><br>
+        未生显贵之家，未习文武之道，但你有一双手，足以安身立命。如今及冠，你成了<b>${job}</b>，凭本事吃饭，日子踏实。<br><br>
+        天地广阔，你我皆为过客。且看这平凡一生，能走出怎样的不凡之路。`;
+    }
+
+    let html = `<p style="line-height:2.4; font-size:17px; text-align:justify; text-indent:2em;">
+        ${story}
+    </p>
+    <div class="modal-btn-group" style="justify-content:center;">
+        <button class="modal-btn" onclick="closeComingOfAgeStory()">踏上征途</button>
+    </div>`;
+    document.getElementById("comingOfAgeContent").innerHTML = html;
+    showDiv("comingOfAgeMask");
+}
+
+function closeComingOfAgeStory(){
+    hideDiv("comingOfAgeMask");
+    saveData();
+}
+
+// 12岁提示：三年后可参加科举
+function showAge12Notice(){
+    let html = `<p style="line-height:2.4; font-size:17px; text-align:justify; text-indent:2em; margin-bottom:24px;">
+        你已年满十二，正值<b>志学之年</b>。夫子捋须道：“三年后，朝廷开科取士，凡年满十五者皆可应试。”
+        <br><br>科举及第者可<b>直接入仕为官</b>，从此鱼跃龙门，身价百倍。
+        <br><br>然科举不易，<b style="color:#5a3a1a;">才华越高，中榜越易</b>。夫子言罢，意味深长地看了你一眼——这三年，是潜心向学、磨砺才华，还是虚度光阴，全在你自己。
+    </p>
+    <div class="modal-btn-group" style="justify-content:center;">
+        <button class="modal-btn" onclick="closeAge12Notice()">弟子谨记</button>
+    </div>`;
+    document.getElementById("age12NoticeContent").innerHTML = html;
+    showDiv("age12NoticeMask");
+}
+
+function closeAge12Notice(){
+    hideDiv("age12NoticeMask");
+    saveData();
+}
+
+// 更换职业剧情弹窗（简短）
+function showJobChangeStory(newJob){
+    let story = "";
+    let forceJobs = ["猎户","镖师","从军","女猎户","女镖师"];
+
+    if(forceJobs.includes(newJob)){
+        story = `你放下旧业，执起刀弓。从此风餐露宿，以武为生。前路荆棘，却也豪气干云。<br><br>从此，你便是<b>${newJob}</b>。`;
+    } else if(newJob === "商人"){
+        story = `你收起旧行当，支起摊子做起买卖。算盘一响，黄金万两——商海茫茫，且看今朝。<br><br>从此，你便是<b>商人</b>。`;
+    } else if(newJob === "掌柜"){
+        story = `你接下铺子，成了掌柜。迎来送往，锱铢必较。和气生财，诚信为本。<br><br>从此，你便是<b>掌柜</b>。`;
+    } else if(newJob === "公子" || newJob === "小姐"){
+        story = `你回归门庭，承袭家风。往来皆鸿儒，谈笑无白丁。门楣之下，亦有重担。<br><br>从此，世人唤你一声<b>${newJob}</b>。`;
+    } else {
+        story = `你放下过往，从头开始。一双手，一门艺，足以安身立命。日子虽寻常，却也踏实。<br><br>从此，你便是<b>${newJob}</b>。`;
+    }
+
+    let html = `<p style="line-height:2.4; font-size:17px; text-align:justify; text-indent:2em; margin-bottom:24px;">
+        ${story}
+    </p>
+    <div class="modal-btn-group" style="justify-content:center;">
+        <button class="modal-btn" onclick="closeJobChangeStory()">继续前行</button>
+    </div>`;
+    document.getElementById("jobChangeStoryContent").innerHTML = html;
+    showDiv("jobChangeStoryMask");
+}
+
+function closeJobChangeStory(){
+    hideDiv("jobChangeStoryMask");
+    saveData();
+    refreshPage();
+}
+
+// 家族降级剧情弹窗
+function showFamilyDegradationStory(from, to){
+    let story = "";
+    if (from === "权贵" && to === "官宦") {
+        story = `昔日门庭煊赫，钟鸣鼎食——然接连两代未出三品以上大员，朝中故旧渐散，圣眷日薄。<br><br>族长召集族人，长叹一声：“祖宗挣下的门楣，到我们这代算是矮了一截。”<br><br>从此，你家长房一脉除爵归第，虽仍列<b>官宦</b>之列，却再非当年权贵气象。`;
+    } else if (from === "官宦" && to === "富裕") {
+        story = `接连两代无人入仕——同僚断了往来，门生散尽，昔日府邸前的车马喧嚣早已不再。<br><br>族中老人望着日渐冷清的门庭，摇头叹息：“宦海沉浮，不进则退。咱们家，终究是败落了。”<br><br>从此，你家褪去官身，归为<b>富裕</b>之户。虽有余财，却再无官场荫庇。`;
+    }
+    
+    let html = `<p style="line-height:2.4; font-size:17px; text-align:justify; text-indent:2em; margin-bottom:24px;">
+        ${story}
+    </p>
+    <div class="modal-btn-group" style="justify-content:center;">
+        <button class="modal-btn" onclick="closeFamilyDegradationStory()">重整门楣</button>
+    </div>`;
+    document.getElementById("familyDegradationContent").innerHTML = html;
+    showDiv("familyDegradationMask");
+}
+
+function closeFamilyDegradationStory(){
+    hideDiv("familyDegradationMask");
+    saveData();
+    refreshPage();
 }
 
 // 触发相亲
@@ -4354,7 +5128,7 @@ function canTakeConcubine(){
     
     // 检查家庭/官职条件：富裕及以上
     let familyOk = gameData.familyType === "富裕" || gameData.familyType === "官宦" || gameData.familyType === "权贵";
-    let jobOk = gameData.job === "富商" || gameData.officerRank > 0 || (gameData.job === "从军" && gameData.militaryRank <= 5);
+    let jobOk = gameData.job === "商人" || gameData.officerRank > 0 || (gameData.job === "从军" && gameData.militaryRank <= 5);
     if(!familyOk && !jobOk) return {can:false, reason:"家庭或官职需达到富裕及以上"};
     
     return {can:true, reason:""};
@@ -4678,6 +5452,20 @@ function divorceSpouse(isInitiatedBySpouse = false){
         return;
     }
     
+    // 玩家主动和离：需已婚五年且无子女，否则扣声望
+    if(!isInitiatedBySpouse){
+        let marriedYears = gameData.age - gameData.marriageYear;
+        let hasChildWithSpouse = gameData.children.some(c => {
+            if(gameData.playerGender === "男") return c.motherName === spouseName;
+            else return c.fatherName === spouseName;
+        });
+        if(marriedYears < 5 || hasChildWithSpouse){
+            if(gameData.reputation < 10) return showToast("声望不足10，无法强行和离");
+            gameData.reputation -= 10;
+            popMsg(`强行和离，声望-10`);
+        }
+    }
+    
     // 处理孩子归属：50%概率被对方带走（必须是自己的孩子）
     let takenChildren = [];
     let remainingChildren = [];
@@ -4738,6 +5526,10 @@ function divorceConcubine(name){
     let c = gameData.concubines.find(x => x.name === name && !x.isOutside);
     if(!c) return;
     
+    // 和离扣声望
+    if(gameData.reputation < 5) return showToast("声望不足5，无法和离");
+    gameData.reputation -= 5;
+    
     // 处理孩子归属：50%概率被妾室带走
     let takenChildren = [];
     let remainingChildren = [];
@@ -4764,9 +5556,9 @@ function divorceConcubine(name){
     
     // 显示结果
     if(takenChildren.length > 0){
-        popMsg(`与${name}和离，${name}带走了${takenChildren.length}个孩子`);
+        popMsg(`与${name}和离，${name}带走了${takenChildren.length}个孩子，声望-5`);
     }else{
-        popMsg(`与${name}和离`);
+        popMsg(`与${name}和离，声望-5`);
     }
     
     saveData();
@@ -5428,12 +6220,14 @@ function calcEventSuccess(job, difficulty){
     let base;
     if(job === officerJob){
         base = 10 + Math.min(gameData.talent, 100) * 0.6 + Math.min(gameData.reputation, 100) * 0.3;
+        return Math.max(5, Math.min(95, Math.floor(base - difficulty)));
     } else if(job === "从军"){
         base = 10 + Math.min(gameData.strength, 100) * 0.6 + Math.min(gameData.reputation, 100) * 0.3;
-    } else { // 富商
-        base = 10 + Math.min(gameData.talent, 100) * 0.3 + Math.min(gameData.luck, 100) * 0.4 + Math.min(gameData.reputation, 100) * 0.2;
+        return Math.max(5, Math.min(95, Math.floor(base - difficulty)));
+    } else { // 商人
+        base = Math.min(gameData.talent, 100) * 0.3 + Math.min(gameData.luck, 100) * 0.4 + Math.min(gameData.reputation, 100) * 0.2 + 19;
+        return Math.max(5, Math.min(95, Math.floor(base - difficulty * 7)));
     }
-    return Math.max(5, Math.min(95, Math.floor(base - difficulty)));
 }
 
 // 生成年度3个随机事件
@@ -5441,7 +6235,7 @@ function generateYearlyEvents(){
     let pool;
     if(gameData.job === officerJob) pool = civilEvents;
     else if(gameData.job === "从军") pool = militaryEvents;
-    else if(gameData.job === "富商") pool = merchantEvents;
+    else if(gameData.job === "商人") pool = merchantEvents;
     else return;
     
     // 随机选3个不重复的事件
@@ -5475,9 +6269,10 @@ function resolveYearlyEvent(index){
     evt.rate = successRate;
     
     if(success){
-        if(gameData.job === "富商"){
+        if(gameData.job === "商人"){
             gameData.money += evt.earn;
-            popMsg(`${evt.title}——裁决成功！（成功率${successRate}%）获得 ${evt.earn} 文。`);
+            gameData.merchantWealth += evt.earn;
+            popMsg(`${evt.title}——裁决成功！（成功率${successRate}%）获利 ${evt.earn} 文。`);
         } else {
             let meritField = gameData.job === officerJob ? "politicalMerit" : "militaryMerit";
             gameData[meritField] += evt.merit;
@@ -5485,9 +6280,19 @@ function resolveYearlyEvent(index){
             popMsg(`${evt.title}——裁决成功！（成功率${successRate}%）${meritName}+${evt.merit}`);
         }
     } else {
-        if(gameData.job === "富商"){
+        if(gameData.job === "商人"){
             gameData.money = Math.max(0, gameData.money - evt.lose);
+            gameData.merchantWealth = Math.max(0, gameData.merchantWealth - evt.lose);
             popMsg(`${evt.title}——裁决失败！（成功率${successRate}%）损失 ${evt.lose} 文。`);
+            // 破产检查：钱亏到一万以下
+            if(gameData.money < 10000){
+                gameData.job = "";
+                gameData.merchantRank = 0;
+                gameData.merchantTitle = "";
+                gameData.merchantWealth = 0;
+                gameData.reputation = Math.max(0, gameData.reputation - 20);
+                popMsg(`💸 你已资不抵债，宣告破产！不再是从商之身，声望−20。`);
+            }
         } else {
             popMsg(`${evt.title}——裁决失败！（成功率${successRate}%）未能积累功绩。`);
         }
@@ -5496,35 +6301,146 @@ function resolveYearlyEvent(index){
     refreshYearlyEventPanel();
 }
 
-// 检查晋升（政绩/军功阈值待定）
+// 累积制晋升阈值：政绩/军功共用，达到累积值即可晋升
+const promotionThresholds = {
+    9: {next:8, threshold:50},
+    8: {next:7, threshold:100},
+    7: {next:6, threshold:150},
+    6: {next:5, threshold:280},
+    5: {next:4, threshold:450},
+    4: {next:3, threshold:650},
+    3: {next:2, threshold:860},
+    2: {next:1, threshold:1100}
+};
+
+// 晋升冷却期：距上次晋升最少间隔年数
+const promotionCoolDowns = {
+    7: 1,
+    6: 1,
+    5: 2,
+    4: 2,
+    3: 3,
+    2: 3
+};
+
+// 商人称号
+const merchantTitles = {
+    6: "行脚商",
+    5: "掌柜",
+    4: "富商",
+    3: "豪商",
+    2: "巨贾",
+    1: "天下首富"
+};
+
+// 商人晋升阈值（累积净盈利）
+const merchantPromotionThresholds = {
+    6: {next:5, threshold:30000},
+    5: {next:4, threshold:80000},
+    4: {next:3, threshold:170000},
+    3: {next:2, threshold:280000},
+    2: {next:1, threshold:420000}
+};
+
+// 商人晋升冷却期
+const merchantPromotionCoolDowns = {
+    6: 1,
+    5: 1,
+    4: 2,
+    3: 3,
+    2: 3
+};
+
+// 商人晋升奖励
+function getMerchantPromotionReward(newRank){
+    const rewards = {
+        5: {money:2000, rep:3},
+        4: {money:5000, rep:5},
+        3: {money:10000, rep:8},
+        2: {money:20000, rep:12},
+        1: {money:50000, rep:20}
+    };
+    return rewards[newRank] || {money:0, rep:0};
+}
+
+// 检查晋升（每年最多一级；曾达到过的等级免冷却）
 function checkPromotion(){
-    if(gameData.job !== officerJob && gameData.job !== "从军") return;
-    
-    let currentRank = gameData.job === officerJob ? gameData.officerRank : gameData.militaryRank;
-    let merit = gameData.job === officerJob ? gameData.politicalMerit : gameData.militaryMerit;
-    let meritName = gameData.job === officerJob ? "政绩" : "军功";
-    
-    // TODO: 晋升所需政绩/军功阈值尚未设定
-    // 晋升的条件判断留空，待后续补充
-    let threshold = 999; // 占位值，防止误触发
-    
-    if(currentRank > 1 && merit >= threshold){
-        let newRank = currentRank - 1;
-        if(gameData.job === officerJob){
-            gameData.officerRank = newRank;
-            gameData.officerTitle = getOfficerTitle(newRank);
-        } else {
-            gameData.militaryRank = newRank;
-            gameData.militaryTitle = getMilitaryTitle(newRank);
-        }
-        gameData.politicalMerit = 0;
-        gameData.militaryMerit = 0;
+    // 文官/武将
+    if(gameData.job === officerJob || gameData.job === "从军"){
+        let isMilitary = gameData.job === "从军";
+        let currentRank = isMilitary ? gameData.militaryRank : gameData.officerRank;
+        let merit = isMilitary ? gameData.militaryMerit : gameData.politicalMerit;
+        let highestRank = isMilitary ? (gameData.highestMilitaryRank || 0) : (gameData.highestOfficerRank || 0);
         
-        let reward = getPromotionReward(newRank);
-        gameData.money += reward.money;
-        gameData.reputation += reward.rep;
-        let title = gameData.job === officerJob ? gameData.officerTitle : gameData.militaryTitle;
-        popMsg(`🎉 恭喜晋升为${title}！赏金 ${reward.money} 文，声望+${reward.rep}！`);
+        // 如果当前等级比曾达到过的最高等级更低，说明是重返官场，免冷却
+        let isReturning = highestRank > 0 && currentRank > highestRank;
+        let yearsSincePromotion = gameData.age - (gameData.lastPromotionYear || 0);
+        let cooldown = isReturning ? 0 : (promotionCoolDowns[currentRank] || 0);
+        if(yearsSincePromotion < cooldown) return;
+        
+        // 每年最多晋升一级
+        if(currentRank > 1){
+            let info = promotionThresholds[currentRank];
+            if(info && merit >= info.threshold){
+                let nextRank = info.next;
+                // 曾达到过的等级免冷却，未达到过的走正常冷却
+                let alreadyReached = highestRank > 0 && nextRank >= highestRank;
+                let nextCooldown = alreadyReached ? 0 : (promotionCoolDowns[nextRank] || 0);
+                let yearsSince = gameData.age - (gameData.lastPromotionYear || 0);
+                if(yearsSince >= nextCooldown){
+                    if(isMilitary){
+                        gameData.militaryRank = nextRank;
+                        gameData.militaryTitle = getMilitaryTitle(nextRank);
+                    } else {
+                        gameData.officerRank = nextRank;
+                        gameData.officerTitle = getOfficerTitle(nextRank);
+                    }
+                    updateHighestRank(nextRank, isMilitary);
+                    gameData.lastPromotionYear = gameData.age;
+                    gameData.lastPromotionRank = nextRank;
+                    
+                    let reward = getPromotionReward(nextRank);
+                    gameData.money += reward.money;
+                    gameData.reputation += reward.rep;
+                    let title = isMilitary ? gameData.militaryTitle : gameData.officerTitle;
+                    let newSalary = isMilitary ? getMilitarySalary(nextRank) : getOfficialSalary(nextRank);
+                    popMsg(`🎉 恭喜晋升为【${title}】！赏金 ${reward.money} 文，声望+${reward.rep}，年俸涨至 ${newSalary} 文/年！`);
+                }
+            }
+        }
+        return;
+    }
+    
+    // 商人（保持原有每年可连升逻辑）
+    if(gameData.job === "商人"){
+        let currentRank = gameData.merchantRank;
+        
+        let yearsSincePromotion = gameData.age - (gameData.lastPromotionYear || 0);
+        let cooldown = merchantPromotionCoolDowns[currentRank] || 0;
+        if(yearsSincePromotion < cooldown) return;
+        
+        while(currentRank > 1){
+            let info = merchantPromotionThresholds[currentRank];
+            if(!info || gameData.merchantWealth < info.threshold) break;
+            
+            let nextCooldown = merchantPromotionCoolDowns[info.next] || 0;
+            let yearsSince = gameData.age - (gameData.lastPromotionYear || 0);
+            if(yearsSince < nextCooldown) break;
+            
+            let newRank = info.next;
+            gameData.merchantRank = newRank;
+            gameData.merchantTitle = merchantTitles[newRank];
+            gameData.lastPromotionYear = gameData.age;
+            gameData.lastPromotionRank = newRank;
+            
+            let reward = getMerchantPromotionReward(newRank);
+            gameData.money += reward.money;
+            gameData.reputation += reward.rep;
+            popMsg(`🎉 恭喜晋升为【${merchantTitles[newRank]}】！赏金 ${reward.money} 文，声望+${reward.rep}！`);
+            
+            currentRank = newRank;
+        }
+        return;
     }
 }
 
@@ -5553,7 +6469,7 @@ function refreshYearlyEventPanel(){
         if(e.resolved){
             btnClass += e.success ? " resolved-success" : " resolved-fail";
             btnText = e.success ? "✓ 成功" : "✗ 失败";
-            let detail = gameData.job === "富商" 
+            let detail = gameData.job === "商人" 
                 ? (e.success ? `获利 ${e.earn} 文` : `损失 ${e.lose} 文`)
                 : (e.success ? `${gameData.job === officerJob ? "政绩" : "军功"}+${e.merit}` : "功绩未增");
             resultHtml = `<div class="event-result ${e.success ? 'success' : 'fail'}">${detail}（概率${e.rate}%）</div>`;
@@ -5697,101 +6613,66 @@ function updatePropertyUI(){
     let carriageDisplay = document.getElementById("carriageDisplay");
     
     let houseText = "无";
+    let houseCount = 0;
     if(gameData.houses && gameData.houses.length > 0){
-        // 统计每种房产数量
         let houseCounts = {};
         for(let h of gameData.houses){
             houseCounts[h] = (houseCounts[h] || 0) + 1;
         }
         houseText = Object.entries(houseCounts).map(([name, count]) => `${name}x${count}`).join("、");
+        houseCount = gameData.houses.length;
     }
     houseDisplay.innerHTML = `<div style="padding:10px;">房产：${houseText}</div>`;
     
     let carriageText = "无";
+    let carriageCount = 0;
     if(gameData.carriages && gameData.carriages.length > 0){
-        // 统计每种马车数量
         let carriageCounts = {};
         for(let c of gameData.carriages){
             carriageCounts[c] = (carriageCounts[c] || 0) + 1;
         }
         carriageText = Object.entries(carriageCounts).map(([name, count]) => `${name}x${count}`).join("、");
+        carriageCount = gameData.carriages.length;
     }
     carriageDisplay.innerHTML = `<div style="padding:10px;">马车：${carriageText}</div>`;
+
+    // 侧栏资产简要
+    let invCount = gameData.inventory ? gameData.inventory.length : 0;
+    let parts = [];
+    if(houseCount > 0) parts.push(`房产${houseCount}处`);
+    if(carriageCount > 0) parts.push(`马车${carriageCount}辆`);
+    if(invCount > 0) parts.push(`背包${invCount}件`);
+    document.getElementById("assetsBrief").innerText = parts.length > 0 ? parts.join(" | ") + "  ▶ 点击查看详情" : "暂无资产  ▶ 点击前往商店";
 }
 
-// 背包显示
-function updateInventoryUI() {
-    let inventoryDisplay = document.getElementById("inventoryDisplay");
-    let inventoryCard = document.getElementById("inventoryCard");
-    
-    if(!gameData.inventory || gameData.inventory.length === 0){
-        inventoryCard.style.display = "none";
-        return;
-    }
-    
-    inventoryCard.style.display = "block";
-    // 内容默认折叠，不改变当前展开状态
-    
-    // 按类型分组显示
+// 背包详细渲染（供资产全屏页使用）
+function renderInventoryHtml(){
+    if(!gameData.inventory || gameData.inventory.length === 0) return "<p style='color:#999;text-align:center;padding:20px;'>背包空空如也</p>";
     let groupedItems = {};
     for(let item of gameData.inventory){
-        if(!groupedItems[item.type]){
-            groupedItems[item.type] = [];
-        }
+        if(!groupedItems[item.type]) groupedItems[item.type] = [];
         groupedItems[item.type].push(item);
     }
-    
     let html = "";
     for(let type in groupedItems){
         let items = groupedItems[type];
         let typeName = getTypeName(type);
-        html += `<div style="margin-bottom:15px;">
-            <div style="font-weight:bold; color:#5a3a1a; margin-bottom:8px; border-bottom:1px solid #c9a87c; padding-bottom:4px;">${typeName}</div>`;
-        
+        html += `<div style="margin-bottom:15px;"><div style="font-weight:bold; color:#5a3a1a; margin-bottom:8px; border-bottom:1px solid #c9a87c; padding-bottom:4px;">${typeName}</div>`;
         for(let item of items){
-            let effectText = "";
-            if(item.favorBonus){
-                effectText = `好感+${item.favorBonus}`;
-            }else if(item.effect){
-                let effects = [];
-                for(let key in item.effect){
-                    effects.push(`${getEffectName(key)}+${item.effect[key]}`);
-                }
-                effectText = effects.join("、");
-            }
-            
+            let effectText = item.favorBonus ? `好感+${item.favorBonus}` : (item.effect ? Object.entries(item.effect).map(([k,v]) => `${getEffectName(k)}+${v}`).join("、") : "");
             let canUseSelf = canItemBeUsedBySelf(item);
-            
             html += `<div style="padding:8px; background:rgba(248,242,230,0.7); margin-bottom:5px; border-radius:2px;">
                 <div style="font-weight:600; color:#4a3820;">${item.name} x${item.quantity || 1}</div>
                 <div style="font-size:13px; color:#6a5848; margin:4px 0;">${item.description}</div>
                 <div style="font-size:13px; color:#8b6914; margin-bottom:6px;">效果：${effectText}</div>
-                <div class="rel-btn-group">`;
-            
-            if(canUseSelf){
-                html += `<button class="action-btn" onclick="useItemFromInventory(${item.id}, 'self')">使用</button>`;
-            }
-            html += `<button class="action-btn" onclick="showGiftTargetFromInventory(${item.id})">赠送</button>`;
-            html += `</div></div>`;
+                <div class="rel-btn-group">${canUseSelf ? `<button class="action-btn" onclick="useItemFromInventory(${item.id}, 'self')">使用</button>` : ""}<button class="action-btn" onclick="showGiftTargetFromInventory(${item.id})">赠送</button></div></div>`;
         }
         html += "</div>";
     }
-    
-    inventoryDisplay.innerHTML = html;
+    return html;
 }
 
-// 切换背包展开/折叠
-function toggleInventory() {
-    let display = document.getElementById("inventoryDisplay");
-    let toggle = document.getElementById("inventoryToggle");
-    if(display.style.display === "none"){
-        display.style.display = "block";
-        toggle.textContent = "▼";
-    }else{
-        display.style.display = "none";
-        toggle.textContent = "▶";
-    }
-}
+// 背包已合并到资产可折叠区域内
 
 function getTypeName(type) {
     const typeNames = {
@@ -6033,70 +6914,18 @@ function triggerBanquetEvent(){
 
 // ========== UI刷新更新 ==========
 function updateMarriageUI(){
-    // 配偶已移至亲人列表，始终隐藏单独的配偶卡片
-    document.getElementById("spouseCard").style.display = "none";
-
-    // 妾室卡片：仅男玩家显示
-    if(gameData.playerGender === "男"){
-        let concubinesOnly = gameData.concubines.filter(c => !c.isOutside);
-        if(concubinesOnly.length > 0){
-            document.getElementById("concubineCard").style.display = "block";
-            let html = "";
-            for(let c of concubinesOnly){
-                html += `<div class="relation-item">
-                    <div class="rel-name">${c.name}（妾）</div>
-                    <div class="rel-info">年龄：${c.age} | 职业：${c.job || "无"} | 好感：${c.favor}</div>
-                </div>`;
-            }
-            document.getElementById("concubineDisplay").innerHTML = html;
-        }else{
-            document.getElementById("concubineCard").style.display = "none";
-        }
-    }else{
-        document.getElementById("concubineCard").style.display = "none";
+    // 配偶、妾室、子女均归入家人全屏页面（familyList中），
+    // 红颜/蓝颜知己显示通过导航按钮进入独立页面
+    let outsideRel = gameData.concubines.filter(c => c.isOutside);
+    let navOutside = document.getElementById("navOutside");
+    if(outsideRel.length > 0){
+        navOutside.style.display = "";
+        // 更新按钮标题
+        let label = gameData.playerGender === "男" ? "红颜" : "蓝颜";
+        navOutside.querySelector(".nav-label").innerText = label;
+    } else {
+        navOutside.style.display = "none";
     }
-    
-    // 红颜知己/蓝颜知己
-    let outsideWomen = gameData.concubines.filter(c => c.isOutside);
-    if(outsideWomen.length > 0){
-        document.getElementById("outsideCard").style.display = "block";
-        // 设置标题
-        let outsideTitle = gameData.playerGender === "男" ? "红颜知己" : "蓝颜知己";
-        document.getElementById("outsideTitle").innerText = outsideTitle;
-        
-        let html = "";
-        for(let c of outsideWomen){
-            let status = c.discovered ? "<span style='color:#e74c3c;'>（已被发现）</span>" : "";
-            html += `<div class="relation-item outside-item">
-                <div class="rel-name">${c.name}（${c.title}）${status}</div>
-                <div class="rel-info">年龄：${c.age} | 职业：${c.job || "无"} | 好感：${c.favor}</div>
-                <div class="rel-btn-group">
-                    <button class="action-btn" onclick="accompanyOutside('${c.name}')">陪伴</button>
-                    <button class="action-btn" onclick="giftOutside('${c.name}')">送礼</button>
-                    <button class="action-btn" onclick="intimacyOutside('${c.name}')">同房</button>
-                    ${gameData.playerGender === "男" ? `<button class="action-btn" style="background:#4a2a0a; color:#c9a060;" onclick="bringOutsideHome('${c.name}')">接进家</button>` : ''}
-                    <button class="action-btn" onclick="breakOutsideRelation('${c.name}')">断绝关系</button>
-                </div>
-                <!-- 红颜知己/蓝颜知己子女 -->
-                ${c.children && c.children.length > 0 ? `<div style="margin-top:10px; padding-top:10px; border-top:1px solid #ccc;">
-                    <p style="font-weight:bold; margin-bottom:5px;">子女：</p>
-                    ${c.children.map(child => `
-                        <div class="relation-item" style="background:#f0f0f0;">
-                            <div class="rel-name">${child.childType}${child.name}（${child.age}岁）</div>
-                            <div class="rel-info">颜值：${child.appearance} | 才华：${child.talent} | 武力：${child.strength}</div>
-                        </div>
-                    `).join('')}
-                </div>` : ''}
-            </div>`;
-        }
-        document.getElementById("outsideDisplay").innerHTML = html;
-    }else{
-        document.getElementById("outsideCard").style.display = "none";
-    }
-
-    // 子女已归入家中亲人折叠显示，不再需要独立子女卡片
-    let childrenCard = document.getElementById("childrenCard");
-    if(childrenCard) childrenCard.style.display = "none";
 }
 
 // 检查是否满足相亲条件（不修改状态）
@@ -6164,6 +6993,98 @@ document.getElementById("acceptHusbandConcubine").onclick=acceptHusbandConcubine
 document.getElementById("confirmBabyName").onclick=confirmBabyName;
 document.getElementById("btnChildrenEdu").onclick=showChildrenEducation;
 document.getElementById("closeChildrenEdu").onclick=()=>{hideDiv("childrenEduMask");};
+
+// ===== 资产全屏页面 =====
+function showAssetsPage(){
+    let html = `<div style="margin-bottom:20px; font-size:16px; color:#8B6914;">现有钱财：<b>${gameData.money}</b> 文</div>`;
+
+    // 房产
+    html += `<div class="category-section" style="margin-bottom:16px;">
+        <div class="category-header" onclick="toggleCategory('assetsHouse')" style="cursor:pointer;">
+            <span class="category-title">🏠 房产</span>
+            <span class="category-toggle" id="toggle-assetsHouse">▼</span>
+        </div>
+        <div class="category-content" id="category-assetsHouse">
+            <div class="category-items">`;
+    if(gameData.houses && gameData.houses.length > 0){
+        let houseCounts = {};
+        for(let h of gameData.houses) houseCounts[h] = (houseCounts[h] || 0) + 1;
+        for(let [name, count] of Object.entries(houseCounts)){
+            let price = houseConfig[name] ? houseConfig[name].price : 0;
+            let sellPrice = Math.floor(price * 0.7);
+            let info = houseConfig[name] ? (houseConfig[name].desc || "") : "";
+            html += `<div class="member-card">
+                <div class="member-info">
+                    <div class="member-name">${name} x${count}</div>
+                    <div class="member-detail">价值：${price}文 | 出售价：${sellPrice}文${info ? " | " + info : ""}</div>
+                </div>
+                <div class="member-actions">
+                    <button class="action-btn" onclick="sellPropertyFromAssets('house', '${name}')">出售</button>
+                </div>
+            </div>`;
+        }
+    } else { html += `<p style="color:#999;padding:10px;">暂无房产</p>`; }
+    html += `</div></div></div>`;
+
+    // 马车
+    html += `<div class="category-section" style="margin-bottom:16px;">
+        <div class="category-header" onclick="toggleCategory('assetsCarriage')" style="cursor:pointer;">
+            <span class="category-title">🐎 马车</span>
+            <span class="category-toggle" id="toggle-assetsCarriage">▼</span>
+        </div>
+        <div class="category-content" id="category-assetsCarriage">
+            <div class="category-items">`;
+    if(gameData.carriages && gameData.carriages.length > 0){
+        let carriageCounts = {};
+        for(let c of gameData.carriages) carriageCounts[c] = (carriageCounts[c] || 0) + 1;
+        for(let [name, count] of Object.entries(carriageCounts)){
+            let price = carriageConfig[name] ? carriageConfig[name].price : 0;
+            let sellPrice = Math.floor(price * 0.5);
+            let bonus = carriageConfig[name] ? (carriageConfig[name].actionBonus || 0) : 0;
+            html += `<div class="member-card">
+                <div class="member-info">
+                    <div class="member-name">${name} x${count}</div>
+                    <div class="member-detail">价值：${price}文 | 出售价：${sellPrice}文 | 行动加成：+${bonus}</div>
+                </div>
+                <div class="member-actions">
+                    <button class="action-btn" onclick="sellPropertyFromAssets('carriage', '${name}')">出售</button>
+                </div>
+            </div>`;
+        }
+    } else { html += `<p style="color:#999;padding:10px;">暂无马车</p>`; }
+    html += `</div></div></div>`;
+
+    // 背包
+    html += `<div class="category-section" style="margin-bottom:16px;">
+        <div class="category-header" onclick="toggleCategory('assetsInventory')" style="cursor:pointer;">
+            <span class="category-title">🎒 背包 (${gameData.inventory ? gameData.inventory.length : 0}件)</span>
+            <span class="category-toggle" id="toggle-assetsInventory">▼</span>
+        </div>
+        <div class="category-content" id="category-assetsInventory">
+            <div class="category-items">`;
+    html += renderInventoryHtml();
+    html += `</div></div></div>`;
+
+    // 前往商店按钮
+    html += `<div style="text-align:center; margin-top:16px;">
+        <button class="action-btn" style="padding:10px 32px; font-size:15px;" onclick="closeAssetsPage();showShop();">前往商店</button>
+    </div>`;
+
+    document.getElementById("assetsPageContent").innerHTML = html;
+    showDiv("assetsPageMask");
+}
+
+function sellPropertyFromAssets(type, name){
+    sellProperty(type, name);
+    // 刷新资产页内容
+    showAssetsPage();
+}
+
+function closeAssetsPage(){
+    hideDiv("assetsPageMask");
+    saveData();
+    refreshPage();
+}
 
 function showShop() {
     let html = "";
@@ -6282,6 +7203,83 @@ function toggleFamilyCategory(categoryKey) {
 function toggleFamilySection(sectionType) {
     // 这个函数可以用来控制整个家中亲人或好友名录的折叠
     // 暂时保留接口，可以根据需要扩展
+}
+
+// ===== 家人全屏页面 =====
+function showFamilyPage() {
+    // 从隐藏容器获取预渲染的家庭成员内容，复制到全屏页面
+    let src = document.getElementById("relList");
+    document.getElementById("familyPageContent").innerHTML = src ? src.innerHTML : "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无家人</p>";
+    showDiv("familyPageMask");
+}
+function closeFamilyPage() {
+    hideDiv("familyPageMask");
+    saveData();
+    refreshPage();
+}
+
+// ===== 好友全屏页面 =====
+function showFriendsPage() {
+    let src = document.getElementById("friendList");
+    document.getElementById("friendsPageContent").innerHTML = src ? src.innerHTML : "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无好友，外出散步或许能结识知己</p>";
+    showDiv("friendsPageMask");
+}
+function closeFriendsPage() {
+    hideDiv("friendsPageMask");
+    saveData();
+    refreshPage();
+}
+
+// ===== 红颜/蓝颜知己全屏页面 =====
+function showOutsidePage() {
+    let outsideRel = gameData.concubines.filter(c => c.isOutside);
+    let title = gameData.playerGender === "男" ? "红颜知己" : "蓝颜知己";
+    document.getElementById("outsidePageTitle").innerText = title;
+    
+    if(outsideRel.length === 0){
+        document.getElementById("outsidePageContent").innerHTML = "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无红颜知己</p>";
+    } else {
+        let html = "";
+        for(let c of outsideRel){
+            let status = c.discovered ? "<span style='color:#e74c3c;'>（已被发现）</span>" : "";
+            html += `<div class="member-card">
+                <div class="member-info">
+                    <div class="member-name">${c.name}（${c.title}）${status}</div>
+                    <div class="member-detail">${c.age}岁 | 职业：${c.job || "无"} | 好感：${c.favor} | 家世：${c.family || "不详"}</div>
+                </div>
+                <div class="member-actions">
+                    <button class="action-btn" onclick="accompanyOutside('${c.name}')">陪伴</button>
+                    <button class="action-btn" onclick="giftOutside('${c.name}')">送礼</button>
+                    <button class="action-btn" onclick="intimacyOutside('${c.name}')">同房</button>
+                    ${gameData.playerGender === "男" ? `<button class="action-btn" style="background:#4a2a0a; color:#c9a060;" onclick="bringOutsideHome('${c.name}')">接进家</button>` : ''}
+                    <button class="action-btn" onclick="breakOutsideRelation('${c.name}')">断绝关系</button>
+                </div>
+            </div>`;
+            
+            // 红颜/蓝颜子女
+            if(c.children && c.children.length > 0){
+                html += `<div style="margin:6px 0 16px 20px; padding:10px; background:rgba(240,230,210,0.5); border-left:3px solid #c9a87c; border-radius:0 4px 4px 0;">
+                    <p style="font-weight:700; margin-bottom:8px; color:#5a3a1a;">子女：</p>`;
+                for(let child of c.children){
+                    html += `<div class="member-card" style="background:rgba(255,255,255,0.7);">
+                        <div class="member-info">
+                            <div class="member-name">${child.childType}${child.name}（${child.age}岁）</div>
+                            <div class="member-detail">性别：${child.gender} | 颜值：${child.appearance} | 才华：${child.talent} | 武力：${child.strength}</div>
+                        </div>
+                    </div>`;
+                }
+                html += `</div>`;
+            }
+        }
+        document.getElementById("outsidePageContent").innerHTML = html;
+    }
+    showDiv("outsidePageMask");
+}
+
+function closeOutsidePage() {
+    hideDiv("outsidePageMask");
+    saveData();
+    refreshPage();
 }
 
 function buyItem(itemId){
@@ -7383,8 +8381,7 @@ function generateChildName(gender){
     return sur + name;
 }
 
-// 商店按钮绑定
-document.getElementById("openShop").onclick=showShop;
+// 商店按钮已移至导航栏，直接通过onclick="showShop()"调用
 document.getElementById("closeShop").onclick=()=>{hideDiv("shopMask");};
 document.getElementById("closeGift").onclick=()=>{hideDiv("giftMask"); selectedGiftIndex=-1; currentGiftRecipient=null;};
 document.getElementById("confirmGift").onclick=confirmGift;
@@ -7557,6 +8554,52 @@ function confirmInheritance(childName){
     let inheritedReputation = Math.floor(gameData.reputation * 0.5); // 声望保留50%
     let heirSpouse = selectedHeir.spouse || null; // 子女的配偶
     
+    // ===== 家族降级检查（在重置前读取旧数据）=====
+    let oldFamilyType = gameData.familyType;
+    let oldOfficerRank = gameData.officerRank;
+    let oldMilitaryRank = gameData.militaryRank;
+    let oldJob = gameData.job;
+    let degradationCount = gameData.familyDegradationCount || 0;
+    let willDegrade = false;
+    let degradeFrom = null;
+    let degradeTo = null;
+    
+    if (oldFamilyType === "权贵") {
+        // 权贵：要求文官或武将三品及以上
+        let met = (oldOfficerRank > 0 && oldOfficerRank <= 3) || (oldMilitaryRank > 0 && oldMilitaryRank <= 3);
+        if (!met) {
+            degradationCount++;
+            if (degradationCount >= 2) {
+                willDegrade = true;
+                degradeFrom = "权贵";
+                degradeTo = "官宦";
+                degradationCount = 0;
+            }
+        } else {
+            degradationCount = 0;
+        }
+    } else if (oldFamilyType === "官宦") {
+        // 官宦：要求走文官或武将职业
+        let met = oldJob === officerJob || oldJob === "从军";
+        if (!met) {
+            degradationCount++;
+            if (degradationCount >= 2) {
+                willDegrade = true;
+                degradeFrom = "官宦";
+                degradeTo = "富裕";
+                degradationCount = 0;
+            }
+        } else {
+            degradationCount = 0;
+        }
+    }
+    
+    // 如果降级，在重置前先改家庭类型
+    if (willDegrade) {
+        gameData.familyType = degradeTo;
+        gameData.familyLevel = degradeTo === "官宦" ? 3 : 2;
+    }
+    
     // 重置游戏数据，继承属性
     initPlayer();
     gameData.isDead = false; // 继承人开始新的人生
@@ -7624,8 +8667,15 @@ function confirmInheritance(childName){
     gameData.actionNum += getCarriageActionBonus(); // 继承后加上马车加成
     gameData.gambleConsecutiveWin = 0; // 传代后连胜清零
     gameData.gambleTotalEarned = 0;    // 传代后累计盈利清零
-    saveData();
-    refreshPage();
+    gameData.familyDegradationCount = degradationCount; // 恢复降级计数器
+    
+    if (willDegrade) {
+        saveData(); // 先保存，然后弹窗（弹窗关闭时会再save+refresh）
+        showFamilyDegradationStory(degradeFrom, degradeTo);
+    } else {
+        saveData();
+        refreshPage();
+    }
 }
 
 // 生成孙辈（继承人的子女）
