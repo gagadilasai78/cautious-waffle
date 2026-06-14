@@ -390,14 +390,14 @@
         /* ========== 行动按钮网格 ========== */
         .action-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
         }
         .action-grid .action-btn {
             text-align: center;
             width: 100%;
-            font-size: 12px;
-            padding: 5px 6px;
+            font-size: 13px;
+            padding: 6px 10px;
         }
 
         /* ========== 全屏页面Mask ========== */
@@ -484,8 +484,8 @@
             .nav-icon-btn .nav-label { font-size: 11px; letter-spacing: 1px; }
             .row-two-col { flex-direction: column; }
             .col-main, .col-side { min-width: 100%; flex: auto; }
-            .action-grid { grid-template-columns: repeat(3, 1fr); gap: 4px; }
-            .action-grid .action-btn { font-size: 11px; padding: 4px 4px; }
+            .action-grid { grid-template-columns: repeat(3, 1fr); gap: 3px; }
+            .action-grid .action-btn { font-size: 12px; padding: 5px 6px; }
             .stats-grid { gap: 1px 8px; }
             .stats-grid .attr-item { font-size: 12px; }
             .card { padding: 10px; margin-bottom: 8px; }
@@ -501,8 +501,8 @@
             .start-btn { padding: 14px 40px; font-size: 18px; letter-spacing: 4px; }
         }
         @media (max-width: 480px) {
-            .action-grid { grid-template-columns: repeat(2, 1fr); gap: 3px; }
-            .action-grid .action-btn { font-size: 11px; padding: 4px 3px; }
+            .action-grid { grid-template-columns: repeat(4, 1fr); gap: 2px; }
+            .action-grid .action-btn { font-size: 9px; padding: 4px 2px; }
             .nav-icon-btn { min-width: 55px; padding: 5px 2px 3px; }
             .nav-icon-btn .nav-icon { font-size: 20px; }
             .nav-icon-btn .nav-label { font-size: 10px; }
@@ -1516,12 +1516,6 @@
                     <div class="action-log-content" id="actionLogContent">
                         <p class="log-placeholder">行动结果将显示在这里...</p>
                     </div>
-                </div>
-                <div class="card" style="cursor:pointer;" onclick="showAssetsPage()">
-                    <h3 class="card-title">资产</h3>
-                    <div id="houseDisplay"></div>
-                    <div id="carriageDisplay"></div>
-                    <div id="assetsBrief" style="font-size:11px; color:#8B7355; margin-top:4px;"></div>
                 </div>
                 <div class="card hidden" id="eventCard">
                     <h3 class="card-title">年度执务</h3>
@@ -6625,40 +6619,7 @@ function sellProperty(type, name){
 }
 
 function updatePropertyUI(){
-    let houseDisplay = document.getElementById("houseDisplay");
-    let carriageDisplay = document.getElementById("carriageDisplay");
-    
-    let houseText = "无";
-    let houseCount = 0;
-    if(gameData.houses && gameData.houses.length > 0){
-        let houseCounts = {};
-        for(let h of gameData.houses){
-            houseCounts[h] = (houseCounts[h] || 0) + 1;
-        }
-        houseText = Object.entries(houseCounts).map(([name, count]) => `${name}x${count}`).join("、");
-        houseCount = gameData.houses.length;
-    }
-    houseDisplay.innerHTML = `<div style="padding:10px;">房产：${houseText}</div>`;
-    
-    let carriageText = "无";
-    let carriageCount = 0;
-    if(gameData.carriages && gameData.carriages.length > 0){
-        let carriageCounts = {};
-        for(let c of gameData.carriages){
-            carriageCounts[c] = (carriageCounts[c] || 0) + 1;
-        }
-        carriageText = Object.entries(carriageCounts).map(([name, count]) => `${name}x${count}`).join("、");
-        carriageCount = gameData.carriages.length;
-    }
-    carriageDisplay.innerHTML = `<div style="padding:10px;">马车：${carriageText}</div>`;
-
-    // 侧栏资产简要
-    let invCount = gameData.inventory ? gameData.inventory.length : 0;
-    let parts = [];
-    if(houseCount > 0) parts.push(`房产${houseCount}处`);
-    if(carriageCount > 0) parts.push(`马车${carriageCount}辆`);
-    if(invCount > 0) parts.push(`背包${invCount}件`);
-    document.getElementById("assetsBrief").innerText = parts.length > 0 ? parts.join(" | ") + "  ▶ 点击查看详情" : "暂无资产  ▶ 点击前往商店";
+    // 侧栏资产卡片已删除，仅做空安全处理
 }
 
 // 背包详细渲染（供资产全屏页使用）
