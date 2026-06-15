@@ -1075,6 +1075,248 @@
         .event-result { font-size: 12px; font-weight: 600; margin-top: 4px; }
         .event-result.success { color: #388E3C; }
         .event-result.fail { color: #c0392b; }
+
+        /* ========== 斗嘴小游戏 ========== */
+        .quarrel-mask {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.65);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .quarrel-mask.hidden { display: none; }
+        .quarrel-panel {
+            background: linear-gradient(180deg, #fdf5e6 0%, #f0e6d2 100%);
+            border: 3px solid #8B4513;
+            border-radius: 10px;
+            padding: 22px 26px;
+            max-width: 540px;
+            width: 92vw;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .quarrel-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #3d2817;
+            margin-bottom: 4px;
+            letter-spacing: 2px;
+        }
+        .quarrel-subtitle {
+            text-align: center;
+            font-size: 13px;
+            color: #8B4513;
+            margin-bottom: 14px;
+        }
+        .quarrel-hp-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .quarrel-hp-label {
+            width: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #3d2817;
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .quarrel-hp-bar {
+            flex: 1;
+            height: 22px;
+            background: #d4c4a8;
+            border: 1px solid #8B4513;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .quarrel-hp-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.35s ease;
+        }
+        .quarrel-hp-fill.player { background: linear-gradient(90deg, #4CAF50, #66BB6A); }
+        .quarrel-hp-fill.enemy { background: linear-gradient(90deg, #e74c3c, #ef5350); }
+        .quarrel-hp-text {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            line-height: 22px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #3d2817;
+        }
+        .quarrel-round {
+            text-align: center;
+            font-size: 13px;
+            color: #6d5d4b;
+            margin-bottom: 8px;
+        }
+        .quarrel-statement-box {
+            background: #fff8ee;
+            border: 2px solid #c9a96e;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .quarrel-statement-box::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            bottom: -10px;
+            width: 0; height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #c9a96e;
+        }
+        .quarrel-statement-box::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            bottom: -7px;
+            width: 0; height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #fff8ee;
+        }
+        .quarrel-speaker {
+            font-size: 12px;
+            color: #8B4513;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .quarrel-statement {
+            font-size: 15px;
+            color: #3d2817;
+            line-height: 1.7;
+        }
+        .quarrel-timer-row {
+            margin-bottom: 14px;
+        }
+        .quarrel-timer-bar {
+            height: 8px;
+            background: #d4c4a8;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .quarrel-timer-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+        .quarrel-timer-fill.safe { background: linear-gradient(90deg, #4CAF50, #8BC34A); }
+        .quarrel-timer-fill.warn { background: linear-gradient(90deg, #FF9800, #FFC107); }
+        .quarrel-timer-fill.danger { background: linear-gradient(90deg, #f44336, #FF5722); }
+        .quarrel-options-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #3d2817;
+            margin-bottom: 8px;
+        }
+        .quarrel-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .quarrel-option {
+            padding: 12px 16px;
+            border: 2px solid #b8a078;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1.6;
+            transition: all 0.2s;
+            position: relative;
+            background: #fff;
+            color: #3d2817;
+        }
+        .quarrel-option:hover {
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(139,69,19,0.15);
+        }
+        .quarrel-option.weak { border-left: 5px solid #90A4AE; }
+        .quarrel-option.weak:hover { border-color: #90A4AE; background: #f5f7fa; }
+        .quarrel-option.medium { border-left: 5px solid #FFB74D; }
+        .quarrel-option.medium:hover { border-color: #FFB74D; background: #fffaf3; }
+        .quarrel-option.strong { border-left: 5px solid #E57373; }
+        .quarrel-option.strong:hover { border-color: #E57373; background: #fff5f5; }
+        .quarrel-option .option-tag {
+            display: inline-block;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-right: 6px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .quarrel-option.weak .option-tag { background: #ECEFF1; color: #546E7A; }
+        .quarrel-option.medium .option-tag { background: #FFF3E0; color: #E65100; }
+        .quarrel-option.strong .option-tag { background: #FFEBEE; color: #C62828; }
+        .quarrel-result {
+            text-align: center;
+            padding: 20px 10px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #3d2817;
+        }
+        .quarrel-result .big {
+            font-size: 24px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .quarrel-result .win { color: #388E3C; }
+        .quarrel-result .lose { color: #c0392b; }
+
+        /* 斗嘴教程浮层 */
+        .quarrel-tutorial-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .quarrel-tutorial-box {
+            background: #fdf5e6;
+            border: 2px solid #8B4513;
+            border-radius: 8px;
+            padding: 20px 22px;
+            max-width: 420px;
+            width: 85%;
+            text-align: center;
+        }
+        .quarrel-tutorial-box h4 {
+            font-size: 18px;
+            color: #3d2817;
+            margin-bottom: 12px;
+        }
+        .quarrel-tutorial-box p {
+            font-size: 13px;
+            color: #5d4b37;
+            line-height: 1.8;
+            text-align: left;
+            margin-bottom: 6px;
+        }
+        .quarrel-tutorial-box .tutorial-highlight {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .quarrel-tutorial-box .tutorial-highlight.red { background: #FFEBEE; color: #C62828; }
+        .quarrel-tutorial-box .tutorial-highlight.orange { background: #FFF3E0; color: #E65100; }
+        .quarrel-tutorial-box .tutorial-highlight.blue { background: #E3F2FD; color: #1565C0; }
     </style>
 </head>
 <body>
@@ -1157,7 +1399,7 @@
         <div class="modal-btn-group">
             <button class="modal-btn" id="joinArmyBtn">从军报国</button>
             <button class="modal-btn" id="refuseArmyBtn">拒绝从军</button>
-            <button class="modal-btn" id="replaceArmyBtn">雇人代役（500文）</button>
+            <button class="modal-btn" id="replaceArmyBtn">雇人代役（1000文）</button>
         </div>
     </div>
 </div>
@@ -1284,8 +1526,7 @@
         <h2 class="modal-title">纳妾</h2>
         <div class="msg-content" id="concubineMsg"></div>
         <div class="modal-btn-group">
-            <button class="modal-btn" id="addConcubine">纳妾（需1000文）</button>
-            <button class="modal-btn" id="addOutsideWoman">红颜知己（需500文礼金）</button>
+            <button class="modal-btn" id="addOutsideWoman">红颜知己（需3000文聘礼）</button>
             <button class="modal-btn" id="closeConcubine">关闭</button>
         </div>
     </div>
@@ -1321,6 +1562,40 @@
         <div class="modal-btn-group">
             <button class="modal-btn" id="closeConcubineInteraction">关闭</button>
         </div>
+    </div>
+</div>
+
+<div class="mask hidden" id="quarrelGameMask">
+    <div class="quarrel-panel" id="quarrelGamePanel">
+        <div class="quarrel-title">⚔ 唇枪舌剑 ⚔</div>
+        <div class="quarrel-subtitle" id="quarrelSubtitle"></div>
+        <div class="quarrel-hp-row">
+            <span class="quarrel-hp-label">我方</span>
+            <div class="quarrel-hp-bar">
+                <div class="quarrel-hp-fill player" id="quarrelPlayerHP" style="width:100%"></div>
+                <span class="quarrel-hp-text" id="quarrelPlayerHPText">100/100</span>
+            </div>
+        </div>
+        <div class="quarrel-hp-row">
+            <span class="quarrel-hp-label" id="quarrelEnemyLabel">对方</span>
+            <div class="quarrel-hp-bar">
+                <div class="quarrel-hp-fill enemy" id="quarrelEnemyHP" style="width:100%"></div>
+                <span class="quarrel-hp-text" id="quarrelEnemyHPText">100/100</span>
+            </div>
+        </div>
+        <div class="quarrel-round" id="quarrelRound"></div>
+        <div class="quarrel-statement-box">
+            <div class="quarrel-speaker" id="quarrelSpeaker"></div>
+            <div class="quarrel-statement" id="quarrelStatement"></div>
+        </div>
+        <div class="quarrel-timer-row">
+            <div class="quarrel-timer-bar">
+                <div class="quarrel-timer-fill safe" id="quarrelTimerFill" style="width:100%"></div>
+            </div>
+        </div>
+        <div class="quarrel-options-title">选择你的回应：</div>
+        <div class="quarrel-options" id="quarrelOptions"></div>
+        <div class="quarrel-result hidden" id="quarrelResult"></div>
     </div>
 </div>
 
@@ -1512,7 +1787,7 @@
 <div class="mask hidden" id="doctorConfirmMask">
     <div class="modal">
         <h2 class="modal-title">求医问诊</h2>
-        <div class="msg-content" id="doctorTip">求医需要花费 50 文，是否确认？</div>
+        <div class="msg-content" id="doctorTip">求医需要花费 100 文，是否确认？</div>
         <div class="modal-btn-group">
             <button class="modal-btn" id="confirmDoctor">确认支付</button>
             <button class="modal-btn" id="cancelDoctor">取消</button>
@@ -1866,47 +2141,47 @@ function confirmAchieveUnlock(){
 
 // 房产配置（增加妻妾数量限制、孩子数量限制）
 const houseConfig = {
-    "茅草屋": {price: 800, description: "简陋的茅草屋，遮风挡雨尚可", prestige: 1, maxSpouses: 1, maxChildren: 2},
-    "瓦房": {price: 2000, description: "坚固的瓦房，冬暖夏凉", prestige: 3, maxSpouses: 2, maxChildren: 3},
-    "四合院": {price: 5000, description: "宽敞的四合院，气派非凡", prestige: 6, maxSpouses: 3, maxChildren: 4},
-    "府邸": {price: 15000, description: "豪华府邸，尽显身份", prestige: 10, maxSpouses: 4, maxChildren: 6},
-    "豪宅": {price: 50000, description: "顶级豪宅，富丽堂皇", prestige: 15, maxSpouses: 6, maxChildren: 8}
+    "茅草屋": {price: 3000, description: "简陋的茅草屋，遮风挡雨尚可", prestige: 1, maxSpouses: 1, maxChildren: 2},
+    "瓦房": {price: 8000, description: "坚固的瓦房，冬暖夏凉", prestige: 3, maxSpouses: 2, maxChildren: 3},
+    "四合院": {price: 20000, description: "宽敞的四合院，气派非凡", prestige: 6, maxSpouses: 3, maxChildren: 4},
+    "府邸": {price: 60000, description: "豪华府邸，尽显身份", prestige: 10, maxSpouses: 4, maxChildren: 6},
+    "豪宅": {price: 200000, description: "顶级豪宅，富丽堂皇", prestige: 15, maxSpouses: 6, maxChildren: 8}
 };
 
 // 商店物品配置
 const shopItems = [
-    // 送礼物品（6种，好感度3-15，性价比从0.060到0.030）
-    {id:1, name:"精致糕点", type:"gift", price:50, favorBonus:3, description:"精美点心，香甜可口"},
-    {id:2, name:"笔墨纸砚", type:"gift", price:100, favorBonus:5, description:"文房四宝，送礼佳品"},
-    {id:3, name:"胭脂水粉", type:"gift", price:150, favorBonus:7, description:"上等胭脂，美容佳品"},
-    {id:4, name:"丝绸布料", type:"gift", price:250, favorBonus:10, description:"精美丝绸，华丽大方"},
-    {id:5, name:"玉器挂件", type:"gift", price:350, favorBonus:12, description:"温润美玉，寓意吉祥"},
-    {id:6, name:"书画卷轴", type:"gift", price:500, favorBonus:15, effect:{talent:5}, description:"名家字画，极具收藏价值（可小幅提升才华）"},
-    // 服饰（5种，颜值3-12，性价比0.0086-0.012）
-    {id:9, name:"绸缎衣物", type:"clothes", price:350, effect:{appearance:3}, description:"普通绸缎衣物"},
-    {id:10, name:"玉佩配饰", type:"clothes", price:500, effect:{appearance:4}, description:"温润玉佩"},
-    {id:11, name:"锦绣长袍", type:"clothes", price:600, effect:{appearance:5}, description:"绣工精美的长袍"},
-    {id:12, name:"丝绸锦裙", type:"clothes", price:800, effect:{appearance:7}, description:"轻盈飘逸的丝绸锦裙"},
-    {id:13, name:"锦缎华服", type:"clothes", price:1000, effect:{appearance:10}, description:"华丽锦缎制成的华服"},
+    // 送礼物品（6种，好感度3-15）
+    {id:1, name:"精致糕点", type:"gift", price:200, favorBonus:3, description:"精美点心，香甜可口"},
+    {id:2, name:"笔墨纸砚", type:"gift", price:400, favorBonus:5, description:"文房四宝，送礼佳品"},
+    {id:3, name:"胭脂水粉", type:"gift", price:600, favorBonus:7, description:"上等胭脂，美容佳品"},
+    {id:4, name:"丝绸布料", type:"gift", price:1000, favorBonus:10, description:"精美丝绸，华丽大方"},
+    {id:5, name:"玉器挂件", type:"gift", price:1400, favorBonus:12, description:"温润美玉，寓意吉祥"},
+    {id:6, name:"书画卷轴", type:"gift", price:2000, favorBonus:15, effect:{talent:5}, description:"名家字画，极具收藏价值（可小幅提升才华）"},
+    // 服饰（5种，颜值3-10）
+    {id:9, name:"绸缎衣物", type:"clothes", price:1200, effect:{appearance:3}, description:"普通绸缎衣物"},
+    {id:10, name:"玉佩配饰", type:"clothes", price:1800, effect:{appearance:4}, description:"温润玉佩"},
+    {id:11, name:"锦绣长袍", type:"clothes", price:2400, effect:{appearance:5}, description:"绣工精美的长袍"},
+    {id:12, name:"丝绸锦裙", type:"clothes", price:3200, effect:{appearance:7}, description:"轻盈飘逸的丝绸锦裙"},
+    {id:13, name:"锦缎华服", type:"clothes", price:4000, effect:{appearance:10}, description:"华丽锦缎制成的华服"},
     // 房产
-    {id:15, name:"茅草屋", type:"house", price:1000, effect:{house:"茅草屋"}, description:"简陋的茅草屋，遮风挡雨尚可"},
-    {id:16, name:"瓦房", type:"house", price:2500, effect:{house:"瓦房"}, description:"坚固的瓦房，冬暖夏凉"},
-    {id:17, name:"四合院", type:"house", price:6000, effect:{house:"四合院"}, description:"宽敞的四合院，气派非凡"},
-    {id:18, name:"府邸", type:"house", price:18000, effect:{house:"府邸"}, description:"豪华府邸，尽显身份"},
-    {id:19, name:"豪宅", type:"house", price:60000, effect:{house:"豪宅"}, description:"顶级豪宅，富丽堂皇"},
+    {id:15, name:"茅草屋", type:"house", price:4000, effect:{house:"茅草屋"}, description:"简陋的茅草屋，遮风挡雨尚可"},
+    {id:16, name:"瓦房", type:"house", price:10000, effect:{house:"瓦房"}, description:"坚固的瓦房，冬暖夏凉"},
+    {id:17, name:"四合院", type:"house", price:24000, effect:{house:"四合院"}, description:"宽敞的四合院，气派非凡"},
+    {id:18, name:"府邸", type:"house", price:72000, effect:{house:"府邸"}, description:"豪华府邸，尽显身份"},
+    {id:19, name:"豪宅", type:"house", price:240000, effect:{house:"豪宅"}, description:"顶级豪宅，富丽堂皇"},
     // 马车
-    {id:20, name:"普通马车", type:"carriage", price:1700, effect:{carriage:"普通马车"}, description:"普通的马车，出行方便（行动+1）"},
-    {id:21, name:"豪华马车", type:"carriage", price:6500, effect:{carriage:"豪华马车"}, description:"豪华马车，舒适气派（行动+2）"},
-    {id:22, name:"官轿", type:"carriage", price:18500, effect:{carriage:"官轿"}, description:"官员专属官轿，彰显地位（行动+5）"},
+    {id:20, name:"普通马车", type:"carriage", price:5000, effect:{carriage:"普通马车"}, description:"普通的马车，出行方便（行动+1）"},
+    {id:21, name:"豪华马车", type:"carriage", price:20000, effect:{carriage:"豪华马车"}, description:"豪华马车，舒适气派（行动+2）"},
+    {id:22, name:"官轿", type:"carriage", price:50000, effect:{carriage:"官轿"}, description:"官员专属官轿，彰显地位（行动+5）"},
     // 特殊物品
-    {id:23, name:"避子汤", type:"birthcontrol", price:600, effect:{birthcontrol:5}, description:"服用后五年内怀孕率降至5%"}
+    {id:23, name:"避子汤", type:"birthcontrol", price:2000, effect:{birthcontrol:5}, description:"服用后五年内大幅降低怀孕几率"}
 ];
 
 // 马车配置
 const carriageConfig = {
-    "普通马车": {price: 1500, description: "普通的马车，出行方便", prestige: 2, actionBonus: 1},
-    "豪华马车": {price: 5500, description: "豪华的马车，彰显身份", prestige: 5, actionBonus: 2},
-    "官轿": {price: 15500, description: "气派的官轿，官员标配", prestige: 10, actionBonus: 5}
+    "普通马车": {price: 5000, description: "普通的马车，出行方便", prestige: 2, actionBonus: 1},
+    "豪华马车": {price: 20000, description: "豪华的马车，彰显身份", prestige: 5, actionBonus: 2},
+    "官轿": {price: 50000, description: "气派的官轿，官员标配", prestige: 10, actionBonus: 5}
 };
 
 // 获取当前最大马车行动加成（取最高，不叠加）
@@ -1993,7 +2268,7 @@ let gameData = {
 
 let aiConfig = {apiUrl:"",apiKey:"",model:"gpt-3.5-turbo"};
 let currentExam = [], userAnswers = [];
-const DOCTOR_COST = 50;
+const DOCTOR_COST = 100;
 
 let gamblingRound = 0;
 
@@ -2584,8 +2859,8 @@ function showJobChange(){
     if (g === "男") jobs.push(...maleForceJobs);
     else jobs.push(...femaleForceJobs);
     
-    // 商人职业需要10000文
-    if (gameData.money > 10000) jobs.push("商人");
+    // 商人职业需要80000文和20声望
+    if (gameData.money >= 80000 && gameData.reputation >= 20) jobs.push("商人");
     
     jobs = [...new Set(jobs.filter(j => j !== banJob && j !== officerJob))];
     let html = "";
@@ -3144,6 +3419,8 @@ function initPlayer() {
     gameData.noChildWarned50 = false;
     gameData.noHeirWarned50 = false;
     gameData.heirUnderageWarned50 = false;
+    // 妾室斗嘴系统
+    gameData.quarrelRecords = {};
 }
 
 function createRandomRole() {
@@ -3359,11 +3636,13 @@ function refreshPage() {
                 let isSameSexPartner = gameData.spouse && gameData.spouse.isSameSex && it.type === "spouse";
                 let intimacyLabel = isSameSexPartner ? "花前月下" : "同房";
                 let intimacyBtn = (it.type === "spouse" || (gameData.playerGender === "男" && it.type === "concubine")) ?
-                    (it.favor > 70 ? `<button class="action-btn" onclick="spouseIntimacyFromFamily('${it.name}')">${intimacyLabel}</button>` : `<button class="action-btn" disabled style="opacity:0.4">${intimacyLabel}（好感需>70）</button>`) : "";
+                    (it.confined ? `<button class="action-btn" disabled style="opacity:0.4; color:#e74c3c;">被禁足</button>` : 
+                     (it.favor > 70 ? `<button class="action-btn" onclick="spouseIntimacyFromFamily('${it.name}')">${intimacyLabel}</button>` : `<button class="action-btn" disabled style="opacity:0.4">${intimacyLabel}（好感需>70）</button>`)) : "";
 
-                // 女玩家对妾室的互动按钮
+                // 女玩家对妾室的互动按钮（仅正妻可管理妾室）
                 let concubineBtns = "";
-                if(gameData.playerGender === "女" && (it.type === "concubine" || it.type === "outside")){
+                let isPlayerConcubine = gameData.playerGender === "女" && gameData.concubines && gameData.concubines.some(c => c.name === gameData.playerName);
+                if(!isPlayerConcubine && gameData.playerGender === "女" && (it.type === "concubine" || it.type === "outside")){
                     concubineBtns = `
                         <button class="action-btn" onclick="punishConcubine('${it.name}')">惩罚</button>
                         <button class="action-btn" onclick="confineConcubine('${it.name}')">禁足</button>
@@ -3404,8 +3683,12 @@ function refreshPage() {
 
                 let isDisownedMember = gameData.disowned && (it.type === "parent" || it.type === "sibling");
                 
-                // 只有在非限制情况下才使用通用按钮组
-                if(!isLimitedConcubineWife && it.type !== "spouse"){
+                // 妾室玩家对其他妾室只有交谈+送礼（和正妻一样，管不了任何人）
+                if(isPlayerConcubine && (it.type === "concubine" || it.type === "outside")){
+                    btnGroup = `
+                        <button class="action-btn" onclick="interactFamily('${it.name}','交谈')">交谈</button>
+                        <button class="action-btn" onclick="giveGift('${it.name}')">送礼</button>`;
+                }else if(!isLimitedConcubineWife && it.type !== "spouse"){
                     if(isDisownedMember){
                         btnGroup = `<span style="color:#999;font-size:12px;">（与家中断绝来往）</span>`;
                     }else{
@@ -3568,8 +3851,29 @@ function refreshPage() {
 }
 
 window.interactFamily=function(n,t){
-    if(gameData.actionNum<=0)return showToast("次数不足");
+    if(gameData.actionNum<=0)return showToast("行动次数不足");
     let p=gameData.familyList.find(x=>x.name===n);if(!p)return;
+    
+    // 妾室玩家对丈夫正妻或其他妾室：交谈触发斗嘴小游戏
+    let isConcubinePlayer = gameData.playerGender === "女" && gameData.concubines && gameData.concubines.some(c => c.name === gameData.playerName);
+    let isTargetSpouse = p.type === "spouse" && p.name !== gameData.playerName;
+    let isTargetConcubine = p.type === "concubine" || p.type === "outside";
+    
+    if(isConcubinePlayer && t === "交谈" && (isTargetSpouse || isTargetConcubine)){
+        // 检查今年是否已与此人交谈过
+        if(!gameData.quarrelRecords) gameData.quarrelRecords = {};
+        if(!gameData.quarrelRecords[n]) gameData.quarrelRecords[n] = {successCount: 0, talkedThisYear: false};
+        if(gameData.quarrelRecords[n].talkedThisYear) return showToast(`今年已与${n}交谈过了`);
+        
+        gameData.actionNum--;
+        gameData.quarrelRecords[n].talkedThisYear = true;
+        
+        // 启动斗嘴小游戏
+        startQuarrelGame(n, p, isTargetSpouse);
+        return;
+    }
+    
+    // 普通交谈
     let add=getRand1To4();
     p.favor=Math.min(100,p.favor+add);gameData.actionNum--;
     // 同步更新配偶好感
@@ -3578,6 +3882,444 @@ window.interactFamily=function(n,t){
     }
     showToast(`${n} 好感提升 +${add}`);saveData();refreshPage();
 };
+
+// ========== 斗嘴小游戏引擎 ==========
+let quarrelGameState = null;
+
+// 对方发言池（正妻）
+const QUARREL_STATEMENTS_SPOUSE = [
+    "妹妹莫要以为老爷多看你两眼就当真了，这个家到底还是我做主。",
+    "你不过是老爷一时兴起纳进门的，摆不正自己的位置可不好。",
+    "府里上上下下的开销都要我操心，妹妹倒好，只知道伸手要银子。",
+    "老爷这些日子是往你那儿跑得勤了些，可正妻终究是正妻，轮不到你来指手画脚。",
+    "妹妹娘家那头……怕是连件像样的嫁妆都凑不齐吧？",
+    "你以为给老爷生个一儿半女就能与我平起平坐了？想得倒美。",
+    "府里规矩多，妹妹从乡野地方来的，怕是听都没听过。",
+    "老爷昨晚在我这儿用膳时还说起，你这性子太野，得好好管教。",
+    "妹妹进府也有一阵子了，怎么肚子还没动静？莫不是……",
+    "我听说妹妹的娘家人最近又来信要钱了？这个家可不是你的钱袋子。",
+    "妹妹素日里打扮得花枝招展的，老爷嘴上不说，心里未必喜欢。",
+    "你那些小把戏我早就看透了，不过是不与你一般见识罢了。",
+    "老爷心中最看重的还是这个家的门面，你可别给他丢人。",
+    "你别以为老爷不说，他就不知道你干过什么。"
+];
+
+// 对方发言池（妾室）
+const QUARREL_STATEMENTS_CONCUBINE = [
+    "姐姐虽是正妻，可老爷这阵子总往我院里跑，姐姐心里不好受吧？",
+    "老爷说我温柔体贴善解人意，比某些整天板着脸的人强多了。",
+    "姐姐管家的账目……老爷前两天还在我这儿提了一嘴呢。",
+    "我昨儿个又给老爷绣了个香囊，老爷还夸我手巧来着，姐姐觉得呢？",
+    "老爷昨晚在我屋里待到三更才走，姐姐一个人睡得可好？",
+    "姐姐年纪也不小了，青春不再，还是多为府里操操心吧。",
+    "姐姐嫁进来这么久都没给老爷添个嫡子，急坏了吧？",
+    "老爷说等明年开春带我去江南游玩，姐姐要一起去吗？",
+    "姐姐整天板着个脸，老爷看了都害怕，难怪不敢去你屋里。",
+    "我娘家虽不是大富大贵，可也比有些人装模作样地强。",
+    "姐姐动不动就罚这个罚那个，老爷心里可未必赞成。",
+    "老爷说姐姐太要强了，不像我这般小鸟依人。",
+    "我听说姐姐年轻时也有过一段风流事，要不要我说给老爷听听？",
+    "姐姐这首饰匣子里的东西，怕是还没我手腕上这只镯子值钱吧？"
+];
+
+// 玩家回应池（三个等级）
+const QUARREL_OPTIONS_WEAK = [
+    "（低头轻叹）姐姐说的有理，妹妹记下了。",
+    "（垂眸不语，半晌后才轻声）妹妹不敢与姐姐争辩。",
+    "（欠了欠身）是妹妹不懂事，姐姐莫怪。",
+    "（眼眶微红）姐姐何必这样说话……",
+    "（勉强笑了笑）姐姐教训得是，妹妹知道了。",
+    "（咬着嘴唇）妹妹没有那个意思……",
+    "（神色黯然）姐姐若觉得我做错了什么，直说便是。",
+    "（低头抚着衣角）妹妹只想安安分分过日子，姐姐何必如此……"
+];
+
+const QUARREL_OPTIONS_MEDIUM = [
+    "姐姐这话就不对了，老爷的心意岂是你我能左右的。",
+    "妹妹不过是照规矩办事，姐姐何必如此大动肝火。",
+    "姐姐说的这些，妹妹不敢苟同，不如请老爷来评评理？",
+    "姐姐若是心里有气，只管说清楚，何必话里带刺。",
+    "公道自在人心，姐姐自己做了什么心里应该有数。",
+    "妹妹向来本分，姐姐说的那些莫须有的事，恕不认账。",
+    "话不能这么说，凡事讲个理字，姐姐这话过了。",
+    "姐姐若是觉得妹妹做得不好，大可以当着老爷的面说。"
+];
+
+const QUARREL_OPTIONS_STRONG = [
+    "姐姐自己做了什么心里没数吗？非要我当着老爷的面抖落出来？",
+    "呵，姐姐以为老爷不知道你那点小把戏？老爷只是懒得说罢了。",
+    "姐姐嘴上端着架子，背地里做的那些事可没多光彩。",
+    "别以为你那些小动作瞒得住人，老爷早晚看清你的真面目。",
+    "姐姐不就是怕老爷心里没你了吗？可惜老爷早就看透你了。",
+    "你在这儿逞什么威风？老爷心里最清楚谁是小人。",
+    "姐姐要真有本事，就让老爷自己来跟我说，少在这儿狐假虎威。",
+    "你以为搬出规矩压我我就怕了？姐姐自己的规矩守得怎么样心里有数。"
+];
+
+function startQuarrelGame(targetName, targetObj, isSpouse){
+    let pt = gameData.talent || 50;
+    let pa = gameData.appearance || 50;
+    let et = targetObj.talent || 50;
+    let ea = targetObj.appearance || 50;
+    
+    quarrelGameState = {
+        targetName, targetObj, isSpouse,
+        targetType: isSpouse ? "spouse" : "concubine",
+        playerHP: 50, targetHP: 50,
+        playerAttr: pt + pa,   // talent + appearance sum, affects enemy counter chance
+        enemyAttr: et + ea,
+        round: 0,
+        timerMax: 8,
+        timerRemaining: 8,
+        timerInterval: null,
+        usedStatements: [],
+        isFirstGame: !gameData.quarrelTutorialSeen,
+    };
+    gameData.quarrelTutorialSeen = true;
+    
+    document.getElementById("quarrelSubtitle").innerText = isSpouse ? `对决 — 正妻 ${targetName}` : `对决 — 妾室 ${targetName}`;
+    document.getElementById("quarrelEnemyLabel").innerText = targetName;
+    resetQuarrelDisplay();
+    showDiv("quarrelGameMask");
+    
+    if(quarrelGameState.isFirstGame){
+        showQuarrelTutorial();
+    } else {
+        nextQuarrelRound();
+    }
+}
+
+function resetQuarrelDisplay(){
+    document.getElementById("quarrelResult").classList.add("hidden");
+    document.getElementById("quarrelResult").innerHTML = "";
+    document.getElementById("quarrelOptions").classList.remove("hidden");
+    let tFill = document.getElementById("quarrelTimerFill");
+    tFill.style.width = "100%"; tFill.className = "quarrel-timer-fill safe";
+    document.getElementById("quarrelPlayerHP").style.width = "100%";
+    document.getElementById("quarrelPlayerHPText").innerText = "100/100";
+    document.getElementById("quarrelEnemyHP").style.width = "100%";
+    document.getElementById("quarrelEnemyHPText").innerText = "100/100";
+}
+
+function showQuarrelTutorial(){
+    let panel = document.getElementById("quarrelGamePanel");
+    let ov = document.createElement("div");
+    ov.className = "quarrel-tutorial-overlay";
+    ov.id = "quarrelTutorialOverlay";
+    ov.innerHTML = `<div class="quarrel-tutorial-box">
+        <h4>📜 唇枪舌剑 · 玩法说明</h4>
+        <p>对方会出言挑衅，每回合你须在<span class="tutorial-highlight blue">倒计时结束前</span>从三个选项中择一回应：</p>
+        <p><span class="tutorial-highlight blue">温和</span> — 以退为进、恭顺自保，攻击力低但不易被反将一军<br>
+        <span class="tutorial-highlight orange">犀利</span> — 不卑不亢、据理力争，攻守兼备<br>
+        <span class="tutorial-highlight red">凌厉</span> — 直戳要害、咄咄逼人，攻击力最高但被反击风险也最大</p>
+        <p>🛡️ 血条先被清空者落败。胜利可令丈夫对对方好感下降。</p>
+        <p style="color:#c0392b;font-weight:600;">⚠ 倒计时结束未选择 = 被对方反将一军（双倍伤害！）</p>
+        <p style="color:#8B4513;">才华 + 颜值越高，你的攻击力越强。</p>
+        <button class="action-btn" style="margin-top:8px;padding:10px 30px;font-size:15px;" onclick="hideQuarrelTutorial()">我知道了，开始对决！</button>
+    </div>`;
+    panel.appendChild(ov);
+}
+
+function hideQuarrelTutorial(){
+    let ov = document.getElementById("quarrelTutorialOverlay");
+    if(ov) ov.remove();
+    if(quarrelGameState) quarrelGameState.isFirstGame = false;
+    nextQuarrelRound();
+}
+
+function getQuarrelStatement(type){
+    let pool = type === "spouse" ? QUARREL_STATEMENTS_SPOUSE : QUARREL_STATEMENTS_CONCUBINE;
+    let gs = quarrelGameState;
+    let available = pool.filter(s => !gs.usedStatements.includes(s));
+    if(available.length === 0){ gs.usedStatements = []; available = [...pool]; }
+    let stmt = available[Math.floor(Math.random() * available.length)];
+    gs.usedStatements.push(stmt);
+    gs.currentStatement = stmt;
+    return stmt;
+}
+
+function getQuarrelOptions(){
+    let weak = [...QUARREL_OPTIONS_WEAK];
+    let medium = [...QUARREL_OPTIONS_MEDIUM];
+    let strong = [...QUARREL_OPTIONS_STRONG];
+    // Shuffle each
+    for(let i = weak.length - 1; i > 0; i--){ let j = Math.floor(Math.random() * (i + 1)); [weak[i], weak[j]] = [weak[j], weak[i]]; }
+    for(let i = medium.length - 1; i > 0; i--){ let j = Math.floor(Math.random() * (i + 1)); [medium[i], medium[j]] = [medium[j], medium[i]]; }
+    for(let i = strong.length - 1; i > 0; i--){ let j = Math.floor(Math.random() * (i + 1)); [strong[i], strong[j]] = [strong[j], strong[i]]; }
+    // Randomize order of the three options
+    let pool = [
+        {level:"weak", text:weak[0]},
+        {level:"medium", text:medium[0]},
+        {level:"strong", text:strong[0]}
+    ];
+    for(let i = pool.length - 1; i > 0; i--){ let j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+    // Randomly assign quality to each option: excellent / good / poor
+    let qualities = ["excellent","good","poor"];
+    for(let i = qualities.length - 1; i > 0; i--){ let j = Math.floor(Math.random() * (i + 1)); [qualities[i], qualities[j]] = [qualities[j], qualities[i]]; }
+    for(let k = 0; k < pool.length; k++){ pool[k].quality = qualities[k]; }
+    return pool;
+}
+
+function nextQuarrelRound(){
+    let gs = quarrelGameState;
+    if(!gs) return;
+    if(gs.timerInterval){ clearInterval(gs.timerInterval); gs.timerInterval = null; }
+    
+    gs.round++;
+    gs.timerRemaining = gs.timerMax;
+    
+    document.getElementById("quarrelRound").innerText = `第 ${gs.round} 回合`;
+    
+    let stmt = getQuarrelStatement(gs.targetType);
+    document.getElementById("quarrelSpeaker").innerText = `${gs.targetName} 说道：`;
+    document.getElementById("quarrelStatement").innerText = `「${stmt}」`;
+    
+    let opts = getQuarrelOptions();
+    gs.currentOptions = opts;  // Store for quality lookup
+    let html = "";
+    for(let o of opts){
+        let tagText = o.level === "weak" ? "温和" : (o.level === "medium" ? "犀利" : "凌厉");
+        html += `<div class="quarrel-option ${o.level}" onclick="chooseQuarrelOption('${o.level}','${o.quality}')"><span class="option-tag">${tagText}</span>${o.text}</div>`;
+    }
+    document.getElementById("quarrelOptions").innerHTML = html;
+    document.getElementById("quarrelOptions").classList.remove("hidden");
+    document.getElementById("quarrelResult").classList.add("hidden");
+    
+    updateQuarrelTimerUI();
+    
+    gs.timerInterval = setInterval(() => {
+        gs.timerRemaining -= 0.1;
+        if(gs.timerRemaining <= 0){
+            gs.timerRemaining = 0;
+            clearInterval(gs.timerInterval);
+            gs.timerInterval = null;
+            resolveQuarrelTimeout();
+        }
+        updateQuarrelTimerUI();
+    }, 100);
+}
+
+function updateQuarrelTimerUI(){
+    let gs = quarrelGameState;
+    if(!gs) return;
+    let pct = Math.max(0, (gs.timerRemaining / gs.timerMax) * 100);
+    let fill = document.getElementById("quarrelTimerFill");
+    fill.style.width = pct + "%";
+    if(pct > 50) fill.className = "quarrel-timer-fill safe";
+    else if(pct > 20) fill.className = "quarrel-timer-fill warn";
+    else fill.className = "quarrel-timer-fill danger";
+}
+
+function renderQuarrelHP(){
+    let gs = quarrelGameState;
+    if(!gs) return;
+    let ppct = Math.max(0, gs.playerHP);
+    let epct = Math.max(0, gs.targetHP);
+    document.getElementById("quarrelPlayerHP").style.width = ppct + "%";
+    document.getElementById("quarrelPlayerHPText").innerText = Math.max(0, Math.round(gs.playerHP)) + "/50";
+    document.getElementById("quarrelEnemyHP").style.width = epct + "%";
+    document.getElementById("quarrelEnemyHPText").innerText = Math.max(0, Math.round(gs.targetHP)) + "/50";
+}
+
+function flashQuarrelHP(who, dmg){
+    let bar = who === "player" ? document.getElementById("quarrelPlayerHP") : document.getElementById("quarrelEnemyHP");
+    if(!bar) return;
+    bar.style.transition = "width 0.15s ease";
+    bar.style.filter = "brightness(1.8)";
+    setTimeout(() => { bar.style.filter = ""; bar.style.transition = "width 0.35s ease"; }, 180);
+}
+
+function showQuarrelRoundFeedback(msg){
+    document.getElementById("quarrelOptions").classList.add("hidden");
+    let resDiv = document.getElementById("quarrelResult");
+    resDiv.classList.remove("hidden");
+    resDiv.innerHTML = `<p style="font-size:14px;color:#3d2817;">${msg}</p>`;
+}
+
+function chooseQuarrelOption(level, quality){
+    let gs = quarrelGameState;
+    if(!gs || !gs.timerInterval) return;
+    clearInterval(gs.timerInterval);
+    gs.timerInterval = null;
+    
+    // Fixed damage per quality (player attribute does NOT affect damage)
+    let baseDmg;
+    if(quality === "excellent")      baseDmg = 11;
+    else if(quality === "good")      baseDmg = 8;
+    else /* poor */                  baseDmg = 6;
+    
+    let playerDmg = Math.max(1, Math.floor(baseDmg * (0.85 + Math.random() * 0.30)));
+    gs.targetHP = Math.max(0, gs.targetHP - playerDmg);
+    
+    // Enemy counter chance affected by attribute difference
+    // Base counter rate = 30%. Player higher attr -> lower counter, and vice versa.
+    let baseCounter = 0.30;
+    let attrDiff = (gs.playerAttr - gs.enemyAttr) / 200;  // range ~ -0.5 to +0.5
+    let enemyCounterChance = Math.max(0.05, Math.min(0.70, baseCounter - attrDiff * 0.5));
+    
+    let countered = Math.random() < enemyCounterChance;
+    let enemyDmg = 0;
+    
+    // Enemy always deals base damage per round
+    let enemyBaseDmg = Math.max(1, Math.floor(7 * (0.85 + Math.random() * 0.30)));
+    // Extra counter damage
+    let enemyCounterDmg = 0;
+    if(countered){
+        enemyCounterDmg = Math.max(1, Math.floor(7 * (0.85 + Math.random() * 0.30)));
+    }
+    enemyDmg = enemyBaseDmg + enemyCounterDmg;
+    gs.playerHP = Math.max(0, gs.playerHP - enemyDmg);
+    
+    // Quality-based result prefix
+    let qualityTag;
+    if(quality === "excellent")      qualityTag = getRandom(["✨ 绝佳反击！","🎯 见血封喉！","💥 一击必中！"]);
+    else if(quality === "good")      qualityTag = "";
+    else                             qualityTag = getRandom(["😅 效果欠佳…","💦 不太妥当…","😰 适得其反…"]);
+    
+    // Feedback message based on level (tone flavor)
+    let fb;
+    let weakFb = [
+        `你轻声细语回了句软话，${gs.targetName}一时也挑不出毛病`,
+        `你以退为进态度恭顺，${gs.targetName}反倒不好再发作`,
+        `你垂眸认了句错，${gs.targetName}哼了一声没再追究`,
+        `你欠身行了个礼，${gs.targetName}一肚子火被软软挡了回去`
+    ];
+    let mediumFb = [
+        `你不卑不亢地回应，${gs.targetName}被噎了一下脸色微变`,
+        `你条理清晰地反驳过去，${gs.targetName}一时无言以对`,
+        `你笑着把话头挡了回去，${gs.targetName}面上有些挂不住`,
+        `你淡淡几句话有理有据，${gs.targetName}咬着嘴唇不说话了`
+    ];
+    let strongFb = [
+        `你言辞凌厉直戳要害，${gs.targetName}气得浑身发抖`,
+        `你毫不客气揭了她的短，${gs.targetName}脸色一阵红一阵白`,
+        `你一句话把她堵得哑口无言，${gs.targetName}指甲差点掐断`,
+        `你冷冷几句话把她噎得说不出话，${gs.targetName}眼眶都气红了`
+    ];
+    
+    if(level === "weak") fb = getRandom(weakFb);
+    else if(level === "medium") fb = getRandom(mediumFb);
+    else fb = getRandom(strongFb);
+    
+    if(qualityTag) fb = qualityTag + " " + fb;
+    
+    if(countered){
+        let counterFb = [
+            `不料${gs.targetName}反应极快，反唇相讥让你措手不及`,
+            `${gs.targetName}冷笑一声，三两下就把矛头转向了你`,
+            `谁知${gs.targetName}早有准备，逮住你话里的漏洞狠狠反击`,
+            `却见${gs.targetName}不慌不忙，一句更狠的话怼了回来`
+        ];
+        fb += `。但${getRandom(counterFb)}`;
+    }
+    
+    renderQuarrelHP();
+    flashQuarrelHP("enemy", playerDmg);
+    if(countered) setTimeout(() => flashQuarrelHP("player", enemyDmg), 200);
+    
+    let fullFb = fb + (countered 
+        ? `（对${gs.targetName}造成\u00a0${playerDmg}\u00a0点伤害，被反击\u00a0${enemyDmg}\u00a0点）`
+        : `（对${gs.targetName}造成\u00a0${playerDmg}\u00a0点伤害）`);
+    
+    // Check game end
+    let targetDead = gs.targetHP <= 0;
+    let playerDead = gs.playerHP <= 0;
+    
+    if(targetDead || playerDead){
+        showQuarrelRoundFeedback(fullFb);
+        setTimeout(() => endQuarrelGame(targetDead && !playerDead), 900);
+        return;
+    }
+    
+    showQuarrelRoundFeedback(fullFb);
+    setTimeout(nextQuarrelRound, 1500);
+}
+
+function resolveQuarrelTimeout(){
+    let gs = quarrelGameState;
+    if(!gs) return;
+    let dmg = Math.max(1, Math.floor(12 * (0.85 + Math.random() * 0.3)));
+    gs.playerHP = Math.max(0, gs.playerHP - dmg);
+    
+    let msgs = [
+        `你一时语塞没能答上来，${gs.targetName}冷笑一声趁机反扑`,
+        `你犹豫了片刻，${gs.targetName}抓住机会步步紧逼`,
+        `你还没想好如何回应，${gs.targetName}已经连珠炮般地数落起来`,
+        `你张了张嘴却说不出一句话，${gs.targetName}得意地乘胜追击`
+    ];
+    let msg = getRandom(msgs) + `，受到\u00a0${dmg}\u00a0点伤害！`;
+    
+    renderQuarrelHP();
+    flashQuarrelHP("player", dmg);
+    
+    if(gs.playerHP <= 0){
+        showQuarrelRoundFeedback(msg);
+        setTimeout(() => endQuarrelGame(false), 900);
+        return;
+    }
+    showQuarrelRoundFeedback(msg);
+    setTimeout(nextQuarrelRound, 1500);
+}
+
+function endQuarrelGame(won){
+    let gs = quarrelGameState;
+    if(!gs) return;
+    if(gs.timerInterval){ clearInterval(gs.timerInterval); gs.timerInterval = null; }
+    
+    let resDiv = document.getElementById("quarrelResult");
+    let name = gs.targetName;
+    
+    if(won){
+        // 胜利：累计成功次数、扣丈夫好感
+        if(!gameData.quarrelRecords) gameData.quarrelRecords = {};
+        if(!gameData.quarrelRecords[name]) gameData.quarrelRecords[name] = {successCount: 0, talkedThisYear: true};
+        gameData.quarrelRecords[name].successCount = (gameData.quarrelRecords[name].successCount || 0) + 1;
+        
+        let favorLoss = getRandRange(2, 5);
+        if(gameData.spouse){
+            gameData.spouse.favor = Math.max(0, gameData.spouse.favor - favorLoss);
+            let husbandInList = gameData.familyList.find(f => f.type === "spouse" && f.name === gameData.spouse.name);
+            if(husbandInList) husbandInList.favor = gameData.spouse.favor;
+        }
+        
+        let totalSuccess = gameData.quarrelRecords[name].successCount;
+        let needTotal = gs.isSpouse ? 10 : 5;
+        let targetLabel = gs.isSpouse ? "正妻" : "妾室";
+        
+        resDiv.innerHTML = `<span class="big win">✦ 斗嘴获胜 ✦</span>
+            <p>你一番唇枪舌剑让丈夫看清了${name}的真面目，丈夫对${name}好感\u00a0-${favorLoss}</p>
+            <p style="font-size:13px;color:#8B4513;">累计斗嘴胜场：${totalSuccess}\u00a0/\u00a0${needTotal}（${targetLabel}和离所需）</p>`;
+        
+        // Check divorce condition
+        let shouldDivorce = (gs.isSpouse && totalSuccess >= 10) || (!gs.isSpouse && totalSuccess >= 5);
+        if(shouldDivorce){
+            let divorceMsg = gs.isSpouse ? `丈夫对正妻忍无可忍，决定和离！` : `丈夫对妾室忍无可忍，决定和离！`;
+            resDiv.innerHTML += `<p class="win" style="font-weight:700;margin-top:8px;">${divorceMsg}</p>`;
+            popMsg(divorceMsg);
+            gameData.familyList = gameData.familyList.filter(f => f.name !== name);
+            if(!gs.isSpouse) gameData.concubines = gameData.concubines.filter(c => c.name !== name);
+            for(let k in gameData.quarrelRecords) delete gameData.quarrelRecords[k];
+        }
+    } else {
+        resDiv.innerHTML = `<span class="big lose">✘ 斗嘴落败 ✘</span>
+            <p>${name}伶牙俐齿占了上风，你这次没能讨到便宜……</p>
+            <p style="font-size:13px;color:#8B4513;">下次提升才华与颜值再来一决高下吧。</p>`;
+    }
+    
+    resDiv.classList.remove("hidden");
+    document.getElementById("quarrelOptions").classList.add("hidden");
+    
+    // Add close button
+    resDiv.innerHTML += `<button class="action-btn" style="display:block;margin:16px auto 0;font-size:14px;padding:8px 24px;" onclick="closeQuarrelGame()">关闭</button>`;
+    
+    quarrelGameState = null;
+    saveData();
+}
+
+function closeQuarrelGame(){
+    hideDiv("quarrelGameMask");
+    refreshPage();
+}
 
 
 // 索要零花钱（仅父母/兄弟姐妹，不消耗行动力）
@@ -3788,6 +4530,48 @@ function doAction(act){
     refreshPage();
 }
 
+// ========== 年度教育自动成长 ==========
+function applyAnnualEducation(){
+    for(let child of (gameData.children || [])){
+        if(child.age >= 18) continue;
+        if(!child.education || child.education === "放养") continue;
+        
+        child.educationYears = (child.educationYears || 0) + 1;
+        
+        // 年度被动成长大幅降低（仅为环境熏陶，不替代手动教育）
+        if(child.age < 12){
+            if(child.education === "文教"){
+                let add = getRandRange(0, 2);
+                if(add > 0) child.talent = Math.min(100, child.talent + add);
+            } else if(child.education === "武教"){
+                let add = getRandRange(0, 2);
+                if(add > 0) child.strength = Math.min(100, child.strength + add);
+            }
+        } else {
+            if(child.education === "私塾"){
+                let add = getRandRange(2, 6);
+                child.talent = Math.min(100, child.talent + add);
+            } else if(child.education === "习武"){
+                let add = getRandRange(2, 6);
+                child.strength = Math.min(100, child.strength + add);
+            } else if(child.education === "学技术"){
+                let add = getRandRange(1, 3);
+                if(Math.random() > 0.5){
+                    child.talent = Math.min(100, child.talent + add);
+                } else {
+                    child.strength = Math.min(100, child.strength + add);
+                }
+            }
+        }
+        
+        // 年度随机故事（35%概率）
+        let story = triggerEduStory(child, child.education);
+        if(story){
+            popMsg(`<span style="color:#` + (story.type === "good" ? "27ae60" : (story.type === "bad" ? "e74c3c" : "f39c12")) + `;">📖 ${story.storyText}（${story.resultText}）</span>`);
+        }
+    }
+}
+
 // 检查所有子女的培养方式，如果钱财不足则自动更换为放养
 function checkAllChildrenEducation(){
     let totalFee = 0;
@@ -3849,11 +4633,77 @@ function growAge(){
             delete gameData.concubinePregnancies[name];
         }
     }
+    
+    // 女玩家：丈夫妾室怀孕生产（非外室）
+    if(gameData.playerGender === "女" && gameData.concubines){
+        for(let c of gameData.concubines){
+            if(!c.isOutside && c.isPregnant){
+                let gender = Math.random() > 0.5 ? "男" : "女";
+                if(Math.random() < 0.1){
+                    popMsg(`<span style="color:#e74c3c;">⚕️ 妾室${c.name}难产，孩子未能保住… 大人平安</span>`);
+                    addActionLog("难产", `妾室${c.name}难产，孩子夭折，大人无恙`);
+                    c.isPregnant = false;
+                    c.pregnancyMonths = 0;
+                } else {
+                    let childApp = Math.max(20, Math.min(100, Math.round(((c.pregnancyFatherAppearance || gameData.spouse?.appearance || 50) + c.appearance) * 0.30)));
+                    let childTal = Math.max(20, Math.min(100, Math.round(((c.pregnancyFatherTalent || gameData.spouse?.talent || 50) + c.talent) * 0.30)));
+                    let childStr = Math.max(10, Math.min(100, Math.round(((c.pregnancyFatherStrength || gameData.spouse?.strength || 0) + (c.strength || 0)) * 0.30)));
+                    let childType = gender === "男" ? "庶子" : "庶女";
+                    let fatherSur = gameData.spouse?.name?.[0] || "李";
+                    let childName = generateUniqueChildName(fatherSur, gender);
+                    let child = {
+                        name: childName, age: 0, gender: gender,
+                        appearance: childApp, talent: childTal, strength: childStr,
+                        favor: 80, fatherName: gameData.spouse?.name || "未知",
+                        motherName: c.name, fatherSur: fatherSur, isAdopted: false,
+                        education: "放养", educationYears: 0, childType: childType
+                    };
+                    gameData.children.push(child);
+                    gameData.familyList.push({
+                        name: childName, age: 0, gender: gender,
+                        type: "child", title: childType, job: "",
+                        appearance: childApp, talent: childTal, strength: childStr,
+                        favor: 80, officerRank: 0, officerTitle: "", family: gameData.familyType
+                    });
+                    popMsg(`妾室${c.name}生下了一个${childType}：${childName}`);
+                    addActionLog("生产", `妾室${c.name}生下一${childType}`);
+                    c.isPregnant = false;
+                    c.pregnancyMonths = 0;
+                }
+                saveData();
+            }
+        }
+    }
+    
+    // 女玩家：丈夫妾室每年20%概率随机怀孕（禁足者、外室、已怀孕者、已有2个孩子者均不触发）
+    // 男玩家：妾室怀孕仅通过同房触发，此处不处理
+    if(gameData.playerGender === "女"){
+        for(let c of (gameData.concubines || [])){
+            if(!c.isOutside && !c.confined && !c.isPregnant && gameData.spouse){
+                let childCount = gameData.children.filter(ch => ch.motherName === c.name).length;
+                if(childCount >= 2) continue; // 每个妾室最多两个孩子
+                if(Math.random() < 0.2){
+                    c.isPregnant = true;
+                    c.pregnancyMonths = 0;
+                    c.pregnancyFatherAppearance = gameData.spouse.appearance;
+                    c.pregnancyFatherTalent = gameData.spouse.talent;
+                    c.pregnancyFatherStrength = gameData.spouse.strength || 0;
+                    c.pregnancyFatherName = gameData.spouse.name;
+                    popMsg(`丈夫的妾室${c.name}有喜了！`);
+                }
+            }
+        }
+    }
 
     // 女玩家怀孕期间行动点数为3（含配偶怀孕和蓝颜知己怀孕）
     let isPregnantAny = gameData.pregnancy || (gameData.concubines || []).some(c => c.isPregnant);
     gameData.actionNum = (gameData.playerGender === "女" && isPregnantAny) ? 3 : 4;
     gameData.actionNum += getCarriageActionBonus(); // 马车行动加成
+
+    // 清空年度斗嘴记录（每年每人可交谈一次）
+    for(let k in (gameData.quarrelRecords || {})){
+        gameData.quarrelRecords[k].talkedThisYear = false;
+    }
 
     // 生病时体质-3
     if(gameData.isSick){
@@ -3992,11 +4842,11 @@ function growAge(){
                 // 红颜知己/蓝颜知己年龄增长
                 c.age++;
                 
-                // 红颜知己/蓝颜知己每年200文费用
-                outsideCost += 200;
-                // 红颜知己/蓝颜知己子女每人每年300文抚养费
+                // 红颜知己/蓝颜知己每年400文费用
+                outsideCost += 400;
+                // 红颜知己/蓝颜知己子女每人每年500文抚养费
                 if(c.children && c.children.length > 0){
-                    outsideCost += c.children.length * 300;
+                    outsideCost += c.children.length * 500;
                     // 红颜知己/蓝颜知己子女年龄增长（散养）
                     for(let child of c.children){
                         child.age++;
@@ -4059,13 +4909,16 @@ function growAge(){
         // 红颜/蓝颜生产已在 death check 之前处理，此处不再重复
     }
 
-    // 子女抚养费扣除（每个孩子每年80文）
+    // 子女抚养费扣除（每个孩子每年150文）
     let childrenArray = gameData.children || [];
     if(childrenArray.length > 0){
-        let childCost = childrenArray.length * 80;
+        let childCost = childrenArray.length * 150;
         gameData.money = Math.max(0, gameData.money - childCost);
     }
 
+    // 年度子女教育自动成长
+    applyAnnualEducation();
+    
     // 检查所有子女的培养方式，如果钱财不足则自动更换为放养
     checkAllChildrenEducation();
 
@@ -4108,7 +4961,7 @@ function growAge(){
     gameData.money += inc;
 
     // 添加年岁增长消息到公告队列
-    popMsg(`年岁增长，获得${inc}文${gameData.children.length > 0 ? ', 支付子女抚养费' + gameData.children.length * 80 + '文' : ''}`);
+    popMsg(`年岁增长，获得${inc}文${gameData.children.length > 0 ? ', 支付子女抚养费' + gameData.children.length * 150 + '文' : ''}`);
 
     // 12岁提醒：三年后可参加科举
     if(gameData.age === 12 && gameData.job !== officerJob){
@@ -4966,6 +5819,7 @@ function initiateSameSexPartner(friendName){
             <p style="font-size:16px; margin-bottom:10px;">你与<b>${friend.name}</b>心意相通，欲私定终身。</p>
             <p style="color:#c08060;">不料${parentNames}得知后雷霆大怒，坚决反对此事。</p>
             <p style="margin-top:8px;">若执意相守，恐有家中变故。</p>
+            <p style="margin-top:8px; color:#aaa;">（需筹备信物3000文）</p>
         `;
         document.getElementById("sameSexPartnerCancel").style.display = "";
         document.getElementById("sameSexPartnerCancel").innerText = "听从父母";
@@ -4973,8 +5827,8 @@ function initiateSameSexPartner(friendName){
     }else{
         // 无父母或父母默许，直接确认
         let msg = parents.length > 0 
-            ? `<p style="font-size:16px; margin-bottom:10px;">你与<b>${friend.name}</b>心意相通，欲私定终身。</p><p>父母虽不情愿，但并未强行阻拦。</p>`
-            : `<p style="font-size:16px; margin-bottom:10px;">你与<b>${friend.name}</b>心意相通，欲私定终身。</p>`;
+            ? `<p style="font-size:16px; margin-bottom:10px;">你与<b>${friend.name}</b>心意相通，欲私定终身。</p><p>父母虽不情愿，但并未强行阻拦。</p><p style="color:#aaa;">（需筹备信物3000文）</p>`
+            : `<p style="font-size:16px; margin-bottom:10px;">你与<b>${friend.name}</b>心意相通，欲私定终身。</p><p style="color:#aaa;">（需筹备信物3000文）</p>`;
         document.getElementById("sameSexPartnerMsg").innerHTML = msg;
         document.getElementById("sameSexPartnerCancel").style.display = "none";
         document.getElementById("sameSexPartnerConfirm").innerText = "确认相守";
@@ -5233,6 +6087,13 @@ function triggerSameSexAdoptedChild(){
 }
 
 function makeSameSexPartner(friend){
+    // 扣除信物（3000文）
+    if(gameData.money < 3000){
+        showToast("钱财不足3000文，无法筹备信物");
+        return;
+    }
+    gameData.money -= 3000;
+    
     // 从好友列表移除
     gameData.friendList = (gameData.friendList || []).filter(f => f.name !== friend.name);
     
@@ -5264,7 +6125,7 @@ function makeSameSexPartner(friend){
         officerRank: 0, officerTitle: ""
     });
     
-    popMsg(`你与${friend.name}私定终身，从此相守一生。`);
+    popMsg(`你与${friend.name}私定终身，从此相守一生。（花费信物3000文）`);
     saveData();
     refreshPage();
 }
@@ -5296,15 +6157,15 @@ function proposeToFriend(friendName, type){
         
         if(type === "marry"){
             html += `<p style="margin-top:10px;">是否与${friend.name}喜结连理？</p>`;
-            html += `<button class="modal-btn" onclick="acceptMarriage()">明媒正娶（1000文）</button>`;
+            html += `<button class="modal-btn" onclick="acceptMarriage()">明媒正娶（5000文）</button>`;
         }else{
             html += `<p style="margin-top:10px;">是否纳${friend.name}为妾？</p>`;
-            html += `<button class="modal-btn" onclick="acceptAsConcubine()">纳为妾室（500文）</button>`;
+            html += `<button class="modal-btn" onclick="acceptAsConcubine()">纳为妾室（3000文）</button>`;
         }
     }else{
         // 女玩家
         html += `<p style="margin-top:10px;">是否同意与${friend.name}喜结连理？</p>`;
-        html += `<button class="modal-btn" onclick="acceptMarriage()">同意（1000文）</button>`;
+        html += `<button class="modal-btn" onclick="acceptMarriage()">同意（5000文）</button>`;
     }
     
     html += `<button class="modal-btn" onclick="rejectMarriage()">拒绝</button>`;
@@ -5347,7 +6208,7 @@ function proposeMatchmaking(index){
                 html += `<button class="modal-btn" onclick="rejectMarriage()">返回</button>`;
             }else{
                 html += `<p style="margin-top:10px; color:#e74c3c;">（对方家世与职业综合与您平等或更高，只能明媒正娶）</p>`;
-                html += `<button class="modal-btn" onclick="acceptMarriage()">明媒正娶（1000文）</button>`;
+                html += `<button class="modal-btn" onclick="acceptMarriage()">明媒正娶（5000文）</button>`;
             }
             candidate.canOnlyMarry = true;
         }else{
@@ -5355,12 +6216,12 @@ function proposeMatchmaking(index){
             if(hasSpouse){
                 // 已有妻子：只能纳妾
                 html += `<p style="margin-top:10px;">请选择婚配方式：</p>`;
-                html += `<button class="modal-btn" onclick="acceptAsConcubine()">纳为妾室（500文）</button>`;
+                html += `<button class="modal-btn" onclick="acceptAsConcubine()">纳为妾室（4000文）</button>`;
             }else{
                 // 无妻子：可以选择明媒正娶或纳妾
                 html += `<p style="margin-top:10px;">请选择婚配方式：</p>`;
-                html += `<button class="modal-btn" onclick="acceptMarriage()">明媒正娶（1000文）</button>`;
-                html += `<button class="modal-btn" onclick="acceptAsConcubine()">纳为妾室（500文）</button>`;
+                html += `<button class="modal-btn" onclick="acceptMarriage()">明媒正娶（5000文）</button>`;
+                html += `<button class="modal-btn" onclick="acceptAsConcubine()">纳为妾室（3000文）</button>`;
             }
         }
     }else if(canBeSpouse){
@@ -5386,7 +6247,7 @@ function acceptAsConcubineWife(){
     if(!gameData.pendingSpouse) return;
     let sp = gameData.pendingSpouse;
     
-    // 检查钱财（女玩家嫁给对方，不需要支付礼金）
+    // 检查钱财（女玩家嫁给对方，不需要支付聘礼）
     
     // 女玩家作为妾嫁给相亲对象
     let concubineWifeFavor = getRandRange(50,70);
@@ -5469,12 +6330,12 @@ function acceptMarriage(){
     }
     
     // 检查钱财
-    if(gameData.money < 1000){
-        showToast("钱财不足1000文");
+    if(gameData.money < 5000){
+        showToast("钱财不足5000文");
         hideDiv("marriageMask");
         return;
     }
-    gameData.money -= 1000;
+    gameData.money -= 5000;
     
     // 好感：好友结婚继承原有好感，相亲随机50~70
     let marriageFavor = (gameData.matchmakingCandidates && gameData.matchmakingCandidates.length > 0) ? getRandRange(50,70) : sp.favor;
@@ -5511,7 +6372,7 @@ function acceptMarriage(){
     refreshPage();
 }
 
-// 男玩家纳妾（500文）
+// 男玩家纳妾（3000文）
 function acceptAsConcubine(){
     if(!gameData.pendingSpouse) return;
     let sp = gameData.pendingSpouse;
@@ -5577,12 +6438,12 @@ function acceptAsConcubine(){
     }
     
     // 检查钱财
-    if(gameData.money < 500){
-        showToast("钱财不足500文");
+    if(gameData.money < 3000){
+        showToast("钱财不足3000文");
         hideDiv("marriageMask");
         return;
     }
-    gameData.money -= 500; // 礼金不退
+    gameData.money -= 3000; // 聘礼不退
     
     // 从好友列表移除（如果在好友列表中）
     gameData.friendList = gameData.friendList.filter(f => f.name !== sp.name);
@@ -5650,9 +6511,9 @@ function spouseChat(){
 }
 
 function spouseGift(){
-    if(gameData.actionNum <= 0 || gameData.money < 30) return showToast("行动次数或钱财不足");
+    if(gameData.actionNum <= 0 || gameData.money < 200) return showToast("行动次数或钱财不足");
     gameData.actionNum--;
-    gameData.money -= 30;
+    gameData.money -= 200;
     let add = getRand1To4() + 3;
     gameData.spouse.favor = Math.min(100, gameData.spouse.favor + add);
     popMsg(`送给配偶礼物，好感 +${add}`);
@@ -5806,6 +6667,7 @@ function spouseIntimacyFromFamily(name){
     if(isSpouse){
         if(gameData.spouse.favor < 70) return showToast("配偶好感不足70，不愿同房");
     }else if(concubine){
+        if(concubine.confined) return showToast("妾室被禁足，无法同房");
         if(concubine.favor < 70) return showToast("对方好感不足70，不愿同房");
     }else{
         return showToast("未找到此人");
@@ -6036,117 +6898,7 @@ function showConcubinePanel(){
     msg += "\n\n是否纳妾或结交红颜知己？";
     
     document.getElementById("concubineMsg").innerText = msg;
-    document.getElementById("addOutsideWoman").innerText = "红颜知己（需500文礼金）";
-    // 纳妾按钮始终显示（男玩家）
-    document.getElementById("addConcubine").style.display = "";
     showDiv("concubineMask");
-}
-
-function addConcubine(){
-    let errors = [];
-    
-    let check = canTakeConcubine();
-    if(!check.can) errors.push(check.reason);
-    
-    if(gameData.money < 500) errors.push("钱财不足500文");
-    
-    if(errors.length > 0) return showToast(errors.join("；"));
-
-    let candidates = getEligibleConcubineCandidates();
-    if(candidates.length === 0) return showToast("没有符合条件的异性好友（条件：好感>80 或 综合等级比你低5级以上）");
-
-    // 随机选择一个候选人
-    let chosen = getRandom(candidates);
-    
-    // 计算综合等级（家庭背景+职业）
-    let famTypes = ["贫穷","普通","富裕","官宦","权贵"];
-    let playerFamIndex = famTypes.indexOf(gameData.familyType);
-    let playerJobRank = getJobRank(gameData.job);
-    let playerTotal = playerFamIndex + playerJobRank;
-    
-    let spouseFamIndex = famTypes.indexOf(gameData.spouse.family);
-    let spouseJobRank = getJobRank(gameData.spouse.job);
-    let spouseTotal = spouseFamIndex + spouseJobRank;
-    
-    // 比较正妻与男玩家的综合身份
-    let spouseHigher = spouseTotal > playerTotal;
-    let spouseEqual = spouseTotal === playerTotal;
-    
-    // 正妻身份或家庭背景比男方高或一样：妻子好感-15
-    if(spouseHigher || spouseEqual){
-        gameData.spouse.favor = Math.max(0, gameData.spouse.favor - 15);
-        let spouseInFamily = gameData.familyList.find(f => f.type === "spouse");
-        if(spouseInFamily) spouseInFamily.favor = gameData.spouse.favor;
-    }
-    
-    // 身份平等时10%概率触发和离，正妻更高时20%概率触发和离
-    let divorceProb = spouseHigher ? 0.2 : (spouseEqual ? 0.1 : 0);
-    
-    // 先扣除钱财（礼金不退）
-    gameData.money -= 500;
-    // 从好友列表移除
-    gameData.friendList = gameData.friendList.filter(f => f.name !== chosen.name);
-    
-    // 检查是否触发和离
-    if(divorceProb > 0 && Math.random() < divorceProb){
-        // 触发和离弹窗
-        let msg = spouseHigher 
-            ? `正妻身份比你高，怒而和离！` 
-            : `正妻身份与你平等，怒而和离！`;
-        
-        // 创建和离确认弹窗
-        let divorceConfirmHtml = `
-            <div class="modal" id="concubineDivorceConfirm">
-                <p style="color:#e74c3c; font-size:18px;">妻子生气，怒而和离！</p>
-                <p>${msg}</p>
-                <div class="modal-btn-group">
-                    <button class="modal-btn" onclick="forceDivorceFromConcubine()">确认和离</button>
-                    <button class="modal-btn" onclick="cancelConcubineAndKeepWife()">取消纳妾</button>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', divorceConfirmHtml);
-        showDiv("concubineDivorceConfirm");
-        
-        // 保存选择的妾室信息，以便后续处理
-        gameData.pendingConcubine = chosen;
-        return;
-    }
-    
-    // 不触发和离，正常添加妾室
-    finishAddConcubine(chosen);
-}
-
-function forceDivorceFromConcubine(){
-    // 和离：只有妻子消失，子女、妾室、外室都保留
-    let wifeName = gameData.spouse.name;
-    gameData.spouse = null;
-    gameData.pregnancy = null;
-    gameData.marriageYear = 0;
-    gameData.familyList = gameData.familyList.filter(f => f.type !== "spouse");
-    
-    popMsg(`与${wifeName}和离！`);
-    hideDiv("concubineDivorceConfirm");
-    document.getElementById("concubineDivorceConfirm").remove();
-    gameData.pendingConcubine = null;
-    gameData.spouseLostYear = gameData.age; // 记录失妻年份
-    saveData();
-    refreshPage();
-}
-
-function cancelConcubineAndKeepWife(){
-    // 取消纳妾，礼金不退（500文已扣）
-    // 恢复好友列表
-    if(gameData.pendingConcubine){
-        gameData.friendList.push(gameData.pendingConcubine);
-    }
-    gameData.pendingConcubine = null;
-    
-    popMsg("取消纳妾，礼金不退");
-    hideDiv("concubineDivorceConfirm");
-    document.getElementById("concubineDivorceConfirm").remove();
-    saveData();
-    refreshPage();
 }
 
 function confirmRaiseToWife(){
@@ -6167,31 +6919,10 @@ function confirmRaiseToWife(){
     refreshPage();
 }
 
-function finishAddConcubine(chosen){
-    // 添加为妾室
-    let concubine = {
-        name: chosen.name, age: chosen.age, gender: chosen.gender,
-        appearance: chosen.appearance, talent: chosen.talent, family: chosen.family,
-        favor: 60, isOutside: false, type: "concubine", title: "妾室"
-    };
-    gameData.concubines.push(concubine);
-    // 添加到家人列表
-    gameData.familyList.push({
-        name: chosen.name, age: chosen.age, gender: chosen.gender,
-        type: "concubine", title: "妾室", job: chosen.job,
-        appearance: chosen.appearance, talent: chosen.talent, strength: 0, favor: 60,
-        officerRank: 0, officerTitle: "", family: chosen.family
-    });
-    popMsg(`纳${chosen.name}为妾，花费500文`);
-    hideDiv("concubineMask");
-    saveData();
-    refreshPage();
-}
-
 function addOutsideWoman(){
     let errors = [];
     
-    if(gameData.money < 500) errors.push("钱财不足500文");
+    if(gameData.money < 2000) errors.push("钱财不足2000文");
     
     if(errors.length > 0) return showToast(errors.join("；"));
 
@@ -6203,7 +6934,7 @@ function addOutsideWoman(){
     if(eligibleCandidates.length === 0) return showToast("没有年龄符合条件的好友（需年满18岁）");
 
     let chosen = getRandom(eligibleCandidates);
-    gameData.money -= 500;
+    gameData.money -= 2000;
     // 从好友列表移除
     gameData.friendList = gameData.friendList.filter(f => f.name !== chosen.name);
     // 添加为红颜知己/蓝颜知己
@@ -6218,7 +6949,7 @@ function addOutsideWoman(){
         personality: chosen.personality || "温和"
     };
     gameData.concubines.push(concubine);
-    popMsg(`与${chosen.name}结为${title}，花费500文礼金`);
+    popMsg(`与${chosen.name}结为${title}，花费3000文聘礼`);
     hideDiv("concubineMask");
     saveData();
     refreshPage();
@@ -6230,17 +6961,35 @@ function showConcubineInteraction(){
         popMsg("丈夫没有妾室");
         return;
     }
+    let isPlayerConcubine = gameData.concubines.some(c => c.name === gameData.playerName);
     let html = "<h3>丈夫的妾室</h3>";
     for(let c of gameData.concubines){
-        html += `<div class="relation-item">
-            <div class="rel-name">${c.name}（${c.isOutside ? "外室" : "妾"}）</div>
-            <div class="rel-info">好感：${c.favor}</div>
-            <div class="rel-btn-group">
+        // 跳过自己（玩家就是妾室之一）
+        if(isPlayerConcubine && c.name === gameData.playerName) continue;
+        let beautyClass = c.appearance < 40 ? "丑陋" : (c.appearance < 60 ? "普通" : (c.appearance < 80 ? "清秀" : "出众"));
+        let talentLevel = c.talent < 40 ? "愚钝" : (c.talent < 60 ? "普通" : (c.talent < 80 ? "聪慧" : "天才"));
+        let jobShow = c.job || "无";
+        let familyShow = c.family || "未知";
+        let btns = "";
+        if(isPlayerConcubine){
+            // 妾室玩家无法管理任何人，只能交谈
+            btns = `<button class="action-btn" onclick="interactFamily('${c.name}','交谈')">交谈</button>`;
+        } else {
+            btns = `
                 <button class="action-btn" onclick="punishConcubine('${c.name}')">惩罚</button>
                 <button class="action-btn" onclick="confineConcubine('${c.name}')">禁足</button>
-                <button class="action-btn" onclick="cutAllowance('${c.name}')">扣月钱</button>
+                <button class="action-btn" onclick="cutAllowance('${c.name}')">扣月钱</button>`;
+        }
+        html += `<div class="relation-item">
+            <div class="rel-name" style="color:#8B4513;">${c.name}（${c.isOutside ? "外室" : "妾"}）</div>
+            <div class="rel-info">${c.age}岁 | ${jobShow}<br>颜值：${c.appearance}（${beautyClass}）| 才华：${c.talent}（${talentLevel}）<br>家世：${familyShow} | 好感：${c.favor}</div>
+            <div class="rel-btn-group">
+                ${btns}
             </div>
         </div>`;
+    }
+    if(isPlayerConcubine && html.indexOf("rel-name") === -1){
+        html += "<p style='color:#999; padding:20px;'>丈夫没有其他妾室了</p>";
     }
     document.getElementById("concubineInteractionList").innerHTML = html;
     showDiv("concubineInteractionMask");
@@ -6253,7 +7002,24 @@ function punishConcubine(name){
     // 同步家人列表
     let f = gameData.familyList.find(x => x.name === name);
     if(f) f.favor = c.favor;
-    popMsg(`惩罚${name}，好感-10`);
+    let scenes = [
+        `因${name}近日频频在丈夫面前搬弄是非，你罚她抄写《女诫》。${name}表面上唯唯诺诺，回房后却摔了茶盏，咬牙骂道："等着瞧，迟早让老爷休了你。"当晚又跑到丈夫书房外哭哭啼啼告状。好感-10`,
+        `${name}给你请安时故意迟到，你当众训斥了几句。${name}回房后对着铜镜冷笑："有什么了不起，不过是仗着家世好。"转头便找丈夫同僚的夫人串门，话里话外编排你为人刻薄。好感-10`,
+        `${name}趁你不在时偷偷穿了正妻才有资格戴的凤钗，被你发现后没收了簪子。${name}表面认错，背地里却拉着自己的贴身丫鬟编排你是妒妇，还偷偷写了封书信让人捎回娘家哭诉。好感-10`,
+        `${name}在花园里故意打翻了你最爱的兰花，你罚她亲自照料那些花一个月。${name}一边浇水一边嘟囔："几盆破花有什么稀罕……"转头便去找丈夫的好友之妻串门，添油加醋编排你苛待妾室。好感-10`,
+        `${name}暗中克扣了庶子庶女该分到的布料绸缎，你查账时发现端倪，狠狠数落了她一通。${name}咬着后槽牙回屋，把枕头摔了又摔，连夜让贴身丫鬟去请丈夫来评理，哭得梨花带雨。好感-10`,
+        `${name}在丈夫面前撒娇要了一对翡翠镯子，转头就四处炫耀，话里话外说自己比正妻更得宠。你冷笑一声，当众点破镯子的成色不过是下等货，${name}脸色铁青，回房后砸了梳妆台上的铜镜。好感-10`,
+        `${name}故意在丈夫经过时唱曲撒娇，被你不咸不淡地说了句"大白天的不成体统"。${name}跪在地上认错，等丈夫一走便咬牙切齿，暗地里买通了守门的小厮，想打听你的把柄好去告状。好感-10`,
+        `家宴上${name}故意把酒杯碰翻在你身上，你扫了她一眼便起身去更衣。${name}假惺惺追上来道歉，转身却跟身边的丫鬟冷笑道："装什么大度。"又忙着去找丈夫面前装可怜，说你在众人面前给她难堪。好感-10`,
+        `${name}在院子里指桑骂槐，指着一只鹦鹉骂"有些人仗势欺人"，明明就是冲着你来的。你淡淡一笑不予理会，${name}见你不上钩反倒心里发堵，回房后对着丫鬟发了半天脾气。好感-10`,
+        `你发现${name}偷拿了库房的燕窝，当着管家的面让她交了回来。${name}满脸赔笑说是误会，心里却恨得牙痒痒，趁你不备跑去跟丈夫哭诉说当家主母苛待她，连口吃的都不给。好感-10`,
+        `${name}偷偷让丫鬟在你这边的茶水里多加了一味让你反胃的香料，被细心的下人察觉禀报于你。你冷冷敲打了她几句，${name}面如土色连连磕头，回房后却撕烂了你的画像，咬牙切齿。好感-10`,
+        `${name}在庙里上香时故意跟其他官太太说你善妒，被你家相识的夫人传了回来。你一笑了之不予理会，${name}见你没反应反倒心里发毛，疑神疑鬼了好几天，又忙着去丈夫面前装可怜。好感-10`,
+        `${name}仗着丈夫宠她两分，竟在闺房里跟丈夫吹枕边风说你管账不清。丈夫转头就告诉了你，你冷冷看了${name}一眼，没说话。${name}心虚得手脚发凉，回房后恨恨地咬着帕子直掉眼泪。好感-10`,
+        `你命${name}亲手绣一幅屏风作为给老太太的寿礼，${name}绣了三天便喊累推给丫鬟代工。你不动声色地上前一看，针脚粗糙得不堪入目，让你当众把屏风退了回去。${name}站也不是坐也不是，指甲差点掐断了。好感-10`,
+        `${name}趁你回娘家时，擅自换了正厅的摆设，把你的东西挪到了偏角。你回来后面无表情地让人一一移回原位，${name}站在廊下远远看着，冷笑低语："看你还能得意多久……"余下的话到底没敢说出口。好感-10`
+    ];
+    popMsg(getRandom(scenes));
     saveData();
     refreshPage();
 }
@@ -6262,13 +7028,14 @@ function confineConcubine(name){
     let c = gameData.concubines.find(x => x.name === name);
     if(!c) return;
     c.confined = true;
-    popMsg(`${name}被禁足`);
+    let husbandName = gameData.spouse ? gameData.spouse.name : "丈夫";
+    popMsg(`${name}已被禁足，今年无法与${husbandName}同房`);
     saveData();
+    refreshPage();
 }
 
 function cutAllowance(name){
-    if(gameData.money < 50) return showToast("钱财不足");
-    gameData.money -= 50;
+    // 扣减妾的月钱，玩家不花钱（反而省了月钱开支），妾好感降低
     let c = gameData.concubines.find(x => x.name === name);
     if(c) c.favor = Math.max(0, c.favor - 5);
     let f = gameData.familyList.find(x => x.name === name);
@@ -6658,15 +7425,15 @@ function autoBirth(isSpouse = true, motherName = null){
         motherStrength = motherObj?.strength || 0;
     }
     let fatherAppearance = gameData.playerGender === "男" ? gameData.appearance : (gameData.pregnancy?.fatherAppearance || gameData.spouse?.appearance || 50);
-    let childApp = Math.floor((fatherAppearance + motherAppearance) * 0.35);
+    let childApp = Math.floor((fatherAppearance + motherAppearance) * 0.30);
     
     let fatherTalent = gameData.playerGender === "男" ? gameData.talent : (gameData.pregnancy?.fatherTalent || gameData.spouse?.talent || 50);
-    let childTal = Math.floor((fatherTalent + motherTalent) * 0.35);
+    let childTal = Math.floor((fatherTalent + motherTalent) * 0.30);
     
     let childStr = 0;
     if(gameData.hasStrength){
         let fatherStrength = gameData.playerGender === "男" ? gameData.strength : (gameData.pregnancy?.fatherStrength || gameData.spouse?.strength || 0);
-        childStr = Math.floor((fatherStrength + motherStrength) * 0.35);
+        childStr = Math.floor((fatherStrength + motherStrength) * 0.30);
     }
     
     let newChild = {
@@ -6767,7 +7534,7 @@ function confirmBabyName(){
         mother = gameData.concubines.find(c => c.name === child.motherName);
     }
 
-    // 颜值才华遗传：父母属性之和的35%
+    // 颜值才华遗传：父母属性之和的30%
     // 女性玩家：母亲是玩家自己，不是配偶对象
     let motherAppearance, motherTalent, motherStrength;
     if(gameData.playerGender === "女"){
@@ -6780,15 +7547,15 @@ function confirmBabyName(){
         motherStrength = mother?.strength || 0;
     }
     let fatherAppearance = gameData.playerGender === "男" ? gameData.appearance : (gameData.pregnancy?.fatherAppearance || gameData.spouse?.appearance || 50);
-    let childApp = Math.floor((fatherAppearance + motherAppearance) * 0.35);
+    let childApp = Math.floor((fatherAppearance + motherAppearance) * 0.30);
 
     let fatherTalent = gameData.playerGender === "男" ? gameData.talent : (gameData.pregnancy?.fatherTalent || gameData.spouse?.talent || 50);
-    let childTal = Math.floor((fatherTalent + motherTalent) * 0.35);
+    let childTal = Math.floor((fatherTalent + motherTalent) * 0.30);
 
     let childStr = 0;
     if(gameData.hasStrength){
         let fatherStrength = gameData.playerGender === "男" ? gameData.strength : (gameData.pregnancy?.fatherStrength || gameData.spouse?.strength || 0);
-        childStr = Math.floor((fatherStrength + motherStrength) * 0.35);
+        childStr = Math.floor((fatherStrength + motherStrength) * 0.30);
     }
     let newChild = {
         name:name, age:0, gender:child.gender,
@@ -6818,6 +7585,80 @@ function confirmBabyName(){
 }
 
 // ========== 子女培养 ==========
+
+// ========== 教育随机事件系统 ==========
+const educationStoryPool = {
+    // 文教（0-12岁）
+    "文教": [
+        { id: 1, type: "good", story: (n) => `${n}背书时突然茅塞顿开，豁然贯通。`, bonus: (c) => { let v = getRandRange(2,5); c.talent = Math.min(100, c.talent + v); return `才华+${v}`; }},
+        { id: 2, type: "good", story: (n) => `${n}被先生当众夸奖"孺子可教也"。`, bonus: (c) => { c.talent = Math.min(100, c.talent + 2); c.favor = Math.min(100, (c.favor||80) + 1); return "才华+2，好感+1"; }},
+        { id: 3, type: "good", story: (n) => `${n}在家中翻出一本古书残卷，爱不释手。`, bonus: (c,g) => { let v = getRandRange(1,3); c.talent = Math.min(100, c.talent + v); g.reputation += 1; return `才华+${v}，声望+1`; }},
+        { id: 4, type: "good", story: (n) => `${n}作了一首小诗，邻里争相传阅。`, bonus: (c) => { c.talent = Math.min(100, c.talent + 1); c.appearance = Math.min(100, c.appearance + 1); return "才华+1，颜值+1"; }},
+        { id: 5, type: "good", story: (n) => `${n}在学堂辩论中大放异彩，同窗折服。`, bonus: (c) => { c.talent = Math.min(100, c.talent + 3); return "才华+3"; }},
+        { id: 6, type: "bad", story: (n) => `${n}偷偷看杂书被先生发现，罚抄《论语》十遍。`, bonus: (c) => { c.favor = Math.max(0, (c.favor||80) - 2); return "好感-2，无心向学"; }},
+        { id: 7, type: "neutral", story: (n) => `${n}近日染了风寒，卧病数日，耽误了功课。`, bonus: () => "修养数日，暂时无进益" },
+        { id: 8, type: "bad", story: (n) => `${n}上课打瞌睡，被先生用戒尺打了手心。`, bonus: (c) => { c.favor = Math.max(0, (c.favor||80) - 3); return "一个字也没听进去，好感-3"; }},
+    ],
+    // 武教（0-12岁）
+    "武教": [
+        { id: 10, type: "good", story: (n) => `${n}习武时突然顿悟，一招一式如行云流水。`, bonus: (c) => { let v = getRandRange(2,5); c.strength = Math.min(100, c.strength + v); return `武力+${v}`; }},
+        { id: 11, type: "good", story: (n) => `${n}打败了同门师兄，被师父称赞"天生神力"。`, bonus: (c) => { c.strength = Math.min(100, c.strength + 2); c.appearance = Math.min(100, c.appearance + 1); return "武力+2，颜值+1"; }},
+        { id: 12, type: "good", story: (n) => `${n}在集市见义勇为，打跑了偷东西的贼人。`, bonus: (c,g) => { c.strength = Math.min(100, c.strength + 2); g.reputation += 1; return "武力+2，声望+1"; }},
+        { id: 13, type: "neutral", story: (n) => `${n}偷学了一招新功夫，被师父罚站。`, bonus: (c) => { c.strength = Math.min(100, c.strength + 1); c.favor = Math.max(0, (c.favor||80) - 1); return "武力+1，好感-1"; }},
+        { id: 14, type: "neutral", story: (n) => `${n}练功时不慎摔了一跤，还好无大碍。`, bonus: (c) => { c.strength = Math.min(100, c.strength + 1); return "武力+1"; }},
+        { id: 15, type: "bad", story: (n) => `${n}练功偷懒被师父逮住，罚挑水一百担。`, bonus: () => "白忙一天，毫无进益" },
+    ],
+    // 私塾（12-18岁）
+    "私塾": [
+        { id: 20, type: "good", story: (n) => `${n}在年终策论中被评为魁首。`, bonus: (c) => { let v = getRandRange(3,6); c.talent = Math.min(100, c.talent + v); return `才华+${v}`; }},
+        { id: 21, type: "good", story: (n) => `${n}得到名师私下指点，豁然开朗。`, bonus: (c) => { let v = getRandRange(5,8); c.talent = Math.min(100, c.talent + v); return `才华+${v}`; }},
+        { id: 22, type: "good", story: (n) => `${n}一篇策论惊动县学，先生称"此子可期"。`, bonus: (c,g) => { c.talent = Math.min(100, c.talent + 4); g.reputation += 2; return "才华+4，声望+2"; }},
+        { id: 23, type: "good", story: (n) => `${n}结交了志同道合的才子，常相约论学。`, bonus: (c) => { c.talent = Math.min(100, c.talent + 2); c.favor = Math.min(100, (c.favor||80) + 3); return "才华+2，好感+3"; }},
+        { id: 24, type: "bad", story: (n) => `${n}觉得读书太苦，逃学数日被先生告到家里。`, bonus: (c) => { c.favor = Math.max(0, (c.favor||80) - 5); return "无成长，好感-5"; }},
+        { id: 25, type: "neutral", story: (n) => `${n}被罚抄《大学》十遍，一边抄一边嘀咕。`, bonus: (c) => { c.talent = Math.min(100, c.talent + 1); c.favor = Math.max(0, (c.favor||80) - 2); return "才华+1，好感-2"; }},
+    ],
+    // 习武（12-18岁）
+    "习武": [
+        { id: 30, type: "good", story: (n) => `${n}在比武中击败了一位江湖侠客。`, bonus: (c) => { let v = getRandRange(3,6); c.strength = Math.min(100, c.strength + v); return `武力+${v}`; }},
+        { id: 31, type: "good", story: (n) => `${n}得异人传授一套独门武功。`, bonus: (c) => { let v = getRandRange(5,7); c.strength = Math.min(100, c.strength + v); return `武力+${v}`; }},
+        { id: 32, type: "good", story: (n) => `${n}在县试中力挫群雄，一战成名。`, bonus: (c,g) => { c.strength = Math.min(100, c.strength + 4); g.reputation += 1; return "武力+4，声望+1"; }},
+        { id: 33, type: "neutral", story: (n) => `${n}意外败给了师弟，闭门苦练三日。`, bonus: (c) => { c.strength = Math.min(100, c.strength + 4); c.favor = Math.max(0, (c.favor||80) - 2); return "武力+4，好感-2"; }},
+        { id: 34, type: "neutral", story: (n) => `${n}练功扭伤了手腕，休养了几日。`, bonus: (c) => { c.strength = Math.min(100, c.strength + 2); return "武力+2"; }},
+        { id: 35, type: "bad", story: (n) => `${n}比武惨败，灰头土脸躲在屋里不见人。`, bonus: (c) => { c.favor = Math.max(0, (c.favor||80) - 2); return "毫无长进，好感-2"; }},
+    ],
+    // 学技术（12-18岁）
+    "学技术": [
+        { id: 40, type: "good", story: (n) => `${n}学到了一门独门手艺，师傅大加赞赏。`, bonus: (c) => { let v = getRandRange(4,6); c.talent = Math.min(100, c.talent + v); return `才华+${v}`; }},
+        { id: 41, type: "good", story: (n) => `${n}将手艺与巧思结合，做出了件让人惊叹的东西。`, bonus: (c) => { let v = getRandRange(2,5); c.talent = Math.min(100, c.talent + v); c.appearance = Math.min(100, c.appearance + 1); return `才华+${v}，颜值+1`; }},
+        { id: 42, type: "good", story: (n) => `${n}偶然发明了一种新的制作方法。`, bonus: (c) => { c.talent = Math.min(100, c.talent + 3); c.strength = Math.min(100, c.strength + 2); return "才华+3，武力+2"; }},
+        { id: 43, type: "good", story: (n) => `${n}帮邻里修好了坏掉的器具，纷纷道谢。`, bonus: (c) => { c.strength = Math.min(100, c.strength + 2); c.favor = Math.min(100, (c.favor||80) + 3); return "武力+2，好感+3"; }},
+        { id: 44, type: "bad", story: (n) => `${n}毛手毛脚弄坏了师傅的工具，被责骂一番。`, bonus: (c) => { c.favor = Math.max(0, (c.favor||80) - 3); return "无成长，好感-3"; }},
+    ],
+    // 放养（全年龄段）
+    "放养": [
+        { id: 50, type: "good", story: (n) => `${n}在田野间自由奔跑，身板越发结实。`, bonus: (c) => { let v = getRandRange(1,3); c.strength = Math.min(100, c.strength + v); return `武力+${v}`; }},
+        { id: 51, type: "good", story: (n) => `${n}偷偷跑到私塾窗外听课，竟比正式弟子还认真。`, bonus: (c) => { let v = getRandRange(1,3); c.talent = Math.min(100, c.talent + v); return `才华+${v}`; }},
+        { id: 52, type: "good", story: (n) => `${n}发现了一片桃林，在里面待了一整天。`, bonus: (c) => { c.appearance = Math.min(100, c.appearance + getRandRange(1,2)); return `颜值+${getRandRange(1,2)}`; }},
+        { id: 53, type: "good", story: (n) => `${n}交了新朋友，两人形影不离。`, bonus: (c) => { c.favor = Math.min(100, (c.favor||80) + getRandRange(3,6)); return `好感+${getRandRange(3,6)}`; }},
+        { id: 54, type: "good", story: (n) => `${n}帮着干了一天农活，体会了父母的辛劳。`, bonus: (c) => { c.strength = Math.min(100, c.strength + 1); c.favor = Math.min(100, (c.favor||80) + 3); return "武力+1，好感+3"; }},
+        { id: 55, type: "neutral", story: (n) => `${n}在河边学会了钓鱼，一待就是半天。`, bonus: (c) => { c.favor = Math.min(100, (c.favor||80) + 2); return "好感+2"; }},
+        { id: 56, type: "neutral", story: (n) => `${n}追野兔摔了一跤，哭着跑回了家。`, bonus: () => "什么也没发生" },
+        { id: 57, type: "neutral", story: (n) => `${n}听村口老人讲了一下午的江湖故事，入了迷。`, bonus: (c) => { c.strength = Math.min(100, c.strength + 1); return "武力+1"; }},
+    ],
+};
+
+function triggerEduStory(child, eduType) {
+    let pool = educationStoryPool[eduType];
+    if(!pool || Math.random() > 0.45) return null; // 45%概率触发
+    let typeWeights = { good: 10, neutral: 6, bad: 3 };
+    let rolledType = Math.random() < typeWeights.good / 19 ? "good" : (Math.random() < typeWeights.neutral / (typeWeights.neutral + typeWeights.bad)) ? "neutral" : "bad";
+    let candidates = pool.filter(e => e.type === rolledType);
+    if(candidates.length === 0) candidates = pool;
+    let evt = candidates[Math.floor(Math.random() * candidates.length)];
+    let result = evt.bonus(child, gameData);
+    return { storyText: evt.story(child.name), resultText: result, type: evt.type };
+}
+
 function showChildrenEducation(){
     let educatable = gameData.children.filter(c => c.age >= 0 && c.age < 18);
     if(educatable.length === 0){
@@ -6849,10 +7690,10 @@ function showChildrenEducation(){
                     颜值：${c.appearance} | 才华：${c.talent} | 武力：${c.strength}
                 </div>
                 <div class="rel-btn-group">
-                    <button class="modal-btn" onclick="educateChild('${c.name}', '私塾')">私塾（100文/年，才华+10）</button>
-                    <button class="modal-btn" onclick="educateChild('${c.name}', '习武')">习武（100文/年，武力+10）</button>
-                    <button class="modal-btn" onclick="educateChild('${c.name}', '学技术')">学技术（20文/年，随机+2~8）</button>
-                    <button class="modal-btn" onclick="educateChild('${c.name}', '放养')">放养（免费，随机+0~4）</button>
+                    <button class="modal-btn" onclick="educateChild('${c.name}', '私塾')">私塾（300文/年）</button>
+                    <button class="modal-btn" onclick="educateChild('${c.name}', '习武')">习武（300文/年）</button>
+                    <button class="modal-btn" onclick="educateChild('${c.name}', '学技术')">学技术（50文/年）</button>
+                    <button class="modal-btn" onclick="educateChild('${c.name}', '放养')">放养（免费）</button>
                 </div>
             </div>`;
         }
@@ -6861,17 +7702,28 @@ function showChildrenEducation(){
     showDiv("childrenEduMask");
 }
 
+// ========== 学习态度系统 ==========
+// 好感影响态度：好感高→更用功，好感低→更偷懒
+function checkStudyAttitude(child){
+    let favor = child.favor || 80;
+    // 用功概率 5%~75%，偷懒概率 3%~55%
+    let diligentChance = Math.max(0.05, Math.min(0.75, 0.35 + (favor - 50) * 0.008));
+    let lazyChance = Math.max(0.03, Math.min(0.55, 0.25 - (favor - 50) * 0.006));
+    let roll = Math.random();
+    if(roll < diligentChance) return "diligent";
+    if(roll < diligentChance + lazyChance) return "lazy";
+    return "normal";
+}
+
 function educateChild(childName, eduType){
     let child = gameData.children.find(c => c.name === childName);
     if(!child || child.age >= 18) return;
     if(gameData.actionNum <= 0) return showToast("行动次数不足");
     
     // 12岁以上需要支付学费
-    if(child.age >= 12){
-        let cost = eduType === "私塾" || eduType === "习武" ? 100 : 20;
-        if(gameData.money < cost){
-            return showToast(`钱财不足，需要${cost}文`);
-        }
+    if(child.age >= 12 && eduType !== "放养"){
+        let cost = eduType === "私塾" || eduType === "习武" ? 300 : 50;
+        if(gameData.money < cost) return showToast(`钱财不足，需要${cost}文`);
         gameData.money -= cost;
     }
     
@@ -6879,49 +7731,111 @@ function educateChild(childName, eduType){
     child.education = eduType;
     child.educationYears = (child.educationYears || 0) + 1;
     
+    let resultMsg = "";
+    let baseMsg = "";
+    
+    // 学习态度（好感影响本次教育效果）
+    let attitude = checkStudyAttitude(child);
+    
     if(child.age < 12){
-        // 0-12岁：原有教育方式
+        // 0-12岁：文教/武教/放养
         if(eduType === "文教" && gameData.talent >= 70){
-            let add = getRandRange(1, 3);
-            child.talent = Math.min(100, child.talent + add);
-            popMsg(`${childName}学习进步，才华+${add}`);
+            if(attitude === "diligent"){
+                let add = getRandRange(2, 4);
+                child.talent = Math.min(100, child.talent + add);
+                baseMsg = `${childName}专心致志，才华+${add}`;
+            } else if(attitude === "normal"){
+                let add = getRandRange(1, 2);
+                child.talent = Math.min(100, child.talent + add);
+                baseMsg = `${childName}按部就班，才华+${add}`;
+            } else {
+                baseMsg = `${childName}心不在焉，什么也没学进去。`;
+            }
         }else if(eduType === "武教" && gameData.hasStrength){
-            let add = getRandRange(1, 3);
-            child.strength = Math.min(100, child.strength + add);
-            popMsg(`${childName}习武进步，武力+${add}`);
+            if(attitude === "diligent"){
+                let add = getRandRange(2, 4);
+                child.strength = Math.min(100, child.strength + add);
+                baseMsg = `${childName}挥汗如雨，武力+${add}`;
+            } else if(attitude === "normal"){
+                let add = getRandRange(1, 2);
+                child.strength = Math.min(100, child.strength + add);
+                baseMsg = `${childName}中规中矩，武力+${add}`;
+            } else {
+                baseMsg = `${childName}偷懒耍滑，被师父罚蹲马步，白费功夫。`;
+            }
         }else if(eduType === "放养"){
-            // 随机成长
             let opts = ["appearance", "talent", "strength"];
             let opt = opts[getRandRange(0, 2)];
             if(opt === "strength" && !gameData.hasStrength) opt = "talent";
-            child[opt] = Math.min(100, child[opt] + getRandRange(1, 4));
-            popMsg(`${childName}放养成长，${opt === "appearance" ? "颜值" : (opt === "talent" ? "才华" : "武力")}+${getRandRange(1,4)}`);
+            let add = getRandRange(1, 4);
+            child[opt] = Math.min(100, child[opt] + add);
+            baseMsg = `${childName}自由成长，${opt === "appearance" ? "颜值" : (opt === "talent" ? "才华" : "武力")}+${add}`;
         }else{
             showToast("条件不满足，无法进行该教育");
-            gameData.actionNum++; // 返还行动次数
+            gameData.actionNum++;
+            return;
         }
     }else{
         // 12-18岁：私塾/习武/学技术/放养
+        let costText = eduType !== "放养" ? `（花费${eduType === "私塾" || eduType === "习武" ? "100" : "20"}文）` : "";
         if(eduType === "私塾"){
-            child.talent = Math.min(100, child.talent + 10);
-            popMsg(`${childName}进入私塾学习，才华+10（花费100文）`);
+            if(attitude === "diligent"){
+                let add = getRandRange(8, 12);
+                child.talent = Math.min(100, child.talent + add);
+                baseMsg = `${childName}勤学不辍，先生连连称赞，才华+${add}${costText}`;
+            } else if(attitude === "normal"){
+                let add = getRandRange(4, 7);
+                child.talent = Math.min(100, child.talent + add);
+                baseMsg = `${childName}按部就班，才华+${add}${costText}`;
+            } else {
+                baseMsg = `${childName}上课走神，先生讲的左耳进右耳出。${costText}`;
+            }
         }else if(eduType === "习武"){
-            child.strength = Math.min(100, child.strength + 10);
-            popMsg(`${childName}开始习武，武力+10（花费100文）`);
+            if(attitude === "diligent"){
+                let add = getRandRange(8, 12);
+                child.strength = Math.min(100, child.strength + add);
+                baseMsg = `${childName}刻苦练功，武力+${add}${costText}`;
+            } else if(attitude === "normal"){
+                let add = getRandRange(4, 7);
+                child.strength = Math.min(100, child.strength + add);
+                baseMsg = `${childName}按部就班，武力+${add}${costText}`;
+            } else {
+                baseMsg = `${childName}练功偷懒被师父发现，罚跑十圈。${costText}`;
+            }
         }else if(eduType === "学技术"){
-            let add = getRandRange(2, 8);
-            let attr = Math.random() > 0.5 ? "talent" : "strength";
-            child[attr] = Math.min(100, child[attr] + add);
-            popMsg(`${childName}学习技术，${attr === "talent" ? "才华" : "武力"}+${add}（花费20文）`);
+            if(attitude === "diligent"){
+                let add = getRandRange(4, 8);
+                let attr = Math.random() > 0.5 ? "talent" : "strength";
+                child[attr] = Math.min(100, child[attr] + add);
+                baseMsg = `${childName}钻研技艺，${attr === "talent" ? "才华" : "武力"}+${add}${costText}`;
+            } else if(attitude === "normal"){
+                let add = getRandRange(2, 4);
+                let attr = Math.random() > 0.5 ? "talent" : "strength";
+                child[attr] = Math.min(100, child[attr] + add);
+                baseMsg = `${childName}跟着师傅学手艺，${attr === "talent" ? "才华" : "武力"}+${add}${costText}`;
+            } else {
+                baseMsg = `${childName}毛手毛脚帮倒忙，被师傅赶去劈柴。${costText}`;
+            }
         }else if(eduType === "放养"){
-            // 放养：随机属性+0~4，免费
             let opts = ["appearance", "talent", "strength"];
             let opt = opts[getRandRange(0, 2)];
             let add = getRandRange(0, 4);
             child[opt] = Math.min(100, child[opt] + add);
-            popMsg(`${childName}放养成长，${opt === "appearance" ? "颜值" : (opt === "talent" ? "才华" : "武力")}+${add}（免费）`);
+            baseMsg = `${childName}放养成长，${opt === "appearance" ? "颜值" : (opt === "talent" ? "才华" : "武力")}+${add}`;
         }
     }
+    
+    // 随机教育事件（45%概率触发）
+    let story = triggerEduStory(child, eduType);
+    if(story){
+        resultMsg = baseMsg + "。<br><span style=\"color:" + 
+            (story.type === "good" ? "#27ae60" : (story.type === "bad" ? "#e74c3c" : "#f39c12")) + 
+            "\">📖 " + story.storyText + "（" + story.resultText + "）</span>";
+    } else {
+        resultMsg = baseMsg + "。";
+    }
+    
+    popMsg(resultMsg);
     saveData();
     refreshPage();
 }
@@ -7361,18 +8275,18 @@ function resolveYearlyEvent(index){
         if(gameData.job === "商人"){
             gameData.money += evt.earn;
             gameData.merchantWealth += evt.earn;
-            popMsg(`${evt.title}——裁决成功！（成功率${successRate}%）获利 ${evt.earn} 文。`);
+            popMsg(`${evt.title}——裁决成功！获利 ${evt.earn} 文。`);
         } else {
             let meritField = gameData.job === officerJob ? "politicalMerit" : "militaryMerit";
             gameData[meritField] += evt.merit;
             let meritName = gameData.job === officerJob ? "政绩" : "军功";
-            popMsg(`${evt.title}——裁决成功！（成功率${successRate}%）${meritName}+${evt.merit}`);
+            popMsg(`${evt.title}——裁决成功！${meritName}+${evt.merit}`);
         }
     } else {
         if(gameData.job === "商人"){
             gameData.money = Math.max(0, gameData.money - evt.lose);
             gameData.merchantWealth = Math.max(0, gameData.merchantWealth - evt.lose);
-            popMsg(`${evt.title}——裁决失败！（成功率${successRate}%）损失 ${evt.lose} 文。`);
+            popMsg(`${evt.title}——裁决失败！损失 ${evt.lose} 文。`);
             // 破产检查：钱亏到一万以下
             if(gameData.money < 10000){
                 gameData.job = "";
@@ -7383,7 +8297,7 @@ function resolveYearlyEvent(index){
                 popMsg(`💸 你已资不抵债，宣告破产！不再是从商之身，声望−20。`);
             }
         } else {
-            popMsg(`${evt.title}——裁决失败！（成功率${successRate}%）未能积累功绩。`);
+            popMsg(`${evt.title}——裁决失败！未能积累功绩。`);
         }
     }
     
@@ -7587,7 +8501,7 @@ function refreshYearlyEventPanel(){
             let detail = gameData.job === "商人" 
                 ? (e.success ? `获利 ${e.earn} 文` : `损失 ${e.lose} 文`)
                 : (e.success ? `${gameData.job === officerJob ? "政绩" : "军功"}+${e.merit}` : "功绩未增");
-            resultHtml = `<div class="event-result ${e.success ? 'success' : 'fail'}">${detail}（概率${e.rate}%）</div>`;
+            resultHtml = `<div class="event-result ${e.success ? 'success' : 'fail'}">${detail}</div>`;
         } else {
             allDone = false;
         }
@@ -8066,7 +8980,6 @@ document.getElementById("spouseGift").onclick=spouseGift;
 document.getElementById("spouseIntimacy").onclick=spouseIntimacy;
 document.getElementById("closeSpouse").onclick=()=>{hideDiv("interactSpouseMask");};
 document.getElementById("btnConcubine").onclick=showConcubinePanel;
-document.getElementById("addConcubine").onclick=addConcubine;
 document.getElementById("addOutsideWoman").onclick=addOutsideWoman;
 document.getElementById("closeConcubine").onclick=()=>{hideDiv("concubineMask");};
 document.getElementById("closeConcubineInteraction").onclick=()=>{hideDiv("concubineInteractionMask");};
@@ -8237,7 +9150,7 @@ function showShop() {
             } else if (item.effect && item.effect.carriage) {
                 effectText = `<br><span style="color:#e74c3c;">效果：获得${item.effect.carriage}</span>`;
             } else if (item.effect && item.effect.birthcontrol) {
-                effectText = `<br><span style="color:#e74c3c;">效果：5年内怀孕率降至5%</span>`;
+                effectText = `<br><span style="color:#e74c3c;">效果：五年内大幅降低怀孕几率</span>`;
             }
             
             html += `<div class="shop-item">
@@ -8450,7 +9363,7 @@ function showBirthControlChoice(item, finalPrice){
                 <p style="font-size:18px;">选择如何使用${item.name}？</p>
                 <div style="margin:15px 0;">
                     <div style="font-size:16px; margin-bottom:8px;">${item.description}</div>
-                    <div style="color:#e74c3c;">效果：五年内怀孕率降至5%</div>
+                    <div style="color:#e74c3c;">效果：五年内大幅降低怀孕几率</div>
                 </div>
                 <div class="modal-btn-group">
                     <button class="modal-btn" onclick="useBirthControl('self')">自己服用</button>
@@ -8525,7 +9438,7 @@ function giveBirthControlToNpc(targetType, targetName){
     
     target.birthControlYears = 5;
     target.birthControlStartAge = target.age; // 使用NPC自己的年龄
-    popMsg(`赠送避子汤给${targetName}，其五年内怀孕率降至5%`);
+    popMsg(`赠送避子汤给${targetName}，其五年内大幅降低怀孕几率`);
     saveData();
     refreshPage();
 }
@@ -8536,7 +9449,7 @@ function useBirthControl(target){
     if(target === 'self'){
         gameData.birthControlYears = 5;
         gameData.birthControlStartAge = gameData.age;
-        popMsg(`服用避子汤，五年内怀孕率降至5%`);
+        popMsg(`服用避子汤，五年内大幅降低怀孕几率`);
     }
     // 赠予他人的逻辑在 showGiftTarget 中处理
     saveData();
@@ -8860,6 +9773,32 @@ function chatPoetry(friendName){
     }
 }
 
+// ========== 陪伴随机事件池 ==========
+const accompanyStories = {
+    "幼儿": [ // 0-7岁
+        { story: (n) => `你带${n}去集市，买了一个糖人，${n}高兴得手舞足蹈。`, bonus: (c,g) => { let v = getRandRange(3,7); c.favor = Math.min(100, (c.favor||80) + v); return `好感+${v}`; }, weight: 8 },
+        { story: (n) => `你抱着${n}在院里看星星，${n}问了一连串天真的问题。`, bonus: (c,g) => { let v = getRandRange(2,5); c.talent = Math.min(100, c.talent + 1); c.favor = Math.min(100, (c.favor||80) + v); return `才华+1，好感+${v}`; }, weight: 6 },
+        { story: (n) => `你给${n}讲睡前故事，${n}听着听着就睡着了。`, bonus: (c,g) => { let v = getRandRange(3,6); c.favor = Math.min(100, (c.favor||80) + v); return `好感+${v}`; }, weight: 7 },
+        { story: (n) => `你教${n}认字，${n}学得有模有样，很快就记住了。`, bonus: (c,g) => { c.talent = Math.min(100, c.talent + getRandRange(1,3)); c.favor = Math.min(100, (c.favor||80) + 2); return `才华+${getRandRange(1,3)}，好感+2`; }, weight: 5 },
+        { story: (n) => `${n}不小心摔倒了，你赶紧扶起来哄了半天。`, bonus: (c,g) => { let v = getRandRange(4,8); c.favor = Math.min(100, (c.favor||80) + v); return `好感+${v}`; }, weight: 6 },
+    ],
+    "少年": [ // 8-13岁
+        { story: (n) => `你带${n}登山远足，一路谈天说地，父子/母女情深。`, bonus: (c,g) => { c.strength = Math.min(100, c.strength + 1); c.favor = Math.min(100, (c.favor||80) + getRandRange(3,6)); return `武力+1，好感+${getRandRange(3,6)}`; }, weight: 6 },
+        { story: (n) => `你和${n}一起钓鱼，${n}竟然比你钓得还多，得意洋洋。`, bonus: (c,g) => { c.favor = Math.min(100, (c.favor||80) + getRandRange(3,7)); return `好感+${getRandRange(3,7)}`; }, weight: 7 },
+        { story: (n) => `你教${n}下棋，${n}悟性不错，很快就掌握了门道。`, bonus: (c,g) => { c.talent = Math.min(100, c.talent + getRandRange(1,3)); c.favor = Math.min(100, (c.favor||80) + 3); return `才华+${getRandRange(1,3)}，好感+3`; }, weight: 5 },
+        { story: (n) => `你和${n}坐在檐下闲聊，${n}说了很多心里话。`, bonus: (c,g) => { let v = getRandRange(4,8); c.favor = Math.min(100, (c.favor||80) + v); return `好感+${v}`; }, weight: 8 },
+        { story: (n) => `${n}做了一件傻事惹你生气，但看着那一脸无辜又不忍心责备了。`, bonus: (c,g) => { let v = getRandRange(1,3); c.favor = Math.min(100, (c.favor||80) + v); return `好感+${v}`; }, weight: 5 },
+        { story: (n) => `你教${n}骑马，${n}吓得哇哇叫，最后总算能慢慢走了。`, bonus: (c,g) => { c.strength = Math.min(100, c.strength + 1); c.favor = Math.min(100, (c.favor||80) + getRandRange(2,4)); return `武力+1，好感+${getRandRange(2,4)}`; }, weight: 4 },
+    ],
+    "青年": [ // 14-17岁
+        { story: (n) => `你与${n}对坐品茶，畅谈人生志向，${n}眼中闪着光。`, bonus: (c,g) => { let v = getRandRange(3,7); c.favor = Math.min(100, (c.favor||80) + v); return `好感+${v}`; }, weight: 7 },
+        { story: (n) => `你带${n}拜访了一位老友，${n}在席间谈吐得体，让老友刮目相看。`, bonus: (c,g) => { c.talent = Math.min(100, c.talent + 2); c.appearance = Math.min(100, c.appearance + 1); g.reputation += 1; return "才华+2，颜值+1，声望+1"; }, weight: 4 },
+        { story: (n) => `你和${n}切磋武艺，${n}进步神速。`, bonus: (c,g) => { c.strength = Math.min(100, c.strength + getRandRange(1,3)); c.favor = Math.min(100, (c.favor||80) + 3); return `武力+${getRandRange(1,3)}，好感+3`; }, weight: 4 },
+        { story: (n) => `${n}为前程的事闷闷不乐，你耐心开导了一番。`, bonus: (c,g) => { let v = getRandRange(5,10); c.favor = Math.min(100, (c.favor||80) + v); return `好感+${v}`; }, weight: 6 },
+        { story: (n) => `你和${n}一起进城逛了一整天，买了许多东西。`, bonus: (c,g) => { let v = getRandRange(3,6); c.favor = Math.min(100, (c.favor||80) + v); return `好感+${v}`; }, weight: 7 },
+    ],
+};
+
 // ========== 子女互动系统 ==========
 // 子女陪伴
 function accompanyChild(childName){
@@ -8878,7 +9817,29 @@ function accompanyChild(childName){
     let childInFamily = gameData.familyList.find(f => f.name === childName);
     if(childInFamily) childInFamily.favor = child.favor;
     
-    popMsg(`陪伴${childName}，好感+${add}`);
+    // 随机陪伴故事（60%概率触发）
+    let msg = "";
+    let ageGroup = child.age < 8 ? "幼儿" : (child.age < 14 ? "少年" : "青年");
+    let agePool = accompanyStories[ageGroup];
+    let useStory = agePool && Math.random() < 0.6;
+    
+    if(useStory){
+        let totalWeight = agePool.reduce((s, e) => s + e.weight, 0);
+        let roll = Math.random() * totalWeight;
+        let cumulative = 0;
+        let picked = agePool[0];
+        for(let e of agePool){
+            cumulative += e.weight;
+            if(roll <= cumulative){ picked = e; break; }
+        }
+        // 先执行故事奖励
+        let storyBonus = picked.bonus(child, gameData);
+        msg = `<span style="color:#3498db;">${picked.story(childName)}</span><br>陪伴${childName}，${storyBonus}`;
+    } else {
+        msg = `陪伴${childName}，好感+${add}`;
+    }
+    
+    popMsg(msg);
     saveData();
     refreshPage();
 }
@@ -8988,9 +9949,9 @@ function showChildEducationOptions(childName){
     }else{
         // 12-18岁：私塾/习武/学技术/放养
         html += `<div class="modal-btn-group" style="flex-direction:column; gap:10px;">
-            <button class="modal-btn" ${canPrivateSchool ? 'onclick="changeChildEducation(\'' + childName + '\', \'私塾\')"' : 'disabled style="opacity:0.4"'}>私塾（100文/年）${!canPrivateSchool ? '（钱财不足）' : ''}</button>
-            <button class="modal-btn" ${canMartial ? 'onclick="changeChildEducation(\'' + childName + '\', \'习武\')"' : 'disabled style="opacity:0.4"'}>习武（100文/年）${!canMartial ? '（钱财不足）' : ''}</button>
-            <button class="modal-btn" ${canTech ? 'onclick="changeChildEducation(\'' + childName + '\', \'学技术\')"' : 'disabled style="opacity:0.4"'}>学技术（20文/年）${!canTech ? '（钱财不足）' : ''}</button>
+            <button class="modal-btn" ${canPrivateSchool ? 'onclick="changeChildEducation(\'' + childName + '\', \'私塾\')"' : 'disabled style="opacity:0.4"'}>私塾（300文/年）${!canPrivateSchool ? '（钱财不足）' : ''}</button>
+            <button class="modal-btn" ${canMartial ? 'onclick="changeChildEducation(\'' + childName + '\', \'习武\')"' : 'disabled style="opacity:0.4"'}>习武（300文/年）${!canMartial ? '（钱财不足）' : ''}</button>
+            <button class="modal-btn" ${canTech ? 'onclick="changeChildEducation(\'' + childName + '\', \'学技术\')"' : 'disabled style="opacity:0.4"'}>学技术（50文/年）${!canTech ? '（钱财不足）' : ''}</button>
             <button class="modal-btn" onclick="changeChildEducation('${childName}', '放养')">放养（免费）</button>
         </div>`;
     }
@@ -9022,7 +9983,7 @@ function changeChildEducation(childName, eduType){
     
     // 12岁以上需要支付学费
     if(child.age >= 12){
-        let cost = eduType === "私塾" || eduType === "习武" ? 100 : 20;
+        let cost = eduType === "私塾" || eduType === "习武" ? 300 : 50;
         if(eduType !== "放养" && gameData.money < cost){
             showToast(`钱财不足${cost}文，无法选择此培养方式`);
             hideDiv("childEduOptionsMask");
@@ -9357,9 +10318,9 @@ function checkOutsidePregnancy(){
             let fatherTal = c.pregnancyFatherTalent !== undefined ? c.pregnancyFatherTalent : gameData.talent;
             let fatherStr = c.pregnancyFatherStrength !== undefined ? c.pregnancyFatherStrength : (gameData.strength || 0);
             // 遗传颜值和才华
-            let childApp = Math.max(20, Math.min(100, Math.round((fatherApp + c.appearance) * 0.35)));
-            let childTal = Math.max(20, Math.min(100, Math.round((fatherTal + c.talent) * 0.35)));
-            let childStr = Math.max(10, Math.min(100, Math.round((fatherStr + (c.strength || 0)) * 0.35)));
+            let childApp = Math.max(20, Math.min(100, Math.round((fatherApp + c.appearance) * 0.30)));
+            let childTal = Math.max(20, Math.min(100, Math.round((fatherTal + c.talent) * 0.30)));
+            let childStr = Math.max(10, Math.min(100, Math.round((fatherStr + (c.strength || 0)) * 0.30)));
             
             // 男玩家：红颜知己的孩子有10%概率不是亲生的
             let isNotBiological = gameData.playerGender === "男" && Math.random() < 0.1;
@@ -9978,9 +10939,9 @@ function generateGrandchild(parent, parentSpouse){
     }
     
     let childGender = Math.random() > 0.5 ? "男" : "女";
-    let childApp = Math.max(20, Math.min(100, Math.floor((fatherAppearance + motherAppearance) * 0.35)));
-    let childTal = Math.max(20, Math.min(100, Math.floor((fatherTalent + motherTalent) * 0.35)));
-    let childStr = Math.max(0, Math.min(100, Math.floor((fatherStrength + motherStrength) * 0.35)));
+    let childApp = Math.max(20, Math.min(100, Math.floor((fatherAppearance + motherAppearance) * 0.30)));
+    let childTal = Math.max(20, Math.min(100, Math.floor((fatherTalent + motherTalent) * 0.30)));
+    let childStr = Math.max(0, Math.min(100, Math.floor((fatherStrength + motherStrength) * 0.30)));
     let childSur = parent.name.charAt(0); // 随继承人姓
     
     // 生成唯一名字
