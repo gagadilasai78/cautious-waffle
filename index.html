@@ -312,17 +312,16 @@
 
         /* ========== 导航大按钮 ========== */
         .nav-btn-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 8px;
             margin-bottom: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
         }
         .nav-icon-btn {
-            flex: 1;
-            min-width: 80px;
-            max-width: 150px;
-            padding: 8px 6px 6px;
+            flex: none;
+            min-width: 0;
+            max-width: none;
+            padding: 10px 6px 8px;
             border-radius: 6px;
             border: 2px solid #c9a87c;
             background: linear-gradient(180deg, rgba(255,251,240,0.9) 0%, rgba(235,220,195,0.85) 100%);
@@ -390,14 +389,14 @@
         /* ========== 行动按钮网格 ========== */
         .action-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 4px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
         }
         .action-grid .action-btn {
             text-align: center;
             width: 100%;
-            font-size: 13px;
-            padding: 6px 10px;
+            font-size: 11px;
+            padding: 4px 6px;
         }
 
         /* ========== 全屏页面Mask ========== */
@@ -510,8 +509,8 @@
             margin-left: 12px;
         }
         .member-actions .action-btn {
-            padding: 5px 10px;
-            font-size: 13px;
+            padding: 4px 8px;
+            font-size: 11px;
         }
 
         /* ========== 响应式 ========== */
@@ -519,14 +518,14 @@
             .main-page { padding: 8px; }
             .top-bar { padding: 8px 10px; gap: 4px; }
             .top-bar .info-text { font-size: 12px; }
-            .nav-btn-row { gap: 6px; }
-            .nav-icon-btn { min-width: 65px; max-width: none; padding: 6px 3px 4px; }
+            .nav-btn-row { gap: 6px; grid-template-columns: repeat(3, 1fr); }
+            .nav-icon-btn { padding: 6px 3px 4px; }
             .nav-icon-btn .nav-icon { font-size: 22px; }
             .nav-icon-btn .nav-label { font-size: 11px; letter-spacing: 1px; }
             .row-two-col { flex-direction: column; }
             .col-main, .col-side { min-width: 100%; flex: auto; }
-            .action-grid { grid-template-columns: repeat(3, 1fr); gap: 3px; }
-            .action-grid .action-btn { font-size: 12px; padding: 5px 6px; }
+            .action-grid { grid-template-columns: repeat(3, 1fr); gap: 2px; }
+            .action-grid .action-btn { font-size: 10px; padding: 3px 4px; }
             .stats-grid { gap: 1px 8px; }
             .stats-grid .attr-item { font-size: 12px; }
             .card { padding: 10px; margin-bottom: 8px; }
@@ -544,9 +543,10 @@
             .start-btn { padding: 14px 40px; font-size: 18px; letter-spacing: 4px; }
         }
         @media (max-width: 480px) {
+            .nav-btn-row { grid-template-columns: repeat(2, 1fr); gap: 4px; }
             .action-grid { grid-template-columns: repeat(4, 1fr); gap: 2px; }
-            .action-grid .action-btn { font-size: 9px; padding: 4px 2px; }
-            .nav-icon-btn { min-width: 55px; padding: 5px 2px 3px; }
+            .action-grid .action-btn { font-size: 8px; padding: 3px 2px; }
+            .nav-icon-btn { padding: 5px 2px 3px; }
             .nav-icon-btn .nav-icon { font-size: 20px; }
             .nav-icon-btn .nav-label { font-size: 10px; }
             .top-bar { flex-direction: column; align-items: flex-start; }
@@ -629,8 +629,8 @@
             gap: 10px;
         }
         .action-btn {
-            padding: 6px 14px;
-            font-size: 13px;
+            padding: 5px 10px;
+            font-size: 12px;
             background: linear-gradient(180deg, #6a5030 0%, #4a3820 100%);
             border: 1px solid #3d2817;
             border-radius: 2px;
@@ -744,6 +744,11 @@
             0%,100% { box-shadow: 0 2px 4px rgba(200,160,32,0.3); }
             50% { box-shadow: 0 2px 12px rgba(200,160,32,0.7); }
         }
+
+        /* ========== 花魁专属行动色（淡粉，区别于通用事件） ========== */
+        .courtesan-btn { background: linear-gradient(180deg, #c97a88 0%, #a85a68 100%) !important; border-color: #884050 !important; }
+        .courtesan-btn:hover { background: linear-gradient(180deg, #d98a98 0%, #b86a78 100%) !important; box-shadow: 0 4px 12px rgba(190,110,120,0.35) !important; }
+
         .action-log-card {
             min-height: 160px;
             max-height: 260px;
@@ -1317,6 +1322,217 @@
         .quarrel-tutorial-box .tutorial-highlight.red { background: #FFEBEE; color: #C62828; }
         .quarrel-tutorial-box .tutorial-highlight.orange { background: #FFF3E0; color: #E65100; }
         .quarrel-tutorial-box .tutorial-highlight.blue { background: #E3F2FD; color: #1565C0; }
+
+        /* ===== AI对话窗口 ===== */
+        .npc-chat-container { width:600px; max-height:70vh; display:flex; flex-direction:column; }
+        .npc-chat-header { padding:12px 16px; border-bottom:1px solid #c9a87c; display:flex; justify-content:space-between; align-items:center; background:rgba(200,180,150,0.15); }
+        .npc-chat-header h2 { margin:0; font-size:17px; }
+        .npc-chat-messages { flex:1; overflow-y:auto; padding:12px; min-height:300px; max-height:400px; }
+        .npc-chat-msg { margin-bottom:10px; display:flex; }
+        .npc-chat-msg.npc { justify-content:flex-start; }
+        .npc-chat-msg.player { justify-content:flex-end; }
+        .npc-chat-bubble { max-width:75%; padding:10px 14px; border-radius:12px; font-size:14px; line-height:1.5; word-break:break-word; }
+        .npc-chat-msg.npc .npc-chat-bubble { background:#f5ecd7; color:#4a2a0a; border:1px solid #d4b896; }
+        .npc-chat-msg.player .npc-chat-bubble { background:#8b6914; color:#fff; }
+        .npc-chat-input-area { display:flex; gap:8px; padding:10px 12px; border-top:1px solid #c9a87c; }
+        .npc-chat-input-area input { flex:1; padding:8px 12px; border:1px solid #c9a87c; border-radius:6px; font-size:14px; background:#faf6ef; }
+        .npc-chat-input-area button { padding:8px 16px; background:#8b6914; color:#fff; border:none; border-radius:6px; cursor:pointer; }
+        .npc-chat-loading { display:flex; align-items:center; gap:6px; padding:8px 14px; color:#8b6914; font-size:13px; }
+        .npc-chat-loading .dot-flash { animation:dotBounce 1.2s infinite; }
+        .npc-chat-loading .dot-flash:nth-child(2) { animation-delay:0.2s; }
+        .npc-chat-loading .dot-flash:nth-child(3) { animation-delay:0.4s; }
+        @keyframes dotBounce { 0%,80%,100%{opacity:0.3;} 40%{opacity:1;} }
+        /* ===== 角色日志浮动按钮 ===== */
+        .journal-float-btn { position:fixed; right:0; top:50%; transform:translateY(-50%); z-index:100; writing-mode:vertical-rl; padding:12px 6px; border-radius:8px 0 0 8px; cursor:pointer; font-size:14px; letter-spacing:2px; border:none; transition:all 0.3s; }
+        .journal-float-btn.on { background:linear-gradient(135deg,#8b6914,#6b4e0a); color:#f5ecd7; box-shadow:-2px 2px 8px rgba(0,0,0,0.3); }
+        .journal-float-btn.off { background:rgba(139,105,20,0.3); color:#999; border:1px dashed #999; }
+        .journal-float-btn:hover { transform:translateY(-50%) scale(1.05); }
+        .journal-container { width:520px; max-height:70vh; display:flex; flex-direction:column; }
+        .journal-header { padding:12px 16px; border-bottom:1px solid #c9a87c; display:flex; justify-content:space-between; align-items:center; }
+        .journal-header h2 { margin:0; font-size:17px; }
+        .journal-entries { flex:1; overflow-y:auto; padding:14px; min-height:300px; max-height:400px; }
+        .journal-diary { margin-bottom:14px; padding:12px 14px; background:rgba(245,236,215,0.5); border-radius:8px; border-left:3px solid #c9a87c; }
+        .journal-diary .jd-name { font-weight:700; color:#8b4513; font-size:14px; margin-bottom:6px; }
+        .journal-diary .jd-text { font-size:13px; color:#4a2a0a; line-height:1.8; text-indent:1em; }
+        .journal-refresh-btn { margin:0 12px 12px; padding:6px 14px; background:#8b6914; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; }
+        .journal-placeholder { text-align:center; color:#999; padding:40px; font-size:14px; }
+
+        /* ===== 花魁线专属样式 ===== */
+        .courtesan-name { color:#c0392b; font-weight:700; }
+        .nav-icon-btn.courtesan-active { background:rgba(192,57,43,0.2); border-color:#c0392b; }
+        .patron-card { padding:8px 12px; margin:6px 0; background:rgba(245,236,215,0.5); border-radius:8px; border-left:3px solid #c9a87c; }
+
+        /* ═══════════ 奢靡主题 — 花魁线专属暗黑金红 ═══════════ */
+        body.courtesan-theme {
+            background: #f8ede0;
+            background-image:
+                radial-gradient(ellipse at 15% 25%, rgba(180,60,60,0.07) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 75%, rgba(200,140,50,0.06) 0%, transparent 55%),
+                repeating-linear-gradient(to bottom, rgba(180,130,100,0.03) 0px, rgba(180,130,100,0.03) 2px, transparent 2px, transparent 8px);
+            background-size: 100% 100%, 100% 100%, 100% 8px;
+            color: #4a2025;
+        }
+        body.courtesan-theme .top-bar {
+            background: linear-gradient(180deg, rgba(140,50,55,0.92), rgba(110,35,40,0.94));
+            border: 1px solid rgba(200,160,100,0.4);
+            box-shadow: 0 2px 16px rgba(120,40,40,0.18), inset 0 1px 0 rgba(255,220,180,0.15);
+        }
+        body.courtesan-theme .top-bar .info-text { color: #fef5ec; }
+        body.courtesan-theme .card {
+            background: linear-gradient(180deg, rgba(255,250,242,0.94) 0%, rgba(252,242,228,0.96) 100%);
+            border: 1px solid rgba(190,140,80,0.3);
+            box-shadow: 0 4px 20px rgba(120,40,40,0.1), inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+        body.courtesan-theme .card::before { border-color: rgba(190,140,80,0.18); }
+        body.courtesan-theme .card-title {
+            color: #8b2530;
+            border-bottom: 1px solid rgba(190,140,80,0.3);
+        }
+        body.courtesan-theme .action-btn {
+            background: linear-gradient(180deg, #8b3540 0%, #6d2630 100%);
+            border: 1px solid #9b4045;
+            color: #fef5ec;
+        }
+        body.courtesan-theme .action-btn:hover {
+            background: linear-gradient(180deg, #a04450 0%, #7d2e38 100%);
+            box-shadow: 0 4px 14px rgba(140,50,55,0.35);
+        }
+        body.courtesan-theme .stats-grid .attr-item {
+            border-bottom-color: rgba(190,140,80,0.2);
+            color: #4a2025;
+        }
+        body.courtesan-theme .nav-icon-btn {
+            background: linear-gradient(180deg, rgba(250,240,225,0.92), rgba(242,228,210,0.95));
+            border-color: rgba(190,140,80,0.3);
+        }
+        body.courtesan-theme .nav-icon-btn:hover {
+            background: linear-gradient(180deg, rgba(255,245,232,0.95), rgba(248,235,218,0.97));
+            border-color: #c9933e;
+            box-shadow: 0 4px 16px rgba(180,130,80,0.25);
+        }
+        body.courtesan-theme .nav-icon-btn .nav-label { color: #8b3a40; }
+        body.courtesan-theme .era-tag {
+            background: rgba(190,140,80,0.15);
+            color: #8b3a40;
+            border-color: rgba(190,140,80,0.35);
+        }
+        body.courtesan-theme .log-item {
+            background: rgba(252,244,232,0.75) !important;
+            border-left-color: #c9933e !important;
+            color: #5a3035 !important;
+        }
+        body.courtesan-theme .action-log-content { color:#5a3035; }
+        body.courtesan-theme .money { color:#b8860b; font-weight:700; }
+        body.courtesan-theme .ai-status { background:rgba(200,60,60,0.1); border-color:#b04040; color:#a04040; }
+        body.courtesan-theme .ai-on { background:rgba(50,160,80,0.1); border-color:#38a060; color:#308050; }
+        body.courtesan-theme .modal {
+            background: linear-gradient(180deg, rgba(255,248,238,0.97) 0%, rgba(250,238,220,0.98) 100%);
+            border: 2px solid rgba(190,140,80,0.45);
+            color: #4a2025;
+            box-shadow: 0 0 0 4px rgba(190,140,80,0.12), 0 8px 32px rgba(100,30,30,0.2);
+        }
+        body.courtesan-theme .modal::before { border-color: rgba(190,140,80,0.22); }
+        body.courtesan-theme .modal-title { color:#8b2530; }
+        body.courtesan-theme .modal-title::after { background: linear-gradient(to right, transparent, #c9933e, transparent); }
+        body.courtesan-theme .modal-btn {
+            background: linear-gradient(180deg, #8b3540 0%, #6d2630 100%);
+            border-color: #9b4045;
+            color: #fef5ec;
+        }
+        body.courtesan-theme .modal-btn:hover {
+            background: linear-gradient(180deg, #a04450 0%, #7d2e38 100%);
+            box-shadow: 0 4px 12px rgba(140,50,55,0.35);
+        }
+        body.courtesan-theme .member-card {
+            background: rgba(252,242,228,0.6);
+            border-color: rgba(190,140,80,0.25);
+        }
+        body.courtesan-theme .member-card:hover {
+            background: rgba(255,248,238,0.85);
+            border-color: rgba(190,140,80,0.4);
+        }
+        body.courtesan-theme .member-name { color:#8b2530; }
+        body.courtesan-theme .member-detail { color:#6a4045; }
+        body.courtesan-theme .form-item { color:#4a2025; }
+        body.courtesan-theme .form-item input, body.courtesan-theme .form-item textarea {
+            background: rgba(255,250,242,0.85); border-color: rgba(190,140,80,0.35); color:#4a2025;
+        }
+        body.courtesan-theme input[type="text"] {
+            background: rgba(255,250,242,0.85); border-color: rgba(190,140,80,0.35); color:#4a2025;
+        }
+        body.courtesan-theme button:disabled { opacity:0.35; }
+        body.courtesan-theme .action-btn[disabled] { background:#bbb; border-color:#999; color:#888; }
+
+        /* 花魁全屏页面 */
+        .courtesan-full-mask { z-index:100; }
+        .courtesan-full-mask .courtesan-full-modal {
+            max-width:700px; width:95%; max-height:90vh; display:flex; flex-direction:column;
+            padding:0; border-radius:6px;
+        }
+        .courtesan-full-header {
+            flex-shrink:0; padding:18px 24px 12px; text-align:center;
+            background: linear-gradient(180deg, rgba(160,60,65,0.12), transparent);
+            border-bottom: 1px solid rgba(190,140,80,0.25);
+            position:relative;
+        }
+        .courtesan-full-header h2 { color:#8b2530; font-size:22px; letter-spacing:4px; margin:0; }
+        .courtesan-full-header .cfh-sub { color:#8b6a5a; font-size:12px; margin-top:4px; }
+        .courtesan-full-body {
+            flex:1; overflow-y:auto; padding:12px 20px 20px;
+        }
+        .courtesan-full-body::-webkit-scrollbar { width:5px; }
+        .courtesan-full-body::-webkit-scrollbar-thumb { background:rgba(190,140,80,0.35); border-radius:3px; }
+
+        /* 花魁属性摘要卡片 */
+        .courtesan-stat-row {
+            display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;
+        }
+        .courtesan-stat-chip {
+            flex:1; min-width:70px; text-align:center; padding:8px 6px;
+            background: rgba(255,245,232,0.6); border:1px solid rgba(190,140,80,0.25);
+            border-radius:6px; font-size:11px; color:#8b6a5a;
+        }
+        .courtesan-stat-chip .csc-val { font-size:20px; font-weight:700; color:#8b2530; display:block; }
+
+        /* 恩客卡片（芳华阁内） */
+        .patron-card-lavish {
+            display:flex; align-items:center; gap:12px; padding:12px 14px; margin:6px 0;
+            background: linear-gradient(180deg, rgba(255,248,238,0.55), rgba(250,238,220,0.65));
+            border: 1px solid rgba(190,140,80,0.22); border-left: 3px solid #c9a87c;
+            border-radius:6px; cursor:pointer; transition:all 0.2s;
+        }
+        .patron-card-lavish:hover {
+            background: linear-gradient(180deg, rgba(255,250,242,0.75), rgba(252,242,225,0.8));
+            border-color: rgba(190,140,80,0.4);
+        }
+        .patron-card-lavish.warning { border-left-color:#c0392b; background:rgba(220,80,70,0.1); }
+        .patron-card-lavish .pcl-name { font-size:15px; font-weight:700; color:#8b2530; }
+        .patron-card-lavish .pcl-info { font-size:11px; color:#8b6a5a; }
+        .patron-card-lavish .pcl-right { margin-left:auto; text-align:right; min-width:70px; }
+        .pcl-warn { color:#c0392b; font-size:11px; font-weight:700; }
+
+        /* 帮助浮窗 */
+        .courtesan-help-btn {
+            position:fixed; bottom:20px; right:20px; z-index:200;
+            width:42px; height:42px; border-radius:50%;
+            background: linear-gradient(180deg, #c9933e, #9b6d20);
+            border: 2px solid #7a5218; color:#fff8ec;
+            font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+            box-shadow: 0 4px 16px rgba(120,60,40,0.25); transition:all 0.2s;
+        }
+        .courtesan-help-btn:hover { transform:scale(1.1); box-shadow:0 6px 22px rgba(120,60,40,0.35); }
+        .courtesan-help-popup {
+            position:fixed; bottom:75px; right:20px; z-index:199;
+            width:320px; max-height:70vh; overflow-y:auto;
+            background: linear-gradient(180deg, rgba(255,250,242,0.985), rgba(250,240,225,0.99));
+            border: 2px solid rgba(190,140,80,0.5); border-radius:8px;
+            padding:16px; color:#4a2025; font-size:12px; line-height:1.8;
+            box-shadow: 0 8px 32px rgba(100,40,30,0.18);
+        }
+        .courtesan-help-popup h3 { color:#8b2530; font-size:15px; margin:10px 0 6px; border-bottom:1px solid rgba(190,140,80,0.25); padding-bottom:4px; }
+        .courtesan-help-popup h3:first-child { margin-top:0; }
+        .courtesan-help-popup .help-warn { color:#c0392b; font-weight:700; }
+        .courtesan-help-popup .help-tip { color:#3a7a40; }
     </style>
 </head>
 <body>
@@ -1340,7 +1556,7 @@
 
 <div class="mask hidden" id="aiConfigMask">
     <div class="modal">
-        <h2 class="modal-title">智谋配置</h2>
+        <h2 class="modal-title">AI配置</h2>
         <div class="form-item">
             接口地址:<br>
             <input type="text" id="apiUrl" placeholder="例如：https://api.openai.com/v1/chat/completions">
@@ -1356,6 +1572,95 @@
         <div class="modal-btn-group">
             <button class="modal-btn" id="saveAiConfig">保存配置</button>
             <button class="modal-btn" id="closeAiConfig">关闭</button>
+        </div>
+        <div id="aiConfigHint" style="margin-top:12px; padding:12px; background:#fff3cd; border:1px solid #ffc107; border-radius:8px; font-size:12px; color:#856404; line-height:1.6;">
+            💡 <b>如何获取API？</b><br>
+            支持所有兼容OpenAI格式的接口，例如：<br>
+            • OpenAI官方：<code>https://api.openai.com/v1/chat/completions</code><br>
+            • 国内代理/中转站同样支持<br>
+            • 填入后在任意角色旁边点击<b>💬AI交谈</b>即可与NPC自由对话<br>
+            • 右侧浮动按钮<b>角色日志</b>可查看亲友每月动态<br>
+            <span style="color:#d63031;">⚠ 您的密钥只会保存在本地浏览器，不会上传到任何服务器</span>
+        </div>
+    </div>
+</div>
+
+<!-- AI NPC对话窗口 -->
+<div class="mask hidden" id="npcChatMask">
+    <div class="modal npc-chat-container">
+        <div class="npc-chat-header">
+            <h2>💬 与 <span id="npcChatName"></span> 交谈</h2>
+            <button class="modal-btn" onclick="closeNpcChat()">关闭</button>
+        </div>
+        <div class="npc-chat-messages" id="npcChatMessages">
+            <div style="text-align:center;color:#999;padding:40px;font-size:13px;">开始对话吧～</div>
+        </div>
+        <div class="npc-chat-input-area">
+            <input type="text" id="npcChatInput" placeholder="输入你想说的话…" onkeydown="if(event.key==='Enter')sendNpcMessage()">
+            <button onclick="sendNpcMessage()">发送</button>
+        </div>
+    </div>
+</div>
+
+<!-- 角色日志面板 -->
+<div class="mask hidden" id="journalMask">
+    <div class="modal journal-container">
+        <div class="journal-header">
+            <h2>📜 年度日记</h2>
+            <button class="modal-btn" onclick="hideDiv('journalMask')">关闭</button>
+        </div>
+        <button class="journal-refresh-btn" onclick="refreshJournal()">🔄 刷新日记</button>
+        <div class="journal-entries" id="journalEntries">
+            <div class="journal-placeholder">未连接AI，无法生成日志</div>
+        </div>
+    </div>
+</div>
+
+<!-- 角色日志浮动按钮 -->
+<button class="journal-float-btn off" id="journalFloatBtn" onclick="handleJournalClick()" title="年度日记（需配置AI）">年度日记</button>
+
+<!-- ===== 花魁帮助浮窗 ===== -->
+<button class="courtesan-help-btn hidden" id="courtesanHelpBtn" onclick="toggleCourtesanHelp()" title="花魁指引">?</button>
+<div class="courtesan-help-popup hidden" id="courtesanHelpPopup"></div>
+
+<!-- ===== 花魁全屏页面：芳华阁 ===== -->
+<div class="mask hidden courtesan-full-mask" id="courtesanFullMask">
+    <div class="modal courtesan-full-modal">
+        <button class="modal-close-x" onclick="hideDiv('courtesanFullMask')">✕</button>
+        <div class="courtesan-full-header" id="courtesanFullHeader"></div>
+        <div class="courtesan-full-body" id="courtesanFullBody"></div>
+    </div>
+</div>
+
+<!-- ===== 花魁线弹窗：花街偶遇（第一层：剧情触发） ===== -->
+<div class="mask hidden" id="courtesanTriggerMask">
+    <div class="modal" style="max-width:480px;">
+        <h2 class="modal-title">🌸 花街偶遇</h2>
+        <div style="padding:12px 0; line-height:1.8; font-size:14px; color:#4a2a0a;" id="courtesanTriggerText"></div>
+        <div class="modal-btn-group">
+            <button class="modal-btn" id="courtesanTriggerYes">再听她多说几句……</button>
+            <button class="modal-btn" id="courtesanTriggerNo" style="background:#999;">不必了，我走便是</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 花魁线弹窗：入行确认（第二层：后果警告 + 取名） ===== -->
+<div class="mask hidden" id="courtesanConfirmMask">
+    <div class="modal" style="max-width:480px;">
+        <h2 class="modal-title" style="color:#c0392b;">⚠️ 踏入芳华阁</h2>
+        <div style="padding:8px 0; line-height:1.8; font-size:13px; color:#4a2a0a; background:rgba(231,76,60,0.08); border-radius:6px; padding:10px; margin-bottom:10px;">
+            <p style="margin:0 0 6px; font-weight:700; color:#c0392b;">一旦踏入此门：</p>
+            <p style="margin:2px 0;">▪ 从此以艺名为生，不可再更换职业</p>
+            <p style="margin:2px 0;">▪ 他日若嫁人，初始必为妾室</p>
+            <p style="margin:2px 0;">▪ 芳华阁将抽成你的收入</p>
+        </div>
+        <p style="margin:8px 0 4px; font-size:13px; color:#5a3a1a;">请为自己取一个<span style="color:#c0392b; font-weight:700;">花名</span>（艺名）：</p>
+        <input type="text" id="courtesanNameInput" placeholder="如：念卿、如烟、清歌……" style="width:100%; padding:8px 12px; border:1px solid #c9a87c; border-radius:6px; font-size:14px; margin-bottom:10px; background:#faf6ef;">
+        <p style="font-size:11px; color:#999; margin:0 0 10px;">也可点击以下花名快速选取：</p>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;" id="courtesanNameSuggestions"></div>
+        <div class="modal-btn-group">
+            <button class="modal-btn" id="courtesanConfirmYes" style="background:#c0392b; color:#fff;">踏入芳华阁</button>
+            <button class="modal-btn" id="courtesanConfirmNo" style="background:#999;">还是算了</button>
         </div>
     </div>
 </div>
@@ -1639,6 +1944,7 @@
         <div id="spouseInfo"></div>
         <div class="modal-btn-group">
             <button class="modal-btn" id="spouseChat">聊天</button>
+            <button class="modal-btn" id="spouseAiChat" onclick="handleAiChatClick(gameData.spouse.name)">💬AI交谈</button>
             <button class="modal-btn" id="spouseGift">送礼</button>
             <button class="modal-btn" id="spouseIntimacy">同房</button>
             <button class="modal-btn" id="closeSpouse">关闭</button>
@@ -1649,7 +1955,10 @@
 <div class="mask hidden" id="shopMask">
     <div class="modal" style="display:flex; flex-direction:column; max-height:80vh; padding:0; overflow:hidden;">
         <div style="display:flex; justify-content:space-between; align-items:center; padding:24px 24px 0 24px; flex-shrink:0;">
-            <h2 class="modal-title" style="margin:0;">商店</h2>
+            <div>
+                <h2 class="modal-title" style="margin:0;">商店</h2>
+                <span id="shopPriceTag" style="font-size:11px; color:#8b6914;"></span>
+            </div>
             <button class="close-btn" id="closeShop" style="position:static;">✕</button>
         </div>
         <div id="shopContent" style="overflow-y:auto; padding:16px 24px 24px 24px; flex:1;"></div>
@@ -1827,9 +2136,9 @@
                 目标进度：<span id="careerProgressText"></span>
             </div>
             <div class="info-text">
-                智谋状态：<span id="aiStatus" class="ai-status ai-off">离线模式</span>
+                AI状态：<span id="aiStatus" class="ai-status ai-off">离线模式</span>
                 &nbsp;&nbsp;
-                <button class="action-btn" id="openAiConfig">智谋配置</button>
+                <button class="action-btn" id="openAiConfig">AI配置</button>
                 &nbsp;&nbsp;
                 <button class="action-btn save-game-btn" id="saveGameBtn">💾 存档</button>
             </div>
@@ -1844,19 +2153,19 @@
                 <span class="nav-icon">🏠</span>
                 <span class="nav-label">家人</span>
             </div>
-            <div class="nav-icon-btn" id="navShop" onclick="showShop()">
-                <span class="nav-icon">🛒</span>
-                <span class="nav-label">商店</span>
-            </div>
             <div class="nav-icon-btn" id="navFriends" onclick="showFriendsPage()">
                 <span class="nav-icon">🤝</span>
                 <span class="nav-label">好友</span>
+            </div>
+            <div class="nav-icon-btn" id="navShop" onclick="showMarketPage()">
+                <span class="nav-icon">🏪</span>
+                <span class="nav-label">市集</span>
             </div>
             <div class="nav-icon-btn" id="navAssets" onclick="showAssetsPage()">
                 <span class="nav-icon">💰</span>
                 <span class="nav-label">资产</span>
             </div>
-            <div class="nav-icon-btn" id="navOutside" onclick="showOutsidePage()" style="display:none;">
+            <div class="nav-icon-btn" id="navOutside" onclick="showOutsidePage()">
                 <span class="nav-icon">💕</span>
                 <span class="nav-label">红颜</span>
             </div>
@@ -1895,17 +2204,22 @@
                         <button class="action-btn light-btn hidden" id="btnErrand" data-act="errand">跑腿赚钱</button>
                         <button class="action-btn light-btn hidden" id="btnCopy" data-act="copy">抄书赚钱</button>
                         <button class="action-btn light-btn hidden" id="btnWork" data-act="外出打工">外出打工</button>
-                        <button class="action-btn" id="btnPawn" onclick="openPawnShop()">典当行</button>
                         <button class="action-btn" id="btnMatchmaking">相亲</button>
                         <button class="action-btn" id="btnInteractSpouse">配偶互动</button>
                         <button class="action-btn" id="btnConcubine">纳妾</button>
                         <button class="action-btn" id="btnChildrenEdu">子女培养</button>
                         <button class="action-btn" id="btnJobChange" onclick="showJobChange()">换职业</button>
+                        <!-- 花魁专属按钮 -->
+                        <button class="action-btn courtesan-btn hidden" id="btnCourtesanPerform" onclick="courtesanPerformanceAction()">🎵 登台献艺</button>
+                        <button class="action-btn courtesan-btn hidden" id="btnCourtesanMaintain" onclick="advancedMaintenance()">💄 高级保养（300文）</button>
+                        <button class="action-btn courtesan-btn hidden" id="btnCourtesanRehearse" onclick="rehearseForGala()">🩰 排练花会</button>
+                        <button class="action-btn courtesan-btn hidden" id="btnCourtesanPractice" onclick="showSelfPractice()">🧘 独自修炼</button>
                     </div>
                     <div style="margin-top:8px;">
                         <button class="action-btn" id="btnGrowAge" style="width:100%;padding:8px;font-size:14px;">增长年岁</button>
                     </div>
                 </div>
+
             </div>
 
             <div class="col-side">
@@ -2118,7 +2432,7 @@ function triggerAchieveUnlock(achieveId){
 }
 function confirmAchieveUnlock(){
     hideDiv("achieveUnlockMask");
-    // 遍历所有尚未获得的成就，在当前这一刻只解锁“赌神”（根据连胜）或“赌王”（根据累计）
+    // 遍历所有尚未获得的成就，在当前这一刻只解锁"赌神"（根据连胜）或"赌王"（根据累计）
     if(!gameData.achievementDushen && gameData.gambleConsecutiveWin >= 6){
         gameData.achievementDushen = true;
         gameData.achievement++;
@@ -2157,12 +2471,12 @@ const shopItems = [
     {id:4, name:"丝绸布料", type:"gift", price:1000, favorBonus:10, description:"精美丝绸，华丽大方"},
     {id:5, name:"玉器挂件", type:"gift", price:1400, favorBonus:12, description:"温润美玉，寓意吉祥"},
     {id:6, name:"书画卷轴", type:"gift", price:2000, favorBonus:15, effect:{talent:5}, description:"名家字画，极具收藏价值（可小幅提升才华）"},
-    // 服饰（5种，颜值3-10）
-    {id:9, name:"绸缎衣物", type:"clothes", price:1200, effect:{appearance:3}, description:"普通绸缎衣物"},
-    {id:10, name:"玉佩配饰", type:"clothes", price:1800, effect:{appearance:4}, description:"温润玉佩"},
-    {id:11, name:"锦绣长袍", type:"clothes", price:2400, effect:{appearance:5}, description:"绣工精美的长袍"},
-    {id:12, name:"丝绸锦裙", type:"clothes", price:3200, effect:{appearance:7}, description:"轻盈飘逸的丝绸锦裙"},
-    {id:13, name:"锦缎华服", type:"clothes", price:4000, effect:{appearance:10}, description:"华丽锦缎制成的华服"},
+    // 服饰（5种，颜值3-14，越贵性价比越高）
+    {id:9, name:"绸缎衣物", type:"clothes", price:1000, effect:{appearance:3}, description:"普通绸缎衣物"},
+    {id:10, name:"玉佩配饰", type:"clothes", price:1600, effect:{appearance:5}, description:"温润玉佩"},
+    {id:11, name:"锦绣长袍", type:"clothes", price:2200, effect:{appearance:7}, description:"绣工精美的长袍"},
+    {id:12, name:"丝绸锦裙", type:"clothes", price:3000, effect:{appearance:10}, description:"轻盈飘逸的丝绸锦裙"},
+    {id:13, name:"锦缎华服", type:"clothes", price:4000, effect:{appearance:14}, description:"华丽锦缎制成的华服"},
     // 房产
     {id:15, name:"茅草屋", type:"house", price:4000, effect:{house:"茅草屋"}, description:"简陋的茅草屋，遮风挡雨尚可"},
     {id:16, name:"瓦房", type:"house", price:10000, effect:{house:"瓦房"}, description:"坚固的瓦房，冬暖夏凉"},
@@ -2204,14 +2518,14 @@ const moneyMakingJobs = [
     {id: "pawn", name: "典当", minAge: 15, energyCost: 1, minMoney: 50, maxMoney: 200, description: "典当物品换钱（随机获得）"}
 ];
 
-// 物价波动事件
+// 物价波动事件（温和波动，每年会自动趋近1.0）
 const priceEvents = [
-    {name: "丰收之年", multiplier: 0.7, description: "今年大丰收，物价下跌"},
-    {name: "粮食短缺", multiplier: 1.5, description: "粮食短缺，物价上涨"},
-    {name: "商旅云集", multiplier: 0.9, description: "商旅云集，商品丰富，物价略降"},
-    {name: "战乱影响", multiplier: 1.8, description: "战乱影响，物资匮乏，物价飞涨"},
-    {name: "朝廷调控", multiplier: 0.8, description: "朝廷调控物价，市场稳定"},
-    {name: "灾荒之年", multiplier: 2.0, description: "灾荒之年，物价暴涨"}
+    {name: "丰收之年", multiplier: 0.88, description: "今年大丰收，物价略降"},
+    {name: "粮食短缺", multiplier: 1.15, description: "粮食短缺，物价小幅上涨"},
+    {name: "商旅云集", multiplier: 0.92, description: "商旅云集，商品丰富，物价略降"},
+    {name: "战乱影响", multiplier: 1.18, description: "战乱影响，物资紧张，物价上涨"},
+    {name: "朝廷调控", multiplier: 0.90, description: "朝廷调控物价，市场回落"},
+    {name: "灾荒之年", multiplier: 1.20, description: "灾荒之年，物价上涨"}
 ];
 
 // 宴会奇遇事件
@@ -2226,7 +2540,7 @@ const banquetEvents = [
 
 let gameData = {
     playerName:"",playerGender:"",familyType:"",familyLevel:0,age:0,
-    stamina:20,appearance:20,talent:20,strength:0,hasStrength:false,
+    stamina:20,appearance:20,talent:20,dance:0,music:0,strength:0,hasStrength:false,
     luck:20,reputation:0,achievement:0,money:0,actionNum:4,isSick:false,
     fatherSur:"",motherSur:"",familyList:[],friendList:[],
     era:{name:"太平",price:1,examDiff:1,conscriptRate:0},
@@ -2237,6 +2551,17 @@ let gameData = {
     gambleConsecutiveWin:0,gambleTotalEarned:0,achievementDushen:false,achievementDuwang:false,
     isRoyal:false, // 是否为皇室成员（皇子/公主/世子/郡主）
     royalType:null, // "direct"=直系(皇子/公主) "branch"=旁系(世子/郡主)
+    // 花魁线
+    isCourtesan:false,       // 是否花魁路线
+    courtesanRank:0,         // 花魁等级：0=无 1=清倌人 2=红倌人 3=花魁 4=名妓 5=绝代名伶
+    courtesanName:"",        // 花名（艺名）
+    courtesanFame:0,         // 艳名（花魁专属数值，演出赚取）
+    courtesanYears:0,        // 入行年数
+    courtesanLodging:"芳华阁", // 居住地
+    patrons:[],              // 恩客列表 [{name, age, status, favor, jealousy, generosity, isExclusive}]
+    galaPrep:null,           // 花会准备 {pieceName, type:'music'|'dance', progress:0, yearsUntil:3}
+    lastGalaYear:0,          // 上次花会年份
+    _rejectedCourtesan:false,// 是否已拒绝过花魁线（避免反复弹窗）
     // 婚姻系统
     spouse:null, // {name, gender, appearance, job, family, age, favor, portrait}
     children:[], // [{name, age, gender, appearance, talent, strength, fatherName, motherName, fatherSur, isAdopted}]
@@ -2378,8 +2703,9 @@ function showNotificationPanel() {
         hideDiv("msgMask");
         isNotificationShown = false;
         notificationQueue = [];
-        // 通告关闭后，额外弹出子女婚配弹窗
+        // 通告关闭后，额外弹出子女婚配弹窗 + 恩客邀请
         setTimeout(showPendingChildMarriages, 200);
+        setTimeout(startPatronInvites, 400);
     };
 }
 
@@ -2392,37 +2718,127 @@ function saveData(){
     localStorage.setItem("gameSave",JSON.stringify(gameData));
 }
 
-// 游戏内点击存档按钮
-// 手动存档（仅玩家点击时触发，覆盖旧存档）
-function saveGame(){
-    localStorage.setItem("manualGameSave", JSON.stringify(gameData));
-    // 存档后启用主菜单的“读取存档”按钮
-    let loadBtn = document.getElementById("goLoad");
-    if(loadBtn){
-        loadBtn.classList.remove("disabled");
-        loadBtn.title = "";
-    }
-    showToast("存档成功！");
+// ============ 双槽位存档系统 ============
+const SAVE_SLOT_KEYS = ["gameSave_slot0", "gameSave_slot1"];
+
+function getSlotMeta(slot){
+    let raw = localStorage.getItem(SAVE_SLOT_KEYS[slot]);
+    if(!raw) return null;
+    try{
+        let data = JSON.parse(raw);
+        return data._saveMeta || null;
+    }catch(e){ return null; }
 }
 
-// 读取手动存档并恢复游戏
+// 游戏内点击存档按钮 → 弹出槽位选择
+function saveGame(){
+    showSaveSlotPicker("save");
+}
+
+// 读取存档按钮 → 弹出槽位选择
 function loadGame(){
-    let saved = localStorage.getItem("manualGameSave");
+    showSaveSlotPicker("load");
+}
+
+function showSaveSlotPicker(mode){ // mode: "save" | "load"
+    let meta0 = getSlotMeta(0);
+    let meta1 = getSlotMeta(1);
+    
+    let slotHtml = (slot, meta) => {
+        let no = slot + 1;
+        if(meta){
+            let courtesanTag = meta.isCourtesan ? "🌸" : "";
+            return `<div style="flex:1; border:1px solid #c9a87c; border-radius:8px; padding:12px; background:rgba(245,236,215,0.6);">
+                <b>存档${no}</b> ${courtesanTag}
+                <div style="font-size:12px; color:#4a2a0a; margin-top:4px;">${meta.name || "无名"} · ${meta.age}岁</div>
+                <div style="font-size:11px; color:#8b6914;">${meta.date || ""}</div>
+                <div style="font-size:11px; color:#666;">${meta.money || 0}文</div>
+                <button class="modal-btn" onclick="${mode==='save'?'saveToSlot':'loadFromSlot'}(${slot})" style="margin-top:8px; width:100%; ${mode==='save'?'background:#8b5e3c;':'background:#6a5acd;'} color:#f0e6d2;">
+                    ${mode==='save'?'💾 覆盖保存':'📂 读取'}
+                </button>
+            </div>`;
+        } else {
+            return `<div style="flex:1; border:1px dashed #999; border-radius:8px; padding:12px; background:rgba(200,200,200,0.2); text-align:center;">
+                <b style="color:#999;">存档${no}</b>
+                <div style="font-size:12px; color:#999; margin:4px 0;">空</div>
+                <button class="modal-btn" onclick="${mode==='save'?'saveToSlot':'loadFromSlot'}(${slot})" style="margin-top:8px; width:100%; ${mode==='save'?'background:#8b5e3c;':'background:#999;'} color:#f0e6d2;" ${mode==='load'?'disabled':''}>
+                    ${mode==='save'?'💾 保存':'空'}
+                </button>
+            </div>`;
+        }
+    };
+    
+    let title = mode === "save" ? "💾 选择存档槽位" : "📂 读取存档";
+    let html = `<div class="mask" id="saveSlotMask" onclick="event.target===this&&hideDiv('saveSlotMask')">
+        <div class="modal" style="max-width:420px;">
+            <h2 class="modal-title">${title}</h2>
+            <div style="display:flex; gap:12px;">
+                ${slotHtml(0, meta0)}
+                ${slotHtml(1, meta1)}
+            </div>
+            <button class="modal-btn" style="margin-top:10px; background:#999; width:100%;" onclick="hideDiv('saveSlotMask');document.getElementById('saveSlotMask')?.remove();">取消</button>
+        </div></div>`;
+    
+    let old = document.getElementById("saveSlotMask");
+    if(old) old.remove();
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("saveSlotMask");
+}
+
+// 保存到指定槽位
+function saveToSlot(slot){
+    hideDiv("saveSlotMask");
+    document.getElementById("saveSlotMask")?.remove();
+    
+    let data = JSON.parse(JSON.stringify(gameData));
+    data._saveMeta = {
+        name: gameData.playerName || "",
+        age: gameData.age,
+        date: new Date().toLocaleString("zh-CN"),
+        isCourtesan: gameData.isCourtesan || false,
+        courtesanName: gameData.courtesanName || "",
+        money: gameData.money || 0
+    };
+    localStorage.setItem(SAVE_SLOT_KEYS[slot], JSON.stringify(data));
+    updateLoadBtnState();
+    showToast(`已保存到存档${slot + 1}`);
+}
+
+// 读取指定槽位
+function loadFromSlot(slot){
+    hideDiv("saveSlotMask");
+    document.getElementById("saveSlotMask")?.remove();
+    
+    let saved = localStorage.getItem(SAVE_SLOT_KEYS[slot]);
     if(!saved){
-        showToast("当前无存档");
+        showToast("该槽位无存档");
         return;
     }
     try{
         let data = JSON.parse(saved);
-        // 完整恢复 gameData
         Object.assign(gameData, data);
-        // 隐藏主菜单，显示游戏界面
+        delete gameData._saveMeta;
+        clearAllNpcPersonas();
         hideDiv("startPage");
         document.getElementById("mainPage").style.display = "block";
         refreshPage();
-        showToast("存档读取成功！");
+        showToast(`存档${slot + 1}读取成功！`);
     }catch(e){
         showToast("存档损坏，无法读取");
+    }
+}
+
+function updateLoadBtnState(){
+    let hasAny = getSlotMeta(0) || getSlotMeta(1);
+    let loadBtn = document.getElementById("goLoad");
+    if(loadBtn){
+        if(hasAny){
+            loadBtn.classList.remove("disabled");
+            loadBtn.title = "";
+        } else {
+            loadBtn.classList.add("disabled");
+            loadBtn.title = "暂无存档";
+        }
     }
 }
 
@@ -2457,26 +2873,28 @@ function migrateOldData(){
 // 页面加载时执行迁移
 migrateOldData();
 
+// 加载AI配置
+(function loadAiConfig(){
+    let saved = localStorage.getItem("aiConfig");
+    if(saved){
+        try{ let cfg = JSON.parse(saved); aiConfig.apiUrl = cfg.apiUrl||""; aiConfig.apiKey = cfg.apiKey||""; aiConfig.model = cfg.model||"gpt-3.5-turbo"; }
+        catch(e){}
+    }
+})();
+
 // 崩溃恢复：检测是否有上次未手动保存的进度
 (function checkCrashRecovery(){
     let autoSave = localStorage.getItem("gameSave");
-    let manualSave = localStorage.getItem("manualGameSave");
-    if(autoSave && !manualSave){
+    let hasManual = getSlotMeta(0) || getSlotMeta(1);
+    if(autoSave && !hasManual){
         // 有自动存档但没有手动存档 → 弹恢复提示
         setTimeout(()=>{ showDiv("recoveryMask"); }, 300);
     }
 })();
 
-// 检查存档是否存在，影响“读取存档”按钮状态
+// 检查存档是否存在，影响"读取存档"按钮状态
 (function checkSaveButton(){
-    let saved = localStorage.getItem("manualGameSave");
-    let loadBtn = document.getElementById("goLoad");
-    if(loadBtn){
-        if(!saved){
-            loadBtn.classList.add("disabled");
-            loadBtn.title = "暂无存档";
-        }
-    }
+    updateLoadBtnState();
 })();
 
 // 死亡检测，返回死亡消息（label: 称呼，如"家人""好友"）
@@ -2509,6 +2927,46 @@ function checkDeath(list, isPlayer = false, label = "家人"){
         }
     }
     return { newList, deathMessages };
+}
+
+// ===== 全民衰老：所有角色30岁起颜值逐年下降 =====
+function applyAgingToAll(){
+    // 收集所有有appearance的角色
+    let allChars = [];
+    if(gameData.spouse) allChars.push(gameData.spouse);
+    for(let p of (gameData.familyList || [])) allChars.push(p);
+    for(let f of (gameData.friendList || [])) allChars.push(f);
+    for(let c of (gameData.children || [])) allChars.push(c);
+    for(let c of (gameData.concubines || [])) allChars.push(c);
+    // 子女的配偶
+    for(let ch of (gameData.children || [])){
+        if(ch.spouse) allChars.push(ch.spouse);
+    }
+    // 恩客（花魁线）
+    for(let p of (gameData.patrons || [])) allChars.push(p);
+    // 玩家本人
+    allChars.push(gameData);
+
+    for(let c of allChars){
+        if(!c.appearance || c.appearance === undefined) continue;
+        let age = c.age || 0;
+        if(age < 30) continue;
+        let decline = 0;
+        if(age >= 60) decline = 3;
+        else if(age >= 50) decline = 2;
+        else if(age >= 40) decline = 1;
+        else decline = 0.5; // 30~39岁每两年降1点，这里每两年执行一次-1
+        // 30~39岁每两年才触发一次-1（模拟-0.5/年），其他年龄段每年降
+        if(age < 40 && age % 2 !== 0) continue; // 奇数年不降(30~39岁间)
+        
+        // 花魁保养：若已保养则衰老减半
+        let finalDecline = decline;
+        if(c === gameData && gameData._courtesanMaintained){
+            finalDecline = Math.max(0, decline - 1);
+            gameData._courtesanMaintained = false; // 单次有效
+        }
+        c.appearance = Math.max(10, Math.round(c.appearance - finalDecline));
+    }
 }
 
 // 玩家死亡检测：返回 null（未死）或死因字符串
@@ -2660,33 +3118,9 @@ function getYearIncome(){
 function assignNpcJob(npc, familyType){
     if(npc.job && npc.job !== "无" && !npc.job.endsWith("之子") && !npc.job.endsWith("之女")) return;
     if(npc.age < 18) { npc.job = "无"; return; }
-
-    let pool = [];
-    let t = npc.gender;
-    let tal = npc.talent || Math.floor(Math.random()*100);
-    let str = npc.strength || 0;
-    let hstr = npc.hasStrength || false;
-
-    if(tal>=70) pool.push("书生");
-    if(hstr && str>=70) pool = pool.concat(t==="男"?maleForceJobs:femaleForceJobs);
-
-    if(familyType==="贫穷"||familyType==="普通"){
-        pool = pool.concat(t==="男"?maleCommonJobs:femaleCommonJobs);
-    }else if(familyType==="富裕"){
-        pool.push("掌柜");
-    }else if(familyType==="官宦"){
-        pool.push(t==="男"?"公子":"小姐");
-    }else if(familyType==="权贵"){
-        let father = gameData.familyList.find(x=>x.title==="父亲");
-        let job = father ? father.job : "世家";
-        let suffix = t === "男" ? "之子" : "之女";
-        npc.job = job + suffix;
-        return;
-    }
-
-    pool = [...new Set(pool.filter(j=>j!==banJob&&j!==officerJob))];
-    if(pool.length===0) pool = t==="男"?["农民"]:["绣娘"];
-    npc.job = getRandom(pool);
+    // 使用NPC自身的family，未设置时回退到传入的familyType
+    let ft = npc.family || familyType || gameData.familyType;
+    npc.job = getRandomJob(npc.gender, ft, npc.talent || 50, npc.strength || 0, false);
 }
 
 function assignJob(){
@@ -3451,13 +3885,69 @@ function createCustomRole(g, f, l) {
 function refreshPage() {
     document.getElementById("familyBg").innerText = gameData.familyType;
     let genderIcon = gameData.playerGender === "男" ? "♂" : (gameData.playerGender === "女" ? "♀" : "");
-    document.getElementById("charName").innerText = gameData.playerName + (genderIcon ? " " + genderIcon : "");
+    let displayName = gameData.playerName + (genderIcon ? " " + genderIcon : "");
+    if(gameData.isCourtesan && gameData.courtesanName){
+        displayName += ` <span style="color:#c0392b; font-weight:700;">【${gameData.courtesanName}】</span>`;
+    }
+    document.getElementById("charName").innerHTML = displayName;
     document.getElementById("charAge").innerText = gameData.age;
     document.getElementById("charMoney").innerText = gameData.money;
     document.getElementById("actCount").innerText = gameData.actionNum;
     document.getElementById("charLuck").innerText = gameData.luck;
     document.getElementById("charRepu").innerText = gameData.reputation;
     document.getElementById("charAchieve").innerText = gameData.achievement;
+    // 花魁线：独立属性面板 + 主题切换
+    let courtesanCard = document.getElementById("courtesanStatCard");
+    if(gameData.isCourtesan){
+        document.body.classList.add("courtesan-theme");
+        showDiv("courtesanHelpBtn");
+        if(!courtesanCard){
+            let statsGridParent = document.querySelector(".stats-grid").parentElement;
+            let card = document.createElement("div");
+            card.className = "card";
+            card.id = "courtesanStatCard";
+            card.style.marginTop = "8px";
+            let rankTitle = courtesanTitles[gameData.courtesanRank];
+            let jealWarn = gameData.patrons.filter(p=>p.jealousy>=85).length;
+            card.innerHTML = `<h3 class="card-title" style="margin-bottom:6px;">🌸 ${gameData.courtesanName} · ${rankTitle}</h3>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; font-size:12px;">
+                    <div><span style="color:#daa520;">艳名</span> <b id="courtesanFameVal">${gameData.courtesanFame}</b></div>
+                    <div><span style="color:#daa520;">舞蹈</span> <b id="courtesanDanceVal">${gameData.dance||0}</b></div>
+                    <div><span style="color:#daa520;">琴艺</span> <b id="courtesanMusicVal">${gameData.music||0}</b></div>
+                    <div><span style="color:#daa520;">入行</span> ${gameData.courtesanYears}年</div>
+                    <div><span style="color:#daa520;">恩客</span> ${gameData.patrons.length}人${jealWarn>0?` <span style="color:#e07070;">⚠${jealWarn}人嫉妒</span>`:''}</div>
+                </div>`;
+            // 插在stats-grid卡片后面
+            let statsCard = document.querySelector(".stats-grid").closest(".card");
+            if(statsCard && statsCard.nextSibling){
+                statsCard.parentElement.insertBefore(card, statsCard.nextSibling);
+            } else {
+                statsGridParent.appendChild(card);
+            }
+        } else {
+            courtesanCard.style.display = "";
+            let rankTitle = courtesanTitles[gameData.courtesanRank];
+            let jealWarn = gameData.patrons.filter(p=>p.jealousy>=85).length;
+            let fameEl = document.getElementById("courtesanFameVal");
+            let danceEl = document.getElementById("courtesanDanceVal");
+            let musicEl = document.getElementById("courtesanMusicVal");
+            if(fameEl) fameEl.innerText = gameData.courtesanFame;
+            if(danceEl) danceEl.innerText = gameData.dance||0;
+            if(musicEl) musicEl.innerText = gameData.music||0;
+            courtesanCard.querySelector("h3").innerHTML = `🌸 ${gameData.courtesanName} · ${rankTitle}`;
+            // update jealousy warning
+            let jealSpan = courtesanCard.querySelector("div:last-child");
+            if(jealSpan){
+                let parts = jealSpan.innerHTML.split(' ⚠');
+                let base = parts[0].split('恩客')[0];
+                jealSpan.innerHTML = `${base}恩客 ${gameData.patrons.length}人${jealWarn>0?` <span style="color:#e07070;">⚠${jealWarn}人嫉妒</span>`:''}`;
+            }
+        }
+    } else {
+        document.body.classList.remove("courtesan-theme");
+        hideDiv("courtesanHelpBtn");
+        if(courtesanCard) courtesanCard.style.display = "none";
+    }
     refreshAchievements();  // 刷新成就徽章展示
     document.getElementById("attrFitness").innerText = gameData.stamina;
     document.getElementById("attrBeauty").innerText = gameData.appearance;
@@ -3526,6 +4016,18 @@ function refreshPage() {
                 progDiv.style.display = "none";
             }
         }
+    } else if (gameData.isCourtesan && gameData.courtesanRank < 4) {
+        let info = courtesanPromotionThresholds[gameData.courtesanRank];
+        if(info){
+            let nextTitle = courtesanTitles[info.next];
+            let curRep = gameData.reputation;
+            let curFame = gameData.courtesanFame;
+            let curApp = gameData.appearance;
+            progDiv.style.display = "";
+            progText.innerText = `声望${curRep}/${info.reputation} 艳名${curFame}/${info.fame} 颜值≥${info.appearance} → ${nextTitle}`;
+        } else {
+            progDiv.style.display = "none";
+        }
     } else {
         progDiv.style.display = "none";
     }
@@ -3535,15 +4037,63 @@ function refreshPage() {
     document.getElementById("charStatus").innerText = gameData.isSick ? "生病" : (isAnyPregnant ? "怀孕" : "健康");
     document.getElementById("eraName").innerText = gameData.era.name;
 
-    hideDiv("btnErrand"); hideDiv("btnCopy"); hideDiv("btnWork"); hideDiv("takeExam"); hideDiv("btnPawn");
+    hideDiv("btnErrand"); hideDiv("btnCopy"); hideDiv("btnWork"); hideDiv("takeExam");
     if (gameData.age >= 10) { showDiv("btnErrand"); showDiv("btnCopy"); }
-    if (gameData.age >= 15) { showDiv("takeExam"); showDiv("btnWork"); showDiv("btnPawn"); }
+    if (gameData.age >= 15) { showDiv("takeExam"); showDiv("btnWork"); }
 
     // 立嗣按钮：有成年子女（16岁+）才显示
     if(getEligibleHeirs().length > 0){
         showDiv("btnHeir");
     } else {
         hideDiv("btnHeir");
+    }
+
+    // ===== 花魁线：按钮与导航切换 =====
+    if(gameData.isCourtesan){
+        // 隐藏不适用按钮
+        hideDiv("btnMatchmaking"); hideDiv("btnConcubine"); hideDiv("btnInteractSpouse");
+        hideDiv("btnChildrenEdu"); hideDiv("btnJobChange"); hideDiv("btnHeir");
+        hideDiv("takeExam"); hideDiv("btnBanquet");
+        // 显示花魁专属按钮
+        showDiv("btnCourtesanPerform"); showDiv("btnCourtesanMaintain");
+        showDiv("btnCourtesanPractice");
+        // 排练按钮：仅花会准备期间显示
+        if(gameData.galaPrep && gameData.galaPrep.yearsUntil > 0){
+            showDiv("btnCourtesanRehearse");
+        } else {
+            hideDiv("btnCourtesanRehearse");
+        }
+        // 导航栏：红颜位改成恩客
+        let navOutside = document.getElementById("navOutside");
+        if(navOutside){
+            navOutside.querySelector(".nav-icon").innerText = "💋";
+            navOutside.querySelector(".nav-label").innerText = "恩客";
+            navOutside.onclick = function(){ showPatronsPage(); };
+            navOutside.style.opacity = "1";
+            showDiv("navOutside");
+        }
+        // 显示芳华阁导航
+        let navCourtesan = document.getElementById("navCourtesan");
+        if(!navCourtesan){
+            let navRow = document.querySelector(".nav-btn-row");
+            let btn = document.createElement("div");
+            btn.className = "nav-icon-btn";
+            btn.id = "navCourtesan";
+            btn.innerHTML = `<span class="nav-icon">🌸</span><span class="nav-label">芳华阁</span>`;
+            btn.onclick = function(){ showCourtesanHomePage(); };
+            navRow.insertBefore(btn, document.getElementById("navShop"));
+        } else {
+            showDiv("navCourtesan");
+        }
+    } else {
+        // 非花魁线：隐藏花魁按钮
+        hideDiv("btnCourtesanPerform"); hideDiv("btnCourtesanMaintain");
+        hideDiv("btnCourtesanPractice"); hideDiv("btnCourtesanRehearse");
+        // 恢复正常导航
+        let navCourtesan = document.getElementById("navCourtesan");
+        if(navCourtesan) navCourtesan.style.display = "none";
+        // 恢复红颜/蓝颜按钮
+        updateMarriageUI();
     }
 
     // 家中亲人分类折叠显示
@@ -3641,7 +4191,7 @@ function refreshPage() {
 
                 // 女玩家对妾室的互动按钮（仅正妻可管理妾室）
                 let concubineBtns = "";
-                let isPlayerConcubine = gameData.playerGender === "女" && gameData.concubines && gameData.concubines.some(c => c.name === gameData.playerName);
+                let isPlayerConcubine = gameData.playerGender === "女" && !gameData.isPrimaryWife && gameData.spouse;
                 if(!isPlayerConcubine && gameData.playerGender === "女" && (it.type === "concubine" || it.type === "outside")){
                     concubineBtns = `
                         <button class="action-btn" onclick="punishConcubine('${it.name}')">惩罚</button>
@@ -3654,12 +4204,13 @@ function refreshPage() {
                 let divorceBtn = "";
                 let isLimitedConcubineWife = false; // 女玩家妾室对丈夫正妻的限制
                 if(it.type === "spouse"){
-                    // 女玩家为妾室时，对丈夫的正妻只有交谈和送礼
-                    if(gameData.playerGender === "女" && gameData.concubines && gameData.concubines.some(c => c.name === gameData.playerName)){
-                        // 玩家是妾，对丈夫的正妻只有交谈和送礼
+                    // 女玩家为妾室时，对丈夫的正妻只有唇枪舌战和送礼
+                    if(gameData.playerGender === "女" && !gameData.isPrimaryWife && gameData.spouse){
+                        // 玩家是妾，对丈夫的正妻只有唇枪舌战和送礼
                         isLimitedConcubineWife = true;
                         btnGroup = `
-                            <button class="action-btn" onclick="interactFamily('${it.name}','交谈')">交谈</button>
+                            <button class="action-btn" onclick="interactFamily('${it.name}','交谈')">唇枪舌战</button>
+                            <button class="action-btn" onclick="handleAiChatClick('${it.name}')">💬AI交谈</button>
                             <button class="action-btn" onclick="giveGift('${it.name}')">送礼</button>`;
                     }else{
                         divorceBtn = `<button class="action-btn" onclick="divorceSpouse()">和离</button>`;
@@ -3683,10 +4234,11 @@ function refreshPage() {
 
                 let isDisownedMember = gameData.disowned && (it.type === "parent" || it.type === "sibling");
                 
-                // 妾室玩家对其他妾室只有交谈+送礼（和正妻一样，管不了任何人）
+                // 妾室玩家对其他妾室只有唇枪舌战+送礼（和正妻一样，管不了任何人）
                 if(isPlayerConcubine && (it.type === "concubine" || it.type === "outside")){
                     btnGroup = `
-                        <button class="action-btn" onclick="interactFamily('${it.name}','交谈')">交谈</button>
+                        <button class="action-btn" onclick="interactFamily('${it.name}','交谈')">唇枪舌战</button>
+                        <button class="action-btn" onclick="handleAiChatClick('${it.name}')">💬AI交谈</button>
                         <button class="action-btn" onclick="giveGift('${it.name}')">送礼</button>`;
                 }else if(!isLimitedConcubineWife && it.type !== "spouse"){
                     if(isDisownedMember){
@@ -3696,6 +4248,7 @@ function refreshPage() {
                             `<button class="action-btn" onclick="askPocketMoney('${it.name}')">索要零花钱</button>` : "";
                         btnGroup = `
                             <button class="action-btn" onclick="interactFamily('${it.name}','${t}')">${t}</button>
+                            <button class="action-btn" onclick="handleAiChatClick('${it.name}')">💬AI交谈</button>
                             <button class="action-btn" onclick="giveGift('${it.name}')">送礼</button>
                             ${pocketBtn}
                             ${intimacyBtn}
@@ -3817,6 +4370,7 @@ function refreshPage() {
                 <div class="rel-btn-group">
                     <button class="action-btn" onclick="playWithFriend('${f.name}')">玩耍</button>
                     ${talentBtn}
+                    <button class="action-btn" onclick="handleAiChatClick('${f.name}')">💬AI交谈</button>
                     <button class="action-btn" onclick="giveGift('${f.name}')">送礼</button>
                     ${adoptBtn}
                     ${marriageBtn}
@@ -3855,15 +4409,15 @@ window.interactFamily=function(n,t){
     let p=gameData.familyList.find(x=>x.name===n);if(!p)return;
     
     // 妾室玩家对丈夫正妻或其他妾室：交谈触发斗嘴小游戏
-    let isConcubinePlayer = gameData.playerGender === "女" && gameData.concubines && gameData.concubines.some(c => c.name === gameData.playerName);
-    let isTargetSpouse = p.type === "spouse" && p.name !== gameData.playerName;
-    let isTargetConcubine = p.type === "concubine" || p.type === "outside";
+    let isConcubinePlayer = gameData.playerGender === "女" && !gameData.isPrimaryWife && gameData.spouse;
+    let isTargetSpouse = (p.type === "spouse" && p.name !== gameData.playerName) || p.isHusbandPrimaryWife === true;
+    let isTargetConcubine = (p.type === "concubine" || p.type === "outside") && p.isHusbandPrimaryWife !== true;
     
     if(isConcubinePlayer && t === "交谈" && (isTargetSpouse || isTargetConcubine)){
         // 检查今年是否已与此人交谈过
         if(!gameData.quarrelRecords) gameData.quarrelRecords = {};
         if(!gameData.quarrelRecords[n]) gameData.quarrelRecords[n] = {successCount: 0, talkedThisYear: false};
-        if(gameData.quarrelRecords[n].talkedThisYear) return showToast(`今年已与${n}交谈过了`);
+        if(gameData.quarrelRecords[n].talkedThisYear) return showToast(`今年已与${n}唇枪舌战过了`);
         
         gameData.actionNum--;
         gameData.quarrelRecords[n].talkedThisYear = true;
@@ -4342,9 +4896,9 @@ window.askPocketMoney=function(n){
         showToast(`${n}对你甚是溺爱，笑呵呵地塞给你 ${amount} 文零花钱！`);
     } else {
         let reasons=[
-            `${n}叹了口气：“家里近来手头紧，你先自己省着点吧。”`,
-            `${n}板着脸道：“小小年纪乱花什么钱，不行。”`,
-            `${n}摇了摇头：“莫要养成伸手要钱的习惯，自己去挣。”`
+            `${n}叹了口气："家里近来手头紧，你先自己省着点吧。"`,
+            `${n}板着脸道："小小年纪乱花什么钱，不行。"`,
+            `${n}摇了摇头："莫要养成伸手要钱的习惯，自己去挣。"`
         ];
         showToast(reasons[Math.floor(Math.random()*reasons.length)]);
     }
@@ -4371,7 +4925,7 @@ function applyEvent(e){
             popMsg("武学宗师招生，成功解锁武力属性与习武功能！");
             addActionLog("奇遇", "武学宗师招生，成功解锁武力属性与习武功能！");
         } else {
-            return; // 已解锁，跳过此事件（不再重复记载“武学宗师招生”）
+            return; // 已解锁，跳过此事件（不再重复记载"武学宗师招生"）
         }
     }
     if(ef.makeFriend){
@@ -4605,6 +5159,7 @@ function growAge(){
     if(gameData.isDead) return showToast("你已不在人世，无法继续游戏");
     isYearAdvancing = true;
     gameData.age++;
+    journalCache = null; // 每年清空日志缓存；玩家打开日志时重新生成
     
     // 玩家死亡检测（65岁后开始有自然死亡概率）—— 必须最先执行
     let deathCause = checkPlayerDeath();
@@ -4782,6 +5337,21 @@ function growAge(){
 
     // 子女年龄增长
     for(let ch of (gameData.children || [])){ ch.age++; if(ch.age >= 18) assignNpcJob(ch, gameData.familyType); }
+
+    // ===== 全民衰老：所有角色30岁起颜值缓慢下降 =====
+    applyAgingToAll();
+    
+    // ===== 归档今年所有NPC聊天记录（跨年时把对话存到 _yearlyChats，供日记使用） =====
+    let allNpcs = [...(gameData.familyList||[]), ...(gameData.friendList||[]), ...(gameData.children||[]), ...(gameData.concubines||[])];
+    if(gameData.spouse) allNpcs.push(gameData.spouse);
+    for(let p of allNpcs){
+        if(p._chatMessages && p._chatMessages.length > 0 && p._chatYear !== gameData.age){
+            if(!p._yearlyChats) p._yearlyChats = [];
+            p._yearlyChats.push({ year: p._chatYear || (gameData.age - 1), messages: [...p._chatMessages] });
+            p._chatMessages = [];
+            p._chatYear = gameData.age;
+        }
+    }
     
     // 子女结婚检测（18岁后每年20%概率，每人仅一次，已私奔/待确认不触发）
     for(let ch of (gameData.children || [])){
@@ -4924,8 +5494,8 @@ function growAge(){
 
     // 女玩家为妾时：检测是否可被扶正（需原配三年无子）
     if(gameData.playerGender === "女" && gameData.spouse && !gameData.isPrimaryWife){
-        let spouseInFamily = gameData.familyList.find(f => f.type === "spouse");
-        let wifeExists = spouseInFamily && spouseInFamily.name !== gameData.playerName;
+        let spouseInFamily = gameData.familyList.find(f => f.isHusbandPrimaryWife === true);
+        let wifeExists = !!spouseInFamily;
         // 检查原配是否有嫡子女
         let wifeHasChild = false;
         if(wifeExists){
@@ -4983,6 +5553,14 @@ function growAge(){
         showParentMatchmakingAsk();
     }
 
+    // ===== 花魁线触发检测：女+贫穷/普通+未婚+<25岁+颜值≥80 → 100%弹窗 =====
+    if(!gameData.isCourtesan && !gameData._rejectedCourtesan && gameData.playerGender === "女" 
+        && (gameData.familyType === "贫穷" || gameData.familyType === "普通")
+        && !gameData.spouse && gameData.age < 25 && gameData.appearance >= 80
+        && gameData.age >= 16){
+        showCourtesanTriggerPopup();
+    }
+
     // 女性玩家：检查丈夫是否纳妾
     if(gameData.playerGender === "女"){
         checkHusbandConcubine();
@@ -4998,6 +5576,20 @@ function growAge(){
     // 官员/武将/商人：生成年度执务事件（可选处理，不强制弹窗）
     if(gameData.job === officerJob || gameData.job === "从军" || gameData.job === "商人"){
         generateYearlyEvents();
+    }
+
+    // ===== 花魁线：年度演出 + 花会 + 保养 =====
+    if(gameData.isCourtesan){
+        gameData.courtesanYears++;
+        applyCourtesanMaintenance();         // 每半年扣保养费（每年两次中的第一次）
+        generateCourtesanPerformance();      // 年度献艺（赚艳名+钱）
+        courtesanGalaTick();               // 花会（三年一届，选曲排练）
+        checkCourtesanPromotion();          // 晋级检测
+        trySpawnPatron();                  // 新恩客慕名而来
+        patronJealousyCheck();             // 恩客争风吃醋
+        patronRankDrift();                // 等级差自然淘汰
+        patronInvitationCheck();          // 邀约（一年未互动，每年最多3人）
+        handleCourtesanPregnancy();        // 怀孕检测
     }
 
     // 同性伴侣继子事件：玩家>30岁、同性伴侣>5年、30%概率、仅触发一次
@@ -5021,6 +5613,9 @@ function growAge(){
     
     // 显示公告栏（所有消息一次性显示）
     setTimeout(showNotificationPanel, 100);
+
+    // 每年刷新所有已缓存NPC的人设（年龄增长、人际关系变化等）
+    updateAllNpcPersonas();
 }
 
 document.getElementById("openGambling").onclick = function(){
@@ -5028,7 +5623,7 @@ document.getElementById("openGambling").onclick = function(){
         showToast("无行动次数");
         return;
     }
-    gameData.actionNum--;
+    // 进门不扣次数——等玩家真下注时才扣
     gamblingRound = 0;
     saveData();
     refreshPage();
@@ -5041,6 +5636,11 @@ function playGamblingRound(bet, rate, multi){
         return;
     }
     if(gameData.money < bet) return showToast("钱财不足");
+    // 首次下注才消耗行动次数（进门免费，不玩返还）
+    if(gamblingRound === 0){
+        if(gameData.actionNum <= 0){ showToast("行动次数不足"); return; }
+        gameData.actionNum--;
+    }
     
     let luck=gameData.luck;
     if(luck>85)rate+=0.25; else if(luck>65)rate+=0.15; else if(luck>50)rate+=0.05;
@@ -5145,7 +5745,13 @@ function resolveDiceResult(guess, rate, bet, multi, dice, resultDiv){
     }
 }
 
-document.getElementById("closeGambling").onclick = ()=>{hideDiv("gamblingMask");};
+document.getElementById("closeGambling").onclick = ()=>{
+    hideDiv("gamblingMask");
+    if(gamblingRound === 0){
+        // 一次都没玩就离开 → 行动次数没扣，直接刷新页面
+        refreshPage();
+    }
+};
 document.getElementById("diceContinueBtn").onclick = ()=>{
     hideDiv("diceGameMask");
     showDiv("gamblingMask");
@@ -5185,7 +5791,12 @@ document.getElementById("confirmCustom").onclick=()=>{
 };
 // 更换职业按钮已移至导航栏，直接通过onclick="showJobChange()"调用
 document.getElementById("closeJob").onclick=()=>{hideDiv("jobMask");};
-document.getElementById("openAiConfig").onclick=()=>{showDiv("aiConfigMask");};
+document.getElementById("openAiConfig").onclick=()=>{
+    document.getElementById("apiUrl").value = aiConfig.apiUrl || "";
+    document.getElementById("apiKey").value = aiConfig.apiKey || "";
+    document.getElementById("modelName").value = aiConfig.model || "";
+    showDiv("aiConfigMask");
+};
 document.getElementById("closeAiConfig").onclick=()=>{hideDiv("aiConfigMask");};
 document.getElementById("saveAiConfig").onclick=()=>{
     aiConfig.apiUrl=document.getElementById("apiUrl").value.trim();
@@ -5193,7 +5804,759 @@ document.getElementById("saveAiConfig").onclick=()=>{
     aiConfig.model=document.getElementById("modelName").value.trim()||"gpt-3.5-turbo";
     localStorage.setItem("aiConfig",JSON.stringify(aiConfig));
     showToast("保存成功");hideDiv("aiConfigMask");
+    updateAiStatus();
 };
+
+// ===================================================================
+// =====                    AI API 引擎                            =====
+// ===================================================================
+
+// 更新AI在线状态显示
+function updateAiStatus(){
+    let el = document.getElementById("aiStatus");
+    let connected = !!(aiConfig.apiUrl && aiConfig.apiKey);
+    if(connected){
+        el.textContent = "在线模式"; el.className = "ai-status ai-on";
+    } else {
+        el.textContent = "离线模式"; el.className = "ai-status ai-off";
+    }
+    // 更新日志按钮样式和文案
+    let btn = document.getElementById("journalFloatBtn");
+    if(btn){
+        btn.className = connected ? "journal-float-btn on" : "journal-float-btn off";
+        btn.title = connected ? "角色日志（AI生成）" : "角色日志（需配置AI）";
+    }
+}
+// 页面加载时检测
+setTimeout(updateAiStatus, 100);
+
+// AI是否已连接
+function aiConnected(){ return !!(aiConfig.apiUrl && aiConfig.apiKey); }
+
+// 点击AI交谈按钮的包装函数——未配置API时仅提示
+function handleAiChatClick(name){
+    if(!aiConnected()){
+        showToast("🔒 AI交谈功能尚未开启，请点击上方「AI配置」填入接口地址和密钥");
+        return;
+    }
+    openNpcChat(name);
+}
+
+// 点击年度日记的包装函数
+function handleJournalClick(){
+    if(!aiConnected()){
+        showToast("🔒 年度日记功能尚未开启，请点击上方「AI配置」填入接口地址和密钥");
+        return;
+    }
+    showJournal();
+}
+
+// 打开AI配置面板并显示引导提示
+// 核心API调用（单轮）
+async function callAi(systemPrompt, userMessage){
+    return callAiMulti([{role:"system",content:systemPrompt},{role:"user",content:userMessage}]);
+}
+// 核心API调用（多轮对话）
+async function callAiMulti(messages){
+    if(!aiConfig.apiUrl || !aiConfig.apiKey) throw new Error("API未配置");
+    let body = {
+        model: aiConfig.model || "gpt-3.5-turbo",
+        messages: messages,
+        temperature: 0.8, max_tokens: 500
+    };
+    let resp = await fetch(aiConfig.apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + aiConfig.apiKey },
+        body: JSON.stringify(body)
+    });
+    if(!resp.ok) throw new Error("API请求失败: " + resp.status);
+    let data = await resp.json();
+    if(data.error) throw new Error(data.error.message || "API错误");
+    return (data.choices && data.choices[0] && data.choices[0].message) ? data.choices[0].message.content : "";
+}
+
+// ===================================================================
+// =====                  NPC 实时对话系统                          =====
+// ===================================================================
+
+let npcChatState = null; // { npcName, npcData, messages:[{role,content}], chatYear }
+
+function openNpcChat(name){
+    if(!aiConfig.apiUrl || !aiConfig.apiKey){ showToast("请先在AI配置中填入接口地址和密钥"); return; }
+    let npc = gameData.familyList.find(x=>x.name===name) || gameData.friendList.find(x=>x.name===name);
+    if(!npc && gameData.spouse && gameData.spouse.name === name){
+        npc = gameData.spouse;
+        if(!npc.job) npc = gameData.familyList.find(x=>x.name===name) || npc;
+    }
+    if(!npc){ showToast("角色不存在"); return; }
+
+    // 预先为NPC生成人设
+    if(!npc.persona) generateNpcPersona(npc);
+
+    // 加载今年的聊天记录（关窗重开不丢失）
+    let msgs = (npc._chatMessages && npc._chatYear === gameData.age) ? npc._chatMessages : [];
+    npcChatState = { npcName: name, npcData: npc, messages: msgs, chatYear: gameData.age };
+
+    document.getElementById("npcChatName").textContent = name;
+    // 渲染信息 + 已有聊天记录
+    let msgsDiv = document.getElementById("npcChatMessages");
+    msgsDiv.innerHTML = `
+        <div style="text-align:center;color:#8b6914;padding:20px;font-size:13px;">
+            ${npc.name}（${npc.age}岁，${npc.job||"无业"}，家世${npc.family||"不详"}）<br>
+            好感度：${npc.favor||0} | 性格：${npc.personality||"温和"}<br>
+            <span style="font-size:11px;color:#999;">可以自由聊天，${npc.name}会根据关系回答～</span>
+        </div>`;
+    // 恢复已有消息
+    for(let m of msgs){
+        appendChatBubble(m.role, m.content);
+    }
+    document.getElementById("npcChatInput").value = "";
+    showDiv("npcChatMask");
+    setTimeout(()=>document.getElementById("npcChatInput").focus(), 200);
+}
+
+function closeNpcChat(){
+    if(npcChatState){
+        // 关窗前保存消息到NPC
+        npcChatState.npcData._chatMessages = npcChatState.messages;
+        npcChatState.npcData._chatYear = npcChatState.chatYear;
+    }
+    hideDiv("npcChatMask"); npcChatState = null;
+}
+
+
+
+// ===== 人设性格随机池 =====
+const PERSONALITY_POOL = ["温婉贤淑","活泼开朗","知书达理","内向害羞","大方得体","独立自主"];
+function getRandomPersonality(){ return getRandom(PERSONALITY_POOL); }
+
+// ===== NPC人设生成器（核心）—— 数据驱动，不枚举关系类型 =====
+// 性格随机分配后锁定，其余全部从游戏实际数据中搜索读取
+// 生成后缓存到 npc.persona，游戏事件触发后重新生成
+function generateNpcPersona(npc){
+    let pName = gameData.playerName;
+    let pGen = gameData.playerGender;
+
+    let n = npc.name || "无名";
+    let age = npc.age ?? "不详";
+    let g = npc.gender || (npc.title && (npc.title.includes("母")||npc.title.includes("娘")||npc.title.includes("妻")||npc.title.includes("妾")||npc.title.includes("姐")||npc.title.includes("妹")) ? "女" : "男");
+    let job = npc.job || "无业";
+    let fam = npc.family || "普通";
+    let fLev = getFamilyLevel(fam);
+    let favor = npc.favor ?? 50;
+
+    // 性格：已有就不用动，没有则随机分配并写入npc
+    let trait = npc.personality;
+    if(!trait){ trait = getRandomPersonality(); npc.personality = trait; }
+
+    // ==================== 1. 身份叙事 ====================
+    let familyNarr = fLev >= 5 ? `你出身权贵之家，门庭显赫，自幼锦衣玉食。府中仆从成群，你从小到大见的都是大场面，言谈举止间自有一股贵气` :
+                     fLev >= 4 ? `你出身官宦之家，家中长辈有人在朝为官。从小受的规矩教养比寻常人家多，你对官场上的事多少有些耳濡目染` :
+                     fLev >= 3 ? `你出身富裕人家，家中颇有几分产业。虽比不得朱门大户，但不用为柴米发愁，日子有几分体面` :
+                     fLev >= 2 ? `你出身普通人家，和大多数百姓一样，日子过得简简单单，没享过大福也没遭过大罪` :
+                     `你出身贫寒人家，从小就知道饿肚子的滋味。你看惯了世态炎凉，知道人穷了连说话都不硬气`;
+
+    let jobNarr = job === "无" || job === "无业" ? "你现在没有什么正经营生" :
+                  job.includes("官")||job==="进士"||job==="举人"||job==="秀才" ? `你现在做着${job}，在仕途上奔波，每日早出晚归` :
+                  job.includes("商")||job==="掌柜" ? `你现在做${job}，开着铺面做买卖。走南闯北见过不少世面，手上也攒了些银子` :
+                  job.includes("农")||job.includes("渔") ? `你现在是${job}，靠天吃饭，一年到头在地里刨食，日子紧巴巴的` :
+                  job.includes("匠")||job.includes("铁") ? `你凭一手${job}的手艺吃饭，虽不算富贵，但只要有一双手就饿不死` :
+                  job==="郎中"||job==="大夫" ? `你是个${job}，悬壶济世，在街角开了间医馆，街坊邻居有个头疼脑热都来找你` :
+                  job==="教书先生" ? "你在私塾里教一群半大孩子认字，虽然清贫但受人尊敬" :
+                  job==="绣娘"||job==="绣工" ? "你是个绣娘，一双巧手穿针引线，绣出的花鸟鱼虫栩栩如生。不过绣活只能糊口，挣不了大钱" :
+                  job==="厨子"||job==="厨娘" ? "你是个"+job+"，一手好厨艺，煎炒烹炸样样在行" :
+                  job==="丫鬟"||job==="仆人" ? "你在主家做"+job+"，手脚勤快，做事麻利" :
+                  job==="媒婆" ? "你是个媒婆，走街串巷专给人牵红线。一张巧嘴能说会道，三教九流的人都打过交道" :
+                  job==="镖师"||job==="女镖师" ? "你是个镖师，走南闯北护镖，见过刀光剑影，是个有胆气的角色" :
+                  job==="捕快" ? "你在衙门当差缉拿盗贼，粗豪直爽，身上有几分正气" :
+                  job==="道士"||job==="和尚"||job==="尼姑" ? "你是方外之人，早已看淡红尘俗事" :
+                  job==="书生" ? "你每日在书斋苦读，盼着有朝一日金榜题名，改变自己的命运" :
+                  job==="地主" ? "你手里有几百亩良田，靠收租就能过日子，在当地也算一号人物" :
+                  "你做着"+job+"的营生，每日过着寻常日子";
+
+    // ==================== 2. 性格叙述 ====================
+    let traitNarr = buildTraitNarrative(trait);
+
+    // ==================== 3. 与玩家关系 ====================
+    let relNarr = buildRelationNarrativeV2(npc);
+
+    // ==================== 4. 家庭构成 ====================
+    let familyCompNarr = buildFamilyCompV2(npc);
+
+    // ==================== 5. 当下心事 ====================
+    let concernsNarr = buildConcernsV2(npc);
+
+    // ==================== 6. 拼接 ====================
+    let persona = `【你的人物自述——请仔细读完，然后你就是这个人了】
+
+你是${n}，${g}，今年${age}岁。
+${familyNarr}
+${jobNarr}
+
+关于你的性情——${traitNarr}
+
+关于你和${pName}的关系——${relNarr}
+
+关于你的家庭——${familyCompNarr}
+
+你当下心里最挂念的事——${concernsNarr}
+
+【说话时的做派】
+你说话用古代白话文的语气，像《红楼梦》里的人物拉家常，自然不生硬。每次回复不要超过5句话。你是什么样的人就说什么样的话——不要刻意表演，要自然地做你自己。`;
+
+    npc.persona = persona;
+    return persona;
+}
+
+// ===== 辅助：性格叙述 =====
+function buildTraitNarrative(trait, pName){
+    switch(trait){
+        case "温婉贤淑": return `你天生一副柔肠，说话轻声细语，从不高声。待人周到体贴，宁可自己吃亏也不愿与人争执。你心思细腻，善于察言观色，别人一个眼神你就能猜到三分心事。你习惯把委屈往肚子里咽，笑容挂在脸上。别人欺负你，你也不会当场翻脸，只会一个人躲起来偷偷难受。你最在意的是身边人的冷暖——你有没有好好吃饭、添了衣服没有——这些细枝末节在你眼里比什么都重要。`;
+        case "活泼开朗": return `你天性爽朗洒脱，走路带风，说话明快干脆像连珠炮。心里藏不住事，喜怒全写在脸上。你爱笑爱闹最怕闷——有人陪你说话你就开心，没人理你你就浑身难受。你不太记仇，跟谁都能说上两句话。但你也不是傻乐——你只是觉得人生苦短，能笑着过的事何必哭着过。你难过的时候也不愿意让人看见，你会装作无所谓，但夜深人静的时候自己也会发呆。`;
+        case "知书达理": return `你自幼饱读诗书，谈吐文雅引经据典。你觉得凡事都要讲个理，道理不通的事你心里过不去。你偶尔会显得有点迂腐固执——认准了的道理，谁来都劝不动。但你心地纯正，从不做亏心事。你习惯用道理和典故来表达想法，不习惯直愣愣地发泄情绪。你觉得撒泼打滚是市井泼妇所为，你有你读书人的体面。但你心里其实是热的——你只是不知道怎么直接说。`;
+        case "内向害羞": return `你生性腼腆不善言辞。跟人说话时常脸红低头，手指不自觉地绞着衣角。你心里有很多话想说，但总找不到合适的时机开口。话说到一半又咽回去了——怕说错、怕对方不耐烦、怕自己太啰嗦。你不是冷漠，你是太怕被人拒绝。但你一旦认定了谁对你好，你会掏心掏肺地对他，只是嘴上从来不说。你习惯了一个人安安静静待着，缝衣服、看花草、听窗外雨声。`;
+        case "大方得体": return `你举止端庄，进退有度。说话滴水不漏——既不越界也不卑微，什么场合说什么话你心里都有数。你在人前从不失态，脸上总挂着得体的微笑。但你不是没有脾气——你只是觉得不值得为小事翻脸。你把体面看得很重，宁可自己吃点亏也不愿意让人说闲话。只有在你信任的人面前，你才会稍稍放下这些端着的东西——但也只是稍稍。`;
+        case "独立自主": return `你性子要强有自己的主张。你最讨厌被人摆布——谁要替你拿主意，你第一个不乐意。你说话干脆利落，一是一二是二，不拐弯抹角。你觉得做人就该靠自己，靠山山倒靠水水流。你不会撒娇，不会示弱，有时候话说得太直得罪了人你自己都不觉得。但你心里不是没有柔软的地方——只是你习惯了什么事都自己扛。你会把脆弱藏得严严实实，连最亲近的人都看不出来。`;
+        default: return `你性情平和，待人宽厚。既不过分热络也不十分疏远，有自己的分寸。`;
+    }
+}
+
+// ===== 辅助：与玩家关系叙述（数据驱动，不枚举关系类型） =====
+// 直接读取 npc.title 作为关系名称，favor 决定关系质量
+function buildRelationNarrativeV2(npc){
+    let pName = gameData.playerName;
+    let pGen = gameData.playerGender;
+    let favor = npc.favor ?? 50;
+    let title = npc.title || npc.type || "";
+
+    // 用游戏里已经存好的称呼：红颜知己、蓝颜知己、嫡子、妾室、父亲、好友……
+    let relName = title || "相识";
+
+    // 检测身份变迁：妾室→正妻 或 妾室→被扶正
+    let promotedNote = "";
+    if(npc._promotedFrom && npc._promotedYear){
+        let yrsSince = gameData.age - npc._promotedYear;
+        if(yrsSince <= 0){
+            promotedNote = `（你原是他的${npc._promotedFrom}，今年刚刚被扶正为妻）`;
+        } else if(yrsSince === 1){
+            promotedNote = `（你原是他的${npc._promotedFrom}，去年被扶为正妻）`;
+        } else {
+            promotedNote = `（你原是他的${npc._promotedFrom}，${yrsSince}年前被扶为正妻。虽然早就是正妻了，但偶尔还是会想起从前的日子）`;
+        }
+    }
+
+    let base = `你是${pName}的${relName}${promotedNote}`;
+
+    // 根据好感度给出关系质量（泛用，不区分关系类型）
+    let bornYear = isNaN(npc.age) ? null : npc.age;
+    let ageHint = "";
+    if(bornYear !== null && bornYear < 12){ ageHint = `你年纪还小`; }
+    else if(bornYear !== null && bornYear < 18){ ageHint = `你正值少年`; }
+
+    let qualify = "";
+    if(favor >= 85) qualify = `，你们之间情分极深。你把${pName}当成这世上最亲近的人，掏心掏肺，毫无保留`;
+    else if(favor >= 70) qualify = `，你们感情很好，彼此信任。你见了${pGen==="男"?"他":"她"}就心生欢喜，说话自然亲切`;
+    else if(favor >= 50) qualify = `，你们关系和睦，日子平平淡淡的，说不上多亲密但也算融洽`;
+    else if(favor >= 35) qualify = `，你们之间的关系有些平淡，维持着名分上的来往，交心的时候不多`;
+    else if(favor >= 15) qualify = `，你们之间感情疏淡，话不投机，更像是不得已才凑在一起的`;
+    else qualify = `，你们名为${relName}，实际上已经没有什么情分可言了，彼此之间客气而疏远`;
+
+    // 如果是配偶且有结婚年数
+    let marriedAdd = "";
+    if(title.includes("妻") || title.includes("妾") || title.includes("伴侣") || title.includes("丈夫")){
+        let mYear = gameData.marriageYear || 0;
+        if(mYear > 0){
+            let yrs = gameData.age - mYear;
+            if(yrs > 0) marriedAdd = `。你们成婚已经${yrs}年了`;
+        }
+    }
+
+    // 如果是红颜/蓝颜知己
+    if(title.includes("红颜") || title.includes("蓝颜")){
+        if(favor >= 70) qualify = `，你们是心意相通的知己。你不在乎名分，只要能和${pName}说上几句知心话就满足了`;
+        else if(favor >= 40) qualify = `，你们之间有些情意，但也不算刻骨铭心。偶尔见见面、说说话，维持着这份暧昧`;
+        else qualify = `，这段关系已经有些淡了。你心里清楚，红颜知己终究不是名正言顺的人`;
+    }
+
+    return (ageHint ? ageHint + "。" : "") + base + qualify + marriedAdd + "。";
+}
+
+// ===== 辅助：家庭构成叙述（数据驱动，搜索 gameData 找关联人物） =====
+// 不再枚举关系类型——谁的孩子motherName写了他、谁的丈夫是他，直接从数据里查
+function buildFamilyCompV2(npc){
+    let pName = gameData.playerName;
+    let pGen = gameData.playerGender;
+    let parts = [];
+
+    // ——— 1. 搜索此人亲生的孩子（从 gameData.children 中根据 motherName/fatherName 匹配） ———
+    let allChildren = gameData.children || [];
+    let myBioChildren = allChildren.filter(c =>
+        !c.isAdopted && (c.motherName === npc.name || c.fatherName === npc.name)
+    );
+    if(myBioChildren.length > 0){
+        let names = myBioChildren.map(c => c.name).join("、");
+        parts.push(`你有${myBioChildren.length}个孩子：${names}。孩子是你这辈子最放不下的人——为了他们，什么委屈你都能忍。`);
+    }
+
+    // ——— 2. 搜索此人领养的孩子 ———
+    let myAdopted = allChildren.filter(c =>
+        c.isAdopted && (c.motherName === npc.name || c.fatherName === npc.name)
+    );
+    if(myAdopted.length > 0){
+        let names = myAdopted.map(c => c.name).join("、");
+        parts.push(`你收养了${myAdopted.length}个孩子：${names}。虽然不是亲生，但你待他们和亲生的一样。`);
+    }
+
+    // ——— 3. 搜索配偶/伴侣 ———
+    // 这个NPC是玩家的配偶
+    if(gameData.spouse && gameData.spouse.name === npc.name){
+        let call = pGen === "男" ? "丈夫" : "妻子";
+        parts.push(`你的${call}是${pName}（今年${gameData.age}岁，做${gameData.job||"无业"}）。`);
+
+        // 玩家有妾室/知己 → 此NPC面对纳妾
+        let concubines = gameData.concubines || [];
+        if(concubines.length > 0){
+            let cDescs = concubines.map(c => {
+                let cRel = (c.favor||50) >= 70 ? "深得宠爱" : (c.favor||50) >= 50 ? "关系尚可" : (c.favor||50) >= 30 ? "关系平平" : "感情疏远";
+                return `${c.name}（${c.age||"?"}岁，出身${c.family||"普通"}，${cRel}）`;
+            }).join("；");
+            let cLabel = pGen === "男" ? "妾室" : "知己";
+            parts.push(`${pName}另有${concubines.length}位${cLabel}：${cDescs}。这件事是你心里的一道坎。`);
+            parts.push(analyzeWhyNotLeave(npc, concubines));
+        } else {
+            parts.push(`你们的日子过得清清净净，没有旁人在中间。`);
+        }
+    }
+
+    // ——— 4. 玩家是女性，此NPC是丈夫那边的正妻/妾室 ———
+    if(pGen === "女" && gameData.spouse && gameData.spouse.name !== npc.name){
+        let husband = gameData.spouse;
+        if(npc.isHusbandPrimaryWife || (npc.title||"").includes("正妻")){
+            parts.push(`你的丈夫是${husband.name}（${husband.age}岁，做${husband.job||"无业"}）。你是他的正妻。`);
+        } else if((npc.type||"") === "concubine" || (npc.type||"") === "outside"){
+            parts.push(`你的丈夫是${husband.name}。你是他的${npc.title||"妾室"}。${husband.name}另有正妻。`);
+            let hConcs = (gameData.concubines||[]).filter(c => c.name !== npc.name);
+            if(hConcs.length > 0){
+                parts.push(`除了你之外，家里还有${hConcs.length}个妾室：${hConcs.map(c=>c.name).join("、")}。你们之间的关系很微妙——表面和和气气，暗地里各自有各自的盘算。`);
+            }
+        }
+    }
+
+    // ——— 5. 搜索父母 ———
+    // 如果是玩家的小孩：玩家是父/母
+    if(npc.type === "child"){
+        parts.push(`你的${pGen==="男"?"父亲":"母亲"}是${pName}。`);
+        if(pGen === "男" && gameData.spouse){
+            parts.push(`你的母亲是${gameData.spouse.name}（${gameData.spouse.age||"?"}岁）。`);
+        } else if(pGen === "女" && gameData.spouse){
+            parts.push(`你的父亲是${gameData.spouse.name}（${gameData.spouse.age||"?"}岁）。`);
+        }
+    }
+
+    // ——— 6. 搜索兄弟姐妹 ———
+    if(npc.type === "child" || npc.type === "sibling"){
+        let siblings = gameData.familyList.filter(f =>
+            f.type === "sibling" && f.name !== npc.name
+        );
+        if(siblings.length > 0){
+            let sibNames = siblings.map(s => s.name + (s.age ? `（${s.age}岁）` : "")).join("、");
+            parts.push(`你有${siblings.length}个兄弟姐妹：${sibNames}。`);
+        }
+        // 父母
+        let parents = gameData.familyList.filter(f => f.type === "parent");
+        if(parents.length > 0 && npc.type !== "child"){
+            parts.push(`你的父母是${parents.map(p=>p.name).join("和")}。`);
+        }
+    }
+
+    // ——— 7. 如果是父母类型的NPC：告诉TA还有哪些孩子 ———
+    if(npc.type === "parent"){
+        let allChildNpcs = gameData.familyList.filter(f => f.type === "child");
+        let otherKids = allChildNpcs.filter(c => c.name !== pName);
+        if(otherKids.length > 0){
+            parts.push(`除了${pName}，你另外还有${otherKids.length}个孩子：${otherKids.map(c=>c.name).join("、")}。`);
+        }
+    }
+
+    // ——— 8. 如果是红颜/蓝颜知己关系 ———
+    if((npc.title||"").includes("红颜") || (npc.title||"").includes("蓝颜")){
+        // 这不是正式的家庭成员，但跟玩家有特殊关系
+        if(gameData.spouse && gameData.spouse.name !== npc.name){
+            parts.push(`你知道${pName}已经有了家室——但你们之间的事，跟那个家没有关系。`);
+        }
+        // 红颜知己在外的孩子
+        if((npc.type||"") === "outside" && npc.children && npc.children.length > 0){
+            let cNames = npc.children.map(c => c.name || "孩子").join("、");
+            parts.push(`你带在身边的孩子有：${cNames}。`);
+        }
+    }
+
+    // ——— 9. 面对纳妾的正妻心理分析（已有函数，复用） ———
+    // 已在上方配偶段中调用
+
+    return parts.length > 0 ? parts.join("\n") : "你在这个世上没有太多牵挂的亲人，孑然一身。";
+}
+
+// ===== 辅助：正妻面对纳妾的心理（为什么没走） =====
+function analyzeWhyNotLeave(spouseNpc, concubines){
+    let fam = spouseNpc.family || "普通";
+    let trait = spouseNpc.personality || "温和";
+    let favor = spouseNpc.favor || 50;
+    let job = spouseNpc.job || "无业";
+    let fLev = getFamilyLevel(fam);
+    let pName = gameData.playerName;
+
+    // 职业自立
+    let indepJobs = ["掌柜","商人","富商","媒婆","女镖师","地主","郎中","大夫","教书先生","捕快","镖师"];
+    let canSelfSupport = indepJobs.some(j => job.includes(j));
+    let hasChildren = gameData.children && gameData.children.some(c => !c.isAdopted && c.motherName === spouseNpc.name);
+
+    let reasons = [];
+    if(favor >= 70) reasons.push("你对" + pName + "感情很深，心里舍不得");
+    if(favor >= 40 && favor < 70) reasons.push("你们之间还有些情分，没到非走不可的地步");
+    if(fLev <= 2) reasons.push("你娘家势微，离了夫家没有去处，只能忍气吞声");
+    if(!canSelfSupport && fLev <= 3) reasons.push("你没有独立谋生的本事，离开了这个家你连饭都可能吃不上");
+    if(hasChildren) reasons.push("为了孩子，你不忍心让家散了");
+    if(gameData.officerRank >= 4) reasons.push("丈夫官居"+(gameData.officerTitle||"官职")+"，你觉得惹不起");
+    if(trait === "温婉贤淑" || trait === "内向害羞") reasons.push("你的性子本就不是刚烈的人，撕破脸闹和离这种事你做不出来");
+
+    let concNames = concubines.map(c => c.name).join("、");
+    let reasonStr = reasons.join("；再加上，");
+    return `说到底，你之所以到现在还没有离开他，是因为：${reasonStr}。这不是一个简单的决定——你有你的无奈、你的委屈、你的不甘。你在跟丈夫说话的时候，这些心事偶尔会从话缝里漏出来一点点。`;
+}
+
+// ===== 辅助：当下心事（数据驱动） =====
+function buildConcernsV2(npc){
+    let pName = gameData.playerName;
+    let pGen = gameData.playerGender;
+    let favor = npc.favor ?? 50;
+    let job = npc.job || "无业";
+    let fam = npc.family || "普通";
+    let fLev = getFamilyLevel(fam);
+    let trait = npc.personality || "温和";
+    let parts = [];
+
+    // ——— 经济压力 ———
+    if(fLev <= 2 && (job === "无业" || job === "无" || job.includes("农") || job.includes("丫鬟") || job.includes("仆人"))){
+        parts.push("你们的日子过得紧巴巴的，每天的柴米油盐都要精打细算。你心里清楚——要是再出点什么变故，这个家可能就撑不住了。");
+    } else if(fLev <= 2){
+        parts.push("家里虽不宽裕，但日子还算过得去。你总是盘算着怎么多攒几个铜板，以备不时之需。");
+    }
+
+    // ——— 年纪相关的牵挂 ———
+    let age = npc.age || 0;
+    if(age <= 10){
+        parts.push("你年纪还小，最大的烦恼不过是今天吃什么、明天玩什么。大人的事你还不太懂，但你能感受到家里的气氛。");
+    } else if(age <= 16){
+        parts.push("你正值少年，心里已经开始想着将来的事——以后做什么营生、嫁什么样的人、能不能让家里人过上好日子。");
+    } else if(age >= 50){
+        parts.push("你年纪渐长，身体不如从前了。你最大的牵挂是后辈们——你希望他们好好的，平平安安，顺顺当当。");
+    }
+
+    // ——— 与玩家关系带来的心事 ———
+    let title = npc.title || "";
+    let type = npc.type || "";
+
+    // 面对纳妾的正妻
+    let isPlayerSpouse = gameData.spouse && gameData.spouse.name === npc.name;
+    let concubines = gameData.concubines || [];
+    if(isPlayerSpouse && concubines.length > 0 && pGen === "男"){
+        if(favor >= 70){
+            parts.push("你心里最放不下的是丈夫纳妾这件事。你不是恨他——你爱他，所以才会在意。每次想起这事心里就堵得慌，但你又不愿意让他看出来。你只会对他更好，盼着他自己有一天能明白你的好。");
+        } else if(favor >= 40){
+            parts.push("丈夫纳妾的事，你已经慢慢看淡了。你把心思更多地放在操持家务和照顾自己身上——感情也就那样了，不如把自己的日子过好。");
+        } else {
+            parts.push("丈夫纳妾这件事，你已经不在乎了。一个人心死了，他做什么都跟你没关系。你留在这个家里不是因为爱，是因为暂时还没有更好的去处。");
+        }
+    }
+
+    // 妾室的心事
+    if((type === "concubine" || type === "outside") && pGen === "男"){
+        if(favor >= 70) parts.push("你最大的心事是怕自己在这个家里站不住脚。正妻那边你不敢得罪，其他妾室你也得陪着小心。你唯一能指望的就是丈夫对你的情分——你每天都小心翼翼地维护着。");
+        else if(favor >= 40) parts.push("你在这个家的位置不上不下。比正妻低一头，但有口安稳饭吃。你有时候会想，自己这辈子是不是就这样了。");
+        else parts.push("你心里憋着一口气——你不甘心一辈子只做妾，但以你现在的处境，你也不知道出路在哪里。");
+    }
+
+    // 红颜/蓝颜知己的心事
+    if(title.includes("红颜") || title.includes("蓝颜")){
+        if(favor >= 70) parts.push("你最大的心事是没有名分。你不在乎别人怎么说，但有时候夜深人静，你也会想——如果有一天能光明正大地跟他在一起该多好。");
+        else if(favor >= 40) parts.push("你心里明白，这段感情未必长久。你不敢要太多，只希望能在他的生活里占一个小小的角落。");
+        else parts.push("你对这段关系已经有些倦了。没有名分、没有承诺——有时候你想，不如就此断了算了。");
+    }
+
+    // 父母的心事
+    if(type === "parent"){
+        if(favor >= 70) parts.push(`你最大的牵挂就是${pName}这孩子。你希望${pGen==="男"?"他":"她"}好好的——平平安安，顺顺当当。`);
+        else if(favor >= 40) parts.push(`${pName}是你的孩子，但你心里总觉得跟${pGen==="男"?"他":"她"}隔着一层什么。你想亲近，却又不知道怎么开口。`);
+        else parts.push(`你对${pName}有些失望。你曾经花了很多心血在这孩子身上，但现在你不太想管了——管也管不住。`);
+    }
+
+    // 长期夫妻
+    let mYear = gameData.marriageYear || 0;
+    let marriedYrs = mYear > 0 ? gameData.age - mYear : 0;
+    if(isPlayerSpouse && marriedYrs >= 8 && favor >= 50){
+        parts.push(`你们成婚已经${marriedYrs}年了，半辈子的夫妻。说句掏心窝子的话——日子虽有些磕磕绊绊，但这个人到底是你选的，是你这辈子最熟悉的人。`);
+    }
+
+    return parts.length > 0 ? parts.join("\n") : "你当下的日子还算平静，暂时没有什么特别挂心的事。";
+}
+
+// ===== 获取或生成NPC人设（带缓存） =====
+function getOrCreateNpcPersona(npc){
+    if(npc.persona && npc.persona.length > 50) return npc.persona;
+    return generateNpcPersona(npc);
+}
+
+// ===== 清空所有人设缓存（下次聊天时重新生成） =====
+function clearAllNpcPersonas(){
+    let allNpcs = [...(gameData.familyList||[]), ...(gameData.friendList||[])];
+    if(gameData.spouse && gameData.spouse.name){
+        if(!allNpcs.some(f=>f.name===gameData.spouse.name)) allNpcs.push(gameData.spouse);
+    }
+    for(let npc of allNpcs){
+        if(npc.name) npc.persona = null;
+    }
+}
+
+// ===== 刷新所有已缓存NPC的人设（在重大事件后调用） =====
+function updateAllNpcPersonas(){
+    let allNpcs = [...(gameData.familyList||[]), ...(gameData.friendList||[])];
+    if(gameData.spouse && gameData.spouse.name && !gameData.familyList.some(f=>f.name===gameData.spouse.name)){
+        allNpcs.push(gameData.spouse);
+    }
+    for(let npc of allNpcs){
+        if(npc.name && npc.persona){
+            generateNpcPersona(npc);
+        }
+    }
+}
+
+// ===== 旧版buildNpcPersona（保留兼容，但不再用作主要渠道） =====
+function buildNpcPersona(npc, pName, pGen, pJob, pFam){
+    return getOrCreateNpcPersona(npc);
+}
+
+// ===================================================================
+// =====                  NPC 发送消息                            =====
+// ===================================================================
+
+async function sendNpcMessage(){
+    if(!npcChatState) return;
+    let input = document.getElementById("npcChatInput");
+    let msg = input.value.trim();
+    if(!msg) return;
+    input.value = ""; input.disabled = true;
+    
+    // 显示玩家消息
+    appendChatBubble("player", msg);
+    
+    // 显示加载中
+    let loadId = "load_" + Date.now();
+    let msgsDiv = document.getElementById("npcChatMessages");
+    let loading = document.createElement("div");
+    loading.id = loadId;
+    loading.className = "npc-chat-loading";
+    loading.innerHTML = `${npcChatState.npcName}正在思考<span class="dot-flash">.</span><span class="dot-flash">.</span><span class="dot-flash">.</span>`;
+    msgsDiv.appendChild(loading);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+    
+    try {
+        let npc = npcChatState.npcData;
+
+        // 跨年：清空消息（聊天记录已在 growAge 中归档到 _yearlyChats）
+        if(gameData.age !== npcChatState.chatYear){
+            npcChatState.messages = [];
+            npcChatState.chatYear = gameData.age;
+        }
+        
+        // 人设
+        let persona = getOrCreateNpcPersona(npc);
+
+        // 构建标准 messages 数组
+        let messagesForApi = [{ role: "system", content: persona }];
+        // 最近12条历史
+        let recent = npcChatState.messages.slice(-12);
+        for(let m of recent){
+            messagesForApi.push({ role: m.role === "player" ? "user" : "assistant", content: m.content });
+        }
+        messagesForApi.push({ role: "user", content: msg });
+        
+        let reply = await callAiMulti(messagesForApi);
+        
+        // 移除加载动画
+        let ld = document.getElementById(loadId);
+        if(ld) ld.remove();
+        
+        // 显示NPC回复
+        appendChatBubble("npc", reply);
+        npcChatState.messages.push({role:"player",content:msg});
+        npcChatState.messages.push({role:"npc",content:reply});
+        
+        // 实时保存到NPC（关窗重开不丢失，跨年总结用）
+        npc._chatMessages = npcChatState.messages;
+        npc._chatYear = gameData.age;
+        
+    } catch(e) {
+        let ld = document.getElementById(loadId);
+        if(ld) ld.remove();
+        appendChatBubble("npc", "（AI暂不可用：" + e.message + "）");
+    }
+    
+    input.disabled = false;
+    input.focus();
+    document.getElementById("npcChatMessages").scrollTop = document.getElementById("npcChatMessages").scrollHeight;
+}
+
+function appendChatBubble(role, text){
+    let msgsDiv = document.getElementById("npcChatMessages");
+    let div = document.createElement("div");
+    div.className = "npc-chat-msg " + (role==="player"?"player":"npc");
+    div.innerHTML = `<div class="npc-chat-bubble">${text.replace(/\n/g,"<br>")}</div>`;
+    msgsDiv.appendChild(div);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+}
+
+// ===================================================================
+// =====                  年度日记系统                             =====
+// ===================================================================
+
+let journalCache = null; // { generatedYear, entries: [{name,diary,year}] }
+
+function showJournal(){
+    if(!aiConfig.apiUrl || !aiConfig.apiKey){
+        document.getElementById("journalEntries").innerHTML = `<div class="journal-placeholder">请先在AI配置中填入接口地址和密钥，<br>即可查看角色们的年度日记～</div>`;
+        showDiv("journalMask");
+        return;
+    }
+    showDiv("journalMask");
+    if(!journalCache || journalCache.generatedYear !== gameData.age){
+        generateJournal();
+    } else {
+        renderJournal();
+    }
+}
+
+function renderJournal(){
+    let html = "";
+    if(!journalCache || (!journalCache.entries || journalCache.entries.length===0)){
+        html = `<div class="journal-placeholder">${journalCache?.message || "暂无日记"}</div>`;
+    } else {
+        for(let e of journalCache.entries){
+            html += `<div class="journal-diary">
+                <div class="jd-name">${e.name}</div>
+                <div class="jd-text">${e.diary}</div>
+            </div>`;
+        }
+    }
+    document.getElementById("journalEntries").innerHTML = html;
+}
+
+// ===== 年度日记生成：从NPC聊天记录中生成以NPC口吻写的日记（每人~100字） =====
+async function generateJournal(){
+    document.getElementById("journalEntries").innerHTML = `<div class="journal-placeholder">🪶 正在生成年度日记……</div>`;
+    
+    let playerName = gameData.playerName;
+    let era = gameData.era.name;
+    
+    // 收集所有NPC的最近一年聊天记录
+    let allNpcs = [...(gameData.familyList||[]), ...(gameData.friendList||[]), ...(gameData.children||[]), ...(gameData.concubines||[])];
+    if(gameData.spouse) allNpcs.push(gameData.spouse);
+    
+    let diaryCandidates = [];
+    let seen = new Set();
+    for(let p of allNpcs){
+        if(seen.has(p.name)) continue;
+        seen.add(p.name);
+        let yearlyChats = p._yearlyChats || [];
+        let latest = yearlyChats[yearlyChats.length - 1];
+        if(latest && latest.messages && latest.messages.length >= 2){
+            // 取最近16条对话作为样本
+            let sample = latest.messages.slice(-16);
+            let sampleText = sample.map(m => 
+                (m.role === "player" ? playerName : p.name) + "：" + m.content.slice(0, 100)
+            ).join("\n");
+            let relation = p.title || p.type || (p.isOutside ? "红颜知己" : "相识之人");
+            if(p._promotedFrom) relation = `原${p._promotedFrom}，现为正妻`;
+            diaryCandidates.push({
+                name: p.name,
+                relation: relation,
+                personality: p.personality || "温和",
+                age: p.age || "？",
+                gender: p.gender || "？",
+                year: latest.year,
+                sample: sampleText
+            });
+        }
+    }
+    
+    if(diaryCandidates.length === 0){
+        journalCache = { generatedYear: gameData.age, entries: [], message: "今年你很少与人深谈，日子平淡如水。" };
+        renderJournal();
+        updateJournalFloatBtn();
+        return;
+    }
+    
+    // 最多10人，避免提示词过长
+    if(diaryCandidates.length > 10) diaryCandidates = diaryCandidates.slice(-10);
+    
+    let charList = diaryCandidates.map(c => 
+        `${c.name}（${c.relation}，${c.gender}，${c.age}岁，性格${c.personality}）\n这一年你们之间的对话：\n${c.sample}`
+    ).join("\n---\n");
+    
+    let systemPrompt = `你是一个古代日志记录员。请用第一人称，为以下每位角色写一段约100字的年度日记——就像腊月岁末，他们各自在灯下回忆这一年来与${playerName}相处的点滴，写下了自己的心声。
+
+语气要贴合他们各自的性格和身份，像一段自然的心语，不要编号不要列清单。
+
+年号：${era}
+
+${charList}
+
+请严格按以下格式输出，每个角色一行：
+角色名：日记内容`;
+    
+    try {
+        let result = await callAi(systemPrompt, "");
+        let lines = result.trim().split("\n").filter(l => l.includes("：") || l.includes(":"));
+        let entries = [];
+        for(let line of lines){
+            let idx = line.indexOf("："); if(idx < 0) idx = line.indexOf(":");
+            if(idx < 0) continue;
+            let name = line.slice(0, idx).trim().replace(/^[•\-\*\d\.\s]+/, "");
+            let diary = line.slice(idx + 1).trim();
+            let cand = diaryCandidates.find(c => c.name === name);
+            entries.push({ name, diary, year: cand ? cand.year : gameData.age });
+        }
+        // AI没返回足够条目，用候补
+        let aiNames = new Set(entries.map(e => e.name));
+        for(let c of diaryCandidates){
+            if(!aiNames.has(c.name)){
+                entries.push({ name: c.name, diary: "今年与你相聚不多，日子却也平平安安地过去了。", year: c.year });
+            }
+        }
+        journalCache = { generatedYear: gameData.age, entries };
+    } catch(e) {
+        let entries = diaryCandidates.map(c => ({ name: c.name, diary: "岁末回首，一年匆匆。与你相交的点滴，都记在心间。", year: c.year }));
+        journalCache = { generatedYear: gameData.age, entries };
+    }
+    renderJournal();
+    updateJournalFloatBtn();
+}
+
+function refreshJournal(){ journalCache = null; generateJournal(); }
+
+function updateJournalFloatBtn(){
+    let btn = document.getElementById("journalFloatBtn");
+    if(btn){
+        let connected = !!(aiConfig.apiUrl && aiConfig.apiKey);
+        btn.className = connected ? "journal-float-btn on" : "journal-float-btn off";
+    }
+}
+
+// 每年刷新日志
+setTimeout(()=>{ updateJournalFloatBtn(); }, 200);
+
+// ===================================================================
+
 document.getElementById("submitExam").onclick=submitExamFunc;
 document.getElementById("closeExam").onclick=()=>{hideDiv("examMask");};
 document.getElementById("joinArmyBtn").onclick=()=>{
@@ -5466,6 +6829,1556 @@ function refuseParentMatchmaking(){
     saveData();
 }
 
+// ==================== 花魁帮助面板 ====================
+function buildCourtesanHelpContent(){
+    let rankTiers = [];
+    for(let k in courtesanPromotionThresholds){
+        let info = courtesanPromotionThresholds[k];
+        rankTiers.push(`${courtesanTitles[info.next]}：艳名≥${info.fame} · 声望≥${info.reputation} · 颜值≥${info.appearance}`);
+    }
+    return `<h3>📋 花魁晋升之路</h3>
+    <p>清倌人 → 红倌人 → 花魁 → 名妓 → 绝代名伶</p>
+    <p>${rankTiers.join('<br>')}</p>
+    <p style="color:#999;">晋升在每年结算时自动检查，每年一次献艺可赚取艳名。</p>
+    
+    <h3>🏵️ 花会（三年一届）</h3>
+    <p>红倌人以上可参加。提前三年通知，须排练舞蹈或琴曲。</p>
+    <p>排练进度≥80%发挥稳定，≥95%惊艳全场。</p>
+    <p>花会名次决定声望+艳名奖励，排名垫底可能降级！</p>
+    
+    <h3>💋 恩客系统</h3>
+    <p>献艺吸引恩客慕名而来，恩客的<span class="help-tip">好感</span>和<span class="help-warn">独占欲</span>决定赏钱丰厚程度。</p>
+    <p>每位恩客有独立的<span class="help-warn">嫉妒值</span>——你陪别人越多，ta的嫉妒越高。</p>
+    
+    <h3 class="help-warn">⚠ 嫉妒值</h3>
+    <p>陪一个恩客 → 其他恩客嫉妒上升；陪ta本人 → ta的嫉妒大幅下降。</p>
+    <p><b>嫉妒过高</b> → 可能撞破你与别人幽会，当场发飙扣艳名，甚至触发<span class="help-warn">独占要求</span>。</p>
+    <p><b>独占要求</b>：ta逼你断绝其他恩客，拒绝则大批掉好感、不少人直接离开。</p>
+    
+    <h3 class="help-warn">💔 好感怎么掉的？</h3>
+    <p>· 婉拒ta的年度邀约 → 好感-15~25</p>
+    <p>· 偷情被撞破 → 目击者好感-5~15</p>
+    <p>· 独占要求被拒 → 集体好感-15~30</p>
+    <p>· 好感≤15自动出局，离开你</p>
+    
+    <h3 class="help-tip">💡 生存技巧</h3>
+    <p>· 均衡陪人：轮流陪不同恩客，别只宠一人</p>
+    <p>· 闲谈降嫉妒（3~8）：无需AI也能生效</p>
+    <p>· 花前月下降最多（8~18），献艺其次（5~15）</p>
+    <p>· 每年自然衰减嫉妒2~5，但被冷落涨得更快</p>
+    <p>· 留意恩客列表的🔥标记——那是定时炸弹</p>
+    <p>· AI聊天是额外沉浸功能，不配置不影响核心玩法</p>`;
+}
+
+function toggleCourtesanHelp(){
+    let popup = document.getElementById("courtesanHelpPopup");
+    if(popup.classList.contains("hidden")){
+        popup.innerHTML = buildCourtesanHelpContent();
+        popup.classList.remove("hidden");
+    } else {
+        popup.classList.add("hidden");
+    }
+}
+
+// 点击外面关闭帮助面板
+document.addEventListener('click', function(e){
+    let popup = document.getElementById("courtesanHelpPopup");
+    let btn = document.getElementById("courtesanHelpBtn");
+    if(popup && !popup.classList.contains("hidden") && 
+       !popup.contains(e.target) && e.target !== btn && !btn.contains(e.target)){
+        popup.classList.add("hidden");
+    }
+});
+
+function showCourtesanOnboarding(){
+    // 延迟等年度结算完再弹
+    setTimeout(()=>{
+        let popup = document.getElementById("courtesanHelpPopup");
+        popup.innerHTML = buildCourtesanHelpContent();
+        popup.classList.remove("hidden");
+        // 3秒后闪烁提示
+        let btn = document.getElementById("courtesanHelpBtn");
+        btn.style.animation = "goldPulse 1s ease 5";
+        setTimeout(()=>{ btn.style.animation = ""; }, 5000);
+    }, 600);
+}
+
+// ==================== 花魁线：触发与确认弹窗 ====================
+
+// 花魁线花名候选
+const COURTESAN_NAME_SUGGESTIONS = ["念卿","如烟","清歌","弄影","玉楼","素心","挽月","听雪","画眉","怜花"];
+
+// 花街偶遇剧情文案（随机选一则）
+const COURTESAN_TRIGGER_STORIES = [
+    `这日你走在街上，一位衣着华贵的妇人忽然拦住了你。她上下打量了一番，眼中露出惊艳之色："好标致的姑娘！"她自称是芳华阁的掌事，说你这般容貌，若是埋没在市井之间实在可惜。她邀你到芳华阁一叙，说凭你的姿色，一年便能名动全城……`,
+    `年关将近，你正为生计发愁。一位涂脂抹粉的妇人从轿中探出头来，盯着你看了许久，忽然叫停了轿子。她递来一方香帕，笑道："姑娘生得这般好模样，何必清贫度日？芳华阁正在寻一位淸倌人，你若有兴趣，明日便来寻我。"`,
+    `庙会上人潮涌动，你正看杂耍入神，忽然发现周围几位公子都在偷偷看你。其中一位摇着折扇上前搭话，被随行的老妇拦住。老妇拉你到一旁，悄声道："姑娘莫怕，老身是芳华阁的教习。你这般容貌，若肯来阁里学艺，将来必是头牌的花魁。"`,
+    `你在河边浣衣，一位撑伞的妇人驻足良久。她夸你手如柔荑、肤如凝脂，说这样的好底子不该浪费。她将芳华阁的名帖塞进你手里，低声道："想清楚了随时来找我。凭你的姿色，多少达官贵人抢着为你一掷千金。"`
+];
+
+function showCourtesanTriggerPopup(){
+    let story = COURTESAN_TRIGGER_STORIES[Math.floor(Math.random() * COURTESAN_TRIGGER_STORIES.length)];
+    document.getElementById("courtesanTriggerText").innerHTML = story;
+    showDiv("courtesanTriggerMask");
+    
+    document.getElementById("courtesanTriggerYes").onclick = function(){
+        hideDiv("courtesanTriggerMask");
+        showCourtesanConfirmPopup();
+    };
+    document.getElementById("courtesanTriggerNo").onclick = function(){
+        hideDiv("courtesanTriggerMask");
+        gameData._rejectedCourtesan = true;
+        popMsg("你转身离去，那妇人望着你的背影叹了口气。");
+        saveData();
+    };
+}
+
+function showCourtesanConfirmPopup(){
+    // 生成花名建议按钮
+    let html = "";
+    for(let n of COURTESAN_NAME_SUGGESTIONS){
+        html += `<button class="action-btn" style="font-size:12px; padding:4px 10px;" onclick="document.getElementById('courtesanNameInput').value='${n}'">${n}</button>`;
+    }
+    document.getElementById("courtesanNameSuggestions").innerHTML = html;
+    document.getElementById("courtesanNameInput").value = "";
+    showDiv("courtesanConfirmMask");
+    
+    document.getElementById("courtesanConfirmYes").onclick = function(){
+        let name = document.getElementById("courtesanNameInput").value.trim();
+        if(!name || name.length < 1 || name.length > 4){
+            showToast("请取一个1~4个字的花名");
+            return;
+        }
+        hideDiv("courtesanConfirmMask");
+        enterCourtesanLine(name);
+    };
+    document.getElementById("courtesanConfirmNo").onclick = function(){
+        hideDiv("courtesanConfirmMask");
+        gameData._rejectedCourtesan = true;
+        popMsg("你犹豫再三，终究没有踏入那扇门。");
+        saveData();
+    };
+}
+
+function enterCourtesanLine(flowerName){
+    gameData.isCourtesan = true;
+    gameData.courtesanName = flowerName;
+    gameData.courtesanRank = 1;
+    gameData.courtesanFame = 0;
+    gameData.courtesanYears = 0;
+    gameData.courtesanLodging = "芳华阁";
+    gameData.patrons = [];
+    gameData.job = "清倌人";
+    gameData.dance = Math.floor(Math.random() * 11) + 5;   // 初始5~15
+    gameData.music = Math.floor(Math.random() * 11) + 5;   // 初始5~15
+    
+    // 花魁线不可换职业，屏蔽相关功能
+    popMsg(`🌸 你踏入芳华阁，从此以"${flowerName}"为名。`);
+    addActionLog("花魁入行", `取花名"${flowerName}"，成为芳华阁的一名清倌人。`);
+    saveData();
+    refreshPage();
+    // 新手引导：提示玩家查看花魁规则
+    showCourtesanOnboarding();
+}
+
+// 花魁退出（赎身自由）——古代名妓赎身动辄数千金，天价才合理
+function exitCourtesanAsFree(){
+    let cost = gameData.courtesanRank >= 5 ? 1000000 : gameData.courtesanRank >= 4 ? 500000 : gameData.courtesanRank >= 3 ? 250000 : gameData.courtesanRank >= 2 ? 100000 : 50000;
+    if(gameData.money < cost){
+        showToast(`赎身需${cost}文，钱财不足`);
+        return;
+    }
+    gameData.money -= cost;
+    popMsg(`💐 你攒够了${cost}文，终于为自己赎了身。从此恢复自由，妓籍已消。`);
+    addActionLog("赎身从良", `花费${cost}文赎身，恢复自由之身。`);
+    clearCourtesanData();
+    saveData();
+    refreshPage();
+}
+
+function clearCourtesanData(){
+    gameData.isCourtesan = false;
+    gameData.courtesanRank = 0;
+    gameData.courtesanName = "";
+    gameData.courtesanFame = 0;
+    gameData.courtesanYears = 0;
+    gameData.courtesanLodging = "";
+    gameData.patrons = [];
+    gameData.dance = 0;
+    gameData.music = 0;
+    // 恢复默认职业
+    let pool = gameData.playerGender === "女" ? femaleCommonJobs : maleCommonJobs;
+    gameData.job = getRandom(pool);
+}
+
+// 花魁晋级检查（声望+艳名+颜值三者都达标）
+function checkCourtesanPromotion(){
+    if(!gameData.isCourtesan || gameData.courtesanRank >= 5) return;
+    let thresholds = courtesanPromotionThresholds[gameData.courtesanRank];
+    if(!thresholds) return;
+    if(gameData.reputation >= thresholds.reputation 
+        && gameData.courtesanFame >= thresholds.fame 
+        && gameData.appearance >= thresholds.appearance){
+        gameData.courtesanRank = thresholds.next;
+        let title = courtesanTitles[gameData.courtesanRank];
+        gameData.job = title;
+        popMsg(`🌸 恭喜！你已晋升为【${title}】！艳名远播，身价倍增。`);
+        addActionLog("花魁晋升", `晋升为${title}`);
+        // 晋升时触发姻缘机会
+        showCourtesanMarriageOpportunity();
+        saveData();
+        refreshPage();
+    }
+}
+
+// 花魁晋升时的姻缘机会（等级越高能嫁越好）
+function showCourtesanMarriageOpportunity(){
+    // 留空框架，具体实现在后续恩客系统中完善
+    let spousePool = [];
+    if(gameData.courtesanRank === 2){ // 红倌人 → 富商/小官
+        spousePool = ["富商","七品知县"];
+    } else if(gameData.courtesanRank === 3){ // 花魁 → 权贵
+        spousePool = ["权贵","三品侍郎"];
+    } else if(gameData.courtesanRank === 4){ // 名妓 → 皇室宗亲
+        spousePool = ["王爷","皇室宗亲"];
+    } else if(gameData.courtesanRank === 5){ // 绝代名伶 → 帝王家
+        spousePool = ["皇子","皇帝"];
+    }
+    if(spousePool.length > 0){
+        popMsg(`💍 晋升为${courtesanTitles[gameData.courtesanRank]}后，已有${spousePool.join("、")}对你表达了倾慕之意……`);
+    }
+}
+
+// ==================== 花魁线：年度演出与花会 ====================
+
+// 花魁年度献艺（取最强技艺×60% + 颜值×40% 分档，不再随机抽到弱项）
+function generateCourtesanPerformance(){
+    if(!gameData.isCourtesan) return;
+    
+    let event = courtesanPerformanceEvents[Math.floor(Math.random() * courtesanPerformanceEvents.length)];
+    // 花魁自会扬长避短——取琴/舞/才中最高的一项
+    let bestSkill = Math.max(gameData.music||0, gameData.dance||0, gameData.talent||0);
+    
+    let statValue = Math.floor(bestSkill * 0.6 + (gameData.appearance || 0) * 0.4);
+    
+    let tier, tierLabel, fameGain, moneyGain;
+    if(statValue >= 95){
+        tier = 5; tierLabel = "惊才绝艳";
+        fameGain = getRandRange(18, 28);
+        moneyGain = getRandRange(2500, 5000);
+    } else if(statValue >= 80){
+        tier = 4; tierLabel = "技惊四座";
+        fameGain = getRandRange(12, 20);
+        moneyGain = getRandRange(1200, 2600);
+    } else if(statValue >= 60){
+        tier = 3; tierLabel = "颇受好评";
+        fameGain = getRandRange(7, 14);
+        moneyGain = getRandRange(500, 1300);
+    } else if(statValue >= 40){
+        tier = 2; tierLabel = "中规中矩";
+        fameGain = getRandRange(3, 8);
+        moneyGain = getRandRange(200, 600);
+    } else {
+        tier = 1; tierLabel = "门可罗雀";
+        fameGain = getRandRange(1, 4);
+        moneyGain = getRandRange(40, 250);
+    }
+    
+    // 芳华阁抽成（低级住阁里时抽50%，花魁级以上独立置宅不抽成）
+    let cut = gameData.courtesanRank >= 3 ? 0 : Math.floor(moneyGain * 0.5);
+    let actualMoney = moneyGain - cut;
+    
+    gameData.courtesanFame += fameGain;
+    gameData.money += actualMoney;
+    
+    let tierIcon = ["😢","🙂","👍","✨","🌟"][tier-1];
+    let resultText = `${tierIcon} 【${tierLabel}】${event.desc}，艳名+${fameGain}，缠头${moneyGain}文` + (cut > 0 ? `（芳华阁抽成${cut}文，实得${actualMoney}文）` : "");
+    
+    popMsg(resultText);
+    addActionLog("花魁献艺", `${tierLabel}·${event.name}　艳名+${fameGain}`);
+}
+
+// 花魁花会（三年一届，提前选曲排练）
+function courtesanGalaTick(){
+    if(!gameData.isCourtesan) return;
+    if(gameData.courtesanRank < 2) return;
+    
+    // 正在准备中：逐年倒数
+    if(gameData.galaPrep){
+        gameData.galaPrep.yearsUntil--;
+        if(gameData.galaPrep.yearsUntil <= 0){
+            holdCourtesanGala();
+        }
+        return;
+    }
+    
+    // 上次花会距今≥3年 → 弹出选曲
+    if((gameData.age - (gameData.lastGalaYear || 0)) >= 3){
+        if(gameData.actionNum > 0){
+            showGalaSelection();
+        }
+    }
+}
+
+// 弹出花会选曲UI
+function showGalaSelection(){
+    let musicOptions = GALA_MUSIC_PIECES.map((p,i) => 
+        `<button class="modal-btn" onclick="selectGalaPiece('music','${p.name}')" style="background:linear-gradient(180deg,#8b5e3c,#6b3a2a);color:#f0e6d2;">
+            🎹 《${p.name}》——${p.desc}
+        </button>`
+    ).join("");
+    let danceOptions = GALA_DANCE_TYPES.map((p,i) =>
+        `<button class="modal-btn" onclick="selectGalaPiece('dance','${p.name}')" style="background:linear-gradient(180deg,#c0506a,#a03050);color:#f0e6d2;">
+            💃 《${p.name}》——${p.desc}
+        </button>`
+    ).join("");
+    
+    let html = `<div class="mask" id="galaSelectMask" onclick="hideDiv('galaSelectMask')">
+        <div class="modal" style="max-width:450px;" onclick="event.stopPropagation()">
+            <h2 class="modal-title">🏵️ 花会筹备（三年后登场）</h2>
+            <p style="font-size:13px; color:#4a2a0a; margin-bottom:8px;">🎶 曲目（检定琴艺：${gameData.music || 0}）</p>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:12px;">${musicOptions}</div>
+            <p style="font-size:13px; color:#4a2a0a; margin-bottom:8px;">💃 舞蹈（检定舞蹈：${gameData.dance || 0}）</p>
+            <div style="display:flex; flex-direction:column; gap:6px;">${danceOptions}</div>
+            <p style="font-size:11px; color:#999; margin-top:10px;">选定后三年内可排练提升效果，不排练则纯靠功底</p>
+            <button class="modal-btn" style="margin-top:6px; background:#999;" onclick="hideDiv('galaSelectMask')">放弃本届花会</button>
+        </div></div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("galaSelectMask");
+}
+
+// 选定花会曲目
+function selectGalaPiece(type, name){
+    hideDiv("galaSelectMask");
+    document.getElementById("galaSelectMask")?.remove();
+    
+    gameData.galaPrep = { pieceName:name, type:type, progress:0, yearsUntil:3 };
+    gameData.actionNum--; // 选定消耗1次行动
+    
+    let skillVal = type === "music" ? (gameData.music||0) : (gameData.dance||0);
+    let skillName = type === "music" ? "琴艺" : "舞蹈";
+    popMsg(`🏵️ 你选定《${name}》作为三年后花会的曲目。${skillName}当前${skillVal}，有空多排练。`);
+    addActionLog("花会筹备", `选定${type==="music"?"曲目":"舞蹈"}《${name}》，三年后登场`);
+    saveData();
+    refreshPage();
+}
+
+// 排练花会曲目（消耗1次行动）
+function rehearseForGala(){
+    if(!gameData.galaPrep) return showToast("你尚未选定花会曲目");
+    if(gameData.galaPrep.yearsUntil <= 0) return showToast("花会已到！无法再排练");
+    if(gameData.actionNum <= 0) return showToast("行动次数不足");
+    
+    gameData.actionNum--;
+    let gain = getRandRange(15, 25);
+    gameData.galaPrep.progress = Math.min(100, gameData.galaPrep.progress + gain);
+    
+    let skillKey = gameData.galaPrep.type;
+    let skillGain = getRandRange(1, 3);
+    if(skillKey === "music"){
+        gameData.music = Math.min(100, (gameData.music||0) + skillGain);
+    } else {
+        gameData.dance = Math.min(100, (gameData.dance||0) + skillGain);
+    }
+    
+    popMsg(`🩰 你勤加排练《${gameData.galaPrep.pieceName}》，排练进度+${gain}%（当前${gameData.galaPrep.progress}%），${skillKey==="music"?"琴艺":"舞蹈"}+${skillGain}`);
+    addActionLog("花会排练", `《${gameData.galaPrep.pieceName}》进度+${gain}%`);
+    saveData();
+    refreshPage();
+}
+
+// 正式举办花会
+function holdCourtesanGala(){
+    let prep = gameData.galaPrep;
+    let typeName = prep.type === "music" ? "琴曲" : "舞蹈";
+    let skillVal = prep.type === "music" ? (gameData.music||0) : (gameData.dance||0);
+    
+    // 综合：技能×(0.35+排练进度/120) + 声望/8 + 颜值/8
+    let prepBonus = 0.35 + (prep.progress || 0) / 120;
+    let total = Math.floor(skillVal * prepBonus + (gameData.reputation || 0) / 8 + (gameData.appearance || 0) / 8);
+    
+    let tier, tierLabel, repGain, fameGain;
+    if(total >= 110){
+        tier = 5; tierLabel = "花会魁首";
+        repGain = getRandRange(8, 15);
+        fameGain = getRandRange(12, 22);
+    } else if(total >= 80){
+        tier = 4; tierLabel = "名列前茅";
+        repGain = getRandRange(5, 10);
+        fameGain = getRandRange(7, 14);
+    } else if(total >= 55){
+        tier = 3; tierLabel = "不过不失";
+        repGain = getRandRange(2, 6);
+        fameGain = getRandRange(3, 8);
+    } else if(total >= 25){
+        tier = 2; tierLabel = "黯然失色";
+        repGain = getRandRange(0, 2);
+        fameGain = getRandRange(0, 2);
+    } else {
+        tier = 1; tierLabel = "沦为笑柄";
+        repGain = 0;
+        fameGain = 0;
+        gameData.reputation = Math.max(0, gameData.reputation - getRandRange(3, 8));
+        popMsg(`🍂 【${tierLabel}】花会之上《${prep.pieceName}》演砸了，沦为同行笑柄。声望大损。`);
+        addActionLog("花会", `《${prep.pieceName}》沦为笑柄`);
+        gameData.lastGalaYear = gameData.age;
+        gameData.galaPrep = null;
+        saveData();
+        return;
+    }
+    
+    gameData.reputation += repGain;
+    gameData.courtesanFame += fameGain;
+    
+    let tierIcon = ["😞","🙂","👍","✨","🏆"][tier-1];
+    popMsg(`${tierIcon} 【${tierLabel}】花会之上你以${typeName}《${prep.pieceName}》${tier>=4?"技惊四座，满城传颂":"表现尚可"}！声望+${repGain}，艳名+${fameGain}`);
+    addActionLog("花会", `${tierLabel}·${typeName}《${prep.pieceName}》　声望+${repGain} 艳名+${fameGain}`);
+    
+    gameData.lastGalaYear = gameData.age;
+    gameData.galaPrep = null;
+    saveData();
+}
+
+// ==================== 花魁线：保养系统 ====================
+
+function applyCourtesanMaintenance(){
+    if(!gameData.isCourtesan) return;
+    let cost = COURTESAN_MAINTENANCE_COST;
+    // 花魁级以上的保养更贵（独立置宅后自己负担全部）
+    if(gameData.courtesanRank >= 3) cost = Math.floor(COURTESAN_MAINTENANCE_COST * 1.5);
+    if(gameData.money >= cost){
+        gameData.money -= cost;
+        // 保养抵消自然衰老：花魁30岁后的自然下降减半
+        // （在applyAgingToAll中通过_courtesanMaintained标记实现）
+        gameData._courtesanMaintained = true;
+    } else {
+        gameData._courtesanMaintained = false;
+        popMsg("💔 保养费不足，容颜日渐憔悴……");
+    }
+}
+
+// 高级保养（玩家主动触发，一次300文，+2颜值，效果持续到下一次半年扣费）
+function advancedMaintenance(){
+    if(!gameData.isCourtesan) return showToast("你不是花魁");
+    if(gameData.money < COURTESAN_ADVANCED_MAINTENANCE_COST) return showToast(`高级保养需${COURTESAN_ADVANCED_MAINTENANCE_COST}文`);
+    if(gameData.actionNum <= 0) return showToast("行动次数不足");
+    gameData.actionNum--;
+    gameData.money -= COURTESAN_ADVANCED_MAINTENANCE_COST;
+    gameData.appearance = Math.min(100, gameData.appearance + 2);
+    gameData._advancedMaintained = true;
+    popMsg(`💄 高级保养后容光焕发！颜值+2（持续半年）`);
+    addActionLog("高级保养", `花费${COURTESAN_ADVANCED_MAINTENANCE_COST}文，颜值+2`);
+    saveData();
+    refreshPage();
+}
+
+// 花魁：主动登台献艺（消耗行动次数）
+function courtesanPerformanceAction(){
+    if(!gameData.isCourtesan) return;
+    if(gameData.actionNum <= 0) return showToast("行动次数不足");
+    gameData.actionNum--;
+    generateCourtesanPerformance();
+    checkCourtesanPromotion();
+    saveData();
+    refreshPage();
+}
+
+// 花魁：芳华阁全屏页面
+function showCourtesanHomePage(){
+    let rankTitle = courtesanTitles[gameData.courtesanRank];
+    let header = `<h2>🌸 芳华阁</h2>
+        <div class="cfh-sub">${gameData.courtesanName} · ${rankTitle} · 入行${gameData.courtesanYears}年</div>`;
+    document.getElementById("courtesanFullHeader").innerHTML = header;
+    
+    let body = ``;
+    
+    // ═══ 属性摘要 ═══
+    body += `<div class="courtesan-stat-row">
+        <div class="courtesan-stat-chip"><span class="csc-val">${gameData.courtesanFame}</span>艳名</div>
+        <div class="courtesan-stat-chip"><span class="csc-val">${gameData.reputation}</span>声望</div>
+        <div class="courtesan-stat-chip"><span class="csc-val">${gameData.appearance}</span>颜值</div>
+        <div class="courtesan-stat-chip"><span class="csc-val">${gameData.dance||0}</span>舞蹈</div>
+        <div class="courtesan-stat-chip"><span class="csc-val">${gameData.music||0}</span>琴艺</div>
+        <div class="courtesan-stat-chip"><span class="csc-val">${gameData.money}</span>存银</div>
+    </div>`;
+    
+    // 晋升进度
+    if(gameData.courtesanRank < 5){
+        let info = courtesanPromotionThresholds[gameData.courtesanRank];
+        if(info){
+            let nextTitle = courtesanTitles[info.next];
+            body += `<div style="padding:8px 12px; margin-bottom:10px; background:rgba(200,150,40,0.1); border-radius:6px; font-size:12px; color:#daa520;">
+                ⬆ 晋升<b>${nextTitle}</b>需要：声望${gameData.reputation}/${info.reputation} · 艳名${gameData.courtesanFame}/${info.fame} · 颜值≥${info.appearance}
+            </div>`;
+        }
+    } else {
+        body += `<div style="padding:8px 12px; margin-bottom:10px; background:rgba(200,150,40,0.15); border-radius:6px; font-size:12px; color:#daa520; text-align:center; font-weight:700;">
+            👑 你已是绝代名伶，名动天下！
+        </div>`;
+    }
+    
+    // 居住
+    let redeemCost = gameData.courtesanRank>=5?1000000:gameData.courtesanRank>=4?500000:gameData.courtesanRank>=3?250000:gameData.courtesanRank>=2?100000:50000;
+    body += `<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; padding:8px 12px; background:rgba(139,37,28,0.08); border:1px solid rgba(139,37,28,0.2); border-radius:6px;">
+        <span style="font-size:12px; color:#c0a070;">🏠 居住：${gameData.courtesanLodging}　|　赎身银：${redeemCost}文</span>
+        <button class="modal-btn" onclick="exitCourtesanAsFree()" style="background:linear-gradient(180deg,#8b251c,#641510); border-color:#4a0805; color:#f0e6d2; padding:4px 14px; font-size:12px;">🕊️ 赎身从良</button>
+    </div>`;
+    
+    // ═══ 花会准备 ═══
+    if(gameData.galaPrep && gameData.galaPrep.yearsUntil > 0){
+        let prepType = gameData.galaPrep.type === "music" ? "🎹琴曲" : "💃舞蹈";
+        let pct = gameData.galaPrep.progress;
+        body += `<div style="padding:10px 14px; margin-bottom:10px; background:rgba(200,150,40,0.08); border:1px solid rgba(200,150,40,0.25); border-radius:8px;">
+            <div style="font-size:13px; font-weight:700; color:#daa520;">🏵️ 花会筹备中</div>
+            <div style="font-size:12px; color:#c0a070;">${prepType}《${gameData.galaPrep.pieceName}》</div>
+            <div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+                <div style="flex:1; height:8px; background:rgba(255,255,255,0.1); border-radius:4px; overflow:hidden;">
+                    <div style="height:100%; width:${pct}%; background:linear-gradient(90deg,#daa520,#f0c040); border-radius:4px;"></div>
+                </div>
+                <span style="font-size:11px; color:#daa520;">${pct}%</span>
+            </div>
+            <div style="font-size:11px; color:#999; margin-top:4px;">还剩${gameData.galaPrep.yearsUntil}年 · 点击「排练花会」提升进度</div>
+        </div>`;
+    }
+    
+    // ═══ 恩客总览 ═══
+    body += `<h3 style="color:#daa520; font-size:15px; margin:14px 0 8px; border-bottom:1px solid rgba(200,150,40,0.2); padding-bottom:4px;">💋 恩客往来（${gameData.patrons.length}人）</h3>`;
+    
+    if(gameData.patrons.length === 0){
+        body += `<p style="color:#999; font-size:12px; text-align:center; padding:16px;">尚无恩客。登台献艺可吸引慕名者。</p>`;
+    } else {
+        // 按好感排序
+        let sorted = [...gameData.patrons].sort((a,b)=>b.favor-a.favor);
+        // 计算全局嫉妒概况
+        let highJeal = sorted.filter(p=>p.jealousy>=60).length;
+        let dangerJeal = sorted.filter(p=>p.jealousy>=85).length;
+        if(dangerJeal>0 || highJeal>0){
+            body += `<div style="font-size:11px; color:${dangerJeal>0?'#e07070':'#daa520'}; margin-bottom:8px;">
+                ⚠ ${dangerJeal>0?`${dangerJeal}人嫉妒极高，发飙风险！`:`${highJeal}人暗暗吃醋……`}
+            </div>`;
+        }
+        
+        for(let p of sorted){
+            let genderIcon = p.gender==="女"?"👩":"👨";
+            let giftAmount = Math.floor(p.generosity * (0.5 + p.possessiveness/200) * (0.5 + p.favor/200) * 10);
+            let jealColor = p.jealousy>=85 ? '#e04040' : p.jealousy>=60 ? '#e0a040' : '#80a070';
+            let jealLabel = p.jealousy>=85 ? '🔥' : p.jealousy>=60 ? '😐' : '😊';
+            let coldYears = gameData.age - (p.lastVisitYear||gameData.age);
+            let coldTag = coldYears >= 3 ? ` <span style="color:#e07070; font-size:10px;">冷落${coldYears}年</span>` : '';
+            let exTag = p.isExclusive ? ' <span style="color:#e04040;font-size:10px;">🔒独占</span>' : '';
+            
+            body += `<div class="patron-card-lavish${p.jealousy>=85?' warning':''}" onclick="showPatronInteract(${gameData.patrons.indexOf(p)})">
+                <div>
+                    <div class="pcl-name">${genderIcon} ${p.name}（${p.status}）${exTag}${coldTag}</div>
+                    <div class="pcl-info">好感${p.favor} · 独占欲${p.possessiveness} · 嫉妒 <span style="color:${jealColor}">${jealLabel}${p.jealousy}</span> · 赏约${giftAmount}文/次</div>
+                </div>
+                <div class="pcl-right">
+                    ${p.jealousy>=85 ? '<span class="pcl-warn">⚡发飙风险</span>' : p.jealousy>=60 ? '<span style="color:#e0a040;font-size:11px;">吃醋中</span>' : '<span style="color:#80a070;font-size:11px;">情绪平和</span>'}
+                </div>
+            </div>`;
+        }
+    }
+    
+    body += `<p style="font-size:11px; color:#666; margin-top:12px; text-align:center;">
+        💡 右侧 <b style="color:#daa520;">?</b> 图标可查看花魁规则与技巧
+    </p>`;
+    
+    document.getElementById("courtesanFullBody").innerHTML = body;
+    showDiv("courtesanFullMask");
+}
+
+// ==================== 海王·恩客系统 ====================
+
+// 恩客身份/地位列表（对应不同花魁等级）
+// gender 仅皇室特殊称呼需要标记；普通职业15%概率随机女性；女性天然更慷慨
+const PATRON_POOLS = {
+    1: [
+        {status:"小商人", generosity:20, minFame:0, possessBase:15},
+        {status:"穷秀才", generosity:15, minFame:0, possessBase:20},
+        {status:"小地主", generosity:30, minFame:0, possessBase:10},
+    ],
+    2: [
+        {status:"富商", generosity:40, minFame:20, possessBase:20},
+        {status:"小官吏", generosity:35, minFame:20, possessBase:25},
+        {status:"乡绅", generosity:30, minFame:15, possessBase:15},
+    ],
+    3: [
+        {status:"权贵", generosity:50, minFame:45, possessBase:30},
+        {status:"三品侍郎", generosity:55, minFame:50, possessBase:35},
+        {status:"将军", generosity:55, minFame:55, possessBase:40},
+        {status:"巨贾", generosity:65, minFame:50, possessBase:35},
+    ],
+    4: [
+        {status:"王爷", generosity:75, minFame:70, possessBase:45, gender:"男"},
+        {status:"郡主", generosity:75, minFame:75, possessBase:50, gender:"女"},
+        {status:"皇室宗亲", generosity:70, minFame:65, possessBase:40},
+    ],
+    5: [
+        {status:"皇子", generosity:85, minFame:95, possessBase:55, gender:"男"},
+        {status:"公主", generosity:90, minFame:95, possessBase:55, gender:"女"},
+        {status:"长公主", generosity:100, minFame:105, possessBase:60, gender:"女"},
+        {status:"皇帝", generosity:100, minFame:115, possessBase:75, gender:"男"},
+    ]
+};
+
+// 恩客姓名池（男女分开）
+const PATRON_SURNAMES = ["王","李","张","刘","陈","杨","赵","黄","周","吴","徐","孙","马","朱","胡","郭","何","高","林"];
+const PATRON_MALE_NAMES = ["子安","景明","文远","伯言","仲卿","叔达","季通","元修","少游","承恩","志远","维扬","彦之","玄德","奉先"];
+const PATRON_FEMALE_NAMES = ["婉清","紫烟","若兰","凝香","雪晴","念卿","素心","云裳","玉漱","怜月","琼华","碧瑶","凤仙","秋娘","如姬"];
+
+
+
+function generatePatronName(gender){
+    let s = PATRON_SURNAMES[Math.floor(Math.random() * PATRON_SURNAMES.length)];
+    let pool = gender === "女" ? PATRON_FEMALE_NAMES : PATRON_MALE_NAMES;
+    return s + pool[Math.floor(Math.random() * pool.length)];
+}
+
+// 新恩客慕名而来（无上限，4人后概率递减）
+function trySpawnPatron(){
+    if(!gameData.isCourtesan) return;
+    let n = gameData.patrons.length;
+    // 衰减系数：前4人100%概率，之后每多1人概率×0.85，最低5%
+    let decay = n < 4 ? 1.0 : Math.max(0.05, Math.pow(0.85, n - 3));
+    let baseChance = Math.min(0.65, gameData.courtesanFame * 0.012);
+    let spawnChance = baseChance * decay;
+    if(Math.random() > spawnChance) return;
+    
+    let rank = gameData.courtesanRank || 1;
+    let pool = PATRON_POOLS[rank] || PATRON_POOLS[1];
+    let candidates = pool.filter(p => p.minFame <= gameData.courtesanFame);
+    if(candidates.length === 0) candidates = pool;
+    
+    // 性别：皇室标记性别，普通职业15%概率女性
+    let template = candidates[Math.floor(Math.random() * candidates.length)];
+    let isFemale;
+    if(template.gender === "女"){
+        isFemale = true;
+    } else if(template.gender === "男"){
+        isFemale = false;
+    } else {
+        isFemale = Math.random() < 0.30;
+    }
+    
+    // 女性恩客天然更慷慨：+15~30%
+    let genMultiplier = isFemale ? 1.15 : 1.0;
+    let patron = {
+        name: generatePatronName(isFemale ? "女" : "男"),
+        gender: isFemale ? "女" : "男",
+        age: Math.floor(Math.random() * 15) + 25,
+        status: template.status,
+        tier: rank,  // 记录恩客来源等级（与生成时花魁等级对应）
+        favor: Math.floor(Math.random() * 20) + 40,
+        jealousy: 0,
+        possessiveness: template.possessBase + Math.floor(Math.random() * 16), // 基础+0~15随机
+        generosity: Math.floor(template.generosity * genMultiplier),
+        isExclusive: false,
+        lastVisitYear: gameData.age,
+        _conflictTriggered: false
+    };
+    
+    let genderTxt = isFemale ? "女" : "男";
+    gameData.patrons.push(patron);
+    popMsg(`💋 一位${genderTxt}${template.status}「${patron.name}」慕名而来，成了你的恩客。（第${gameData.patrons.length}位）`);
+    addActionLog("新恩客", `${genderTxt}${template.status}${patron.name}慕名而来`);
+}
+
+// ==================== 恩客互动系统 ====================
+
+// 打开恩客互动弹窗（独立系统入口，不消耗行动点——具体互动才扣点）
+function showPatronsPage(){
+    if(!gameData.isCourtesan) return showToast("你不是花魁");
+    if(!gameData.patrons || gameData.patrons.length === 0){
+        showToast("尚无恩客往来");
+        return;
+    }
+    
+    let html = `<div class="mask" id="patronInteractMask" onclick="hideDiv('patronInteractMask')">
+        <div class="modal" style="max-width:620px; max-height:80vh; overflow-y:auto;" onclick="event.stopPropagation()">
+            <h2 class="modal-title">💋 恩客往来 · 花前月下</h2>
+            <p style="font-size:13px; color:#c0a070; margin-bottom:10px;">选择一位恩客入内室——陪ta献艺、共度良宵，ta的嫉妒会大减</p>`;
+    
+    // 全局嫉妒警告
+    let dangerCount = gameData.patrons.filter(p=>p.jealousy>=85).length;
+    if(dangerCount>0){
+        html += `<div style="padding:6px 12px; margin-bottom:8px; background:rgba(200,30,30,0.2); border-radius:6px; font-size:12px; color:#e07070;">
+            ⚠ ${dangerCount}位恩客嫉妒极高——再不陪ta就要发飙了！
+        </div>`;
+    }
+    
+    for(let i = 0; i < gameData.patrons.length; i++){
+        let p = gameData.patrons[i];
+        let genderIcon = p.gender === "女" ? "👩" : "👨";
+        let giftAmount = Math.floor(p.generosity * (0.5 + p.possessiveness/200) * (0.5 + p.favor/200) * getRandRange(10, 20));
+        let exclusiveTag = p.isExclusive ? ' <span style="color:#e04040;font-size:11px;">🔒独占</span>' : '';
+        let coldYears = gameData.age - (p.lastVisitYear||gameData.age);
+        let coldTag = coldYears >= 2 ? ` <span style="color:#e08060;font-size:10px;">· ${coldYears}年未见</span>` : '';
+        let jealIcon = p.jealousy>=85?'🔥':p.jealousy>=60?'😐':'😊';
+        let jealColor = p.jealousy>=85?'#e04040':p.jealousy>=60?'#e0a040':'#80a070';
+        
+        html += `<div style="padding:10px 14px; margin:8px 0; background:rgba(40,12,12,0.5); border-radius:8px; border-left:3px solid ${p.jealousy>=85?'#c0392b':'#c9a87c'};">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <b>${genderIcon} ${p.name}</b>（${p.status}）${exclusiveTag}${coldTag}
+                    <br><span style="font-size:11px; color:#c0a070;">好感：${p.favor}　|　独占欲：${p.possessiveness}　|　嫉妒：<span style="color:${jealColor}; font-weight:700;">${jealIcon}${p.jealousy}</span>　|　赏约${giftAmount}文</span>
+                </div>
+                <button class="action-btn" style="padding:6px 14px; font-size:12px;" onclick="showPatronInteract(${i})">入内室</button>
+            </div>
+        </div>`;
+    }
+    
+    html += `<p style="font-size:11px; color:#666; margin-top:8px;">💡 互动消耗1次行动，陪ta后ta的嫉妒会大幅下降</p>
+        </div></div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("patronInteractMask");
+}
+
+// 恩客互动选项弹窗
+// 进入包厢（扣1行动次数）
+function showPatronInteract(idx){
+    hideDiv("patronInteractMask");
+    document.getElementById("patronInteractMask")?.remove();
+    
+    if(gameData.actionNum <= 0){ showToast("行动次数不足"); return; }
+    let p = gameData.patrons[idx];
+    if(!p){ showToast("恩客已离去"); return; }
+    
+    gameData.actionNum--;
+    gameData._patronRoom = { idx: idx, performDone: false, romanceDone: false };
+    p.lastVisitYear = gameData.age;
+    saveData();
+    refreshPatronRoom();
+}
+
+// 刷新包厢界面
+function refreshPatronRoom(){
+    let room = gameData._patronRoom;
+    if(!room) return;
+    let idx = room.idx;
+    let p = gameData.patrons[idx];
+    if(!p){ leavePatronRoom(); return; }
+    
+    let genderRef = p.gender === "女" ? "她" : "他";
+    let giftEst = Math.floor(p.generosity * (0.5 + p.possessiveness/200) * (0.5 + p.favor/200) * 15);
+    let jealColor = p.jealousy>=85?'#e04040':p.jealousy>=60?'#e0a040':'#80a070';
+    let jealLabel = p.jealousy>=85?'🔥 妒火中烧':p.jealousy>=60?'😐 心有不快':'😊 心情平和';
+    let favorStatus = p.favor>=80?'❤️ 一往情深':p.favor>=55?'💛 颇为喜欢':p.favor>=30?'🤍 泛泛之交':'💔 岌岌可危';
+    let possessWarn = p.possessiveness>=85 ? '<div style="font-size:11px; color:#e07070; margin-top:4px;">⚠ 独占欲极高——随时可能要求你清人</div>' : '';
+    
+    let oldMask = document.getElementById("patronActMask");
+    if(oldMask) oldMask.remove();
+    
+    let html = `<div class="mask" id="patronActMask" onclick="leavePatronRoom()">
+        <div class="modal" style="max-width:440px;" onclick="event.stopPropagation()">
+            <h2 class="modal-title">🌙 ${p.name}的内室</h2>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+                <div style="flex:1; min-width:100px; font-size:12px; color:#c0a070; text-align:center; padding:6px; background:rgba(40,12,12,0.4); border-radius:6px;">
+                    好感${p.favor}<br><span style="font-size:11px;">${favorStatus}</span>
+                </div>
+                <div style="flex:1; min-width:100px; font-size:12px; color:#c0a070; text-align:center; padding:6px; background:rgba(40,12,12,0.4); border-radius:6px;">
+                    独占欲${p.possessiveness}<br><span style="font-size:11px; color:${p.possessiveness>=85?'#e07070':'#c0a070'}">${p.possessiveness>=85?'独占心极强':'尚可自持'}</span>
+                </div>
+                <div style="flex:1; min-width:100px; font-size:12px; color:#c0a070; text-align:center; padding:6px; background:rgba(40,12,12,0.4); border-radius:6px;">
+                    嫉妒${p.jealousy}<br><span style="font-size:11px; color:${jealColor};">${jealLabel}</span>
+                </div>
+            </div>
+            ${possessWarn}
+            <p style="font-size:12px; color:#daa520; margin-bottom:12px;">${p.status} · ${p.gender} · 约赏：${giftEst}文</p>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                ${aiConnected() ? `
+                <button class="modal-btn" onclick="patronChat(${idx})" style="background:linear-gradient(180deg,#6a5acd,#4a3a9d);color:#f0e6d2;">
+                    💬 与${genderRef}闲谈（降嫉妒3~8+AI聊天）
+                </button>` : `
+                <button class="modal-btn" onclick="patronChat(${idx})" style="background:linear-gradient(180deg,#8b5a3a,#5a3018);color:#f0e6d2;">
+                    💬 与${genderRef}闲谈（降嫉妒3~8）
+                </button>`}`;
+    
+    if(!room.performDone){
+        html += `<button class="modal-btn" onclick="patronPerformChoice(${idx})" style="background:linear-gradient(180deg,#8b5e3c,#6b3a2a);color:#f0e6d2;">
+            🎭 献艺（献舞 / 献曲）——${genderRef}嫉妒大幅下降
+        </button>`;
+    } else {
+        html += `<button class="modal-btn" disabled style="opacity:0.35; background:#333; cursor:not-allowed;">
+            🎭 已献艺
+        </button>`;
+    }
+    
+    if(!room.romanceDone){
+        html += `<button class="modal-btn" onclick="patronRomanceAct(${idx})" style="background:linear-gradient(180deg,#c0392b,#8b1a1a);color:#f0e6d2;">
+            ❤️ 花前月下，互诉衷肠——${genderRef}嫉妒彻底消散
+        </button>`;
+    } else {
+        html += `<button class="modal-btn" disabled style="opacity:0.35; background:#333; cursor:not-allowed;">
+            ❤️ 已共度良宵
+        </button>`;
+    }
+    
+    html += `</div>
+            <button class="modal-btn" style="margin-top:10px; background:#555;" onclick="leavePatronRoom()">告辞离去</button>
+        </div></div>`;
+    
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("patronActMask");
+}
+
+// ===== 恩客人设生成 =====
+function generatePatronPersona(p){
+    let myName = gameData.playerName || "坊主";
+    let myRank = ["","清倌人","名妓","花魁","名妓","绝代名伶"][gameData.courtesanRank||1] || "花魁";
+    let favorDesc = p.favor >= 80 ? "你对她一往情深，视她为心头至宝，一刻离不得" :
+                    p.favor >= 60 ? "你很喜欢她，每回来楼里都先点她" :
+                    p.favor >= 35 ? "你觉得她不错，但也说不上多上心" :
+                    "你对她不过泛泛之交，若有更好的也未尝不可";
+    let possessDesc = p.possessiveness >= 80 ? "你已动了独占之念，见旁人亲近她便心中不快" :
+                      p.possessiveness >= 50 ? "你偶尔会想，若她只侍奉你一人该多好" : "";
+    let jealDesc = p.jealousy >= 60 ? "最近你隐约觉得她对旁人比对你殷勤，心里憋着一股火" : "";
+    let genDesc = p.generosity >= 100 ? "你出手阔绰，一掷千金眉头都不皱" :
+                  p.generosity >= 60 ? "你虽不算豪奢，但该打赏时从不含糊" :
+                  "你手头并不宽裕，但为了见她也在勉力维持";
+    
+    let persona = `【你的人物自述——请你以这个身份说话】
+
+你是${p.name}，${p.status}，${p.gender}，${p.age}岁。
+${genDesc}
+${favorDesc}
+${possessDesc}
+${jealDesc}
+
+眼下你正在${myName}的暖阁里坐着。${myName}如今是${myRank}，名动一方。
+
+你是她的恩客。你到青楼来就是图个快活。你可以跟她聊风月、聊心事、吹吹牛、调调情，也可以只是静静坐会儿。你说话用古代白话，像《金瓶梅》里的人物说话，自然不端架子。每次回复不超过5句话。你是她的客人，不必对她卑躬屈膝，但也犯不着傲慢无礼——买卖是买卖，情分是情分。`;
+
+    p._persona = persona;
+    return persona;
+}
+
+// 💬 闲谈——嫉妒降低无需AI，AI对话仅为沉浸味道
+async function patronChat(idx){
+    let p = gameData.patrons[idx];
+    if(!p) return;
+    
+    // 陪ta闲谈，安抚情绪，嫉妒小幅下降（不依赖AI）
+    let jealDrop = getRandRange(3, 8);
+    p.jealousy = Math.max(0, p.jealousy - jealDrop);
+    saveData();
+    popMsg(`💬 陪${p.name}闲谈一番，ta的嫉妒下降了${jealDrop}点。`);
+    
+    // AI已配置 → 打开聊天窗口继续聊；未配置 → 止步于此
+    if(!aiConnected()){
+        refreshPage();
+        return;
+    }
+    
+    // AI已配置 → 打开聊天窗口
+    openPatronChat(idx);
+}
+
+// 打开恩客AI聊天窗口
+let patronChatState = null;
+
+function openPatronChat(idx){
+    let p = gameData.patrons[idx];
+    if(!p) return;
+    
+    // 生成或获取人设
+    if(!p._persona) generatePatronPersona(p);
+    
+    // 恢复今年聊天记录
+    let msgs = (p._chatMessages && p._chatYear === gameData.age) ? p._chatMessages : [];
+    patronChatState = { idx, patronData: p, messages: msgs, chatYear: gameData.age };
+    
+    hideDiv("patronActMask");
+    document.getElementById("patronActMask")?.remove();
+    
+    let html = `<div class="mask" id="patronChatMask" style="display:flex;">
+        <div class="npc-chat-container" style="background:#fdf8f0; border-radius:10px; box-shadow:0 8px 36px rgba(0,0,0,0.3);">
+            <div class="npc-chat-header">
+                <h2>💬 ${p.name}（${p.status} · ${p.gender}）</h2>
+                <button style="background:none;border:none;font-size:20px;cursor:pointer;color:#8b6914;" onclick="closePatronChat()">✕</button>
+            </div>
+            <div id="patronChatMessages" class="npc-chat-messages" style="background:#fdf8f0;">
+                <div style="text-align:center;color:#8b6914;padding:20px;font-size:13px;">
+                    ${p.name}（${p.age}岁，${p.status}）<br>
+                    好感：${p.favor} | 独占欲：${p.possessiveness}<br>
+                    <span style="font-size:11px;color:#999;">闲谈随心，不加好感——但话说多了，人也近了</span>
+                </div>`;
+    
+    for(let m of msgs){
+        let roleClass = m.role === "player" ? "player" : "npc";
+        html += `<div class="npc-chat-msg ${roleClass}"><div class="npc-chat-bubble">${m.content.replace(/\n/g,"<br>")}</div></div>`;
+    }
+    
+    html += `</div>
+            <div class="npc-chat-input-area">
+                <input id="patronChatInput" placeholder="说些什么……" onkeydown="if(event.key==='Enter')sendPatronMessage()">
+                <button onclick="sendPatronMessage()">发送</button>
+            </div>
+        </div></div>`;
+    
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("patronChatMask");
+}
+
+async function sendPatronMessage(){
+    if(!patronChatState) return;
+    let input = document.getElementById("patronChatInput");
+    let msg = input.value.trim();
+    if(!msg) return;
+    input.value = ""; input.disabled = true;
+    
+    // 显示玩家消息
+    let msgsDiv = document.getElementById("patronChatMessages");
+    let bubDiv = document.createElement("div");
+    bubDiv.className = "npc-chat-msg player";
+    bubDiv.innerHTML = `<div class="npc-chat-bubble">${msg.replace(/\n/g,"<br>")}</div>`;
+    msgsDiv.appendChild(bubDiv);
+    
+    // 加载动画
+    let loadId = "load_" + Date.now();
+    let loading = document.createElement("div");
+    loading.id = loadId;
+    loading.className = "npc-chat-loading";
+    loading.innerHTML = `${patronChatState.patronData.name}正在思考<span class="dot-flash">.</span><span class="dot-flash">.</span><span class="dot-flash">.</span>`;
+    msgsDiv.appendChild(loading);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+    
+    try {
+        let p = patronChatState.patronData;
+        
+        // 跨年清空
+        if(gameData.age !== patronChatState.chatYear){
+            patronChatState.messages = [];
+            patronChatState.chatYear = gameData.age;
+        }
+        
+        // 刷新人设（数据可能变化）
+        if(p._persona) generatePatronPersona(p);
+        let persona = p._persona;
+        
+        let messagesForApi = [{ role: "system", content: persona }];
+        let recent = patronChatState.messages.slice(-12);
+        for(let m of recent){
+            messagesForApi.push({ role: m.role === "player" ? "user" : "assistant", content: m.content });
+        }
+        messagesForApi.push({ role: "user", content: msg });
+        
+        let reply = await callAiMulti(messagesForApi);
+        
+        let ld = document.getElementById(loadId);
+        if(ld) ld.remove();
+        
+        // 显示回复
+        let repDiv = document.createElement("div");
+        repDiv.className = "npc-chat-msg npc";
+        repDiv.innerHTML = `<div class="npc-chat-bubble">${reply.replace(/\n/g,"<br>")}</div>`;
+        msgsDiv.appendChild(repDiv);
+        
+        patronChatState.messages.push({role:"player",content:msg});
+        patronChatState.messages.push({role:"npc",content:reply});
+        
+        p._chatMessages = patronChatState.messages;
+        p._chatYear = gameData.age;
+        saveData();
+        
+    } catch(e) {
+        let ld = document.getElementById(loadId);
+        if(ld) ld.remove();
+        let errDiv = document.createElement("div");
+        errDiv.className = "npc-chat-msg npc";
+        errDiv.innerHTML = `<div class="npc-chat-bubble">（AI暂不可用：${e.message}）</div>`;
+        msgsDiv.appendChild(errDiv);
+    }
+    
+    input.disabled = false;
+    input.focus();
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+}
+
+function closePatronChat(){
+    if(patronChatState){
+        let p = patronChatState.patronData;
+        // 持久化
+        if(p){
+            p._chatMessages = patronChatState.messages;
+            p._chatYear = gameData.age;
+        }
+        patronChatState = null;
+        saveData();
+    }
+    hideDiv("patronChatMask");
+    document.getElementById("patronChatMask")?.remove();
+    refreshPage();
+}
+
+// 🎭 献艺：二选一弹窗
+function patronPerformChoice(idx){
+    let p = gameData.patrons[idx];
+    if(!p) return;
+    let genderRef = p.gender === "女" ? "她" : "他";
+    
+    let mask = document.getElementById("patronActMask");
+    if(mask) mask.style.display = "none";
+    
+    let html = `<div class="mask" id="performSubMask" onclick="cancelPerform()">
+        <div class="modal" style="max-width:320px;" onclick="event.stopPropagation()">
+            <h2 class="modal-title">🎭 为${genderRef}献艺</h2>
+            <p style="font-size:13px; color:#8b6914; margin-bottom:12px;">琴艺：${gameData.music || 0}　|　舞蹈：${gameData.dance || 0}</p>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <button class="modal-btn" onclick="patronDoPerform(${idx}, 'music')" style="background:linear-gradient(180deg,#8b5e3c,#6b3a2a);color:#f0e6d2;">
+                    🎹 献曲（琴艺：${gameData.music || 0}）
+                </button>
+                <button class="modal-btn" onclick="patronDoPerform(${idx}, 'dance')" style="background:linear-gradient(180deg,#c0506a,#a03050);color:#f0e6d2;">
+                    💃 献舞（舞蹈：${gameData.dance || 0}）
+                </button>
+            </div>
+            <button class="modal-btn" style="margin-top:10px; background:#999;" onclick="cancelPerform()">改日再献</button>
+        </div></div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("performSubMask");
+}
+
+function cancelPerform(){
+    hideDiv("performSubMask");
+    document.getElementById("performSubMask")?.remove();
+    let mask = document.getElementById("patronActMask");
+    if(mask) mask.style.display = "";
+}
+
+// 执行献艺
+function patronDoPerform(idx, type){
+    hideDiv("performSubMask");
+    document.getElementById("performSubMask")?.remove();
+    
+    let p = gameData.patrons[idx];
+    if(!p) return;
+    let genderRef = p.gender === "女" ? "她" : "他";
+    
+    let skillVal, skillName, flavorText;
+    if(type === "music"){
+        skillVal = gameData.music || 0; skillName = "琴艺"; flavorText = "十指轻拨，琴音如泣如诉";
+    } else {
+        skillVal = gameData.dance || 0; skillName = "舞蹈"; flavorText = "长袖翻飞，舞姿曼妙动人";
+    }
+    
+    let favorGain, possessGain, moneyGain;
+    if(skillVal >= 80){
+        favorGain = getRandRange(8, 15);
+        possessGain = getRandRange(5, 10);
+    } else if(skillVal >= 50){
+        favorGain = getRandRange(4, 10);
+        possessGain = getRandRange(3, 8);
+    } else {
+        favorGain = getRandRange(1, 5);
+        possessGain = getRandRange(1, 4);
+    }
+    
+    p.favor = Math.min(100, p.favor + favorGain);
+    p.possessiveness = Math.min(100, p.possessiveness + possessGain);
+    
+    // 互动的恩客嫉妒大幅下降（你理他了，气消了）
+    let jealDrop = getRandRange(5, 15);
+    p.jealousy = Math.max(0, p.jealousy - jealDrop);
+    
+    // 其他恩客嫉妒上升
+    for(let op of gameData.patrons){
+        if(op !== p) op.jealousy = Math.min(100, op.jealousy + getRandRange(3, 10));
+    }
+    
+    let moneyMultiplier = getRandRange(10, 20);
+    moneyGain = Math.floor(p.generosity * (0.5 + p.possessiveness / 200) * (0.5 + p.favor / 200) * moneyMultiplier);
+    gameData.money += moneyGain;
+    
+    if(type === "music" && Math.random() < 0.35){
+        gameData.music = Math.min(100, (gameData.music || 0) + 1);
+        popMsg(`🎹 琴艺有所精进！琴艺+1`);
+    }
+    if(type === "dance" && Math.random() < 0.35){
+        gameData.dance = Math.min(100, (gameData.dance || 0) + 1);
+        popMsg(`💃 舞艺有所精进！舞蹈+1`);
+    }
+    
+    let hintText = "";
+    if(skillVal < 30) hintText = ` 但${skillName}尚浅，略显不足……`;
+    if(jealDrop >= 10) hintText += ` ${genderRef}见你献艺，心中醋意消了大半。`;
+    
+    popMsg(`✨ ${flavorText}${hintText}<br>${genderRef}好感+${favorGain}　独占欲+${possessGain}　赏钱+${moneyGain}文`);
+    addActionLog("献艺", `为${p.name}献艺（${skillName}${skillVal}），获得${moneyGain}文`);
+    
+    gameData._patronRoom.performDone = true;
+    patronBloodbathCheck(p);
+    saveData();
+    refreshPatronRoom();
+}
+
+// ❤️ 花前月下
+function patronRomanceAct(idx){
+    let p = gameData.patrons[idx];
+    if(!p) return;
+    let genderRef = p.gender === "女" ? "她" : "他";
+    
+    let skillVal = Math.round((gameData.appearance + (p.favor || 0)) / 2);
+    let skillName = "风情";
+    let flavorText = "红烛摇曳，夜色温柔。" + genderRef + "与你共度良宵……";
+    
+    let favorGain, possessGain, moneyGain;
+    if(skillVal >= 80){
+        favorGain = getRandRange(8, 15);
+        possessGain = getRandRange(12, 20);
+    } else if(skillVal >= 50){
+        favorGain = getRandRange(4, 10);
+        possessGain = getRandRange(8, 15);
+    } else {
+        favorGain = getRandRange(1, 5);
+        possessGain = getRandRange(4, 8);
+    }
+    possessGain += getRandRange(5, 10);
+    
+    p.possessiveness = Math.min(100, p.possessiveness + possessGain);
+    p.favor = Math.min(100, p.favor + favorGain);
+    
+    // 互动的恩客嫉妒大幅下降（良宵共度，醋意全消）
+    let jealDrop = getRandRange(8, 18);
+    p.jealousy = Math.max(0, p.jealousy - jealDrop);
+    
+    // 其他恩客嫉妒大幅上升
+    for(let op of gameData.patrons){
+        if(op !== p) op.jealousy = Math.min(100, op.jealousy + getRandRange(8, 18));
+    }
+    
+    let moneyMultiplier = getRandRange(10, 20);
+    moneyGain = Math.floor(p.generosity * (0.5 + p.possessiveness / 200) * (0.5 + p.favor / 200) * moneyMultiplier);
+    gameData.money += moneyGain;
+    
+    let hintText = "";
+    if(skillVal < 30) hintText = " 但略显生涩……";
+    
+    popMsg(`✨ ${flavorText}${hintText}<br>${genderRef}好感+${favorGain}　独占欲+${possessGain}　赏钱+${moneyGain}文`);
+    addActionLog("花前月下", `与${p.name}共度良宵（${skillName}${skillVal}），获得${moneyGain}文`);
+    
+    gameData._patronRoom.romanceDone = true;
+    patronBloodbathCheck(p);
+    saveData();
+    refreshPatronRoom();
+}
+
+// 离开包厢
+function leavePatronRoom(){
+    gameData._patronRoom = null;
+    hideDiv("patronActMask");
+    document.getElementById("patronActMask")?.remove();
+    hideDiv("performSubMask");
+    document.getElementById("performSubMask")?.remove();
+    saveData();
+    refreshPage();
+    
+    // 如果还有待处理的邀请，继续顺序弹出
+    if(_patronInviteQueue.length > 0){
+        setTimeout(processNextInvite, 300);
+    }
+}
+
+// ==================== 修罗场 / 争风吃醋 ====================
+
+// 年度常规嫉妒检测
+function patronJealousyCheck(){
+    if(!gameData.isCourtesan || gameData.patrons.length < 2) return;
+    
+    // 时间冲淡嫉妒（自然衰减）
+    for(let p of gameData.patrons){
+        p.jealousy = Math.max(0, p.jealousy - getRandRange(2, 5));
+    }
+    
+    // 每位恩客的嫉妒自然增长，被冷落的增长更快
+    let rareSorted = [...gameData.patrons].sort((a, b) => (b.lastVisitYear || 0) - (a.lastVisitYear || 0));
+    for(let p of gameData.patrons){
+        let coldBonus = (gameData.age - (p.lastVisitYear || gameData.age)) * 3;
+        p.jealousy = Math.min(100, p.jealousy + getRandRange(3, 8) + coldBonus);
+    }
+    
+    // 独占欲≥85 → 修罗场判定
+    let highPoss = gameData.patrons.filter(p => p.possessiveness >= 85);
+    for(let hp of highPoss){
+        if(hp._conflictTriggered) continue;
+        if(Math.random() < 0.45){
+            hp._conflictTriggered = true;
+            let rivalPool = gameData.patrons.filter(p => p !== hp && p.favor > 15);
+            if(rivalPool.length === 0) continue;
+            let rival = rivalPool[Math.floor(Math.random() * rivalPool.length)];
+            
+            // 修罗场事件
+            let scenes = [
+                `🔥【修罗场】${hp.name}撞见你与${rival.name}眉来眼去，怒不可遏！`,
+                `💢【修罗场】${hp.name}和${rival.name}在芳华阁前相遇，二人互相冷嘲热讽！`,
+                `😱【修罗场】${hp.name}酒后闯进你的闺房，却发现${rival.name}也在……场面一度失控！`
+            ];
+            let scene = scenes[Math.floor(Math.random() * scenes.length)];
+            popMsg(scene);
+            addActionLog("修罗场", `${hp.name}与${rival.name}争风吃醋`);
+            
+            // 独占要求：35%概率
+            if(Math.random() < 0.35){
+                hp.isExclusive = true;
+                popMsg(`💔 ${hp.name}（${hp.status}）忍无可忍，要求你与其他人断绝往来！`);
+                // 其他恩客好感暴跌
+                for(let op of gameData.patrons){
+                    if(op !== hp){
+                        op.favor = Math.max(0, op.favor - getRandRange(15, 30));
+                        if(op.favor <= 15){
+                            popMsg(`😢 ${op.name}心灰意冷，从此不再往来……`);
+                        }
+                    }
+                }
+                gameData.patrons = gameData.patrons.filter(p => p.favor > 15 || p === hp);
+            } else {
+                // 妒火中烧但未独占
+                rival.favor = Math.max(0, rival.favor - getRandRange(10, 20));
+                hp.possessiveness = Math.min(100, hp.possessiveness + getRandRange(5, 10));
+            }
+        }
+    }
+}
+
+// 互动后的即时修罗场检测（互动越亲密，风险越大）
+function patronBloodbathCheck(interactedPatron){
+    if(!gameData.isCourtesan || gameData.patrons.length < 2) return;
+    
+    // 随机另一位恩客"路过撞见"的概率
+    let sneakChance = 0.08 + gameData.patrons.length * 0.04; // 恩客越多，撞见概率越高
+    if(Math.random() > sneakChance) return;
+    
+    let others = gameData.patrons.filter(p => p !== interactedPatron);
+    if(others.length === 0) return;
+    let witness = others[Math.floor(Math.random() * others.length)];
+    
+    // 撞见事件
+    let witnessEvents = [
+        `👀 ${witness.name}来芳华阁找你，却在门外听到了你和${interactedPatron.name}的声音……${witness.name}面色铁青，拂袖而去。`,
+        `😡 ${witness.name}正欲进门，见你和${interactedPatron.name}亲昵，冷哼一声转身离去！`,
+        `🕵️ ${witness.name}暗中派人盯着你，发现了你与${interactedPatron.name}的私会。`
+    ];
+    let event = witnessEvents[Math.floor(Math.random() * witnessEvents.length)];
+    
+    witness.jealousy = Math.min(100, witness.jealousy + getRandRange(15, 30));
+    witness.favor = Math.max(0, witness.favor - getRandRange(5, 15));
+    
+    popMsg(event);
+    addActionLog("偷情撞破", `${witness.name}撞见你与${interactedPatron.name}在一起`);
+    
+    // 高嫉妒可能当场发飙
+    if(witness.jealousy >= 85 && Math.random() < 0.3){
+        popMsg(`💥 ${witness.name}当场发飙！冲进来大闹一场，芳华阁上下震惊！你的艳名-3`);
+        gameData.courtesanFame = Math.max(0, gameData.courtesanFame - 3);
+        witness.possessiveness = Math.min(100, witness.possessiveness + getRandRange(5, 15));
+    }
+}
+
+// 年度等级淘汰：低阶恩客自惭形秽
+function patronRankDrift(){
+    if(!gameData.isCourtesan || gameData.patrons.length === 0) return;
+    let myRank = gameData.courtesanRank || 1;
+    let leaveList = [];
+    
+    for(let p of gameData.patrons){
+        let pTier = p.tier || 1;
+        let diff = myRank - pTier;
+        if(diff < 2) continue;
+        
+        let lose;
+        if(diff >= 4)      lose = getRandRange(8, 16);
+        else if(diff >= 3) lose = getRandRange(6, 12);
+        else               lose = getRandRange(3, 8);  // diff == 2
+        
+        p.favor = Math.max(0, p.favor - lose);
+        leaveList.push({p, lose});
+    }
+    
+    // 好感≤15的自动离场
+    for(let item of leaveList){
+        if(item.p.favor <= 15){
+            popMsg(`🍂 ${item.p.status}「${item.p.name}」自惭形秽，不再登门……（好感-${item.lose}，已跌破15，恩客离去）`);
+        } else {
+            popMsg(`🌾 ${item.p.status}「${item.p.name}」渐感力不从心，疏远了几分。（好感-${item.lose}）`);
+        }
+    }
+    
+    gameData.patrons = gameData.patrons.filter(p => p.favor > 15);
+}
+
+// 年度邀请：一年未互动的恩客派帖邀约（每年最多3人，顺序弹出）
+let _patronInviteQueue = [];   // ["patronName1", "patronName2", ...]
+
+function patronInvitationCheck(){
+    if(!gameData.isCourtesan || gameData.patrons.length === 0) return;
+    _patronInviteQueue = [];
+    
+    // 收集一年以上未互动的恩客
+    let candidates = [];
+    for(let i = 0; i < gameData.patrons.length; i++){
+        let p = gameData.patrons[i];
+        if(gameData.age - p.lastVisitYear >= 1){
+            // 概率 = 独占欲 / 120，独占欲越高越主动
+            let chance = Math.min(0.7, p.possessiveness / 120);
+            candidates.push({name: p.name, chance});
+        }
+    }
+    
+    // 随机打乱，取最多3人
+    candidates.sort(() => Math.random() - 0.5);
+    let count = 0;
+    for(let c of candidates){
+        if(count >= 3) break;
+        if(Math.random() < c.chance){
+            _patronInviteQueue.push(c.name);
+            count++;
+        }
+    }
+    // 不立即弹出——等年度通告关闭后顺序弹出
+}
+
+// 开始处理邀请（在年度通告关闭后调用）
+function startPatronInvites(){
+    if(_patronInviteQueue.length === 0) return;
+    processNextInvite();
+}
+
+function processNextInvite(){
+    // 清理旧弹窗
+    let old = document.getElementById("patronInviteMask");
+    if(old) old.remove();
+    
+    if(_patronInviteQueue.length === 0){ return; }
+    
+    // peek 队首，不 shift——等玩家选择后才移除
+    let name = _patronInviteQueue[0];
+    let p = gameData.patrons.find(x => x.name === name);
+    if(!p){
+        _patronInviteQueue.shift(); // 恩客已不存在，跳过
+        processNextInvite();
+        return;
+    }
+    
+    let genderRef = p.gender === "女" ? "她" : "他";
+    let html = `<div class="mask" id="patronInviteMask" style="display:flex;">
+        <div class="modal" style="max-width:380px;">
+            <h2 class="modal-title">📨 ${p.status}「${p.name}」遣人送了请帖</h2>
+            <p style="font-size:13px; color:#4a2a0a; margin-bottom:8px;">${genderRef}久未与你相见，备了酒席，盼你一叙。</p>
+            <p style="font-size:12px; color:#8b6914; margin-bottom:12px;">好感${p.favor} · 独占欲${p.possessiveness} · 上次相见：${gameData.age - p.lastVisitYear}年前</p>
+            <div style="display:flex; gap:10px;">
+                <button class="modal-btn" onclick="acceptPatronInvite('${escapeHtml(name)}')" style="flex:1; background:linear-gradient(180deg,#8b5e3c,#6b3a2a);color:#f0e6d2;">
+                    🌙 赴约（消耗1行动）
+                </button>
+                <button class="modal-btn" onclick="rejectPatronInvite('${escapeHtml(name)}')" style="flex:1; background:#999; color:#fff;">
+                    🍂 婉拒
+                </button>
+            </div>
+            <p style="font-size:11px; color:#999; margin-top:8px;">婉拒会伤${genderRef}的心，好感大幅下降</p>
+        </div></div>`;
+    
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("patronInviteMask");
+}
+
+function acceptPatronInvite(name){
+    _patronInviteQueue.shift(); // 已处理，移出队列
+    hideDiv("patronInviteMask");
+    document.getElementById("patronInviteMask")?.remove();
+    let p = gameData.patrons.find(x => x.name === name);
+    if(!p){ processNextInvite(); return; }
+    let idx = gameData.patrons.indexOf(p);
+    showPatronInteract(idx); // 进入包厢（离开包厢后继续弹下一个邀请）
+}
+
+function rejectPatronInvite(name){
+    _patronInviteQueue.shift(); // 已处理，移出队列
+    hideDiv("patronInviteMask");
+    document.getElementById("patronInviteMask")?.remove();
+    let p = gameData.patrons.find(x => x.name === name);
+    if(!p){ processNextInvite(); return; }
+    
+    let lose = getRandRange(15, 25);
+    p.favor = Math.max(0, p.favor - lose);
+    let genderRef = p.gender === "女" ? "她" : "他";
+    
+    if(p.favor <= 15){
+        popMsg(`🍂 ${p.status}「${p.name}」被你婉拒，心灰意冷，拂袖而去……（好感-${lose}，跌破15，恩客离去）`);
+        gameData.patrons = gameData.patrons.filter(x => x !== p);
+    } else {
+        popMsg(`💔 你婉拒了${p.status}「${p.name}」的邀约，${genderRef}面上不显，心里凉了半截。（好感-${lose}）`);
+    }
+    addActionLog("婉拒邀约", `婉拒${p.name}，好感-${lose}`);
+    saveData();
+    processNextInvite(); // 继续弹出下一个邀请
+}
+
+// HTML转义（防止名字含单引号等特殊字符破坏onclick）
+function escapeHtml(str){
+    return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+
+// ==================== 自练系统 ====================
+
+function showSelfPractice(){
+    if(!gameData.isCourtesan) return showToast("你不是花魁");
+    if(gameData.actionNum <= 0) return showToast("行动次数不足");
+    
+    let html = `<div class="mask" id="selfPracticeMask" onclick="hideDiv('selfPracticeMask')">
+        <div class="modal" style="max-width:380px;" onclick="event.stopPropagation()">
+            <h2 class="modal-title">🧘 独自修炼</h2>
+            <p style="font-size:13px; color:#4a2a0a; margin-bottom:12px;">
+                💃 舞蹈：${gameData.dance || 0}　|　🎹 琴艺：${gameData.music || 0}<br>
+                <span style="color:#8b6914;">消耗1次行动，提升才艺3~8点</span>
+            </p>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <button class="modal-btn" onclick="selfPractice('dance')" style="background:linear-gradient(180deg,#c0506a,#a03050);color:#f0e6d2;">
+                    💃 苦练舞姿（舞蹈+3~8）
+                </button>
+                <button class="modal-btn" onclick="selfPractice('music')" style="background:linear-gradient(180deg,#8b5e3c,#6b3a2a);color:#f0e6d2;">
+                    🎹 钻研琴技（琴艺+3~8）
+                </button>
+            </div>
+            <button class="modal-btn" style="margin-top:10px; background:#999;" onclick="hideDiv('selfPracticeMask')">改日再练</button>
+        </div></div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("selfPracticeMask");
+}
+
+function selfPractice(skillKey){
+    hideDiv("selfPracticeMask");
+    document.getElementById("selfPracticeMask")?.remove();
+    
+    if(gameData.actionNum <= 0){ showToast("行动次数不足"); return; }
+    gameData.actionNum--;
+    
+    let gain = getRandRange(3, 8);
+    let skillName = skillKey === "dance" ? "舞蹈" : "琴艺";
+    
+    if(skillKey === "dance"){
+        gameData.dance = Math.min(100, (gameData.dance || 0) + gain);
+    } else {
+        gameData.music = Math.min(100, (gameData.music || 0) + gain);
+    }
+    
+    let flavor = skillKey === "dance" ? 
+        "在练功房挥汗如雨，舞姿愈发轻盈曼妙。" :
+        "独坐琴前，反复揣摩指法，琴技有所精进。";
+    
+    popMsg(`🧘 ${flavor}<br>${skillName}+${gain}（当前：${skillKey === "dance" ? gameData.dance : gameData.music}）`);
+    addActionLog("独自修炼", `${skillName}+${gain}`);
+    
+    saveData();
+    refreshPage();
+}
+
+// 花魁怀孕检测（概率极低，~5%/年）
+function handleCourtesanPregnancy(){
+    if(!gameData.isCourtesan) return;
+    if(gameData.pregnancy) return; // 已在怀孕中
+    if(gameData.patrons.length === 0) return;
+    
+    // 有恩客且随机触发（仅男性恩客可致孕）
+    let malePatrons = gameData.patrons.filter(p => p.gender !== "女");
+    if(malePatrons.length === 0) return;
+    let pregnantChance = 0.05; // 5%基础概率
+    if(gameData.birthcontrolRemaining > 0) pregnantChance *= 0.2; // 避子汤影响
+    if(Math.random() > pregnantChance) return;
+    
+    let father = malePatrons[Math.floor(Math.random() * malePatrons.length)];
+    
+    // 弹窗：告知怀孕
+    let msg = `你发现自己有了身孕。孩子父亲是恩客${father.name}（${father.status}）。`;
+    msg += `\n作为花魁，怀孕期间无法登台献艺。`;
+    showCourtesanPregnancyPopup(father);
+}
+
+function showCourtesanPregnancyPopup(father){
+    let html = `
+        <div class="mask" id="courtesanPregMask">
+            <div class="modal" style="max-width:420px;">
+                <h2 class="modal-title" style="color:#c0392b;">🤰 身怀六甲</h2>
+                <p style="line-height:1.8; font-size:14px; color:#4a2a0a;">
+                    你发现自己有了身孕。<br>
+                    孩子父亲：<b>${father.name}</b>（${father.status}）<br><br>
+                    <span style="color:#c0392b;">⚠️ 怀孕期间无法登台献艺，艳名将有所下降。</span>
+                </p>
+                <div class="modal-btn-group">
+                    <button class="modal-btn" onclick="confirmCourtesanPregnancy('${father.name}')">接受</button>
+                </div>
+            </div>
+        </div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("courtesanPregMask");
+}
+
+function confirmCourtesanPregnancy(fatherName){
+    hideDiv("courtesanPregMask");
+    document.getElementById("courtesanPregMask")?.remove();
+    let father = gameData.patrons.find(p => p.name === fatherName);
+    gameData.pregnancy = { fatherAge: father ? father.age : 30, motherAge: gameData.age, months: 0, patronFather: fatherName };
+    gameData.courtesanFame = Math.max(0, gameData.courtesanFame - 5); // 怀孕降艳名
+    popMsg("🤰 你暂别芳华阁，安心养胎。明年春天孩子便会出世……");
+    addActionLog("花魁怀孕", `怀孕，孩子父亲为恩客${fatherName}`);
+    saveData();
+    refreshPage();
+}
+
+// 花魁生产（在checkPregnancy中调用，或在下一年处理）
+function handleCourtesanBirth(){
+    if(!gameData.isCourtesan) return;
+    if(!gameData.pregnancy || !gameData.pregnancy.patronFather) return;
+    
+    let fatherName = gameData.pregnancy.patronFather;
+    let father = gameData.patrons.find(p => p.name === fatherName);
+    let gender = Math.random() > 0.5 ? "男" : "女";
+    let childApp = Math.max(20, Math.min(100, Math.round((gameData.appearance + (father ? 50 : 50)) * 0.35)));
+    let childName = generateUniqueChildName(gameData.playerName[0] || "李", gender);
+    
+    let child = {
+        name: childName, age: 0, gender: gender,
+        appearance: childApp, talent: 20 + Math.floor(Math.random() * 20),
+        strength: 10 + Math.floor(Math.random() * 10),
+        favor: 80, fatherName: fatherName, motherName: gameData.playerName,
+        fatherSur: fatherName[0] || "李", isAdopted: false,
+        education: "放养", educationYears: 0, childType: gender === "男" ? "私生子" : "私生女",
+        fromCourtesan: true, patronFather: fatherName
+    };
+    
+    // 三种结局随机
+    let roll = Math.random();
+    if(roll < 0.3 && father && father.favor >= 70){
+        // 母凭子贵：恩客接走
+        popMsg(`✨ ${father.name}得知你为他生了孩子，欣喜若狂！他决定将你们母子接入府中。`);
+        addActionLog("母凭子贵", `${father.name}将你和孩子接入府中为妾`);
+        gameData.children.push(child);
+        gameData.pregnancy = null;
+        // 嫁入恩客家为妾
+        gameData.spouse = {
+            name: father.name, gender: "男", appearance: 50 + Math.floor(Math.random() * 30),
+            job: father.status, family: "富裕", age: father.age, favor: father.favor
+        };
+        clearCourtesanData();
+    } else if(roll < 0.6 && father && father.generosity >= 40){
+        // 送回生父家，孩子被接纳
+        popMsg(`你将孩子送回了${father.name}家。他虽接纳了孩子，但并未提纳你为妾之事。`);
+        gameData.children.push(child);
+        gameData.pregnancy = null;
+        father.favor += 10;
+    } else {
+        // 自养（困难模式）或孩子被拒
+        let selfRaise = Math.random() < 0.5;
+        if(selfRaise){
+            popMsg(`你决定自己抚养这个孩子。虽然艰难，但孩子是你的骨肉。`);
+            gameData.children.push(child);
+        } else {
+            popMsg(`😔 你试图将孩子送回生父家，但${father ? father.name : "对方"}拒不承认。孩子留在了芳华阁。`);
+            gameData.children.push(child);
+            if(father) father.favor = Math.max(0, father.favor - 15);
+        }
+        gameData.pregnancy = null;
+    }
+    saveData();
+    refreshPage();
+}
+
 // 显示朝廷征辟弹窗（玩家可选择接受或拒绝）
 function showTalentRecruitmentAsk(){
     let title = getOfficerTitle(9);
@@ -5561,7 +8474,7 @@ function closeComingOfAgeStory(){
 // 12岁提示：三年后可参加科举
 function showAge12Notice(){
     let html = `<p style="line-height:2.4; font-size:17px; text-align:justify; text-indent:2em; margin-bottom:24px;">
-        你已年满十二，正值<b>志学之年</b>。夫子捋须道：“三年后，朝廷开科取士，凡年满十五者皆可应试。”
+        你已年满十二，正值<b>志学之年</b>。夫子捋须道："三年后，朝廷开科取士，凡年满十五者皆可应试。"
         <br><br>科举及第者可<b>直接入仕为官</b>，从此鱼跃龙门，身价百倍。
         <br><br>然科举不易，<b style="color:#5a3a1a;">才华越高，中榜越易</b>。夫子言罢，意味深长地看了你一眼——这三年，是潜心向学、磨砺才华，还是虚度光阴，全在你自己。
     </p>
@@ -5614,9 +8527,9 @@ function closeJobChangeStory(){
 function showFamilyDegradationStory(from, to){
     let story = "";
     if (from === "权贵" && to === "官宦") {
-        story = `昔日门庭煊赫，钟鸣鼎食——然接连两代未出三品以上大员，朝中故旧渐散，圣眷日薄。<br><br>族长召集族人，长叹一声：“祖宗挣下的门楣，到我们这代算是矮了一截。”<br><br>从此，你家长房一脉除爵归第，虽仍列<b>官宦</b>之列，却再非当年权贵气象。`;
+        story = `昔日门庭煊赫，钟鸣鼎食——然接连两代未出三品以上大员，朝中故旧渐散，圣眷日薄。<br><br>族长召集族人，长叹一声："祖宗挣下的门楣，到我们这代算是矮了一截。"<br><br>从此，你家长房一脉除爵归第，虽仍列<b>官宦</b>之列，却再非当年权贵气象。`;
     } else if (from === "官宦" && to === "富裕") {
-        story = `接连两代无人入仕——同僚断了往来，门生散尽，昔日府邸前的车马喧嚣早已不再。<br><br>族中老人望着日渐冷清的门庭，摇头叹息：“宦海沉浮，不进则退。咱们家，终究是败落了。”<br><br>从此，你家褪去官身，归为<b>富裕</b>之户。虽有余财，却再无官场荫庇。`;
+        story = `接连两代无人入仕——同僚断了往来，门生散尽，昔日府邸前的车马喧嚣早已不再。<br><br>族中老人望着日渐冷清的门庭，摇头叹息："宦海沉浮，不进则退。咱们家，终究是败落了。"<br><br>从此，你家褪去官身，归为<b>富裕</b>之户。虽有余财，却再无官场荫庇。`;
     }
     
     let html = `<p style="line-height:2.4; font-size:17px; text-align:justify; text-indent:2em; margin-bottom:24px;">
@@ -5952,7 +8865,7 @@ function triggerForcedMarriage(friend){
         
         if(friend && Math.random() < 0.5){
             gameData.friendList = (gameData.friendList || []).filter(f => f.name !== friend.name);
-            popMsg(friend.name + '愤怒地说：“我对你很失望。”从此与你绝交。');
+            popMsg(friend.name + '愤怒地说："我对你很失望。"从此与你绝交。');
         }else if(friend){
             let confidantTitle = friend.gender === "男" ? "蓝颜知己" : "红颜知己";
             if(!gameData.concubines) gameData.concubines = [];
@@ -6255,7 +9168,7 @@ function acceptAsConcubineWife(){
     gameData.spouse = {
         name:sp.name, gender:sp.gender, appearance:sp.appearance, 
         job:sp.job, family:sp.family, age:sp.age, favor:concubineWifeFavor, 
-        personality:sp.personality, strength:sp.strength || 0
+        personality:sp.personality, talent:sp.talent, strength:sp.strength || 0
     };
     gameData.spouseLostYear = 0; // 有新配偶，清除失妻记录
     
@@ -6270,10 +9183,97 @@ function acceptAsConcubineWife(){
         officerRank:0, officerTitle:""
     });
     
+    // 为丈夫随机生成家眷：1妻/1妾/1妻1妾/2妾 四种随机
+    if(!gameData.concubines) gameData.concubines = [];
+    let wifeName = null;
+    let concubineNames = [];
+    let pattern = Math.floor(Math.random() * 4); // 0=1妻, 1=1妾, 2=1妻1妾, 3=2妾
+    
+    // 生成一个妾室
+    function genConcubine(cName){
+        let cAge = Math.max(16, sp.age - 8 + Math.floor(Math.random() * 9));
+        let cApp = 20 + Math.floor(Math.random() * 60);
+        let cTal = 15 + Math.floor(Math.random() * 65);
+        let cStr = Math.floor(Math.random() * 100);
+        let cFam = sp.family;
+        if(Math.random() < 0.3){ let fams=["贫穷","普通","富裕","官宦","权贵"]; let idx=fams.indexOf(cFam); if(idx>0) cFam=fams[idx-1]; }
+        let cJob = getRandomJob("女", cFam, cTal, cStr, false);
+        let cFavor = getRandRange(30, 60);
+        return {
+            name:cName, age:cAge, gender:"女", type:"concubine",
+            title:"妾室", job:cJob, family:cFam,
+            appearance:cApp, talent:cTal, strength:cStr, favor:cFavor,
+            isOutside: false, officerRank:0, officerTitle:""
+        };
+    }
+    
+    // 生成正妻
+    function genWife(wName){
+        let wAge = Math.max(16, sp.age - 2 + Math.floor(Math.random() * 5));
+        let wApp = 25 + Math.floor(Math.random() * 55);
+        let wTal = 20 + Math.floor(Math.random() * 60);
+        let wStr = Math.floor(Math.random() * 100);
+        let wFam = sp.family;
+        if(Math.random() < 0.3){ let fams=["贫穷","普通","富裕","官宦","权贵"]; let idx=fams.indexOf(wFam); if(idx>0) wFam=fams[idx-1]; }
+        let wJob = getRandomJob("女", wFam, wTal, wStr, false);
+        let wFavor = getRandRange(20, 50);
+        return {
+            name:wName, age:wAge, gender:"女", type:"concubine",
+            title:"正妻", job:wJob, family:wFam,
+            appearance:wApp, talent:wTal, strength:wStr, favor:wFavor,
+            isHusbandPrimaryWife: true, officerRank:0, officerTitle:""
+        };
+    }
+    
+    // 生成不重名
+    function genUniqueName(){
+        let n;
+        do { n = getRandom(surnameList) + genName("女"); }
+        while(gameData.familyList.some(f => f.name === n) || n === gameData.playerName || n === wifeName || concubineNames.includes(n));
+        return n;
+    }
+    
+    let toastExtra = "";
+    if(pattern === 0){ // 1妻
+        wifeName = genUniqueName();
+        let w = genWife(wifeName);
+        gameData.familyList.push(w);
+        toastExtra = `丈夫已有正妻${wifeName}`;
+    } else if(pattern === 1){ // 1妾
+        let cName = genUniqueName();
+        concubineNames.push(cName);
+        let c = genConcubine(cName);
+        gameData.familyList.push(c);
+        gameData.concubines.push(c);
+        toastExtra = `丈夫已有一妾${cName}`;
+    } else if(pattern === 2){ // 1妻1妾
+        wifeName = genUniqueName();
+        let w = genWife(wifeName);
+        gameData.familyList.push(w);
+        let cName = genUniqueName();
+        concubineNames.push(cName);
+        let c = genConcubine(cName);
+        gameData.familyList.push(c);
+        gameData.concubines.push(c);
+        toastExtra = `丈夫已有正妻${wifeName}及一妾${cName}`;
+    } else { // pattern === 3, 2妾
+        let cName1 = genUniqueName();
+        concubineNames.push(cName1);
+        let c1 = genConcubine(cName1);
+        gameData.familyList.push(c1);
+        gameData.concubines.push(c1);
+        let cName2 = genUniqueName();
+        concubineNames.push(cName2);
+        let c2 = genConcubine(cName2);
+        gameData.familyList.push(c2);
+        gameData.concubines.push(c2);
+        toastExtra = `丈夫已有两妾${cName1}、${cName2}`;
+    }
+    
     gameData.marriageYear = gameData.age;
     gameData.pendingSpouse = null;
     gameData.matchmakingCandidates = [];
-    showToast(`恭喜！您作为妾室嫁入${sp.name}家中！`);
+    showToast(`恭喜！您作为妾室嫁入${sp.name}家中！${toastExtra}。`);
     hideDiv("marriageMask");
     saveData();
     refreshPage();
@@ -6908,6 +9908,8 @@ function confirmRaiseToWife(){
     // 更新家人列表中的身份
     let myInFamily = gameData.familyList.find(f => f.name === gameData.playerName);
     if(myInFamily){
+        myInFamily._promotedFrom = "妾室";
+        myInFamily._promotedYear = gameData.age;
         myInFamily.title = "正妻";
         myInFamily.type = "spouse";
     }
@@ -6961,7 +9963,7 @@ function showConcubineInteraction(){
         popMsg("丈夫没有妾室");
         return;
     }
-    let isPlayerConcubine = gameData.concubines.some(c => c.name === gameData.playerName);
+    let isPlayerConcubine = gameData.playerGender === "女" && !gameData.isPrimaryWife && gameData.spouse;
     let html = "<h3>丈夫的妾室</h3>";
     for(let c of gameData.concubines){
         // 跳过自己（玩家就是妾室之一）
@@ -6972,8 +9974,9 @@ function showConcubineInteraction(){
         let familyShow = c.family || "未知";
         let btns = "";
         if(isPlayerConcubine){
-            // 妾室玩家无法管理任何人，只能交谈
-            btns = `<button class="action-btn" onclick="interactFamily('${c.name}','交谈')">交谈</button>`;
+            // 妾室玩家无法管理任何人，只能唇枪舌战
+            btns = `<button class="action-btn" onclick="interactFamily('${c.name}','交谈')">唇枪舌战</button>
+                    <button class="action-btn" onclick="handleAiChatClick('${c.name}')">💬AI交谈</button>`;
         } else {
             btns = `
                 <button class="action-btn" onclick="punishConcubine('${c.name}')">惩罚</button>
@@ -7192,6 +10195,7 @@ function finalizeDivorceKeepPregnancy(){
     hideDiv("divorcePregnancyConfirm");
     let el = document.getElementById("divorcePregnancyConfirm");
     if(el) el.remove();
+    updateAllNpcPersonas();
     saveData();
     refreshPage();
 }
@@ -7212,6 +10216,7 @@ function finalizeDivorceTerminatePregnancy(){
     hideDiv("divorcePregnancyConfirm");
     let el = document.getElementById("divorcePregnancyConfirm");
     if(el) el.remove();
+    updateAllNpcPersonas();
     saveData();
     refreshPage();
 }
@@ -7256,6 +10261,7 @@ function divorceConcubine(name){
         popMsg(`与${name}和离，声望-5`);
     }
     
+    updateAllNpcPersonas();
     saveData();
     refreshPage();
 }
@@ -7291,9 +10297,14 @@ function promoteConcubineToWife(name){
     // 更新家人列表中该人的身份
     let f = gameData.familyList.find(x => x.name === name);
     if(f){
+        f._promotedFrom = "妾室";
+        f._promotedYear = gameData.age;
         f.title = "正妻";
         f.type = "spouse";
     }
+    // 配偶对象也标记
+    gameData.spouse._promotedFrom = "妾室";
+    gameData.spouse._promotedYear = gameData.age;
     
     // 妾室扶正后，她的孩子全部改为嫡子/嫡女
     for(let child of gameData.children){
@@ -7309,6 +10320,7 @@ function promoteConcubineToWife(name){
     }
     
     popMsg(`${name}已被扶为正妻！`);
+    updateAllNpcPersonas();
     saveData();
     refreshPage();
 }
@@ -7336,6 +10348,7 @@ function expelConcubine(name){
     if(spouseInFamily) spouseInFamily.favor = gameData.spouse.favor;
     let spLabel = gameData.spouse.isSameSex ? "伴侣" : "丈夫";
     popMsg(`将${name}赶出家门，${spLabel}好感-20`);
+    updateAllNpcPersonas();
     saveData();
     refreshPage();
 }
@@ -7343,6 +10356,11 @@ function expelConcubine(name){
 // ========== 怀孕生育系统 ==========
 function checkPregnancy(){
     if(!gameData.pregnancy) return;
+    // 花魁怀孕特殊处理
+    if(gameData.isCourtesan && gameData.pregnancy.patronFather){
+        handleCourtesanBirth();
+        return;
+    }
     // 怀孕期间精力-2
     gameData.stamina = Math.max(0, gameData.stamina - 2);
     // 下一年直接生产（不再按月计算）
@@ -8336,6 +11354,50 @@ const merchantTitles = {
     1: "天下首富"
 };
 
+// ===== 花魁线：等级称号与晋升阈值 =====
+const courtesanTitles = {
+    1: "清倌人",
+    2: "红倌人", 
+    3: "花魁",
+    4: "名妓",
+    5: "绝代名伶"
+};
+const courtesanPromotionThresholds = {
+    1: {next:2, reputation:30, fame:30, appearance:85},
+    2: {next:3, reputation:60, fame:60, appearance:90},
+    3: {next:4, reputation:90, fame:90, appearance:95},
+    4: {next:5, reputation:120, fame:120, appearance:98}
+};
+
+// 花魁演出事件——主属性占60%，颜值占40%
+const courtesanPerformanceEvents = [
+    {name:"琴艺演奏", stat:"music", desc:"玉指轻拨，琴音绕梁"},
+    {name:"诗词唱和", stat:"talent", desc:"吟诗唱和，才华横溢"},
+    {name:"长袖善舞", stat:"dance", desc:"翩翩起舞，惊鸿一瞥"},
+    {name:"书法展示", stat:"talent", desc:"挥毫泼墨，铁画银钩"},
+    {name:"胡笳独奏", stat:"music", desc:"胡笳声起，如泣如诉"},
+    {name:"剑器之舞", stat:"dance", desc:"剑光如水，英气逼人"},
+];
+
+// 花会可选曲目
+const GALA_MUSIC_PIECES = [
+    {name:"高山流水", desc:"古琴名曲，钟子期俞伯牙知音之谊"},
+    {name:"十面埋伏", desc:"琵琶武曲，四面楚歌十面埋伏"},
+    {name:"梅花三弄", desc:"清雅古曲，傲雪凌霜高洁之志"},
+    {name:"春江花月夜", desc:"婉转悠扬，江天一色无纤尘"},
+    {name:"广陵散", desc:"千古绝响，慷慨激昂侠客行"},
+];
+const GALA_DANCE_TYPES = [
+    {name:"霓裳羽衣舞", desc:"仙乐飘飘，宛如天人下凡"},
+    {name:"惊鸿舞", desc:"轻盈飘逸，宛若惊鸿照影来"},
+    {name:"剑器舞", desc:"英姿飒爽，刚柔并济破长空"},
+    {name:"绿腰", desc:"软舞之冠，纤腰婉转似柳丝"},
+    {name:"胡旋舞", desc:"异域风情，裙裾旋转如飞蓬"},
+];
+// 花魁保养费（每半年扣一次）
+const COURTESAN_MAINTENANCE_COST = 50;   // 基础保养/半年
+const COURTESAN_ADVANCED_MAINTENANCE_COST = 300; // 高级保养（一次，临时+2颜值）
+
 // 商人晋升阈值（累积净盈利）
 const merchantPromotionThresholds = {
     6: {next:5, threshold:30000},
@@ -8531,6 +11593,7 @@ function showYearlyEventPanel(){
 
 // ========== 典当行系统 ==========
 function openPawnShop(){
+    document.getElementById("shopModalTitle").innerText = "典当行";
     let html = `<div style="max-height:400px; overflow-y:auto;">`;
     html += `<p style="color:#666; margin-bottom:15px;">典当行可出售您的房产和车马</p>`;
     
@@ -8594,6 +11657,7 @@ function openPawnShop(){
     }
     
     html += `</div>`;
+    html = `<div style="margin-bottom:10px; cursor:pointer; color:#8b6914; font-size:12px;" onclick="showMarketPage()">← 返回市集</div>` + html;
     document.getElementById("shopContent").innerHTML = html;
     showDiv("shopMask");
 }
@@ -8793,10 +11857,22 @@ function doMoneyMaking(jobId){
 
 // ========== 物价波动系统 ==========
 function triggerPriceEvent(){
-    if(Math.random() < 0.2){ // 20%概率触发物价波动
+    // 每年物价自动向正常（1.0）趋近50%
+    if(gameData.priceMultiplier !== 1){
+        let diff = 1 - gameData.priceMultiplier;
+        gameData.priceMultiplier += diff * 0.5;
+        // 非常接近1.0就归位
+        if(Math.abs(gameData.priceMultiplier - 1) < 0.01) gameData.priceMultiplier = 1;
+    }
+    // 15%概率触发新的物价波动
+    if(Math.random() < 0.15){
         let event = getRandom(priceEvents);
         gameData.priceMultiplier = event.multiplier;
         popMsg(`${event.name}：${event.description}`);
+    }
+    // 30%概率恢复太平（无波动）
+    if(Math.random() < 0.30){
+        gameData.priceMultiplier = 1;
     }
 }
 
@@ -8912,15 +11988,22 @@ function triggerBanquetEvent(){
 function updateMarriageUI(){
     // 配偶、妾室、子女均归入家人全屏页面（familyList中），
     // 红颜/蓝颜知己显示通过导航按钮进入独立页面
+    // 按钮始终可见；无红颜时点击提示
     let outsideRel = gameData.concubines.filter(c => c.isOutside);
     let navOutside = document.getElementById("navOutside");
-    if(outsideRel.length > 0){
-        navOutside.style.display = "";
-        // 更新按钮标题
-        let label = gameData.playerGender === "男" ? "红颜" : "蓝颜";
-        navOutside.querySelector(".nav-label").innerText = label;
+    if(!navOutside) return;
+    // 若被花魁线改成了恩客则不覆盖
+    if(navOutside.querySelector(".nav-label") && navOutside.querySelector(".nav-label").innerText === "恩客") return;
+    let label = gameData.playerGender === "男" ? "红颜" : "蓝颜";
+    let icon = gameData.playerGender === "男" ? "💕" : "💙";
+    navOutside.querySelector(".nav-icon").innerText = icon;
+    navOutside.querySelector(".nav-label").innerText = label;
+    if(outsideRel.length === 0){
+        navOutside.onclick = function(){ showToast("暂无" + label + "知己"); };
+        navOutside.style.opacity = "0.5";
     } else {
-        navOutside.style.display = "none";
+        navOutside.onclick = function(){ showOutsidePage(); };
+        navOutside.style.opacity = "1";
     }
 }
 
@@ -9081,9 +12164,53 @@ function closeAssetsPage(){
     refreshPage();
 }
 
+function showMarketPage(){
+    // 市集入口：选择商店或典当行
+    document.getElementById("shopModalTitle").innerText = "市集";
+    document.getElementById("shopPriceTag").innerText = "";
+    let html = `<div style="display:flex; flex-direction:column; gap:16px; padding:10px 0;">`;
+    html += `<p style="color:#666; margin-bottom:5px;">欢迎来到市集，请选择去处：</p>`;
+    html += `<div class="relation-item" onclick="showShop()" style="cursor:pointer; text-align:center; padding:20px; border:2px solid #c97a88; border-radius:12px; background:linear-gradient(135deg,#fdf2f4,#f9e4e8);">
+        <div style="font-size:36px;">🛒</div>
+        <div style="font-size:18px; font-weight:bold; margin:8px 0;">商店</div>
+        <div style="font-size:12px; color:#888;">购买房产、车马、礼物、服饰</div>
+    </div>`;
+    if(gameData.age >= 15){
+        html += `<div class="relation-item" onclick="openPawnShop()" style="cursor:pointer; text-align:center; padding:20px; border:2px solid #8B6914; border-radius:12px; background:linear-gradient(135deg,#fdf8f0,#f9efe0);">
+            <div style="font-size:36px;">🏷️</div>
+            <div style="font-size:18px; font-weight:bold; margin:8px 0;">典当行</div>
+            <div style="font-size:12px; color:#888;">出售闲置房产、车马换钱</div>
+        </div>`;
+    } else {
+        html += `<div class="relation-item" style="text-align:center; padding:20px; border:2px dashed #ccc; border-radius:12px; opacity:0.5;">
+            <div style="font-size:36px;">🏷️</div>
+            <div style="font-size:18px; font-weight:bold; margin:8px 0;">典当行</div>
+            <div style="font-size:12px; color:#999;">年满15岁开放</div>
+        </div>`;
+    }
+    html += `</div>`;
+    document.getElementById("shopContent").innerHTML = html;
+    showDiv("shopMask");
+}
 function showShop() {
     let html = "";
     let finalPrice = 0;
+    
+    document.getElementById("shopModalTitle").innerText = "商店";
+    
+    // 物价标签
+    let tagEl = document.getElementById("shopPriceTag");
+    let m = gameData.priceMultiplier;
+    if(Math.abs(m - 1) < 0.005){
+        tagEl.innerHTML = `物价平稳`;
+        tagEl.style.color = "#27ae60";
+    } else if(m < 1){
+        tagEl.innerHTML = `物价偏低（${Math.round((1-m)*100)}%降幅）`;
+        tagEl.style.color = "#27ae60";
+    } else {
+        tagEl.innerHTML = `物价偏高（${Math.round((m-1)*100)}%涨幅）`;
+        tagEl.style.color = "#e74c3c";
+    }
     
     // 按类型分组
     const categories = {
@@ -9153,9 +12280,16 @@ function showShop() {
                 effectText = `<br><span style="color:#e74c3c;">效果：五年内大幅降低怀孕几率</span>`;
             }
             
+            let priceDisplay = `${finalPrice}文`;
+            if(Math.abs(gameData.priceMultiplier - 1) >= 0.005){
+                let origPrice = Math.floor(item.price);
+                let arrow = gameData.priceMultiplier > 1 ? "📈" : "📉";
+                priceDisplay = `<span style="color:${gameData.priceMultiplier>1?'#e74c3c':'#27ae60'}; font-weight:700;">${finalPrice}文</span> <span style="text-decoration:line-through; color:#999; font-size:11px;">原价${origPrice}文</span> ${arrow}`;
+            }
+            
             html += `<div class="shop-item">
                 <div class="item-name">${item.name} ${ownedCount}</div>
-                <div class="item-info">价格：${finalPrice}文<br>${item.description}${effectText}</div>
+                <div class="item-info">价格：${priceDisplay}<br>${item.description}${effectText}</div>
                 <div class="item-btn">
                     <button class="modal-btn" onclick="buyItem(${item.id})" ${gameData.money >= finalPrice ? "" : "disabled style='opacity:0.4'"}>购买</button>
                 </div>
@@ -9165,6 +12299,7 @@ function showShop() {
         html += `</div></div></div>`;
     }
     
+    html = `<div style="margin-bottom:10px; cursor:pointer; color:#8b6914; font-size:12px;" onclick="showMarketPage()">← 返回市集</div>` + html;
     document.getElementById("shopContent").innerHTML = html;
     showDiv("shopMask");
 }
