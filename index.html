@@ -120,6 +120,38 @@
             border-color: #b08040;
             color: #efe0c0;
         }
+        .recover-btn {
+            margin-top: 16px;
+            padding: 12px 42px;
+            font-size: 18px;
+            background: linear-gradient(180deg, #5a4020 0%, #3a2810 100%);
+            border-color: #a08040;
+            color: #e8d8b0;
+        }
+        .hall-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 300;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, rgba(218,165,32,0.25) 0%, rgba(184,134,11,0.15) 100%);
+            border: 1px solid rgba(218,165,32,0.5);
+            color: #b8860b;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(60,30,10,0.12);
+            transition: all 0.25s;
+        }
+        .hall-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(184,134,11,0.25);
+            background: linear-gradient(180deg, rgba(218,165,32,0.4) 0%, rgba(184,134,11,0.25) 100%);
+        }
         .load-btn.disabled {
             opacity: 0.35;
             cursor: not-allowed;
@@ -176,7 +208,7 @@
             pointer-events: none;
         }
         .modal-title {
-            font-size: 24px;
+            font-size: 26px;
             color: #5a3818;
             text-align: center;
             margin-bottom: 24px;
@@ -203,8 +235,8 @@
             margin-top: 24px;
         }
         .modal-btn {
-            padding: 10px 28px;
-            font-size: 16px;
+            padding: 12px 32px;
+            font-size: 17px;
             background: linear-gradient(180deg, #5a3a1a 0%, #3d2510 100%);
             border: 1px solid rgba(180,130,60,0.5);
             border-radius: 6px;
@@ -246,13 +278,17 @@
         }
         .main-page {
             width: 100vw;
-            min-height: 100vh;
-            padding: 16px;
+            height: 100vh;
+            overflow: hidden;
+            padding: 20px 48px 80px 48px;
             display: none;
         }
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         .top-bar {
             display: flex;
@@ -261,12 +297,13 @@
             background: linear-gradient(180deg, rgba(252,247,236,0.9) 0%, rgba(248,240,225,0.85) 100%);
             border: 1px solid rgba(170,130,70,0.25);
             border-radius: 10px;
-            padding: 8px 16px;
-            margin-bottom: 12px;
+            padding: 10px 20px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             box-shadow: 0 2px 12px rgba(60,30,10,0.08), inset 0 1px 0 rgba(255,255,255,0.5);
             position: relative;
+            flex-shrink: 0;
         }
         .top-bar::before {
             content: "";
@@ -278,7 +315,7 @@
             background: linear-gradient(to right, transparent, rgba(180,140,60,0.4), transparent);
         }
         .info-text {
-            font-size: 14px;
+            font-size: 16px;
             color: #6b4a2a;
         }
         .money {
@@ -288,7 +325,7 @@
         .ai-status {
             padding: 4px 12px;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 600;
             letter-spacing: 1px;
             border: 1px solid;
@@ -312,6 +349,74 @@
             border: 1px solid rgba(180,130,60,0.25);
             letter-spacing: 2px;
         }
+        /* ========== 汉堡菜单 ========== */
+        .menu-wrapper {
+            position: relative;
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
+        .menu-btn {
+            width: 34px; height: 34px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 5px;
+            background: transparent;
+            border: 1px solid rgba(160,120,60,0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.2s;
+        }
+        .menu-btn:hover { background: rgba(160,120,60,0.1); }
+        .menu-btn-line {
+            width: 18px; height: 2px;
+            background: #6b4a2a;
+            border-radius: 1px;
+            transition: all 0.25s;
+        }
+        .menu-dropdown {
+            position: absolute;
+            top: 42px;
+            right: 0;
+            background: linear-gradient(175deg, rgba(252,247,236,0.98) 0%, rgba(245,237,220,0.98) 100%);
+            border: 1px solid rgba(160,120,60,0.3);
+            border-radius: 8px;
+            min-width: 140px;
+            box-shadow: 0 6px 20px rgba(60,30,10,0.15);
+            z-index: 200;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-6px);
+            transition: all 0.2s ease;
+            padding: 4px 0;
+        }
+        .menu-dropdown.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .menu-item {
+            display: block;
+            width: 100%;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-family: "Noto Serif SC", serif;
+            color: #5a3a1a;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .menu-item:hover {
+            background: rgba(160,120,60,0.1);
+            color: #3d1f0a;
+        }
+        .menu-item + .menu-item {
+            border-top: 1px solid rgba(160,120,60,0.12);
+        }
         .row {
             display: flex;
             gap: 20px;
@@ -333,8 +438,8 @@
             background: linear-gradient(175deg, rgba(252,247,236,0.9) 0%, rgba(245,237,220,0.85) 100%);
             border: 1px solid rgba(170,130,70,0.22);
             border-radius: 10px;
-            padding: 16px;
-            margin-bottom: 12px;
+            padding: 18px;
+            margin-bottom: 0;
             box-shadow: 0 2px 12px rgba(60,30,10,0.06), inset 0 1px 0 rgba(255,255,255,0.5);
             position: relative;
             transition: border-color 0.3s, box-shadow 0.3s;
@@ -355,56 +460,102 @@
             pointer-events: none;
         }
 
-        /* ========== 导航大按钮 ========== */
-        .nav-btn-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 12px;
+        /* ========== 底部导航栏 (3Tab) — 固定在底部 ========== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(252,246,234,0.98) 0%, rgba(243,233,216,0.97) 100%);
+            border-top: 1px solid rgba(170,130,70,0.3);
+            padding: 8px 0 12px;
+            z-index: 100;
+            box-shadow: 0 -2px 12px rgba(60,30,10,0.08);
         }
-        .nav-icon-btn {
-            flex: none;
-            min-width: 0;
-            max-width: none;
-            padding: 12px 6px 10px;
-            border-radius: 10px;
-            border: 1px solid rgba(170,130,70,0.25);
-            background: linear-gradient(180deg, rgba(252,246,234,0.9) 0%, rgba(243,233,216,0.85) 100%);
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(60,30,10,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
-            position: relative;
-            overflow: hidden;
+            padding: 4px 20px;
+            border-radius: 10px;
+            transition: all 0.25s;
+            opacity: 0.55;
+            -webkit-tap-highlight-color: transparent;
         }
-        .nav-icon-btn::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 50% 0%, rgba(255,220,150,0.1) 0%, transparent 60%);
-            pointer-events: none;
+        .bottom-nav-item:hover {
+            opacity: 0.8;
+            background: rgba(160,120,60,0.06);
         }
-        .nav-icon-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 18px rgba(60,30,10,0.15), 0 0 0 1px rgba(200,150,50,0.2);
-            border-color: #c9a050;
-            background: linear-gradient(180deg, rgba(255,250,242,0.95) 0%, rgba(248,240,224,0.9) 100%);
+        .bottom-nav-item.active {
+            opacity: 1;
+            background: rgba(160,120,60,0.12);
         }
-        .nav-icon-btn:active {
-            transform: translateY(-1px);
-            transition: all 0.1s;
-        }
-        .nav-icon-btn .nav-icon {
-            font-size: 28px;
-            display: block;
-            margin-bottom: 4px;
+        .bottom-nav-item .bn-icon {
+            font-size: 26px;
             line-height: 1;
+            transition: transform 0.2s;
         }
-        .nav-icon-btn .nav-label {
-            font-size: 13px;
+        .bottom-nav-item.active .bn-icon {
+            transform: scale(1.15);
+        }
+        .bottom-nav-item .bn-label {
+            font-size: 15px;
             font-weight: 700;
             color: #6b4a2a;
             letter-spacing: 2px;
+            margin-top: 2px;
+        }
+
+        /* ========== 子Tab导航栏（顶部标签式） ========== */
+        .sub-tab-bar {
+            display: flex;
+            justify-content: space-around;
+            gap: 0;
+            border-bottom: 2.5px solid rgba(160,120,60,0.2);
+            margin-bottom: 16px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(247,241,232,0.95);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        .sub-tab-bar::-webkit-scrollbar { display: none; }
+        .sub-tab-item {
+            padding: 12px 24px;
+            border: none;
+            border-bottom: 3px solid transparent;
+            background: transparent;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 600;
+            color: #8a6a4a;
+            white-space: nowrap;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            border-radius: 0;
+            position: relative;
+            margin-bottom: -2.5px;
+            letter-spacing: 1px;
+        }
+        .sub-tab-item:hover {
+            color: #4a2a10;
+            background: rgba(160,120,60,0.05);
+            border-bottom-color: rgba(160,120,60,0.3);
+        }
+        .sub-tab-item.active {
+            color: #3d1f0a;
+            border-bottom-color: #6b3a1a;
+            background: transparent;
+            box-shadow: none;
+            font-weight: 700;
         }
 
         /* ========== 紧凑属性网格 ========== */
@@ -416,36 +567,64 @@
         .stats-grid .attr-item {
             margin: 1px 0;
             padding: 1px 0;
-            font-size: 13px;
+            font-size: 15px;
             border-bottom: 1px dashed rgba(160,120,60,0.15);
         }
 
         /* ========== 两栏布局 ========== */
         .row-two-col {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            gap: 16px;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
         }
         .col-main {
-            flex: 1.1;
-            min-width: 330px;
+            flex: 1.3;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
         }
         .col-side {
-            flex: 0.9;
-            min-width: 270px;
+            flex: 0.8;
+            min-width: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
+        /* 主页：左侧最后一个卡片撑满剩余空间 */
+        .col-main > .card:last-child {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        /* 右侧：行动日志撑满，市集/执务自然高度 */
+        .action-log-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        /* 主页撑满；社交/资产可滚动 */
+        #homeContent { flex: 1; min-height: 0; }
+        #socialContent, #assetsContent { flex: 1; overflow-y: auto; min-height: 0; }
 
         /* ========== 行动按钮网格 ========== */
         .action-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 3px;
+            gap: 7px;
         }
         .action-grid .action-btn {
             text-align: center;
             width: 100%;
-            font-size: 11px;
-            padding: 4px 6px;
+            font-size: 14px;
+            padding: 9px 5px;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         /* ========== 全屏页面Mask ========== */
@@ -461,8 +640,8 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 6px 16px;
-            font-size: 14px;
+            padding: 8px 18px;
+            font-size: 16px;
             background: rgba(160,120,60,0.08);
             border: 1px solid rgba(160,120,60,0.3);
             border-radius: 6px;
@@ -541,15 +720,15 @@
         }
         .member-name {
             font-weight: 700;
-            font-size: 16px;
+            font-size: 18px;
             color: #4a2a10;
             letter-spacing: 1px;
         }
         .member-detail {
-            font-size: 13px;
+            font-size: 15px;
             color: #7a5a3a;
             margin-top: 3px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         .member-actions {
             display: flex;
@@ -560,51 +739,54 @@
             margin-left: 12px;
         }
         .member-actions .action-btn {
-            padding: 4px 10px;
-            font-size: 11px;
+            padding: 6px 14px;
+            font-size: 14px;
         }
 
         /* ========== 响应式 ========== */
         @media (max-width: 820px) {
-            .main-page { padding: 8px; }
+            .main-page { height: auto; overflow: visible; padding: 8px 16px 85px 16px; }
+            .container { height: auto; display: block; }
             .top-bar { padding: 8px 10px; gap: 4px; }
             .top-bar .info-text { font-size: 12px; color:#6b4a2a; }
-            .nav-btn-row { gap: 6px; grid-template-columns: repeat(3, 1fr); }
-            .nav-icon-btn { padding: 6px 3px 4px; }
-            .nav-icon-btn .nav-icon { font-size: 22px; }
-            .nav-icon-btn .nav-label { font-size: 11px; letter-spacing: 1px; color:#6b4a2a; }
-            .row-two-col { flex-direction: column; }
-            .col-main, .col-side { min-width: 100%; flex: auto; }
-            .action-grid { grid-template-columns: repeat(3, 1fr); gap: 2px; }
-            .action-grid .action-btn { font-size: 10px; padding: 3px 4px; }
+            .bottom-nav-item .bn-icon { font-size: 22px; }
+            .bottom-nav-item .bn-label { font-size: 11px; letter-spacing: 1px; }
+            .sub-tab-item { font-size: 15px; padding: 10px 16px; }
+            .row-two-col { flex-direction: column; flex: auto; overflow: visible; }
+            .col-main, .col-side { min-width: 100%; flex: auto; overflow: visible; display: block; }
+            .col-main > .card:last-child { flex: auto; display: block; }
+            .action-log-card { flex: auto; }
+            .action-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+            .action-grid .action-btn { font-size: 12px; padding: 8px 5px; }
             .stats-grid { gap: 1px 8px; }
-            .stats-grid .attr-item { font-size: 12px; }
-            .card { padding: 10px; margin-bottom: 8px; }
-            .card-title { font-size: 15px; margin-bottom: 6px; }
+            .stats-grid .attr-item { font-size: 14px; }
+            .card { padding: 14px; margin-bottom: 10px; }
+            .card-title { font-size: 17px; margin-bottom: 8px; }
+            .attr-item { font-size: 15px; }
             .full-page-mask .modal { max-width: 90vw; max-height: 92vh; padding: 0; }
             .full-page-mask .modal-header { padding: 16px 16px 0 16px; }
             .full-page-mask .modal-body { padding: 12px 16px 16px 16px; }
             .modal { max-width: 90vw; min-width: auto; padding: 20px; }
             .member-card { flex-direction: column; align-items: flex-start; gap: 6px; padding: 8px 10px; }
             .member-actions { width: 100%; justify-content: flex-start; margin-left: 0; }
-            .top-bar .save-game-btn { padding: 3px 6px; font-size: 11px; }
-            .action-log-card { min-height: 140px; max-height: 200px; }
+            .action-log-card { min-height: 180px; max-height: 300px; flex: auto; }
             .start-page { padding: 0 24px; }
             .game-title { font-size: 34px; margin-bottom: 40px; letter-spacing: 8px; }
             .start-btn { padding: 14px 40px; font-size: 18px; letter-spacing: 4px; }
+            #homeContent, #socialContent, #assetsContent { flex: auto; overflow: visible; }
         }
         @media (max-width: 480px) {
-            .nav-btn-row { grid-template-columns: repeat(2, 1fr); gap: 4px; }
-            .action-grid { grid-template-columns: repeat(4, 1fr); gap: 2px; }
-            .action-grid .action-btn { font-size: 8px; padding: 3px 2px; }
-            .nav-icon-btn { padding: 5px 2px 3px; }
-            .nav-icon-btn .nav-icon { font-size: 20px; }
-            .nav-icon-btn .nav-label { font-size: 10px; color:#6b4a2a; }
+            .action-grid { grid-template-columns: repeat(3, 1fr); gap: 4px; }
+            .action-grid .action-btn { font-size: 11px; padding: 7px 4px; }
+            .bottom-nav-item .bn-icon { font-size: 20px; }
+            .bottom-nav-item .bn-label { font-size: 10px; }
+            .sub-tab-item { font-size: 14px; padding: 8px 14px; }
             .top-bar { flex-direction: column; align-items: flex-start; }
-            .main-page { padding: 4px; }
-            .card { padding: 8px; margin-bottom: 6px; }
-            .card-title { font-size: 14px; }
-            .action-log-card { min-height: 120px; max-height: 160px; }
+            .main-page { height: auto; overflow: visible; padding: 4px 10px 80px 10px; }
+            #homeContent, #socialContent, #assetsContent { flex: auto; overflow: visible; }
+            .card { padding: 12px; margin-bottom: 10px; }
+            .card-title { font-size: 16px; }
+            .action-log-card { min-height: 160px; max-height: 280px; flex: auto; }
             .full-page-mask .modal { max-width: 92vw; padding: 0; }
             .full-page-mask .modal-header { padding: 14px 14px 0 14px; }
             .full-page-mask .modal-body { padding: 10px 14px 14px 14px; }
@@ -614,9 +796,9 @@
             .start-btn { padding: 12px 32px; font-size: 16px; letter-spacing: 3px; }
         }
         .card-title {
-            font-size: 17px;
+            font-size: 19px;
             color: #4a2a10;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             padding-bottom: 6px;
             font-weight: 700;
             letter-spacing: 3px;
@@ -633,9 +815,9 @@
             margin-left: 8px;
         }
         .attr-item {
-            font-size: 15px;
-            margin: 6px 0;
-            padding: 5px 0;
+            font-size: 17px;
+            margin: 4px 0;
+            padding: 4px 0;
             color: #5a3a1a;
             border-bottom: 1px dashed rgba(160,120,60,0.15);
         }
@@ -680,8 +862,8 @@
             gap: 10px;
         }
         .action-btn {
-            padding: 6px 12px;
-            font-size: 12px;
+            padding: 10px 18px;
+            font-size: 15px;
             background: linear-gradient(180deg, #5a3a1a 0%, #3d2510 100%);
             border: 1px solid rgba(180,130,60,0.35);
             border-radius: 6px;
@@ -810,8 +992,8 @@
         .courtesan-btn:hover { background: linear-gradient(180deg, #9a5050 0%, #7a3838 100%) !important; border-color: rgba(220,160,150,0.55) !important; box-shadow: 0 4px 14px rgba(180,100,90,0.25) !important; }
 
         .action-log-card {
-            min-height: 160px;
-            max-height: 260px;
+            flex: 1;
+            min-height: 0;
             display: flex;
             flex-direction: column;
         }
@@ -840,12 +1022,12 @@
             font-style: italic;
         }
         .log-item {
-            padding: 10px 12px;
-            margin-bottom: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
             background: rgba(250,244,232,0.6);
             border-left: 3px solid rgba(190,150,60,0.55);
             border-radius: 0 6px 6px 0;
-            font-size: 14px;
+            font-size: 16px;
             color: #5a3a1a;
             animation: fadeIn 0.3s ease;
         }
@@ -863,10 +1045,10 @@
             }
         }
         .relation-item {
-            padding: 14px;
+            padding: 18px 18px;
             background: rgba(250,244,232,0.55);
             border-radius: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             border: 1px solid rgba(170,130,70,0.18);
             position: relative;
             transition: all 0.25s;
@@ -891,13 +1073,13 @@
             opacity: 0.7;
         }
         .rel-info {
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.7;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #5a3a1a;
         }
         .rel-name {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
             color: #4a2a10;
         }
@@ -907,8 +1089,8 @@
             flex-wrap: wrap;
         }
         .rel-btn-group button {
-            padding: 5px 12px;
-            font-size: 13px;
+            padding: 7px 14px;
+            font-size: 14px;
             background: linear-gradient(180deg, #5a3a1a 0%, #3d2510 100%);
             border: 1px solid rgba(180,130,60,0.35);
             border-radius: 6px;
@@ -1075,12 +1257,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
+            padding: 12px 16px;
             background: linear-gradient(180deg, rgba(255,252,242,0.6) 0%, rgba(248,240,226,0.4) 100%);
             border-bottom: 1px solid rgba(170,130,70,0.18);
             cursor: pointer;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 17px;
             color: #4a2a10;
             letter-spacing: 1px;
             transition: all 0.2s;
@@ -1092,12 +1274,12 @@
             color: #4a2a10;
         }
         .family-category-toggle {
-            font-size: 13px;
+            font-size: 15px;
             color: #8a6a3a;
             font-family: monospace;
         }
         .family-category-content {
-            padding: 8px;
+            padding: 10px;
         }
         .action-result-content {
             font-size: 16px;
@@ -1474,16 +1656,10 @@
             border-bottom-color: rgba(190,140,80,0.15);
             color: #5a2a1a;
         }
-        body.courtesan-theme .nav-icon-btn {
-            background: linear-gradient(180deg, rgba(252,245,238,0.9), rgba(244,233,220,0.85));
-            border-color: rgba(190,140,80,0.3);
+        body.courtesan-theme .bottom-nav-item .bn-label { color: #6a2a20; }
+        body.courtesan-theme .bottom-nav {
+            border-top-color: rgba(190,140,80,0.4);
         }
-        body.courtesan-theme .nav-icon-btn:hover {
-            background: linear-gradient(180deg, rgba(255,250,244,0.95), rgba(252,244,232,0.9));
-            border-color: #d4a060;
-            box-shadow: 0 4px 14px rgba(180,120,80,0.12);
-        }
-        body.courtesan-theme .nav-icon-btn .nav-label { color: #6a2a20; }
         body.courtesan-theme .era-tag {
             background: rgba(190,140,80,0.1);
             color: #6a2a20;
@@ -1614,6 +1790,7 @@
 <body>
 
 <div class="start-page" id="startPage">
+    <button class="hall-btn" id="goHallOfFame" title="成就馆">🏆</button>
     <h1 class="game-title">古代人生模拟器</h1>
     <button class="start-btn" id="goStart">开始游戏</button>
     <button class="start-btn load-btn" id="goLoad">读取存档</button>
@@ -1622,10 +1799,11 @@
 <div class="mask hidden" id="recoveryMask">
     <div class="modal">
         <h2 class="modal-title">恢复进度</h2>
-        <p style="text-align:center; padding:16px 0;">检测到上次未保存的游戏进度，是否恢复？</p>
+        <p style="text-align:center; padding:12px 0;" id="recoveryInfo">检测到上次的游戏进度</p>
+        <p style="text-align:center; font-size:13px; color:#999; padding-bottom:8px;">⚠ 放弃后移入回收站，7天内可从主页\"紧急恢复\"找回</p>
         <div class="modal-btn-group">
-            <button class="modal-btn" id="recoverYes">恢复</button>
-            <button class="modal-btn" id="recoverNo">放弃</button>
+            <button class="modal-btn" id="recoverYes" style="background:#5a8a3c;color:#f0e6d2;">✅ 恢复进度</button>
+            <button class="modal-btn" id="recoverNo" style="background:#a04030;color:#f0e6d2;">🗑 放弃（7天内可找回）</button>
         </div>
     </div>
 </div>
@@ -1642,8 +1820,16 @@
             <input type="text" id="apiKey" placeholder="Bearer 后的密钥">
         </div>
         <div class="form-item">
-            模型名称（选填）:<br>
-            <input type="text" id="modelName" placeholder="例如：gpt-3.5-turbo">
+            模型名称:<br>
+            <select id="modelSelect" style="width:100%;padding:10px 12px;border:1px solid rgba(160,120,60,0.3);border-radius:6px;font-size:14px;font-family:inherit;background:#fefcf7;color:#5a3a1a;margin-bottom:6px;">
+                <option value="">-- 请先拉取模型列表 --</option>
+                <option value="gpt-3.5-turbo" id="optDefault">gpt-3.5-turbo (默认)</option>
+            </select>
+            <div style="display:flex;gap:8px;align-items:center;">
+                <input type="text" id="modelName" placeholder="或手动输入模型名" style="flex:1;">
+                <button class="action-btn" id="fetchModelsBtn" style="padding:10px 16px;font-size:14px;white-space:nowrap;">🔍 拉取模型</button>
+            </div>
+            <div id="fetchStatus" style="margin-top:6px;font-size:12px;color:#888;display:none;"></div>
         </div>
         <div class="modal-btn-group">
             <button class="modal-btn" id="saveAiConfig">保存配置</button>
@@ -2213,40 +2399,41 @@
             </div>
             <div class="info-text">
                 AI状态：<span id="aiStatus" class="ai-status ai-off">离线模式</span>
-                &nbsp;&nbsp;
-                <button class="action-btn" id="openAiConfig">AI配置</button>
-                &nbsp;&nbsp;
-                <button class="action-btn save-game-btn" id="saveGameBtn">💾 存档</button>
             </div>
-            <div class="info-text money">
+            <div class="info-text money" style="display:flex;align-items:center;">
                 现有钱财：<span id="charMoney">0</span> 文
+                <div class="menu-wrapper">
+                    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+                        <span class="menu-btn-line"></span>
+                        <span class="menu-btn-line"></span>
+                        <span class="menu-btn-line"></span>
+                    </button>
+                    <div class="menu-dropdown" id="menuDropdown">
+                        <button class="menu-item" onclick="openAiConfigMenu()">🔌 API接口</button>
+                        <button class="menu-item" onclick="saveGameMenu()">💾 存档</button>
+                        <button class="menu-item" onclick="loadGameMenu()">📂 读档</button>
+                        <button class="menu-item" onclick="returnToMainMenu()" style="color:#a04030;">🏠 返回主菜单</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- 导航大按钮 -->
-        <div class="nav-btn-row">
-            <div class="nav-icon-btn" id="navFamily" onclick="showFamilyPage()">
-                <span class="nav-icon">🏠</span>
-                <span class="nav-label">家人</span>
-            </div>
-            <div class="nav-icon-btn" id="navFriends" onclick="showFriendsPage()">
-                <span class="nav-icon">🤝</span>
-                <span class="nav-label">好友</span>
-            </div>
-            <div class="nav-icon-btn" id="navShop" onclick="showMarketPage()">
-                <span class="nav-icon">🏪</span>
-                <span class="nav-label">市集</span>
-            </div>
-            <div class="nav-icon-btn" id="navAssets" onclick="showAssetsPage()">
-                <span class="nav-icon">💰</span>
-                <span class="nav-label">资产</span>
-            </div>
-            <div class="nav-icon-btn" id="navOutside" onclick="showOutsidePage()">
-                <span class="nav-icon">💕</span>
-                <span class="nav-label">红颜</span>
-            </div>
+        <!-- 子Tab导航栏 - 社交 -->
+        <div class="sub-tab-bar" id="socialSubTabs" style="display:none;">
+            <div class="sub-tab-item active" onclick="switchSubTab('social','friends')">🤝 好友</div>
+            <div class="sub-tab-item" onclick="switchSubTab('social','family')">🏠 家人</div>
+            <div class="sub-tab-item" id="subOutsideTab" onclick="switchSubTab('social','outside')">💕 红颜</div>
+            <div class="sub-tab-item hidden" id="subCourtesanTab" onclick="switchSubTab('social','courtesan')" style="display:none;">🌸 芳华阁</div>
+        </div>
+        <!-- 子Tab导航栏 - 资产 -->
+        <div class="sub-tab-bar" id="assetsSubTabs" style="display:none;">
+            <div class="sub-tab-item active" onclick="switchSubTab('assets','house')">🏘️ 房产</div>
+            <div class="sub-tab-item" onclick="switchSubTab('assets','carriage')">🐎 马车</div>
+            <div class="sub-tab-item" onclick="switchSubTab('assets','inventory')">🎒 背包</div>
         </div>
 
+        <!-- 主页内容区 -->
+        <div id="homeContent">
         <div class="row-two-col">
             <div class="col-main">
                 <div class="card">
@@ -2264,7 +2451,7 @@
 
                 <div class="card">
                     <h3 class="card-title">日常行动</h3>
-                    <p style="margin-bottom:6px;">本年度剩余行动次数：<span id="actCount"></span></p>
+                    <p style="margin-bottom:6px;font-size:15px;">本年度剩余行动次数：<span id="actCount"></span></p>
                     <div class="action-grid">
                         <button class="action-btn light-btn" data-act="rest">休息</button>
                         <button class="action-btn light-btn" data-act="exercise">锻炼</button>
@@ -2292,7 +2479,7 @@
                         <button class="action-btn courtesan-btn hidden" id="btnCourtesanPractice" onclick="showSelfPractice()">🧘 独自修炼</button>
                     </div>
                     <div style="margin-top:8px;">
-                        <button class="action-btn" id="btnGrowAge" style="width:100%;padding:8px;font-size:14px;">增长年岁</button>
+                        <button class="action-btn" id="btnGrowAge" style="width:100%;padding:10px;font-size:16px;font-weight:700;letter-spacing:3px;">📅 增长年岁</button>
                     </div>
                 </div>
 
@@ -2308,13 +2495,49 @@
                 <div class="card hidden" id="eventCard">
                     <h3 class="card-title">年度执务</h3>
                     <div id="eventCardBrief" style="font-size:12px; color:#8B7355; margin-bottom:8px;"></div>
-                    <button class="action-btn" id="openEventPanelBtn" onclick="showYearlyEventPanel()">处理执务</button>
+                    <button class="action-btn" id="openEventPanelBtn" onclick="showYearlyEventPanel()" style="width:100%;padding:12px;font-size:15px;">处理执务</button>
+                </div>
+                <div class="card" id="marketCard">
+                    <h3 class="card-title">🏪 市集</h3>
+                    <button class="action-btn" style="width:100%;padding:14px;font-size:16px;margin-bottom:8px;" onclick="showShop();">🛒 购买物品</button>
+                    <button class="action-btn" style="width:100%;padding:14px;font-size:16px;" onclick="openPawnShop();">🏷️ 典当行</button>
                 </div>
             </div>
+        </div>
+        </div><!-- end #homeContent -->
+
+        <!-- 社交内容区 -->
+        <div id="socialContent" style="display:none;">
+            <div id="socialFriendsContent"></div>
+            <div id="socialFamilyContent" style="display:none;"></div>
+            <div id="socialOutsideContent" style="display:none;"></div>
+            <div id="socialCourtesanContent" style="display:none;"></div>
+        </div>
+        <!-- 资产内容区 -->
+        <div id="assetsContent" style="display:none;">
+            <div id="assetsHouseContent"></div>
+            <div id="assetsCarriageContent" style="display:none;"></div>
+            <div id="assetsInventoryContent" style="display:none;"></div>
         </div>
         <!-- 隐藏容器：用于预渲染家人/好友内容 -->
         <div id="relList" style="display:none;"></div>
         <div id="friendList" style="display:none;"></div>
+
+        <!-- 底部导航栏 -->
+        <div class="bottom-nav">
+            <div class="bottom-nav-item active" id="bnHome" onclick="switchMainTab('home')">
+                <span class="bn-icon">🏠</span>
+                <span class="bn-label">主页</span>
+            </div>
+            <div class="bottom-nav-item" id="bnSocial" onclick="switchMainTab('social')">
+                <span class="bn-icon">👥</span>
+                <span class="bn-label">社交</span>
+            </div>
+            <div class="bottom-nav-item" id="bnAssets" onclick="switchMainTab('assets')">
+                <span class="bn-icon">💰</span>
+                <span class="bn-label">资产</span>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -2513,11 +2736,13 @@ function confirmAchieveUnlock(){
         gameData.achievementDushen = true;
         gameData.achievement++;
         gameData.reputation += 10;
+        recordToHallOfFame("achievementDushen");
     }
     if(!gameData.achievementDuwang && gameData.gambleTotalEarned >= 100000){
         gameData.achievementDuwang = true;
         gameData.achievement++;
         gameData.reputation += 10;
+        recordToHallOfFame("achievementDuwang");
     }
     saveData();
     refreshPage();
@@ -2528,6 +2753,100 @@ function confirmAchieveUnlock(){
     let closeBtn = document.getElementById("closeAchieveUnlock");
     if(closeBtn) closeBtn.onclick = confirmAchieveUnlock;
 })();
+
+// ========== 🏆 成就馆 ==========
+// 永久成就记录，不受传代影响，localStorage + IndexedDB 双重存储
+const HOF_KEY = "gameSave_hallOfFame";
+
+// 成就馆的所有成就定义（可随时扩展）
+const hofAchieveDefs = [
+    {id:"achievementDushen", name:"赌神", icon:"🎲", desc:"在1000文赌局中连赢6次，获得成就称号"},
+    {id:"achievementDuwang", name:"赌王", icon:"💰", desc:"累计在赌坊赚得10万文，获得成就称号"}
+];
+
+function loadHallOfFame(){
+    let raw = localStorage.getItem(HOF_KEY);
+    if(raw){
+        try{ return JSON.parse(raw); } catch(e){}
+    }
+    return {};
+}
+
+async function saveHallOfFame(data){
+    let raw = JSON.stringify(data);
+    localStorage.setItem(HOF_KEY, raw);
+    try{ await idbPut(HOF_KEY, raw); } catch(e){}
+}
+
+// 当成就解锁时，写入成就馆（永久保存）
+function recordToHallOfFame(achieveId){
+    let def = hofAchieveDefs.find(a => a.id === achieveId);
+    if(!def) return;
+    let hall = loadHallOfFame();
+    if(hall[achieveId]) return; // 已经记录过，不重复
+    hall[achieveId] = {
+        name: def.name,
+        icon: def.icon,
+        desc: def.desc,
+        earnedAt: new Date().toLocaleString("zh-CN")
+    };
+    saveHallOfFame(hall);
+}
+
+// 打开成就馆
+function openHallOfFame(){
+    let hall = loadHallOfFame();
+    let entries = Object.entries(hall);
+    
+    if(entries.length === 0){
+        let html = `<div class="mask" id="hallMask" onclick="event.target===this&&(hideDiv('hallMask'),document.getElementById('hallMask')?.remove())">
+            <div class="modal" style="max-width:420px; text-align:center;">
+                <h2 class="modal-title">🏆 成就馆</h2>
+                <div style="padding:40px 0; color:#999;">
+                    <div style="font-size:48px; margin-bottom:16px;">🏛</div>
+                    <div>暂无成就记录</div>
+                    <div style="font-size:12px; color:#bbb; margin-top:8px;">在游戏中获得成就后将永久保存于此</div>
+                </div>
+                <button class="modal-btn" style="background:#999; width:100%;" onclick="hideDiv('hallMask');document.getElementById('hallMask')?.remove();">关闭</button>
+            </div></div>`;
+        let old = document.getElementById("hallMask");
+        if(old) old.remove();
+        document.body.insertAdjacentHTML('beforeend', html);
+        showDiv("hallMask");
+        return;
+    }
+    
+    // 按获得时间排序（最近在前）
+    entries.sort((a, b) => {
+        let ta = a[1].earnedAt || "";
+        let tb = b[1].earnedAt || "";
+        return tb.localeCompare(ta);
+    });
+    
+    let itemsHtml = entries.map(([id, data]) => {
+        return `<div style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid rgba(200,160,60,0.3); border-radius:8px; background:rgba(245,236,215,0.5); margin-bottom:8px;">
+            <div style="font-size:36px; flex-shrink:0;">${data.icon}</div>
+            <div style="flex:1; min-width:0;">
+                <div style="font-size:16px; font-weight:700; color:#4a2a0a;">${data.name}</div>
+                <div style="font-size:12px; color:#8b6914; margin-top:2px;">${data.desc}</div>
+                <div style="font-size:11px; color:#999; margin-top:4px;">${data.earnedAt || ""}</div>
+            </div>
+            <div style="font-size:20px; color:#daa520; flex-shrink:0;">🏆</div>
+        </div>`;
+    }).join("");
+    
+    let html = `<div class="mask" id="hallMask" onclick="event.target===this&&(hideDiv('hallMask'),document.getElementById('hallMask')?.remove())">
+        <div class="modal" style="max-width:460px; max-height:80vh; overflow-y:auto;">
+            <h2 class="modal-title">🏆 成就馆</h2>
+            <p style="text-align:center; font-size:12px; color:#8b7355; margin-bottom:12px;">永久收藏，不受传代影响 · 共${entries.length}项成就</p>
+            ${itemsHtml}
+            <button class="modal-btn" style="margin-top:10px; background:#999; width:100%;" onclick="hideDiv('hallMask');document.getElementById('hallMask')?.remove();">关闭</button>
+        </div></div>`;
+    let old = document.getElementById("hallMask");
+    if(old) old.remove();
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("hallMask");
+}
 
 // 房产配置（增加妻妾数量限制、孩子数量限制）
 const houseConfig = {
@@ -2720,7 +3039,7 @@ function addActionLog(title, content) {
 }
 
 // 立即显示消息提示（用于按钮点击时的即时反馈）
-function showToast(text) {
+function showToast(text, duration = 2000) {
     let toast = document.createElement("div");
     toast.style.cssText = `
         position: fixed;
@@ -2745,7 +3064,7 @@ function showToast(text) {
         setTimeout(() => {
             document.body.removeChild(toast);
         }, 300);
-    }, 2000);
+    }, duration);
 }
 
 // 显示行动结果对话框
@@ -2791,11 +3110,187 @@ document.getElementById("closeActionResult").onclick = function() {
 };
 
 function saveData(){
-    localStorage.setItem("gameSave",JSON.stringify(gameData));
+    try{
+        let raw = JSON.stringify(gameData);
+        localStorage.setItem("gameSave", raw);
+        idbPut("gameSave", raw);
+    }catch(e){
+        console.error("saveData失败:", e);
+    }
 }
 
 // ============ 双槽位存档系统 ============
 const SAVE_SLOT_KEYS = ["gameSave_slot0", "gameSave_slot1"];
+
+// ========== IndexedDB 双重保险 ==========
+// localStorage 可能被浏览器清理，IndexedDB 更持久
+const IDB_NAME = "AncientLifeSaves";
+const IDB_VERSION = 1;
+let idb = null;
+
+function openIDB(){
+    return new Promise((resolve, reject) => {
+        if(idb) return resolve(idb);
+        let req = indexedDB.open(IDB_NAME, IDB_VERSION);
+        req.onupgradeneeded = (e) => {
+            let db = e.target.result;
+            if(!db.objectStoreNames.contains("saves")){
+                db.createObjectStore("saves", { keyPath: "key" });
+            }
+        };
+        req.onsuccess = (e) => { idb = e.target.result; resolve(idb); };
+        req.onerror = () => { reject(req.error); };
+    });
+}
+
+async function idbPut(key, value){
+    try{
+        let db = await openIDB();
+        return new Promise((resolve, reject) => {
+            let tx = db.transaction("saves", "readwrite");
+            let store = tx.objectStore("saves");
+            let req = store.put({ key, value, updatedAt: Date.now() });
+            req.onsuccess = () => resolve(true);
+            req.onerror = () => reject(req.error);
+        });
+    }catch(e){ console.error("IDB写失败:", e); return false; }
+}
+
+async function idbGet(key){
+    try{
+        let db = await openIDB();
+        return new Promise((resolve, reject) => {
+            let tx = db.transaction("saves", "readonly");
+            let store = tx.objectStore("saves");
+            let req = store.get(key);
+            req.onsuccess = () => resolve(req.result ? req.result.value : null);
+            req.onerror = () => reject(req.error);
+        });
+    }catch(e){ return null; }
+}
+
+async function idbDelete(key){
+    try{
+        let db = await openIDB();
+        return new Promise((resolve, reject) => {
+            let tx = db.transaction("saves", "readwrite");
+            let store = tx.objectStore("saves");
+            let req = store.delete(key);
+            req.onsuccess = () => resolve(true);
+            req.onerror = () => reject(req.error);
+        });
+    }catch(e){ return false; }
+}
+
+// 从 localStorage 同步到 IndexedDB（补写漏掉的档）
+async function idbSyncFromLS(){
+    for(let key of SAVE_SLOT_KEYS){
+        let ls = localStorage.getItem(key);
+        if(ls){
+            await idbPut(key, ls);
+        }
+    }
+    let auto = localStorage.getItem("gameSave");
+    if(auto) await idbPut("gameSave", auto);
+    let session = localStorage.getItem("gameSave_session");
+    if(session) await idbPut("gameSave_session", session);
+}
+
+// 从 IndexedDB 恢复丢失的 localStorage 数据
+async function idbRecoverToLS(){
+    let recovered = false;
+    for(let key of SAVE_SLOT_KEYS){
+        if(!localStorage.getItem(key)){
+            let val = await idbGet(key);
+            if(val){
+                localStorage.setItem(key, val);
+                recovered = true;
+            }
+        }
+    }
+    if(!localStorage.getItem("gameSave")){
+        let val = await idbGet("gameSave");
+        if(val){
+            localStorage.setItem("gameSave", val);
+            recovered = true;
+        }
+    }
+    if(!localStorage.getItem("gameSave_session")){
+        let val = await idbGet("gameSave_session");
+        if(val){
+            localStorage.setItem("gameSave_session", val);
+            recovered = true;
+        }
+    }
+    return recovered;
+}
+
+// ========== 存档导出/导入 ==========
+function exportSave(slot){
+    let raw = localStorage.getItem(SAVE_SLOT_KEYS[slot]);
+    if(!raw){ showToast("该槽位无存档可导出"); return; }
+    try{
+        let data = JSON.parse(raw);
+        let meta = data._saveMeta || {};
+        let name = (meta.name || "存档" + (slot + 1)).replace(/[^a-zA-Z0-9\u4e00-\u9fa5_]/g, "_");
+        let date = new Date().toISOString().slice(0, 10);
+        let filename = `古代人生_${name}_${date}.json`;
+        
+        let blob = new Blob([raw], { type: "application/json" });
+        let url = URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast(`📥 已导出：${filename}`, 3000);
+    }catch(e){
+        showToast("❌ 导出失败: " + e.message);
+    }
+}
+
+function importSave(slot){
+    let input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+    input.onchange = async (e) => {
+        let file = e.target.files[0];
+        if(!file){ return; }
+        try{
+            let text = await file.text();
+            let data = JSON.parse(text);
+            if(!data || !data.playerName){
+                showToast("❌ 文件格式不正确，非有效存档");
+                return;
+            }
+            // 写入槽位
+            if(!data._saveMeta){
+                data._saveMeta = {
+                    name: data.playerName || "",
+                    age: data.age || 0,
+                    date: new Date().toLocaleString("zh-CN"),
+                    isCourtesan: data.isCourtesan || false,
+                    courtesanName: data.courtesanName || "",
+                    money: data.money || 0
+                };
+            }
+            localStorage.setItem(SAVE_SLOT_KEYS[slot], JSON.stringify(data));
+            // 同步到 IndexedDB
+            await idbPut(SAVE_SLOT_KEYS[slot], JSON.stringify(data));
+            showToast(`📥 已导入到存档${slot + 1} | ${data.playerName} ${data.age}岁 ${data.money||0}文`, 3000);
+            updateLoadBtnState();
+            // 重新刷新槽位选择界面
+            hideDiv("saveSlotMask");
+            document.getElementById("saveSlotMask")?.remove();
+            showSaveSlotPicker("load");
+        }catch(e){
+            showToast("❌ 导入失败: " + e.message);
+        }
+    };
+    input.click();
+}
 
 function getSlotMeta(slot){
     let raw = localStorage.getItem(SAVE_SLOT_KEYS[slot]);
@@ -2816,6 +3311,12 @@ function loadGame(){
     showSaveSlotPicker("load");
 }
 
+function closeSlotMask(){
+    hideDiv("saveSlotMask");
+    let old = document.getElementById("saveSlotMask");
+    if(old) old.remove();
+}
+
 function showSaveSlotPicker(mode){ // mode: "save" | "load"
     let meta0 = getSlotMeta(0);
     let meta1 = getSlotMeta(1);
@@ -2832,6 +3333,10 @@ function showSaveSlotPicker(mode){ // mode: "save" | "load"
                 <button class="modal-btn" onclick="${mode==='save'?'saveToSlot':'loadFromSlot'}(${slot})" style="margin-top:8px; width:100%; ${mode==='save'?'background:#8b5e3c;':'background:#6a5acd;'} color:#f0e6d2;">
                     ${mode==='save'?'💾 覆盖保存':'📂 读取'}
                 </button>
+                <div style="display:flex;gap:4px;margin-top:6px;">
+                    <button class="modal-btn" onclick="exportSave(${slot})" style="flex:1;background:#5a7a3c;color:#f0e6d2;padding:6px 8px;font-size:12px;">📥 导出</button>
+                    <button class="modal-btn" onclick="importSave(${slot})" style="flex:1;background:#4a6a9c;color:#f0e6d2;padding:6px 8px;font-size:12px;">📤 导入</button>
+                </div>
             </div>`;
         } else {
             return `<div style="flex:1; border:1px dashed #999; border-radius:8px; padding:12px; background:rgba(200,200,200,0.2); text-align:center;">
@@ -2840,18 +3345,53 @@ function showSaveSlotPicker(mode){ // mode: "save" | "load"
                 <button class="modal-btn" onclick="${mode==='save'?'saveToSlot':'loadFromSlot'}(${slot})" style="margin-top:8px; width:100%; ${mode==='save'?'background:#8b5e3c;':'background:#999;'} color:#f0e6d2;" ${mode==='load'?'disabled':''}>
                     ${mode==='save'?'💾 保存':'空'}
                 </button>
+                <button class="modal-btn" onclick="importSave(${slot})" style="margin-top:6px; width:100%; background:#4a6a9c; color:#f0e6d2;padding:6px 8px;font-size:12px;">📤 导入文件</button>
             </div>`;
         }
     };
     
     let title = mode === "save" ? "💾 选择存档槽位" : "📂 读取存档";
+    // 读档模式下，检查是否有可恢复的进度
+    let recoveryHtml = "";
+    if(mode === "load"){
+        let hasTrash = hasTrashData();
+        let session = localStorage.getItem("gameSave_session");
+        let autoSave = localStorage.getItem("gameSave");
+        let hasSession = session ? (()=>{ try{ let d=JSON.parse(session); return d&&d.playerName; }catch(e){ return false; } })() : false;
+        let hasAuto = autoSave ? (()=>{ try{ let d=JSON.parse(autoSave); return d&&d.playerName; }catch(e){ return false; } })() : false;
+        if(hasSession || hasAuto || hasTrash){
+            let parts = [];
+            if(hasSession){
+                try{
+                    let d = JSON.parse(session);
+                    parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;">✅ 恢复上次进度（${d.playerName||"?"} · ${d.age||"?"}岁）</button>`);
+                }catch(e){ parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;">✅ 恢复上次进度</button>`); }
+            } else if(hasAuto){
+                try{
+                    let d = JSON.parse(autoSave);
+                    parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;">✅ 恢复上次进度（${d.playerName||"?"} · ${d.age||"?"}岁）</button>`);
+                }catch(e){ parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;">✅ 恢复上次进度</button>`); }
+            }
+            if(hasTrash){
+                parts.push(`<button class="modal-btn" onclick="closeSlotMask();recoverFromTrash();" style="background:#5a3a2a;color:#e8c8a0;">🔧 紧急恢复（从回收站）</button>`);
+            }
+            recoveryHtml = `<div style="margin-top:12px;border-top:1px dashed rgba(180,140,90,0.3);padding-top:10px;">
+                <div style="font-size:12px;color:#8b6914;margin-bottom:8px;text-align:center;">⚡ 未存档进度恢复</div>
+                ${parts.join("")}
+            </div>`;
+        }
+    }
     let html = `<div class="mask" id="saveSlotMask" onclick="event.target===this&&hideDiv('saveSlotMask')">
-        <div class="modal" style="max-width:420px;">
+        <div class="modal" style="max-width:460px; max-height:85vh; overflow-y:auto;">
             <h2 class="modal-title">${title}</h2>
             <div style="display:flex; gap:12px;">
                 ${slotHtml(0, meta0)}
                 ${slotHtml(1, meta1)}
             </div>
+            <div style="margin-top:12px;padding:8px;background:rgba(200,180,140,0.15);border-radius:6px;font-size:11px;color:#8b6914;text-align:center;">
+                💡 提示：导出存档到文件可永久保存，浏览器清缓存也不会丢失
+            </div>
+            ${recoveryHtml}
             <button class="modal-btn" style="margin-top:10px; background:#999; width:100%;" onclick="hideDiv('saveSlotMask');document.getElementById('saveSlotMask')?.remove();">取消</button>
         </div></div>`;
     
@@ -2863,27 +3403,41 @@ function showSaveSlotPicker(mode){ // mode: "save" | "load"
 
 // 保存到指定槽位
 function saveToSlot(slot){
-    hideDiv("saveSlotMask");
-    document.getElementById("saveSlotMask")?.remove();
-    
-    let data = JSON.parse(JSON.stringify(gameData));
-    data._saveMeta = {
-        name: gameData.playerName || "",
-        age: gameData.age,
-        date: new Date().toLocaleString("zh-CN"),
-        isCourtesan: gameData.isCourtesan || false,
-        courtesanName: gameData.courtesanName || "",
-        money: gameData.money || 0
-    };
-    localStorage.setItem(SAVE_SLOT_KEYS[slot], JSON.stringify(data));
-    updateLoadBtnState();
-    showToast(`已保存到存档${slot + 1}`);
+    try{
+        let data = JSON.parse(JSON.stringify(gameData));
+        data._saveMeta = {
+            name: gameData.playerName || "",
+            age: gameData.age,
+            date: new Date().toLocaleString("zh-CN"),
+            isCourtesan: gameData.isCourtesan || false,
+            courtesanName: gameData.courtesanName || "",
+            money: gameData.money || 0
+        };
+        localStorage.setItem(SAVE_SLOT_KEYS[slot], JSON.stringify(data));
+        // 双重保险：同时写入 IndexedDB
+        idbPut(SAVE_SLOT_KEYS[slot], JSON.stringify(data));
+        // 回读验证：确认存档确实写入了
+        let verify = localStorage.getItem(SAVE_SLOT_KEYS[slot]);
+        if(!verify){ throw new Error("写入验证失败"); }
+        updateLoadBtnState();
+        let tag = gameData.isCourtesan ? "🌸花魁·" : "";
+        showToast(`✅ 已保存到存档${slot + 1} | ${tag}${gameData.playerName||""} ${gameData.age}岁 ${gameData.money||0}文`, 3000);
+    }catch(e){
+        showToast("❌ 存档失败: " + e.message + "，请刷新页面后重试");
+        console.error("saveToSlot error:", e);
+    }finally{
+        hideDiv("saveSlotMask");
+        document.getElementById("saveSlotMask")?.remove();
+    }
 }
 
 // 读取指定槽位
 function loadFromSlot(slot){
     hideDiv("saveSlotMask");
     document.getElementById("saveSlotMask")?.remove();
+    
+    // 读档前备份当前进度，防止覆盖丢失
+    backupCurrentSession();
     
     let saved = localStorage.getItem(SAVE_SLOT_KEYS[slot]);
     if(!saved){
@@ -2942,6 +3496,7 @@ function migrateOldData(){
             
             if(needSave){
                 localStorage.setItem("gameSave", JSON.stringify(data));
+                idbPut("gameSave", JSON.stringify(data));
             }
         }catch(e){}
     }
@@ -2958,12 +3513,38 @@ migrateOldData();
     }
 })();
 
-// 崩溃恢复：检测是否有上次未手动保存的进度
+// IndexedDB 自动恢复：如果 localStorage 存档丢了，从 IndexedDB 恢复
+(async function autoRecoverFromIDB(){
+    try{
+        let recovered = await idbRecoverToLS();
+        if(recovered){
+            // 延迟检测更新按钮状态
+            setTimeout(()=>{
+                updateLoadBtnState();
+                showToast("🔧 检测到存档丢失，已从备份自动恢复！", 3000);
+            }, 500);
+        }
+        // 同时把 localStorage 里有的数据同步到 IndexedDB
+        await idbSyncFromLS();
+    }catch(e){ console.error("IDB恢复失败:", e); }
+})();
+
+// 崩溃恢复：检测是否有上次未手动保存的进度（仅在没有手动存档时弹窗）
 (function checkCrashRecovery(){
     let autoSave = localStorage.getItem("gameSave");
+    let sessionBackup = localStorage.getItem("gameSave_session");
     let hasManual = getSlotMeta(0) || getSlotMeta(1);
-    if(autoSave && !hasManual){
-        // 有自动存档但没有手动存档 → 弹恢复提示
+    let raw = autoSave || sessionBackup;
+    // 有自动存档/备份但没有手动存档 → 弹恢复提示
+    if(raw && !hasManual){
+        // 解析出角色信息展示给用户
+        try{
+            let data = JSON.parse(raw);
+            let info = document.getElementById("recoveryInfo");
+            if(info && data.playerName){
+                info.innerHTML = "上次进度：<b>" + (data.playerName||"?") + "</b> · " + (data.age||"?") + "岁 · " + (data.money||0) + "文 · " + (data.familyType||"?");
+            }
+        }catch(e){}
         setTimeout(()=>{ showDiv("recoveryMask"); }, 300);
     }
 })();
@@ -4139,35 +4720,38 @@ function refreshPage() {
         } else {
             hideDiv("btnCourtesanRehearse");
         }
-        // 导航栏：红颜位改成恩客
-        let navOutside = document.getElementById("navOutside");
-        if(navOutside){
-            navOutside.querySelector(".nav-icon").innerText = "💋";
-            navOutside.querySelector(".nav-label").innerText = "恩客";
-            navOutside.onclick = function(){ showPatronsPage(); };
-            navOutside.style.opacity = "1";
-            showDiv("navOutside");
+        // 更新社交子Tab：红颜→恩客，显示芳华阁
+        let subOutside = document.getElementById("subOutsideTab");
+        let subCourtesan = document.getElementById("subCourtesanTab");
+        if(subOutside){
+            subOutside.innerHTML = "💋 恩客";
+            subOutside.setAttribute("onclick", "switchSubTab('social','outside')");
+            gameData._courtesanPatronsMode = true;
         }
-        // 显示芳华阁导航
-        let navCourtesan = document.getElementById("navCourtesan");
-        if(!navCourtesan){
-            let navRow = document.querySelector(".nav-btn-row");
-            let btn = document.createElement("div");
-            btn.className = "nav-icon-btn";
-            btn.id = "navCourtesan";
-            btn.innerHTML = `<span class="nav-icon">🌸</span><span class="nav-label">芳华阁</span>`;
-            btn.onclick = function(){ showCourtesanHomePage(); };
-            navRow.insertBefore(btn, document.getElementById("navShop"));
-        } else {
-            showDiv("navCourtesan");
+        if(subCourtesan){
+            subCourtesan.style.display = "";
+            subCourtesan.setAttribute("onclick", "switchSubTab('social','courtesan')");
+            subCourtesan.onclick = function(){ switchSubTab('social','courtesan'); };
+        }
+        // 如果当前在社交Tab，切换到恩客
+        if(currentMainTab === "social" && currentSocialSub === "outside"){
+            renderOutsideInlineContent();
         }
     } else {
-        // 非花魁线：隐藏花魁按钮
+        // 非花魁线：隐藏芳华阁子Tab，恢复红颜/蓝颜
         hideDiv("btnCourtesanPerform"); hideDiv("btnCourtesanMaintain");
         hideDiv("btnCourtesanPractice"); hideDiv("btnCourtesanRehearse");
-        // 恢复正常导航
-        let navCourtesan = document.getElementById("navCourtesan");
-        if(navCourtesan) navCourtesan.style.display = "none";
+        // 恢复正常子Tab
+        let subOutside = document.getElementById("subOutsideTab");
+        let subCourtesan = document.getElementById("subCourtesanTab");
+        if(subOutside){
+            let label = gameData.playerGender === "男" ? "红颜" : "蓝颜";
+            let icon = gameData.playerGender === "男" ? "💕" : "💙";
+            subOutside.innerHTML = icon + " " + label;
+            subOutside.setAttribute("onclick", "switchSubTab('social','outside')");
+            gameData._courtesanPatronsMode = false;
+        }
+        if(subCourtesan) subCourtesan.style.display = "none";
         // 恢复红颜/蓝颜按钮
         updateMarriageUI();
     }
@@ -5833,15 +6417,179 @@ document.getElementById("diceContinueBtn").onclick = ()=>{
     showDiv("gamblingMask");
 };
 
-document.getElementById("goStart").onclick=()=>{hideDiv("startPage");showDiv("modeMask");};
-document.getElementById("goLoad").onclick=()=>{loadGame();};
-document.getElementById("saveGameBtn").onclick=()=>{saveGame();};
-// 崩溃恢复
-document.getElementById("recoverYes").onclick=()=>{
+// 备份当前进度：新游戏开始前调用，防止覆盖丢失
+function backupCurrentSession(){
     let autoSave = localStorage.getItem("gameSave");
     if(autoSave){
         try{
             let data = JSON.parse(autoSave);
+            if(data && data.playerName){
+                localStorage.setItem("gameSave_session", autoSave);
+                idbPut("gameSave_session", autoSave);
+            }
+        }catch(e){}
+    }
+}
+
+// ========== 回收站系统 ==========
+// 清理过期回收站（超过7天）
+function cleanExpiredTrash(){
+    try{
+        let raw = localStorage.getItem("gameSave_trash");
+        if(!raw) return;
+        let trash = JSON.parse(raw);
+        let cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000; // 7天前
+        let valid = trash.filter(item => {
+            return item.deletedAt && new Date(item.deletedAt).getTime() > cutoff;
+        });
+        if(valid.length !== trash.length){
+            localStorage.setItem("gameSave_trash", JSON.stringify(valid));
+        }
+    } catch(e) {}
+}
+
+// 检查回收站是否有可恢复数据（用于内部判断）
+function hasTrashData(){
+    cleanExpiredTrash();
+    try{
+        let raw = localStorage.getItem("gameSave_trash");
+        if(!raw) return false;
+        let trash = JSON.parse(raw);
+        return Array.isArray(trash) && trash.length > 0;
+    } catch(e) { return false; }
+}
+
+// 点击紧急恢复按钮
+function recoverFromTrash(){
+    closeSlotMask(); // 关闭可能打开的读档界面
+    let raw = localStorage.getItem("gameSave_trash");
+    if(!raw){ showToast("回收站为空"); return; }
+    let trash;
+    try{ trash = JSON.parse(raw); } catch(e){ showToast("回收站数据损坏"); return; }
+    if(!Array.isArray(trash) || trash.length === 0){ showToast("回收站为空"); return; }
+    
+    // 弹出选择界面
+    let itemsHtml = trash.map((item, i) => {
+        let deletedDate = item.deletedAt ? new Date(item.deletedAt) : null;
+        let daysAgo = deletedDate ? Math.ceil((Date.now() - deletedDate.getTime()) / (24*60*60*1000)) : "?";
+        let remainDays = 7 - daysAgo;
+        let expireNote = remainDays > 0 ? `（${remainDays}天后过期）` : "（即将过期）";
+        return `<div style="flex:1; border:1px solid #c9a87c; border-radius:8px; padding:12px; background:rgba(245,236,215,0.6); margin-bottom:8px;">
+            <b>📦 记录${i + 1}</b>
+            <div style="font-size:12px; color:#4a2a0a; margin-top:4px;">${item.playerName || "?"} · ${item.age || "?"}岁 · ${item.money || 0}文</div>
+            <div style="font-size:11px; color:#8b6914;">${item.familyType || ""}</div>
+            <div style="font-size:11px; color:#a04030;">${daysAgo}天前删除 ${expireNote}</div>
+            <button class="modal-btn" onclick="restoreTrashItem(${i})" style="margin-top:8px; width:100%; background:#5a8a3c; color:#f0e6d2;">✅ 恢复此进度</button>
+        </div>`;
+    }).join("");
+    
+    let html = `<div class="mask" id="trashPickerMask" onclick="event.target===this&&(hideDiv('trashPickerMask'),document.getElementById('trashPickerMask')?.remove())">
+        <div class="modal" style="max-width:480px; max-height:80vh; overflow-y:auto;">
+            <h2 class="modal-title">🔧 紧急恢复</h2>
+            <p style="text-align:center;font-size:13px;color:#888;margin-bottom:12px;">回收站中的数据7天后自动清空</p>
+            <div>${itemsHtml}</div>
+            <button class="modal-btn" style="margin-top:10px; background:#999; width:100%;" onclick="hideDiv('trashPickerMask');document.getElementById('trashPickerMask')?.remove();">关闭</button>
+        </div></div>`;
+    
+    let old = document.getElementById("trashPickerMask");
+    if(old) old.remove();
+    document.body.insertAdjacentHTML('beforeend', html);
+    showDiv("trashPickerMask");
+}
+
+// 从回收站恢复指定项
+function restoreTrashItem(index){
+    let raw = localStorage.getItem("gameSave_trash");
+    if(!raw) return;
+    let trash;
+    try{ trash = JSON.parse(raw); } catch(e){ return; }
+    let item = trash[index];
+    if(!item || !item.data) return;
+    
+    // 恢复为 gameSave
+    localStorage.setItem("gameSave", item.data);
+    // 从回收站移除该项
+    trash.splice(index, 1);
+    localStorage.setItem("gameSave_trash", JSON.stringify(trash));
+    
+    // 关闭弹窗，直接恢复游戏
+    hideDiv("trashPickerMask");
+    document.getElementById("trashPickerMask")?.remove();
+    
+    try{
+        let data = JSON.parse(item.data);
+        Object.assign(gameData, data);
+        hideDiv("startPage");
+        document.getElementById("mainPage").style.display = "block";
+        refreshPage();
+        showToast("✅ 进度已从回收站恢复！");
+    } catch(e){
+        showToast("❌ 恢复失败，数据可能已损坏");
+    }
+}
+
+// 页面加载时清理过期回收站
+(function initTrashCheck(){
+    cleanExpiredTrash();
+})();
+
+// 返回主菜单（从游戏中返回，不丢失当前进度）
+function returnToMainMenu(){
+    closeMenu();
+    saveData();  // 先保存当前游戏到 auto-save
+    document.getElementById("mainPage").style.display = "none";
+    document.getElementById("startPage").style.display = "";
+    updateLoadBtnState();
+}
+
+// 恢复上次进度（从主页/读档界面按钮）
+function recoverLastSession(){
+    closeSlotMask(); // 关闭可能打开的读档界面
+    let session = localStorage.getItem("gameSave_session");
+    let autoSave = localStorage.getItem("gameSave");
+    let raw = session || autoSave;
+    if(!raw){ showToast("没有可恢复的进度"); return; }
+    try{
+        let data = JSON.parse(raw);
+        Object.assign(gameData, data);
+        hideDiv("startPage");
+        document.getElementById("mainPage").style.display = "block";
+        refreshPage();
+        showToast("进度已恢复！");
+    }catch(e){ showToast("恢复失败，数据可能已损坏"); }
+}
+
+document.getElementById("goStart").onclick=()=>{
+    backupCurrentSession();  // 开新游戏前备份当前进度
+    let autoSave = localStorage.getItem("gameSave");
+    let hasManual = getSlotMeta(0) || getSlotMeta(1);
+    // 如果有手动存档但当前自动存档和槽位不同，提醒用户
+    if(hasManual && autoSave){
+        try{
+            let cur = JSON.parse(autoSave);
+            let slot0 = getSlotMeta(0);
+            let slot1 = getSlotMeta(1);
+            let curInSlot = (slot0 && slot0.name === cur.playerName) || (slot1 && slot1.name === cur.playerName);
+            if(!curInSlot){
+                // 当前自动存档不在任何手动槽位中 → 提醒
+                if(!confirm("⚠ 当前有未手动保存的进度（"+(cur.playerName||"?")+"），开新游戏会覆盖。\n\n你的手动存档安全，但当前未保存的进度仅可通过\"紧急恢复\"找回。\n\n确定开始新游戏？")){
+                    return;
+                }
+            }
+        }catch(e){}
+    }
+    hideDiv("startPage");showDiv("modeMask");
+};
+document.getElementById("goLoad").onclick=()=>{loadGame();};
+document.getElementById("goHallOfFame").onclick=()=>{openHallOfFame();};
+// 崩溃恢复（旧弹窗兼容）
+document.getElementById("recoverYes").onclick=()=>{
+    let autoSave = localStorage.getItem("gameSave");
+    let sessionBackup = localStorage.getItem("gameSave_session");
+    let raw = autoSave || sessionBackup;
+    if(raw){
+        try{
+            let data = JSON.parse(raw);
             Object.assign(gameData, data);
             hideDiv("recoveryMask");
             hideDiv("startPage");
@@ -5853,8 +6601,38 @@ document.getElementById("recoverYes").onclick=()=>{
     hideDiv("recoveryMask");
 };
 document.getElementById("recoverNo").onclick=()=>{
+    // 不永久删除，移入回收站（7天内可恢复）
+    let autoSave = localStorage.getItem("gameSave");
+    let sessionBackup = localStorage.getItem("gameSave_session");
+    let trash = null;
+    try {
+        let existing = localStorage.getItem("gameSave_trash");
+        trash = existing ? JSON.parse(existing) : [];
+    } catch(e) { trash = []; }
+    
+    [autoSave, sessionBackup].forEach(raw => {
+        if(raw){
+            try {
+                let data = JSON.parse(raw);
+                trash.push({
+                    playerName: data.playerName || "?",
+                    age: data.age || 0,
+                    money: data.money || 0,
+                    familyType: data.familyType || "",
+                    data: raw,
+                    deletedAt: new Date().toISOString()
+                });
+            } catch(e) {}
+        }
+    });
+    // 只保留最近5条回收站记录
+    if(trash.length > 5) trash = trash.slice(-5);
+    localStorage.setItem("gameSave_trash", JSON.stringify(trash));
+    
     localStorage.removeItem("gameSave");
+    localStorage.removeItem("gameSave_session");
     hideDiv("recoveryMask");
+    showToast("进度已放弃（7天内可从\"紧急恢复\"找回）");
 };
 document.getElementById("randMode").onclick=()=>{createRandomRole();hideDiv("modeMask");document.getElementById("mainPage").style.display="block";refreshPage();};
 document.getElementById("customMode").onclick=()=>{hideDiv("modeMask");showDiv("customMask");};
@@ -5867,17 +6645,137 @@ document.getElementById("confirmCustom").onclick=()=>{
 };
 // 更换职业按钮已移至导航栏，直接通过onclick="showJobChange()"调用
 document.getElementById("closeJob").onclick=()=>{hideDiv("jobMask");};
-document.getElementById("openAiConfig").onclick=()=>{
+
+// ========== 汉堡菜单 ==========
+function toggleMenu(){
+    let dropdown = document.getElementById("menuDropdown");
+    dropdown.classList.toggle("open");
+}
+function closeMenu(){
+    document.getElementById("menuDropdown").classList.remove("open");
+}
+document.addEventListener("click", function(e){
+    let menu = document.getElementById("menuWrapper");
+    let dropdown = document.getElementById("menuDropdown");
+    if(dropdown && dropdown.classList.contains("open")){
+        let wrapper = document.getElementById("menuBtn")?.parentElement;
+        if(wrapper && !wrapper.contains(e.target)){
+            closeMenu();
+        }
+    }
+});
+
+function openAiConfigMenu(){
+    closeMenu();
     document.getElementById("apiUrl").value = aiConfig.apiUrl || "";
     document.getElementById("apiKey").value = aiConfig.apiKey || "";
     document.getElementById("modelName").value = aiConfig.model || "";
+    // 下拉框同步当前模型
+    let sel = document.getElementById("modelSelect");
+    let found = false;
+    for(let o of sel.options){
+        if(o.value === aiConfig.model){ sel.value = aiConfig.model; found = true; break; }
+    }
+    if(!found && aiConfig.model){
+        let opt = document.createElement("option");
+        opt.value = aiConfig.model; opt.textContent = aiConfig.model + " (当前)";
+        sel.appendChild(opt);
+        sel.value = aiConfig.model;
+    } else if(!found){
+        sel.value = "";
+    }
+    document.getElementById("fetchStatus").style.display = "none";
     showDiv("aiConfigMask");
-};
+}
+
+// 下拉框变化时同步到手输框
+function onModelSelectChange(){
+    let v = document.getElementById("modelSelect").value;
+    if(v) document.getElementById("modelName").value = v;
+}
+
+// 拉取模型列表
+async function fetchModels(){
+    let url = document.getElementById("apiUrl").value.trim();
+    let key = document.getElementById("apiKey").value.trim();
+    let statusEl = document.getElementById("fetchStatus");
+    let btn = document.getElementById("fetchModelsBtn");
+    
+    if(!url || !key){ statusEl.style.display="block"; statusEl.textContent="⚠ 请先填写接口地址和密钥"; statusEl.style.color="#d63031"; return; }
+    
+    // 从 chat/completions URL 推导 models 端点
+    let baseUrl = url.replace(/\/chat\/completions\/?$/, "").replace(/\/$/, "");
+    let modelsUrl = baseUrl + "/models";
+    
+    statusEl.style.display = "block";
+    statusEl.textContent = "⏳ 正在拉取模型列表...";
+    statusEl.style.color = "#888";
+    btn.disabled = true;
+    
+    try {
+        let resp = await fetch(modelsUrl, {
+            headers: { "Authorization": "Bearer " + key }
+        });
+        if(!resp.ok) throw new Error("HTTP " + resp.status);
+        let data = await resp.json();
+        let models = data.data || [];
+        if(models.length === 0) throw new Error("未返回模型");
+        
+        let sel = document.getElementById("modelSelect");
+        sel.innerHTML = "";
+        // 过滤掉奇怪的模型名，只保留 chat 相关或常见模型
+        let filtered = models.filter(m => {
+            let id = (m.id || "").toLowerCase();
+            return id.includes("gpt") || id.includes("claude") || id.includes("gemini") 
+                || id.includes("deepseek") || id.includes("qwen") || id.includes("glm")
+                || id.includes("llama") || id.includes("mistral") || id.includes("ernie")
+                || id.includes("yi-") || id.includes("moonshot") || id.includes("abab")
+                || id.includes("hunyuan") || id.includes("doubao") || id.includes("spark")
+                || id.includes("chat") || id.includes("baichuan") || id.includes("minimax");
+        });
+        if(filtered.length === 0) filtered = models; // 没过滤到就用全部
+        
+        for(let m of filtered){
+            let opt = document.createElement("option");
+            opt.value = m.id;
+            opt.textContent = m.id;
+            sel.appendChild(opt);
+        }
+        // 同步手输框
+        let cur = aiConfig.model;
+        let hasCur = filtered.find(m => m.id === cur);
+        if(hasCur) sel.value = cur;
+        else if(filtered.length > 0){ sel.value = filtered[0].id; document.getElementById("modelName").value = filtered[0].id; }
+        statusEl.textContent = "✅ 已加载 " + filtered.length + " 个模型，请在列表中挑选";
+        statusEl.style.color = "#27ae60";
+    } catch(e){
+        statusEl.textContent = "❌ 拉取失败: " + e.message + " — 请手动输入模型名";
+        statusEl.style.color = "#d63031";
+    }
+    btn.disabled = false;
+}
+
+document.getElementById("fetchModelsBtn").onclick = fetchModels;
+document.getElementById("modelSelect").onchange = onModelSelectChange;
+
+function saveGameMenu(){
+    closeMenu();
+    saveGame();
+}
+
+function loadGameMenu(){
+    closeMenu();
+    loadGame();
+}
+
 document.getElementById("closeAiConfig").onclick=()=>{hideDiv("aiConfigMask");};
 document.getElementById("saveAiConfig").onclick=()=>{
     aiConfig.apiUrl=document.getElementById("apiUrl").value.trim();
     aiConfig.apiKey=document.getElementById("apiKey").value.trim();
-    aiConfig.model=document.getElementById("modelName").value.trim()||"gpt-3.5-turbo";
+    // 优先取下拉框选中的，否则取手输框
+    let selVal = document.getElementById("modelSelect").value;
+    let manVal = document.getElementById("modelName").value.trim();
+    aiConfig.model = selVal || manVal || "gpt-3.5-turbo";
     localStorage.setItem("aiConfig",JSON.stringify(aiConfig));
     showToast("保存成功");hideDiv("aiConfigMask");
     updateAiStatus();
@@ -12062,24 +12960,19 @@ function triggerBanquetEvent(){
 
 // ========== UI刷新更新 ==========
 function updateMarriageUI(){
-    // 配偶、妾室、子女均归入家人全屏页面（familyList中），
-    // 红颜/蓝颜知己显示通过导航按钮进入独立页面
-    // 按钮始终可见；无红颜时点击提示
-    let outsideRel = gameData.concubines.filter(c => c.isOutside);
-    let navOutside = document.getElementById("navOutside");
-    if(!navOutside) return;
+    // 社交Tab下的红颜/蓝颜子Tab更新
+    let subOutside = document.getElementById("subOutsideTab");
+    if(!subOutside) return;
     // 若被花魁线改成了恩客则不覆盖
-    if(navOutside.querySelector(".nav-label") && navOutside.querySelector(".nav-label").innerText === "恩客") return;
+    if(gameData._courtesanPatronsMode) return;
+    let outsideRel = gameData.concubines.filter(c => c.isOutside);
     let label = gameData.playerGender === "男" ? "红颜" : "蓝颜";
     let icon = gameData.playerGender === "男" ? "💕" : "💙";
-    navOutside.querySelector(".nav-icon").innerText = icon;
-    navOutside.querySelector(".nav-label").innerText = label;
+    subOutside.innerHTML = icon + " " + label;
     if(outsideRel.length === 0){
-        navOutside.onclick = function(){ showToast("暂无" + label + "知己"); };
-        navOutside.style.opacity = "0.5";
+        subOutside.style.opacity = "0.5";
     } else {
-        navOutside.onclick = function(){ showOutsidePage(); };
-        navOutside.style.opacity = "1";
+        subOutside.style.opacity = "1";
     }
 }
 
@@ -12148,18 +13041,135 @@ document.getElementById("confirmBabyName").onclick=confirmBabyName;
 document.getElementById("btnChildrenEdu").onclick=showChildrenEducation;
 document.getElementById("closeChildrenEdu").onclick=()=>{hideDiv("childrenEduMask");};
 
-// ===== 资产全屏页面 =====
-function showAssetsPage(){
-    let html = `<div style="margin-bottom:20px; font-size:16px; color:#8B6914;">现有钱财：<b>${gameData.money}</b> 文</div>`;
+// ========== 主Tab切换 ==========
+let currentMainTab = "home";
+let currentSocialSub = "friends";
+let currentAssetSub = "house";
 
-    // 房产
-    html += `<div class="category-section" style="margin-bottom:16px;">
-        <div class="category-header" onclick="toggleCategory('assetsHouse')" style="cursor:pointer;">
-            <span class="category-title">🏠 房产</span>
-            <span class="category-toggle" id="toggle-assetsHouse">▼</span>
-        </div>
-        <div class="category-content" id="category-assetsHouse">
-            <div class="category-items">`;
+function switchMainTab(tab) {
+    currentMainTab = tab;
+    // 更新底部导航激活状态
+    document.querySelectorAll(".bottom-nav-item").forEach(b => b.classList.remove("active"));
+    document.getElementById("bn" + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add("active");
+    // 显示/隐藏内容区
+    document.getElementById("homeContent").style.display = tab === "home" ? "" : "none";
+    document.getElementById("socialContent").style.display = tab === "social" ? "" : "none";
+    document.getElementById("assetsContent").style.display = tab === "assets" ? "" : "none";
+    // 显示/隐藏子Tab栏
+    document.getElementById("socialSubTabs").style.display = tab === "social" ? "" : "none";
+    document.getElementById("assetsSubTabs").style.display = tab === "assets" ? "" : "none";
+    // 渲染对应内容
+    if(tab === "social") { renderSocialTab(currentSocialSub); }
+    if(tab === "assets") { renderAssetTab(currentAssetSub); }
+    saveData();
+}
+
+function switchSubTab(tab, sub) {
+    if(tab === "social") {
+        currentSocialSub = sub;
+        // 更新子Tab激活状态
+        document.querySelectorAll("#socialSubTabs .sub-tab-item").forEach(s => s.classList.remove("active"));
+        if(sub === "friends") document.querySelector("#socialSubTabs .sub-tab-item:nth-child(1)").classList.add("active");
+        else if(sub === "family") document.querySelector("#socialSubTabs .sub-tab-item:nth-child(2)").classList.add("active");
+        else if(sub === "outside") document.querySelector("#socialSubTabs .sub-tab-item:nth-child(3)").classList.add("active");
+        else if(sub === "courtesan") { let el = document.getElementById("subCourtesanTab"); if(el) el.classList.add("active"); }
+        renderSocialTab(sub);
+    } else if(tab === "assets") {
+        currentAssetSub = sub;
+        document.querySelectorAll("#assetsSubTabs .sub-tab-item").forEach(s => s.classList.remove("active"));
+        if(sub === "house") document.querySelector("#assetsSubTabs .sub-tab-item:nth-child(1)").classList.add("active");
+        else if(sub === "carriage") document.querySelector("#assetsSubTabs .sub-tab-item:nth-child(2)").classList.add("active");
+        else if(sub === "inventory") document.querySelector("#assetsSubTabs .sub-tab-item:nth-child(3)").classList.add("active");
+        renderAssetTab(sub);
+    }
+}
+
+// ========== 社交Tab渲染 ==========
+function renderSocialTab(sub) {
+    document.getElementById("socialFriendsContent").style.display = sub === "friends" ? "" : "none";
+    document.getElementById("socialFamilyContent").style.display = sub === "family" ? "" : "none";
+    document.getElementById("socialOutsideContent").style.display = sub === "outside" ? "" : "none";
+    document.getElementById("socialCourtesanContent").style.display = sub === "courtesan" ? "" : "none";
+    if(sub === "friends") {
+        let src = document.getElementById("friendList");
+        document.getElementById("socialFriendsContent").innerHTML = src ? src.innerHTML : "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无好友，外出散步或许能结识知己</p>";
+    } else if(sub === "family") {
+        renderFamilyInlineContent();
+    } else if(sub === "outside") {
+        renderOutsideInlineContent();
+    } else if(sub === "courtesan") {
+        renderCourtesanInlineContent();
+    }
+    saveData();
+}
+
+function renderFamilyInlineContent() {
+    let src = document.getElementById("relList");
+    document.getElementById("socialFamilyContent").innerHTML = src ? src.innerHTML : "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无家人</p>";
+}
+
+function renderOutsideInlineContent() {
+    let outsideRel = gameData.concubines.filter(c => c.isOutside);
+    let title = gameData.playerGender === "男" ? "红颜知己" : "蓝颜知己";
+    let html = `<h3 class="card-title" style="margin-bottom:12px;">💕 ${title}</h3>`;
+    if(outsideRel.length === 0) {
+        html += "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无" + title + "，多去散步或许能结识</p>";
+    } else {
+        for(let c of outsideRel) {
+            let status = c.discovered ? "<span style='color:#e74c3c;'>（已被发现）</span>" : "";
+            html += `<div class="member-card">
+                <div class="member-info">
+                    <div class="member-name">${c.name}（${c.title}）${status}</div>
+                    <div class="member-detail">${c.age}岁 | 职业：${c.job || "无"} | 好感：${c.favor} | 家世：${c.family || "不详"}</div>
+                </div>
+                <div class="member-actions">
+                    <button class="action-btn" onclick="accompanyOutside('${c.name}')">陪伴</button>
+                    <button class="action-btn" onclick="giftOutside('${c.name}')">送礼</button>
+                    <button class="action-btn" onclick="intimacyOutside('${c.name}')">同房</button>
+                    ${gameData.playerGender === "男" ? `<button class="action-btn" style="background:#4a2a0a; color:#c9a060;" onclick="bringOutsideHome('${c.name}')">接进家</button>` : ''}
+                    <button class="action-btn" onclick="breakOutsideRelation('${c.name}')">断绝关系</button>
+                </div>
+            </div>`;
+            // 红颜/蓝颜子女
+            if(c.children && c.children.length > 0){
+                html += `<div style="margin:6px 0 16px 20px; padding:10px; background:rgba(240,230,210,0.5); border-left:3px solid #c9a87c; border-radius:0 4px 4px 0;">
+                    <p style="font-weight:700; margin-bottom:8px; color:#5a3a1a;">子女：</p>`;
+                for(let child of c.children){
+                    html += `<div class="member-card" style="background:rgba(255,255,255,0.7);">
+                        <div class="member-info">
+                            <div class="member-name">${child.childType || ""}${child.name}（${child.age}岁）</div>
+                            <div class="member-detail">性别：${child.gender} | 颜值：${child.appearance} | 才华：${child.talent} | 武力：${child.strength}</div>
+                        </div>
+                    </div>`;
+                }
+                html += `</div>`;
+            }
+        }
+    }
+    document.getElementById("socialOutsideContent").innerHTML = html;
+}
+
+function renderCourtesanInlineContent() {
+    // 芳华阁内容通过全屏弹窗展示（复杂交互）
+    showCourtesanHomePage();
+    // 切回主页，避免空白
+    switchMainTab("home");
+}
+
+// ===== 资产Tab渲染 =====
+function renderAssetTab(sub) {
+    document.getElementById("assetsHouseContent").style.display = sub === "house" ? "" : "none";
+    document.getElementById("assetsCarriageContent").style.display = sub === "carriage" ? "" : "none";
+    document.getElementById("assetsInventoryContent").style.display = sub === "inventory" ? "" : "none";
+    if(sub === "house") { renderAssetsHouse(); }
+    else if(sub === "carriage") { renderAssetsCarriage(); }
+    else if(sub === "inventory") { renderAssetsInventory(); }
+    saveData();
+}
+
+function renderAssetsHouse() {
+    let html = `<div style="margin-bottom:16px; font-size:16px; color:#8B6914;">现有钱财：<b>${gameData.money}</b> 文</div>
+        <h3 class="card-title" style="margin-bottom:10px;">🏠 房产 (${gameData.houses ? gameData.houses.length : 0}处)</h3>`;
     if(gameData.houses && gameData.houses.length > 0){
         let houseCounts = {};
         for(let h of gameData.houses) houseCounts[h] = (houseCounts[h] || 0) + 1;
@@ -12167,27 +13177,25 @@ function showAssetsPage(){
             let price = houseConfig[name] ? houseConfig[name].price : 0;
             let sellPrice = Math.floor(price * 0.7);
             let info = houseConfig[name] ? (houseConfig[name].desc || "") : "";
-            html += `<div class="member-card">
-                <div class="member-info">
-                    <div class="member-name">${name} x${count}</div>
-                    <div class="member-detail">价值：${price}文 | 出售价：${sellPrice}文${info ? " | " + info : ""}</div>
-                </div>
-                <div class="member-actions">
-                    <button class="action-btn" onclick="sellPropertyFromAssets('house', '${name}')">出售</button>
+            html += `<div style="padding:10px; background:rgba(248,242,230,0.7); margin-bottom:8px; border-radius:2px;">
+                <div style="font-weight:600; color:#4a3820; font-size:16px;">${name} x${count}</div>
+                <div style="font-size:14px; color:#6a5848; margin:4px 0;">价值：${price}文 | 出售价：${sellPrice}文</div>
+                ${info ? `<div style="font-size:13px; color:#8b6914; margin-bottom:6px;">${info}</div>` : ""}
+                <div class="rel-btn-group">
+                    <button class="action-btn" onclick="sellPropertyFromAssetsInline('house', '${name}')">出售</button>
                 </div>
             </div>`;
         }
-    } else { html += `<p style="color:#999;padding:10px;">暂无房产</p>`; }
-    html += `</div></div></div>`;
+    } else { html += `<p style="color:#999;text-align:center;padding:20px;">暂无房产</p>`; }
+    html += `<div style="text-align:center; margin-top:16px;">
+        <button class="action-btn" style="padding:10px 32px; font-size:15px;" onclick="switchMainTab('home');showShop();">🏪 前往市集购买</button>
+    </div>`;
+    document.getElementById("assetsHouseContent").innerHTML = html;
+}
 
-    // 马车
-    html += `<div class="category-section" style="margin-bottom:16px;">
-        <div class="category-header" onclick="toggleCategory('assetsCarriage')" style="cursor:pointer;">
-            <span class="category-title">🐎 马车</span>
-            <span class="category-toggle" id="toggle-assetsCarriage">▼</span>
-        </div>
-        <div class="category-content" id="category-assetsCarriage">
-            <div class="category-items">`;
+function renderAssetsCarriage() {
+    let html = `<div style="margin-bottom:16px; font-size:16px; color:#8B6914;">现有钱财：<b>${gameData.money}</b> 文</div>
+        <h3 class="card-title" style="margin-bottom:10px;">🐴 马车 (${gameData.carriages ? gameData.carriages.length : 0}辆)</h3>`;
     if(gameData.carriages && gameData.carriages.length > 0){
         let carriageCounts = {};
         for(let c of gameData.carriages) carriageCounts[c] = (carriageCounts[c] || 0) + 1;
@@ -12195,49 +13203,44 @@ function showAssetsPage(){
             let price = carriageConfig[name] ? carriageConfig[name].price : 0;
             let sellPrice = Math.floor(price * 0.5);
             let bonus = carriageConfig[name] ? (carriageConfig[name].actionBonus || 0) : 0;
-            html += `<div class="member-card">
-                <div class="member-info">
-                    <div class="member-name">${name} x${count}</div>
-                    <div class="member-detail">价值：${price}文 | 出售价：${sellPrice}文 | 行动加成：+${bonus}</div>
-                </div>
-                <div class="member-actions">
-                    <button class="action-btn" onclick="sellPropertyFromAssets('carriage', '${name}')">出售</button>
+            html += `<div style="padding:10px; background:rgba(248,242,230,0.7); margin-bottom:8px; border-radius:2px;">
+                <div style="font-weight:600; color:#4a3820; font-size:16px;">${name} x${count}</div>
+                <div style="font-size:14px; color:#6a5848; margin:4px 0;">价值：${price}文 | 出售价：${sellPrice}文 | 行动加成：+${bonus}</div>
+                <div class="rel-btn-group">
+                    <button class="action-btn" onclick="sellPropertyFromAssetsInline('carriage', '${name}')">出售</button>
                 </div>
             </div>`;
         }
-    } else { html += `<p style="color:#999;padding:10px;">暂无马车</p>`; }
-    html += `</div></div></div>`;
-
-    // 背包
-    html += `<div class="category-section" style="margin-bottom:16px;">
-        <div class="category-header" onclick="toggleCategory('assetsInventory')" style="cursor:pointer;">
-            <span class="category-title">🎒 背包 (${gameData.inventory ? gameData.inventory.length : 0}件)</span>
-            <span class="category-toggle" id="toggle-assetsInventory">▼</span>
-        </div>
-        <div class="category-content" id="category-assetsInventory">
-            <div class="category-items">`;
-    html += renderInventoryHtml();
-    html += `</div></div></div>`;
-
-    // 前往商店按钮
+    } else { html += `<p style="color:#999;text-align:center;padding:20px;">暂无马车</p>`; }
     html += `<div style="text-align:center; margin-top:16px;">
-        <button class="action-btn" style="padding:10px 32px; font-size:15px;" onclick="closeAssetsPage();showShop();">前往商店</button>
+        <button class="action-btn" style="padding:10px 32px; font-size:15px;" onclick="switchMainTab('home');showShop();">🏪 前往市集购买</button>
     </div>`;
-
-    document.getElementById("assetsPageContent").innerHTML = html;
-    showDiv("assetsPageMask");
+    document.getElementById("assetsCarriageContent").innerHTML = html;
 }
 
+function renderAssetsInventory() {
+    let html = `<div style="margin-bottom:16px; font-size:16px; color:#8B6914;">现有钱财：<b>${gameData.money}</b> 文</div>
+        <h3 class="card-title" style="margin-bottom:10px;">🎒 背包 (${gameData.inventory ? gameData.inventory.length : 0}件)</h3>`;
+    html += renderInventoryHtml();
+    html += `<div style="text-align:center; margin-top:16px;">
+        <button class="action-btn" style="padding:10px 32px; font-size:15px;" onclick="switchMainTab('home');showShop();">🏪 前往市集购买</button>
+    </div>`;
+    document.getElementById("assetsInventoryContent").innerHTML = html;
+}
+
+function sellPropertyFromAssetsInline(type, name){
+    sellProperty(type, name);
+    if(type === "house") renderAssetsHouse();
+    else if(type === "carriage") renderAssetsCarriage();
+}
+
+// ===== 旧函数兼容（重定向到新Tab系统） =====
+function showAssetsPage(){ switchMainTab("assets"); }
+function closeAssetsPage(){ switchMainTab("home"); }
 function sellPropertyFromAssets(type, name){
     sellProperty(type, name);
-    // 刷新资产页内容
-    showAssetsPage();
-}
-
-function closeAssetsPage(){
-    hideDiv("assetsPageMask");
-    saveData();
-    refreshPage();
+    // 刷新当前资产子Tab
+    renderAssetTab(currentAssetSub);
 }
 
 function showMarketPage(){
@@ -12411,81 +13414,35 @@ function toggleFamilySection(sectionType) {
     // 暂时保留接口，可以根据需要扩展
 }
 
-// ===== 家人全屏页面 =====
+// ===== 家人全屏页面（已合并到社交Tab） =====
 function showFamilyPage() {
-    // 从隐藏容器获取预渲染的家庭成员内容，复制到全屏页面
-    let src = document.getElementById("relList");
-    document.getElementById("familyPageContent").innerHTML = src ? src.innerHTML : "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无家人</p>";
-    showDiv("familyPageMask");
+    switchMainTab("social");
+    switchSubTab("social", "family");
 }
 function closeFamilyPage() {
-    hideDiv("familyPageMask");
+    switchMainTab("home");
     saveData();
-    refreshPage();
 }
 
-// ===== 好友全屏页面 =====
+// ===== 好友全屏页面（已合并到社交Tab） =====
 function showFriendsPage() {
-    let src = document.getElementById("friendList");
-    document.getElementById("friendsPageContent").innerHTML = src ? src.innerHTML : "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无好友，外出散步或许能结识知己</p>";
-    showDiv("friendsPageMask");
+    switchMainTab("social");
+    switchSubTab("social", "friends");
 }
 function closeFriendsPage() {
-    hideDiv("friendsPageMask");
+    switchMainTab("home");
     saveData();
-    refreshPage();
 }
 
 // ===== 红颜/蓝颜知己全屏页面 =====
 function showOutsidePage() {
-    let outsideRel = gameData.concubines.filter(c => c.isOutside);
-    let title = gameData.playerGender === "男" ? "红颜知己" : "蓝颜知己";
-    document.getElementById("outsidePageTitle").innerText = title;
-    
-    if(outsideRel.length === 0){
-        document.getElementById("outsidePageContent").innerHTML = "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无红颜知己</p>";
-    } else {
-        let html = "";
-        for(let c of outsideRel){
-            let status = c.discovered ? "<span style='color:#e74c3c;'>（已被发现）</span>" : "";
-            html += `<div class="member-card">
-                <div class="member-info">
-                    <div class="member-name">${c.name}（${c.title}）${status}</div>
-                    <div class="member-detail">${c.age}岁 | 职业：${c.job || "无"} | 好感：${c.favor} | 家世：${c.family || "不详"}</div>
-                </div>
-                <div class="member-actions">
-                    <button class="action-btn" onclick="accompanyOutside('${c.name}')">陪伴</button>
-                    <button class="action-btn" onclick="giftOutside('${c.name}')">送礼</button>
-                    <button class="action-btn" onclick="intimacyOutside('${c.name}')">同房</button>
-                    ${gameData.playerGender === "男" ? `<button class="action-btn" style="background:#4a2a0a; color:#c9a060;" onclick="bringOutsideHome('${c.name}')">接进家</button>` : ''}
-                    <button class="action-btn" onclick="breakOutsideRelation('${c.name}')">断绝关系</button>
-                </div>
-            </div>`;
-            
-            // 红颜/蓝颜子女
-            if(c.children && c.children.length > 0){
-                html += `<div style="margin:6px 0 16px 20px; padding:10px; background:rgba(240,230,210,0.5); border-left:3px solid #c9a87c; border-radius:0 4px 4px 0;">
-                    <p style="font-weight:700; margin-bottom:8px; color:#5a3a1a;">子女：</p>`;
-                for(let child of c.children){
-                    html += `<div class="member-card" style="background:rgba(255,255,255,0.7);">
-                        <div class="member-info">
-                            <div class="member-name">${child.childType || ""}${child.name}（${child.age}岁）</div>
-                            <div class="member-detail">性别：${child.gender} | 颜值：${child.appearance} | 才华：${child.talent} | 武力：${child.strength}</div>
-                        </div>
-                    </div>`;
-                }
-                html += `</div>`;
-            }
-        }
-        document.getElementById("outsidePageContent").innerHTML = html;
-    }
-    showDiv("outsidePageMask");
+    switchMainTab("social");
+    switchSubTab("social", "outside");
 }
 
 function closeOutsidePage() {
-    hideDiv("outsidePageMask");
+    switchMainTab("home");
     saveData();
-    refreshPage();
 }
 
 function buyItem(itemId){
