@@ -63,12 +63,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-            background: url('海报.jpg') no-repeat center center;
+            background: url('海报.jpg') no-repeat center top;
             background-size: contain;
-            background-color: #1a1a1a;
+            background-color: #f7f1e8;
             position: fixed;
             top: 0;
             left: 0;
+            z-index: 500;
             overflow: hidden;
             padding-bottom: 80px;
         }
@@ -86,11 +87,12 @@
         }
         @media (orientation: portrait) {
             .start-page {
-                background-size: cover;
+                background-size: contain;
+                background-position: center top;
                 padding-bottom: 60px;
             }
             .start-page::before {
-                background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+                background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.6));
             }
         }
         .game-title {
@@ -512,8 +514,15 @@
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            padding: 20px 48px 80px 48px;
+            padding: 20px 48px;
             display: none;
+            box-sizing: border-box;
+        }
+        .main-page .container {
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 20px;
         }
         .container {
             max-width: 1200px;
@@ -1006,8 +1015,9 @@
 
         /* ========== 响应式 ========== */
         @media (max-width: 820px) {
-            .main-page { height: auto; overflow: visible; padding: 8px 12px 85px 12px; }
-            .container { height: auto; display: block; }
+            .main-page { height: 100vh; overflow: hidden; padding: 8px 12px; }
+            .main-page .container { height: calc(100vh - 70px); }
+            .container { max-width: 100%; display: block; }
             /* 顶栏优化：身份信息独占首行，AI状态+钱财+菜单同行（AI左，钱财菜单右） */
             .top-bar { padding: 10px 14px; gap: 4px; display: flex; flex-wrap: wrap; align-items: center; }
             .top-bar .info-text { font-size: 16px; color:#5a3818; line-height: 1.7; }
@@ -1088,7 +1098,8 @@
             .top-bar .info-text.money { flex: 0 0 auto; }
             /* AI状态继续缩小 */
             .ai-status { font-size: 11px !important; padding: 1px 5px !important; }
-            .main-page { height: auto; overflow: visible; padding: 4px 8px 80px 8px; }
+            .main-page { height: 100vh; overflow: hidden; padding: 4px 8px; }
+            .main-page .container { height: calc(100vh - 65px); }
             #homeContent, #socialContent, #assetsContent { flex: auto; overflow: visible; }
             /* 人物属性：保持2列网格、字体增大 */
             .col-main > .card:first-child { padding: 12px 12px; margin-bottom: 6px; }
@@ -14184,7 +14195,8 @@ function renderOutsideInlineContent() {
             </div>`;
         }
     } else if(outsideRel.length === 0) {
-        html += "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无" + title + "，献艺扬名或许能吸引恩客</p>";
+        let hint = gameData.isCourtesan ? "献艺扬名或许能吸引恩客" : "外出游玩或许能结识知己";
+        html += "<p style='color:#7a5a3a;text-align:center;padding:40px;'>暂无" + title + "，" + hint + "</p>";
     } else {
         for(let c of outsideRel) {
             let status = c.discovered ? "<span style='color:#e74c3c;'>（已被发现）</span>" : "";
