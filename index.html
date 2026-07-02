@@ -71,7 +71,7 @@
             left: 0;
             z-index: 500;
             overflow: hidden;
-            padding-bottom: 80px;
+            padding-bottom: 20px;
         }
         .start-page::before {
             content: "";
@@ -79,17 +79,18 @@
             inset: 0;
             background: transparent;
             pointer-events: none;
+            z-index: 0;
         }
         @media (orientation: landscape) {
             .start-page {
-                padding-bottom: 100px;
+                padding-bottom: 40px;
             }
         }
         @media (orientation: portrait) {
             .start-page {
                 background-size: contain;
                 background-position: center top;
-                padding-bottom: 60px;
+                padding-bottom: 20px;
             }
             .start-page::before {
                 background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.6));
@@ -103,6 +104,7 @@
             flex-direction: column;
             gap: 35px;
             z-index: 20;
+            pointer-events: auto;
             animation: fadeInUp 1.5s ease-out 0.5s both;
         }
         .ink-btn {
@@ -131,6 +133,7 @@
             background: radial-gradient(circle, rgba(245, 230, 211, 0.2) 0%, transparent 70%);
             transform: translate(-50%, -50%);
             transition: width 0.6s ease, height 0.6s ease;
+            pointer-events: none;
         }
         .ink-btn:hover::before {
             width: 400px;
@@ -212,13 +215,12 @@
             font-size: 20px;
             letter-spacing: 5px;
             color: #e8d4b8;
-            background: rgba(61, 35, 20, 0.2);
+            background: rgba(61, 35, 20, 0.6);
             border: 2px solid #d4c4a8;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             outline: none;
-            backdrop-filter: blur(3px);
         }
         .sub-btn:hover {
             color: #fff;
@@ -229,6 +231,33 @@
         }
         .sub-btn:active {
             transform: scale(0.95);
+        }
+        .menu-bottom-row {
+            display: flex;
+            gap: 30px;
+            position: relative;
+            z-index: 25;
+            pointer-events: auto;
+        }
+        #trophyIcon {
+            position: absolute;
+            top: 40px;
+            right: 8%;
+            font-size: 38px;
+            cursor: pointer;
+            z-index: 10;
+            background: rgba(61, 35, 20, 0.2);
+            border: 2px solid rgba(212, 196, 168, 0.5);
+            border-radius: 10px;
+            padding: 4px 10px;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+        }
+        #trophyIcon:hover {
+            background: rgba(139, 69, 19, 0.4);
+            border-color: #f5e6d3;
+            transform: scale(1.12);
+            box-shadow: 0 0 20px rgba(245, 230, 211, 0.25);
         }
         .footer {
             position: absolute;
@@ -347,10 +376,18 @@
             .menu-container { gap: 20px; }
             .sub-menu { gap: 25px; }
         }
-        .load-btn.disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-            pointer-events: none;
+        .ink-btn.disabled {
+            opacity: 0.5;
+            filter: grayscale(0.4);
+            cursor: pointer;
+            border-color: rgba(140,130,120,0.4) !important;
+            color: rgba(245,230,211,0.5) !important;
+            background: rgba(61,35,20,0.12) !important;
+        }
+        .ink-btn.disabled:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            border-color: rgba(140,130,120,0.4) !important;
         }
         .mask {
             position: fixed;
@@ -362,7 +399,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 99;
+            z-index: 1000;
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             animation: maskFadeIn 0.25s ease;
@@ -2198,7 +2235,66 @@
         .courtesan-help-popup .help-warn { color:#a04030; font-weight:700; }
         .courtesan-help-popup .help-tip { color:#3a7a3a; }
 
+        /* ========== 登录/注册 样式 ========== */
+        .auth-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid rgba(180,140,90,0.3);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            background: #fefcf7;
+            color: #5a3a1a;
+            margin-bottom: 12px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .auth-input:focus {
+            border-color: #c9a87c;
+        }
+        .auth-tab {
+            display: flex;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #c9a87c;
+        }
+        .auth-tab button {
+            flex: 1;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            background: rgba(200,160,120,0.15);
+            color: #5a3a1a;
+            transition: all 0.3s;
+        }
+        .auth-tab button.active {
+            background: #8b5e3c;
+            color: #f0e6d2;
+            font-weight: 700;
+        }
+        .auth-hint {
+            font-size: 12px;
+            color: #8b6914;
+            text-align: center;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        .user-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(139,94,60,0.15);
+            font-size: 13px;
+            color: #5a3a1a;
+            cursor: default;
+        }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 </head>
 <body>
 
@@ -2209,6 +2305,11 @@
     <div class="ink-particle"></div>
     <div class="ink-particle"></div>
     
+    <!-- 用户登录状态 -->
+    <div id="userBadgeTop" style="position:absolute; top:20px; right:30px; z-index:30; display:none;">
+        <span class="user-badge" id="userBadgeText"></span>
+    </div>
+    
     <div class="menu-container">
         <button class="ink-btn" id="goStart">
             <span class="btn-decoration top-left"></span>
@@ -2217,7 +2318,7 @@
             <span class="btn-decoration bottom-right"></span>
             开始游戏
         </button>
-        
+
         <button class="ink-btn" id="goLoad">
             <span class="btn-decoration top-left"></span>
             <span class="btn-decoration top-right"></span>
@@ -2225,12 +2326,14 @@
             <span class="btn-decoration bottom-right"></span>
             读档
         </button>
+        <div class="menu-bottom-row">
+            <button class="sub-btn" id="goSettings">设置</button>
+            <button class="sub-btn" id="goAuth">登录</button>
+        </div>
     </div>
-    
-    <div class="sub-menu">
-        <button class="sub-btn" id="goHallOfFame">成就</button>
-        <button class="sub-btn" id="goSettings">设置</button>
-    </div>
+
+    <!-- 成就奖杯图标 -->
+    <div id="trophyIcon" title="成就馆">🏆</div>
     
     <div class="footer">
         © 2026 古代人生模拟器
@@ -2241,30 +2344,77 @@
     <div class="modal">
         <h2 class="modal-title">恢复进度</h2>
         <p style="text-align:center; padding:12px 0;" id="recoveryInfo">检测到上次的游戏进度</p>
-        <p style="text-align:center; font-size:13px; color:#999; padding-bottom:8px;">⚠ 放弃后移入回收站，7天内可从主页\"紧急恢复\"找回</p>
+        <p style="text-align:center; font-size:13px; color:#999; padding-bottom:8px;">⚠ 放弃后移入回收站，最多保留2条，可从主页\"紧急恢复\"找回</p>
         <div class="modal-btn-group">
             <button class="modal-btn" id="recoverYes" style="background:#5a8a3c;color:#f0e6d2;">✅ 恢复进度</button>
-            <button class="modal-btn" id="recoverNo" style="background:#a04030;color:#f0e6d2;">🗑 放弃（7天内可找回）</button>
+            <button class="modal-btn" id="recoverNo" style="background:#a04030;color:#f0e6d2;">🗑 放弃（回收站可找回）</button>
         </div>
     </div>
 </div>
 
 <div class="mask hidden" id="settingsModal">
-    <div class="modal">
+    <div class="modal" style="min-width:320px; max-width:380px; padding:24px 20px;">
         <div class="close-btn" onclick="hideDiv('settingsModal')">×</div>
-        <div class="modal-title">游戏设置</div>
-        <div style="text-align:center; color:#3d2314; font-size:20px; line-height:3.2;">
-            <div style="display:flex; align-items:center; justify-content:center; gap:20px;">
-                <span>背景音乐</span>
-                <button class="toggle-btn" id="musicToggle" onclick="toggleMusic()">🔇</button>
+        <div class="modal-title" style="font-size:20px; margin-bottom:12px;">游戏设置</div>
+        <div id="settingsUserInfo" style="text-align:center; padding:6px 0 10px 0; border-bottom:1px dashed rgba(180,140,90,0.3); margin-bottom:12px; display:none;">
+            <div class="user-badge" style="font-size:13px; padding:4px 12px;">
+                <span id="settingsEmail" style="font-weight:600;"></span>
             </div>
-            <div style="display:flex; align-items:center; justify-content:center; gap:20px;">
+            <button class="modal-btn" onclick="handleLogout()" style="margin-top:6px; padding:5px 12px; font-size:12px; background:#a04030; color:#f0e6d2;">退出登录</button>
+        </div>
+        <div id="settingsNotLogged" style="text-align:center; padding:6px 0 10px 0; border-bottom:1px dashed rgba(180,140,90,0.3); margin-bottom:12px;">
+            <button class="modal-btn" onclick="hideDiv('settingsModal');showAuthModal();" style="padding:6px 14px; font-size:13px;">登录账号同步存档</button>
+            <p style="font-size:11px; color:#8b6914; margin-top:4px;">登录后存档自动保存到云端</p>
+        </div>
+        <div style="text-align:center; color:#3d2314; font-size:16px; line-height:2.8;">
+            <div style="display:flex; align-items:center; justify-content:center; gap:16px;">
+                <span>背景音乐</span>
+                <button class="toggle-btn" id="musicToggle" onclick="toggleMusic()" style="font-size:18px; padding:4px 10px;">🔇</button>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:center; gap:16px;">
                 <span>点击音效</span>
-                <button class="toggle-btn" id="soundToggle" onclick="toggleSound()">🔊</button>
+                <button class="toggle-btn" id="soundToggle" onclick="toggleSound()" style="font-size:18px; padding:4px 10px;">🔊</button>
             </div>
         </div>
-        <div style="text-align:center; margin-top:30px;">
-            <button class="modal-btn" onclick="showDiv('aiConfigMask');hideDiv('settingsModal')">⚙️ AI配置</button>
+        <div style="text-align:center; margin-top:18px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+            <button class="modal-btn" onclick="exportAllData()" style="padding:6px 12px; font-size:12px;">导出存档</button>
+            <button class="modal-btn" onclick="importAllData()" style="padding:6px 12px; font-size:12px;">导入备份</button>
+        </div>
+        <div style="text-align:center; margin-top:10px;">
+            <button class="modal-btn" onclick="hideDiv('settingsModal');try{recoverFromTrash();}catch(e){alert('回收站错误：'+e.message);}" style="padding:6px 14px; font-size:12px;">紧急恢复（回收站）</button>
+        </div>
+        <div style="text-align:center; margin-top:10px;">
+            <button class="modal-btn" onclick="showDiv('aiConfigMask');hideDiv('settingsModal')" style="padding:6px 14px; font-size:12px;">AI配置</button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== 邮箱登录/注册弹窗 ========== -->
+<div class="mask hidden" id="authModal">
+    <div class="modal" style="max-width:420px;">
+        <div class="close-btn" onclick="hideDiv('authModal')">×</div>
+        <div class="modal-title" id="authTitle">登录账号</div>
+        <div class="auth-warn-hint">
+            ⚠️ 登录后存档云端同步，游客模式有概率丢档
+        </div>
+        <div class="auth-tab">
+            <button id="authTabLogin" class="active" onclick="switchAuthTab('login')">登录</button>
+            <button id="authTabRegister" onclick="switchAuthTab('register')">注册</button>
+        </div>
+        <div id="authError" style="color:#a04030; font-size:13px; text-align:center; margin-bottom:8px; display:none;"></div>
+        <input type="email" class="auth-input" id="authEmail" placeholder="请输入邮箱地址" autocomplete="email">
+        <input type="password" class="auth-input" id="authPassword" placeholder="请输入密码（至少6位）" autocomplete="current-password">
+        <div id="authRegisterExtra" style="display:none;">
+            <input type="password" class="auth-input" id="authPassword2" placeholder="请再次输入密码" autocomplete="new-password">
+        </div>
+        <button class="modal-btn" onclick="handleAuth()" style="width:100%; background:#8b5e3c; color:#f0e6d2; font-size:16px; font-weight:700;">
+            <span id="authBtnText">📧 登录</span>
+        </button>
+        <div class="auth-switch-hint" id="authSwitchHint">
+            没有账号？<a href="javascript:void(0)" onclick="switchAuthTab('register')">去注册</a>
+        </div>
+        <div class="auth-switch-hint" id="authSwitchBack" style="display:none;">
+            已有账号？<a href="javascript:void(0)" onclick="switchAuthTab('login')">去登录</a>
         </div>
     </div>
 </div>
@@ -3506,8 +3656,265 @@ let gamblingRound = 0;
 let modalQueue = [];
 let isModalRunning = false;
 
-function showDiv(id){document.getElementById(id).classList.remove("hidden");}
-function hideDiv(id){document.getElementById(id).classList.add("hidden");}
+// ========== Supabase 云同步配置 ==========
+// ⚠️ 在下方填入你的 Supabase 项目信息
+const SUPABASE_URL = "https://pgyaamtqqplrscvadyqc.supabase.co";
+const SUPABASE_KEY = "sb_publishable_86k-DU05v0RkpLKYh7pswQ_rQzLgJ__";
+let supabaseClient = null;
+let currentUser = null;     // { id, email }
+let authMode = "login";     // "login" | "register"
+
+function initSupabase(){
+    if(!SUPABASE_URL || !SUPABASE_KEY) return null;
+    if(supabaseClient) return supabaseClient;
+    try{
+        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        return supabaseClient;
+    }catch(e){ console.warn("Supabase初始化失败:", e); return null; }
+}
+
+// ========== 用户状态 ==========
+function isLoggedIn(){ return currentUser !== null; }
+
+function updateUserUI(){
+    let logged = isLoggedIn();
+    let email = logged ? currentUser.email : "";
+    // 首页顶部用户徽章
+    let badge = document.getElementById("userBadgeTop");
+    let badgeText = document.getElementById("userBadgeText");
+    if(badge && badgeText){
+        if(logged){
+            badge.style.display = "block";
+            badgeText.textContent = "📧 " + email;
+        } else {
+            badge.style.display = "none";
+        }
+    }
+
+    // 首页登录按钮
+    let authBtn = document.getElementById("goAuth");
+    if(authBtn){
+        authBtn.textContent = logged ? "📧 已登录" : "登录";
+        authBtn.style.color = logged ? "#a0d8a0" : "#e8c8a0";
+    }
+    // 设置页面
+    let userInfoDiv = document.getElementById("settingsUserInfo");
+    let notLoggedDiv = document.getElementById("settingsNotLogged");
+    let settingsEmail = document.getElementById("settingsEmail");
+    if(userInfoDiv && notLoggedDiv && settingsEmail){
+        if(logged){
+            userInfoDiv.style.display = "block";
+            notLoggedDiv.style.display = "none";
+            settingsEmail.textContent = email;
+        } else {
+            userInfoDiv.style.display = "none";
+            notLoggedDiv.style.display = "block";
+        }
+    }
+}
+
+// ========== 认证弹窗 ==========
+function showAuthModal(){
+    authMode = "login";
+    switchAuthTab("login");
+    document.getElementById("authEmail").value = "";
+    document.getElementById("authPassword").value = "";
+    document.getElementById("authPassword2").value = "";
+    document.getElementById("authError").style.display = "none";
+    showDiv("authModal");
+}
+
+function switchAuthTab(mode){
+    authMode = mode;
+    let tabLogin = document.getElementById("authTabLogin");
+    let tabRegister = document.getElementById("authTabRegister");
+    let title = document.getElementById("authTitle");
+    let btnText = document.getElementById("authBtnText");
+    let extra = document.getElementById("authRegisterExtra");
+    let error = document.getElementById("authError");
+    let switchHint = document.getElementById("authSwitchHint");
+    let switchBack = document.getElementById("authSwitchBack");
+    error.style.display = "none";
+    if(mode === "login"){
+        tabLogin.classList.add("active");
+        tabRegister.classList.remove("active");
+        title.textContent = "登录账号";
+        btnText.textContent = "📧 登录";
+        extra.style.display = "none";
+        switchHint.style.display = "block";
+        switchBack.style.display = "none";
+    } else {
+        tabRegister.classList.add("active");
+        tabLogin.classList.remove("active");
+        title.textContent = "注册账号";
+        btnText.textContent = "📧 注册";
+        extra.style.display = "block";
+        switchHint.style.display = "none";
+        switchBack.style.display = "block";
+    }
+}
+
+async function handleAuth(){
+    let sb = initSupabase();
+    let errorDiv = document.getElementById("authError");
+    if(!sb){
+        errorDiv.style.display = "block";
+        errorDiv.textContent = "❌ 云同步未配置，请联系管理员设置 Supabase";
+        return;
+    }
+    let email = document.getElementById("authEmail").value.trim();
+    let password = document.getElementById("authPassword").value;
+    errorDiv.style.display = "none";
+
+    if(!email || !password){
+        errorDiv.style.display = "block";
+        errorDiv.textContent = "请填写邮箱和密码";
+        return;
+    }
+    if(password.length < 6){
+        errorDiv.style.display = "block";
+        errorDiv.textContent = "密码至少需要6位";
+        return;
+    }
+
+    try{
+        let result;
+        if(authMode === "register"){
+            let pw2 = document.getElementById("authPassword2").value;
+            if(password !== pw2){
+                errorDiv.style.display = "block";
+                errorDiv.textContent = "两次输入的密码不一致";
+                return;
+            }
+            // 注册账号：Supabase 会发送确认邮件（魔法链接）
+            let signUpResult = await sb.auth.signUp({ email, password });
+            if(signUpResult.error){
+                errorDiv.style.display = "block";
+                errorDiv.textContent = "注册失败：" + signUpResult.error.message;
+                return;
+            }
+            if(signUpResult.data.user){
+                if(signUpResult.data.session){
+                    // 邮箱确认关闭时直接登录
+                    currentUser = { id: signUpResult.data.user.id, email: signUpResult.data.user.email };
+                    updateUserUI();
+                    hideDiv("authModal");
+                    showToast("✅ 注册成功！存档将自动同步到云端", 3000);
+                    await cloudLoadSave();
+                    return;
+                } else {
+                    // 需要邮箱确认 — 已发送魔法链接
+                    errorDiv.style.display = "block";
+                    errorDiv.innerHTML = "📧 确认邮件已发送到 <b>" + email + "</b>，请点击邮件中的链接完成验证，之后即可登录。";
+                    // 切回登录tab
+                    switchAuthTab("login");
+                    return;
+                }
+            }
+        } else {
+            result = await sb.auth.signInWithPassword({ email, password });
+        }
+
+        if(result.error){
+            errorDiv.style.display = "block";
+            if(result.error.message.includes("Invalid login")){
+                errorDiv.textContent = "邮箱或密码错误";
+            } else if(result.error.message.includes("Email not confirmed")){
+                errorDiv.textContent = "邮箱未确认，请查看收件箱";
+            } else {
+                errorDiv.textContent = result.error.message;
+            }
+            return;
+        }
+        if(result.data.user){
+            currentUser = { id: result.data.user.id, email: result.data.user.email };
+            updateUserUI();
+            hideDiv("authModal");
+            showToast("✅ 登录成功！存档将自动同步到云端", 3000);
+            await cloudLoadSave();
+        }
+    }catch(e){
+        errorDiv.style.display = "block";
+        errorDiv.textContent = "网络错误：" + e.message;
+    }
+}
+
+async function handleLogout(){
+    if(!confirm("确定退出登录？\n\n退出后存档将恢复为本地存储模式。")) return;
+    currentUser = null;
+    updateUserUI();
+    let sb = initSupabase();
+    if(sb){
+        try{ await sb.auth.signOut(); }catch(e){}
+    }
+    showToast("已退出登录，当前为游客模式");
+}
+
+// ========== 云存档同步 ==========
+async function cloudSaveData(){
+    if(!isLoggedIn() || !supabaseClient) return;
+    try{
+        let dataStr = JSON.stringify(gameData);
+        // 检查是否已有存档记录
+        let { data: existing } = await supabaseClient
+            .from("players_save")
+            .select("id")
+            .eq("user_id", currentUser.id)
+            .maybeSingle();
+        if(existing){
+            await supabaseClient
+                .from("players_save")
+                .update({ save_data: dataStr, updated_at: new Date().toISOString() })
+                .eq("id", existing.id);
+        } else {
+            await supabaseClient
+                .from("players_save")
+                .insert([{ user_id: currentUser.id, save_data: dataStr }]);
+        }
+    }catch(e){ console.warn("云存档失败:", e); }
+}
+
+async function cloudLoadSave(){
+    if(!isLoggedIn() || !supabaseClient) return null;
+    try{
+        let { data } = await supabaseClient
+            .from("players_save")
+            .select("save_data, updated_at")
+            .eq("user_id", currentUser.id)
+            .maybeSingle();
+        if(data && data.save_data){
+            return { data: typeof data.save_data === "string" ? data.save_data : JSON.stringify(data.save_data), updatedAt: data.updated_at };
+        }
+    }catch(e){ console.warn("云端读取失败:", e); }
+    return null;
+}
+
+// 从云端加载并进入游戏
+async function loadFromCloud(){
+    let result = await cloudLoadSave();
+    if(!result){
+        showToast("☁️ 云端暂无存档，请先保存一次");
+        return;
+    }
+    try{
+        let data = JSON.parse(result.data);
+        Object.assign(gameData, data);
+        migrateSaveData();
+        // 同时存到本地
+        saveData();
+        hideDiv("startPage");
+        document.body.style.overflowY = "auto";
+        {let mp=document.getElementById("mainPage");mp.classList.remove("hidden");mp.style.display="block";}
+        refreshPage();
+        let updated = result.updatedAt ? new Date(result.updatedAt).toLocaleString("zh-CN") : "未知";
+        showToast("☁️ 已从云端加载存档 | " + updated, 3000);
+    }catch(e){
+        showToast("❌ 云端存档损坏，无法读取");
+    }
+}
+
+function showDiv(id){var el=document.getElementById(id);if(el)el.classList.remove("hidden");}
+function hideDiv(id){var el=document.getElementById(id);if(el)el.classList.add("hidden");}
 
 // 公告消息队列
 let notificationQueue = [];
@@ -3628,6 +4035,10 @@ function saveData(){
         let raw = JSON.stringify(gameData);
         localStorage.setItem("gameSave", raw);
         idbPut("gameSave", raw);
+        // 如果已登录，同步到云端
+        if(isLoggedIn()){
+            cloudSaveData();
+        }
     }catch(e){
         console.error("saveData失败:", e);
     }
@@ -3815,6 +4226,101 @@ function getSlotMeta(slot){
     }catch(e){ return null; }
 }
 
+// ========== 一键导出/导入全部数据（换浏览器/防丢失） ==========
+// 导出所有与游戏相关的 localStorage 数据
+function exportAllData(){
+    try{
+        let allKeys = [
+            "gameSave", "gameSave_session", "gameSave_slot0", "gameSave_slot1",
+            "gameSave_trash", "gameSave_hallOfFame",
+            "gameSettings_music", "gameSettings_sound", "gameSettings_ai",
+            "gameJournal"
+        ];
+        let backup = {
+            _exportTime: new Date().toISOString(),
+            _version: "1.0",
+            _note: "古代人生模拟器 全部存档备份 — 可导入到其他浏览器恢复进度",
+            data: {}
+        };
+        let hasData = false;
+        for(let key of allKeys){
+            let val = localStorage.getItem(key);
+            if(val !== null && val !== undefined){
+                try{ backup.data[key] = JSON.parse(val); }catch(e2){ backup.data[key] = val; }
+                hasData = true;
+            }
+        }
+        if(!hasData){ showToast("❌ 暂无任何存档数据可导出"); return; }
+        
+        let json = JSON.stringify(backup, null, 2);
+        let blob = new Blob([json], { type: "application/json" });
+        let url = URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        let date = new Date().toISOString().slice(0,10);
+        a.href = url;
+        a.download = `古代人生_全部备份_${date}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast("📦 全部数据已导出！换浏览器后可导入恢复", 3000);
+    }catch(e){
+        showToast("❌ 导出失败: " + e.message);
+    }
+}
+
+// 一键导入全部备份数据
+async function importAllData(){
+    let input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+    input.onchange = async (e) => {
+        let file = e.target.files[0];
+        if(!file) return;
+        try{
+            let text = await file.text();
+            let backup = JSON.parse(text);
+            
+            // 判断是全部备份格式 还是 单个存档格式
+            if(backup._version && backup.data){
+                // 全部备份格式：批量恢复
+                let restored = 0;
+                for(let [key, val] of Object.entries(backup.data)){
+                    let strVal = typeof val === "string" ? val : JSON.stringify(val);
+                    localStorage.setItem(key, strVal);
+                    // 同步到 IndexedDB
+                    if(key.startsWith("gameSave_")){
+                        await idbPut(key, strVal);
+                    }
+                    restored++;
+                }
+                // 刷新存档列表
+                updateLoadBtnState();
+                showToast(`✅ 已恢复 ${restored} 条数据！刷新页面后即可加载存档`, 4000);
+            } else if(backup.playerName){
+                // 单个存档格式：恢复为自动存档
+                let meta = backup._saveMeta || {};
+                let slot = meta.slotIndex !== undefined ? meta.slotIndex : -1;
+                if(slot >= 0 && slot < SAVE_SLOT_KEYS.length){
+                    localStorage.setItem(SAVE_SLOT_KEYS[slot], text);
+                    await idbPut(SAVE_SLOT_KEYS[slot], text);
+                    showToast(`✅ 已导入到存档${slot+1} | ${backup.playerName} ${backup.age}岁`, 3000);
+                } else {
+                    localStorage.setItem("gameSave", text);
+                    await idbPut("gameSave", text);
+                    showToast(`✅ 已恢复：${backup.playerName} ${backup.age}岁（自动存档）`, 3000);
+                }
+                updateLoadBtnState();
+            } else {
+                showToast("❌ 文件格式不正确，非有效存档备份");
+            }
+        }catch(e){
+            showToast("❌ 导入失败: " + e.message);
+        }
+    };
+    input.click();
+}
+
 // 游戏内点击存档按钮 → 弹出槽位选择
 function saveGame(){
     showSaveSlotPicker("save");
@@ -3873,24 +4379,28 @@ function showSaveSlotPicker(mode){ // mode: "save" | "load"
         let autoSave = localStorage.getItem("gameSave");
         let hasSession = session ? (()=>{ try{ let d=JSON.parse(session); return d&&d.playerName; }catch(e){ return false; } })() : false;
         let hasAuto = autoSave ? (()=>{ try{ let d=JSON.parse(autoSave); return d&&d.playerName; }catch(e){ return false; } })() : false;
-        if(hasSession || hasAuto || hasTrash){
-            let parts = [];
-            if(hasSession){
-                try{
-                    let d = JSON.parse(session);
-                    parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;font-size:12px;padding:8px 16px;">✅ 恢复上次进度（${d.playerName||"?"} · ${d.age||"?"}岁）</button>`);
-                }catch(e){ parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;font-size:12px;padding:8px 16px;">✅ 恢复上次进度</button>`); }
-            } else if(hasAuto){
-                try{
-                    let d = JSON.parse(autoSave);
-                    parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;font-size:12px;padding:8px 16px;">✅ 恢复上次进度（${d.playerName||"?"} · ${d.age||"?"}岁）</button>`);
-                }catch(e){ parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;font-size:12px;padding:8px 16px;">✅ 恢复上次进度</button>`); }
-            }
-            if(hasTrash){
-                parts.push(`<button class="modal-btn" onclick="closeSlotMask();recoverFromTrash();" style="background:#5a3a2a;color:#e8c8a0;font-size:12px;padding:8px 16px;">🔧 紧急恢复（从回收站）</button>`);
-            }
+        let parts = [];
+        // 如果已登录，优先显示云端存档
+        if(isLoggedIn()){
+            parts.push(`<button class="modal-btn" onclick="closeSlotMask();loadFromCloud();" style="background:#4169e1;color:#fff;font-size:13px;padding:10px 16px;">☁️ 从云端加载存档</button>`);
+        }
+        if(hasSession){
+            try{
+                let d = JSON.parse(session);
+                parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;font-size:12px;padding:8px 16px;">✅ 恢复上次进度（${d.playerName||"?"} · ${d.age||"?"}岁）</button>`);
+            }catch(e){ parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;font-size:12px;padding:8px 16px;">✅ 恢复上次进度</button>`); }
+        } else if(hasAuto){
+            try{
+                let d = JSON.parse(autoSave);
+                parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;font-size:12px;padding:8px 16px;">✅ 恢复上次进度（${d.playerName||"?"} · ${d.age||"?"}岁）</button>`);
+            }catch(e){ parts.push(`<button class="modal-btn" onclick="recoverLastSession()" style="background:#5a8a3c;color:#f0e6d2;font-size:12px;padding:8px 16px;">✅ 恢复上次进度</button>`); }
+        }
+        if(hasTrash){
+            parts.push(`<button class="modal-btn" onclick="closeSlotMask();recoverFromTrash();" style="background:#5a3a2a;color:#e8c8a0;font-size:12px;padding:8px 16px;">🔧 紧急恢复（从回收站）</button>`);
+        }
+        if(parts.length > 0){
             recoveryHtml = `<div style="margin-top:12px;border-top:1px dashed rgba(180,140,90,0.3);padding-top:10px;">
-                <div style="font-size:12px;color:#8b6914;margin-bottom:8px;text-align:center;">⚡ 未存档进度恢复</div>
+                <div style="font-size:12px;color:#8b6914;margin-bottom:8px;text-align:center;">⚡ 进度恢复</div>
                 ${parts.join("")}
             </div>`;
         }
@@ -3934,6 +4444,8 @@ function saveToSlot(slot){
         let verify = localStorage.getItem(SAVE_SLOT_KEYS[slot]);
         if(!verify){ throw new Error("写入验证失败"); }
         updateLoadBtnState();
+        // 同步到云端
+        if(isLoggedIn()){ cloudSaveData(); }
         let tag = gameData.isCourtesan ? "🌸花魁·" : "";
         showToast(`✅ 已保存到存档${slot + 1} | ${tag}${gameData.playerName||""} ${gameData.age}岁 ${gameData.money||0}文`, 3000);
     }catch(e){
@@ -4031,6 +4543,36 @@ function migrateOldData(){
 }
 // 页面加载时执行迁移
 migrateOldData();
+
+// ========== 页面加载：检查已有登录状态 ==========
+(async function initAuthOnLoad(){
+    let sb = initSupabase();
+    if(!sb) return;
+    // 页面加载时恢复已有会话
+    try{
+        let { data } = await sb.auth.getSession();
+        if(data && data.session && data.session.user){
+            currentUser = { id: data.session.user.id, email: data.session.user.email };
+            updateUserUI();
+            console.log("已恢复登录:", currentUser.email);
+        }
+    }catch(e){}
+    // 监听魔法链接回调：用户点击邮件中的确认链接后自动登录
+    sb.auth.onAuthStateChange((event, session) => {
+        if(event === "SIGNED_IN" && session && session.user){
+            if(!currentUser || currentUser.id !== session.user.id){
+                currentUser = { id: session.user.id, email: session.user.email };
+                updateUserUI();
+                showToast("✅ 邮箱验证成功！已自动登录，存档将同步到云端", 4000);
+                console.log("魔法链接登录:", currentUser.email);
+                cloudLoadSave();
+            }
+        } else if(event === "SIGNED_OUT"){
+            currentUser = null;
+            updateUserUI();
+        }
+    });
+})();
 
 // 加载AI配置
 (function loadAiConfig(){
@@ -6915,15 +7457,14 @@ document.getElementById("diceContinueBtn").onclick = ()=>{
     showDiv("gamblingMask");
 };
 
-// 备份当前进度：新游戏开始前调用，防止覆盖丢失
+// 备份当前进度：新游戏开始前调用，将未保存进度移入回收站
 function backupCurrentSession(){
     let autoSave = localStorage.getItem("gameSave");
     if(autoSave){
         try{
             let data = JSON.parse(autoSave);
             if(data && data.playerName){
-                localStorage.setItem("gameSave_session", autoSave);
-                idbPut("gameSave_session", autoSave);
+                addToTrash(autoSave);
             }
         }catch(e){}
     }
@@ -6943,6 +7484,33 @@ function cleanExpiredTrash(){
         if(valid.length !== trash.length){
             localStorage.setItem("gameSave_trash", JSON.stringify(valid));
         }
+    } catch(e) {}
+}
+
+// 添加到回收站（自动保留最近2个）
+function addToTrash(rawData){
+    if(!rawData) return;
+    try{
+        let data = JSON.parse(rawData);
+        if(!data || !data.playerName) return;
+        
+        let existing = localStorage.getItem("gameSave_trash");
+        let trash = existing ? JSON.parse(existing) : [];
+        if(!Array.isArray(trash)) trash = [];
+        
+        trash.push({
+            playerName: data.playerName || "?",
+            age: data.age || 0,
+            money: data.money || 0,
+            familyType: data.familyType || "",
+            data: rawData,
+            deletedAt: new Date().toISOString()
+        });
+        
+        // 只保留最近2条
+        if(trash.length > 2) trash = trash.slice(-2);
+        
+        localStorage.setItem("gameSave_trash", JSON.stringify(trash));
     } catch(e) {}
 }
 
@@ -6981,10 +7549,10 @@ function recoverFromTrash(){
         </div>`;
     }).join("");
     
-    let html = `<div class="mask" id="trashPickerMask" onclick="event.target===this&&(hideDiv('trashPickerMask'),document.getElementById('trashPickerMask')?.remove())">
+    let html = `<div class="mask" id="trashPickerMask" style="z-index:2000;" onclick="event.target===this&&(hideDiv('trashPickerMask'),document.getElementById('trashPickerMask')?.remove())">
         <div class="modal" style="max-width:480px; max-height:80vh; overflow-y:auto;">
             <h2 class="modal-title">🔧 紧急恢复</h2>
-            <p style="text-align:center;font-size:13px;color:#888;margin-bottom:12px;">回收站中的数据7天后自动清空</p>
+            <p style="text-align:center;font-size:13px;color:#888;margin-bottom:12px;">回收站最多保留2条记录，7天后自动清空</p>
             <div>${itemsHtml}</div>
             <button class="modal-btn" style="margin-top:10px; background:#999; width:100%;" onclick="hideDiv('trashPickerMask');document.getElementById('trashPickerMask')?.remove();">关闭</button>
         </div></div>`;
@@ -7065,11 +7633,11 @@ function recoverLastSession(){
     }catch(e){ showToast("恢复失败，数据可能已损坏"); }
 }
 
-document.getElementById("goStart").onclick=()=>{
-    backupCurrentSession();  // 开新游戏前备份当前进度
+// 绑定开屏界面所有按钮
+document.getElementById("goStart").onclick = function() {
+    backupCurrentSession();
     let autoSave = localStorage.getItem("gameSave");
     let hasManual = getSlotMeta(0) || getSlotMeta(1);
-    // 如果有手动存档但当前自动存档和槽位不同，提醒用户
     if(hasManual && autoSave){
         try{
             let cur = JSON.parse(autoSave);
@@ -7077,21 +7645,38 @@ document.getElementById("goStart").onclick=()=>{
             let slot1 = getSlotMeta(1);
             let curInSlot = (slot0 && slot0.name === cur.playerName) || (slot1 && slot1.name === cur.playerName);
             if(!curInSlot){
-                // 当前自动存档不在任何手动槽位中 → 提醒
-                if(!confirm("⚠ 当前有未手动保存的进度（"+(cur.playerName||"?")+"），开新游戏会覆盖。\n\n你的手动存档安全，但当前未保存的进度仅可通过\"紧急恢复\"找回。\n\n确定开始新游戏？")){
+                if(!confirm("⚠ 当前有未手动保存的进度（"+(cur.playerName||"?")+"），开新游戏会将它移入回收站。\n\n你的手动存档不受影响。回收站最多保留2条记录，可从\"紧急恢复\"找回。\n\n确定开始新游戏？")){
                     return;
                 }
             }
         }catch(e){}
     }
     hideDiv("startPage");
-    document.body.style.overflowY = "auto"; // 进入游戏后恢复滚动
+    document.body.style.overflowY = "auto";
     showDiv("modeMask");
 };
-document.getElementById("goLoad").onclick=()=>{loadGame();};
-document.getElementById("goHallOfFame").onclick=()=>{openHallOfFame();};
-document.getElementById("goSettings").onclick=()=>{showDiv("settingsModal");};
+document.getElementById("goLoad").onclick = function() {
+    let loadBtn = document.getElementById("goLoad");
+    if(loadBtn && loadBtn.classList.contains("disabled")){
+        showToast("暂无存档，开始游戏后再来读档吧");
+        return;
+    }
+    try{loadGame();}catch(e){alert("读档出错："+e.message);console.error("goLoad:",e);}
+};
+document.getElementById("goSettings").onclick = function() {
+    try{updateUserUI();showDiv("settingsModal");}catch(e){alert("设置出错："+e.message);console.error("goSettings:",e);}
+};
+document.getElementById("goAuth").onclick = function() {
+    try { if(isLoggedIn()){ showToast("已登录：📧 "+currentUser.email, 2000); } else { showAuthModal(); } } catch(e) { console.error("goAuth:",e); showAuthModal(); }
+};
+document.getElementById("trophyIcon").onclick = function() {
+    try{openHallOfFame();}catch(e){alert("成就馆出错："+e.message);console.error("trophyIcon:",e);}
+};
 
+// 初始化主页按钮状态
+updateLoadBtnState();
+
+console.log("START PAGE BUTTONS BOUND via delegation");
 // ========== 古风音频系统 ==========
 let audioCtx = null;
 let musicEnabled = false;
@@ -7254,38 +7839,16 @@ document.getElementById("recoverYes").onclick=()=>{
     hideDiv("recoveryMask");
 };
 document.getElementById("recoverNo").onclick=()=>{
-    // 不永久删除，移入回收站（7天内可恢复）
     let autoSave = localStorage.getItem("gameSave");
     let sessionBackup = localStorage.getItem("gameSave_session");
-    let trash = null;
-    try {
-        let existing = localStorage.getItem("gameSave_trash");
-        trash = existing ? JSON.parse(existing) : [];
-    } catch(e) { trash = []; }
     
-    [autoSave, sessionBackup].forEach(raw => {
-        if(raw){
-            try {
-                let data = JSON.parse(raw);
-                trash.push({
-                    playerName: data.playerName || "?",
-                    age: data.age || 0,
-                    money: data.money || 0,
-                    familyType: data.familyType || "",
-                    data: raw,
-                    deletedAt: new Date().toISOString()
-                });
-            } catch(e) {}
-        }
-    });
-    // 只保留最近5条回收站记录
-    if(trash.length > 5) trash = trash.slice(-5);
-    localStorage.setItem("gameSave_trash", JSON.stringify(trash));
+    if(autoSave) addToTrash(autoSave);
+    if(sessionBackup && sessionBackup !== autoSave) addToTrash(sessionBackup);
     
     localStorage.removeItem("gameSave");
     localStorage.removeItem("gameSave_session");
     hideDiv("recoveryMask");
-    showToast("进度已放弃（7天内可从\"紧急恢复\"找回）");
+    showToast("进度已放弃（可从\"紧急恢复\"找回，最多保留2条）");
 };
 document.getElementById("randMode").onclick=()=>{createRandomRole();hideDiv("modeMask");let mp=document.getElementById("mainPage");mp.classList.remove("hidden");mp.style.display="block";refreshPage();};
 document.getElementById("customMode").onclick=()=>{hideDiv("modeMask");showDiv("customMask");};
