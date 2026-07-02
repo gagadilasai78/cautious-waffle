@@ -64,7 +64,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-            background: url('image/poster.jpg') no-repeat center top;
+            background: url('image/poster.jpg') no-repeat center center;
             background-size: contain;
             background-color: #f7f1e8;
             position: fixed;
@@ -73,6 +73,11 @@
             z-index: 500;
             overflow: hidden;
             padding-bottom: 20px;
+            filter: blur(8px);
+            transition: filter 0.8s ease-out;
+        }
+        .start-page.loaded {
+            filter: blur(0);
         }
         .start-page::before {
             content: "";
@@ -90,11 +95,21 @@
         @media (orientation: portrait) {
             .start-page {
                 background-size: contain;
-                background-position: center top;
+                background-position: center center;
                 padding-bottom: 20px;
             }
             .start-page::before {
-                background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.6));
+                background: linear-gradient(to bottom, rgba(247,241,232,0.9), transparent 20%, transparent 60%, rgba(247,241,232,0.95) 80%, rgba(247,241,232,1));
+            }
+            .menu-container {
+                transform: translateY(-80px);
+                gap: 25px;
+            }
+            .ink-btn {
+                width: 280px;
+                height: 70px;
+                font-size: 28px;
+                letter-spacing: 6px;
             }
         }
         .game-title {
@@ -378,18 +393,18 @@
             .sub-menu { gap: 25px; }
         }
         .ink-btn.disabled {
-            opacity: 0.75;
-            filter: brightness(0.7);
+            opacity: 1;
+            filter: none;
             cursor: not-allowed;
-            border-color: rgba(140,130,120,0.6) !important;
-            color: rgba(200,180,160,0.75) !important;
-            background: rgba(61,35,20,0.3) !important;
+            border-color: #999 !important;
+            color: #666 !important;
+            background: #ccc !important;
         }
         .ink-btn.disabled:hover {
             transform: none !important;
             box-shadow: none !important;
-            border-color: rgba(140,130,120,0.6) !important;
-            opacity: 0.75;
+            border-color: #999 !important;
+            opacity: 1;
         }
         .mask {
             position: fixed;
@@ -7824,6 +7839,18 @@ window.addEventListener('load', addClickSoundToButtons);
 function preloadPoster() {
     let poster = new Image();
     poster.src = 'image/poster.jpg';
+    poster.onload = function() {
+        let startPage = document.querySelector('.start-page');
+        if(startPage) {
+            startPage.classList.add('loaded');
+        }
+    };
+    poster.onerror = function() {
+        let startPage = document.querySelector('.start-page');
+        if(startPage) {
+            startPage.classList.add('loaded');
+        }
+    };
 }
 preloadPoster();
 // 崩溃恢复（旧弹窗兼容）
