@@ -64,7 +64,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-            background: url('image/poster.jpg') no-repeat center center;
+            background: url('image/poster.jpg?v=2') no-repeat center center;
             background-size: contain;
             background-color: #f7f1e8;
             position: fixed;
@@ -97,12 +97,20 @@
                 background-size: contain;
                 background-position: center center;
                 padding-bottom: 20px;
+                overflow: hidden;
             }
             .start-page::before {
-                background: linear-gradient(to bottom, rgba(247,241,232,0.9), transparent 20%, transparent 60%, rgba(247,241,232,0.95) 80%, rgba(247,241,232,1));
+                background: transparent;
+            }
+            #trophyIcon {
+                font-size: 24px;
+                top: 20px;
+                right: 20px;
+                padding: 4px 8px;
+                border-width: 1px;
             }
             .menu-container {
-                transform: translateY(-80px);
+                transform: translateY(-120px);
                 gap: 25px;
             }
             .ink-btn {
@@ -110,6 +118,9 @@
                 height: 70px;
                 font-size: 28px;
                 letter-spacing: 6px;
+            }
+            body {
+                overflow: hidden !important;
             }
         }
         .game-title {
@@ -2352,9 +2363,6 @@
     <!-- 成就奖杯图标 -->
     <div id="trophyIcon" title="成就馆">🏆</div>
     
-    <div class="footer">
-        © 2026 古代人生模拟器
-    </div>
 </div>
 
 <div class="mask hidden" id="recoveryMask">
