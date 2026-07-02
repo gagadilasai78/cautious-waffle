@@ -106,12 +106,13 @@
                 font-size: 24px;
                 top: 20px;
                 right: 20px;
-                padding: 4px 8px;
-                border-width: 1px;
+                padding: 0;
+                border: none;
+                background: transparent;
             }
             .menu-container {
-                transform: translateY(-120px);
-                gap: 25px;
+                transform: translateY(-200px);
+                gap: 15px;
             }
             .ink-btn {
                 width: 280px;
@@ -289,12 +290,13 @@
         .footer {
             position: absolute;
             bottom: 25px;
-            right: 35px;
-            color: rgba(245, 230, 211, 0.7);
+            right: 20px;
+            color: #333;
             font-size: 16px;
             letter-spacing: 3px;
             animation: fadeIn 2s ease-out 1.5s both;
             z-index: 20;
+            pointer-events: none;
         }
         .ink-particle {
             position: absolute;
@@ -387,7 +389,7 @@
             }
             .menu-container { gap: 25px; }
             .sub-menu { gap: 35px; }
-            .footer { font-size: 12px; bottom: 15px; right: 20px; }
+            .footer { font-size: 12px; bottom: 15px; right: 10px; }
         }
         @media (max-width: 480px) {
             .ink-btn {
@@ -2363,6 +2365,7 @@
     <!-- 成就奖杯图标 -->
     <div id="trophyIcon" title="成就馆">🏆</div>
     
+    <div class="footer">© 九号工坊</div>
 </div>
 
 <div class="mask hidden" id="recoveryMask">
@@ -3545,7 +3548,7 @@ const shopItems = [
     // 送礼物品（6种，好感度3-15）
     {id:1, name:"精致糕点", type:"gift", price:200, favorBonus:3, description:"精美点心，香甜可口"},
     {id:2, name:"笔墨纸砚", type:"gift", price:400, favorBonus:5, description:"文房四宝，送礼佳品"},
-    {id:3, name:"胭脂水粉", type:"gift", price:600, favorBonus:7, description:"上等胭脂，美容佳品"},
+    {id:3, name:"美味佳肴", type:"gift", price:600, favorBonus:7, description:"山珍海味，送礼体面"},
     {id:4, name:"丝绸布料", type:"gift", price:1000, favorBonus:10, description:"精美丝绸，华丽大方"},
     {id:5, name:"玉器挂件", type:"gift", price:1400, favorBonus:12, description:"温润美玉，寓意吉祥"},
     {id:6, name:"书画卷轴", type:"gift", price:2000, favorBonus:15, effect:{talent:5}, description:"名家字画，极具收藏价值（可小幅提升才华）"},
@@ -6656,7 +6659,7 @@ function applyEvent(e){
             checkStrengthUnlock();
         }
     }
-    if(ef.conscription&&gameData.age>=16&&Math.random()<gameData.era.conscriptRate&&!gameData.isCourtesan&&gameData.job!==officerJob&&gameData.job!=="从军"){
+    if(ef.conscription&&gameData.age>=16&&Math.random()<gameData.era.conscriptRate&&!gameData.isCourtesan&&gameData.courtesanRank<=0&&gameData.job!==officerJob&&gameData.job!=="从军"&&gameData.job!=="清倌人"){
         document.getElementById("conscriptMsg").innerText="边关征召壮丁！";showDiv("conscriptionMask");
     }
     let tips=[];
@@ -6838,7 +6841,7 @@ function applyAnnualEducation(){
         // 年度随机故事（35%概率）
         let story = triggerEduStory(child, child.education);
         if(story){
-            popMsg(`<span style="color:#` + (story.type === "good" ? "27ae60" : (story.type === "bad" ? "e74c3c" : "f39c12")) + `;">📖 ${story.storyText}（${story.resultText}）</span>`);
+            popMsg(`📖 ${story.storyText}（${story.resultText}）`);
         }
     }
 }
@@ -6912,7 +6915,7 @@ function growAge(){
             if(!c.isOutside && c.isPregnant){
                 let gender = Math.random() > 0.5 ? "男" : "女";
                 if(Math.random() < 0.1){
-                    popMsg(`<span style="color:#e74c3c;">⚕️ 妾室${c.name}难产，孩子未能保住… 大人平安</span>`);
+                    popMsg(`⚕️ 妾室${c.name}难产，孩子未能保住… 大人平安`);
                     addActionLog("难产", `妾室${c.name}难产，孩子夭折，大人无恙`);
                     c.isPregnant = false;
                     c.pregnancyMonths = 0;
@@ -7282,9 +7285,10 @@ function growAge(){
         checkHusbandConcubine();
     }
 
-    // 成年才俊直招为官：才华>50、声望>40，60%概率弹窗询问是否接受征辟
-    if(gameData.age >= 18 && gameData.talent > 50 && gameData.reputation > 40 
-        && gameData.job !== officerJob && gameData.job !== "从军" && gameData.job !== "商人"
+    // 成年才俊直招为官：才华>50、声望>40，60%概率弹窗询问是否接受征辟（花魁不可征辟，每人仅触发一次）
+    if(!gameData._talentRecruitmentDone && gameData.age >= 18 && gameData.talent > 50 && gameData.reputation > 40 
+        && !gameData.isCourtesan && gameData.courtesanRank <= 0
+        && gameData.job !== officerJob && gameData.job !== "从军" && gameData.job !== "清倌人"
         && Math.random() < 0.6){
         showTalentRecruitmentAsk();
     }
@@ -7297,7 +7301,7 @@ function growAge(){
     // ===== 花魁线：年度演出 + 花会 + 保养 =====
     if(gameData.isCourtesan){
         gameData.courtesanYears++;
-        applyCourtesanMaintenance();         // 每半年扣保养费（每年两次中的第一次）
+        applyCourtesanMaintenance();         // 每年扣保养费
         generateCourtesanPerformance();      // 年度献艺（赚艳名+钱）
         courtesanGalaTick();               // 花会（三年一届，选曲排练）
         checkCourtesanPromotion();          // 晋级检测
@@ -7459,7 +7463,10 @@ function resolveDiceResult(guess, rate, bet, multi, dice, resultDiv){
     
     document.getElementById("diceContinueBtn").classList.remove("hidden");
     currentGamble = null;
-    
+
+    // 官员/武将赌坊被发现检查
+    checkGamblingScandal();
+
     if(triggered){
         // 暂不save，等弹窗确定后再正式解锁
         refreshPage();
@@ -7468,6 +7475,64 @@ function resolveDiceResult(guess, rate, bet, multi, dice, resultDiv){
         saveData();
         refreshPage();
     }
+}
+
+// 官员/武将赌坊被发现检查
+function checkGamblingScandal(){
+    let isOfficer = gameData.job === officerJob;
+    let isMilitary = gameData.job === "从军";
+    if(!isOfficer && !isMilitary) return;
+
+    let rank = isOfficer ? (gameData.officerRank || 9) : (gameData.militaryRank || 9);
+    // 官职越高（rank越小），被发现概率越高：九品15% → 一品55%
+    let detectRate = 0.15 + (9 - rank) * 0.05;
+    if(Math.random() > detectRate) return;
+
+    // 罚款/扣声望/减功均按品级递增（rank 1=最高 一品，rank 9=最低 九品）
+    let fineTable  = [12000, 9000, 7000, 5000, 3500, 2500, 1200, 800, 500];
+    let repTable   = [10, 9, 8, 7, 6, 5, 4, 3, 2];
+    let meritTable = [40, 32, 26, 22, 18, 15, 12, 10, 8];
+    let fine = fineTable[rank - 1];
+    let repLoss = repTable[rank - 1];
+    let meritLoss = meritTable[rank - 1];
+
+    // 减政绩/军功 或 扣声望，随机二选一
+    let useMerit = Math.random() < 0.5;
+
+    let icon = isOfficer ? "🏛️" : "⚔️";
+    let jobName = isOfficer ? "文官" : "武将";
+    let rankName = isOfficer ? getOfficerTitle(rank) : getMilitaryTitle(rank);
+    let meritName = isOfficer ? "政绩" : "军功";
+    let effects = [];
+
+    // 必定罚款
+    gameData.money = Math.max(0, gameData.money - fine);
+    effects.push(`💰 罚款 ${fine} 文`);
+
+    // 随机二选一：减政绩/军功 或 扣声望
+    if(useMerit){
+        if(isOfficer){
+            gameData.politicalMerit = Math.max(0, (gameData.politicalMerit || 0) - meritLoss);
+        } else {
+            gameData.militaryMerit = Math.max(0, (gameData.militaryMerit || 0) - meritLoss);
+        }
+        effects.push(`📉 ${meritName} -${meritLoss}`);
+    } else {
+        gameData.reputation = Math.max(0, gameData.reputation - repLoss);
+        effects.push(`📉 声望 -${repLoss}`);
+    }
+
+    let scenes = [
+        "一名御史路过赌坊门口，恰巧瞥见你从里面走出，次日朝堂上便有人以此发难。",
+        "你的政敌买通了赌坊小厮，手中已握着你频频出入赌坊的账册。",
+        "坊间传言四起，说你身为朝廷命官却沉溺赌博，已传至上司耳中。",
+        "一名同僚在赌坊撞见你，转头便将此事添油加醋地报了上去。",
+        "赌坊逢年例行盘查，名册上赫然写着你的名字，被上司翻了个正着。"
+    ];
+    let scene = scenes[Math.floor(Math.random() * scenes.length)];
+    let msg = `${scene}<br><br><div style="text-align:center; font-size:16px;">${effects.join("　")}</div><br><div style="font-size:12px; color:#999; text-align:center;">为官当爱惜羽毛，庙堂之上有天子盯着，同僚之中有政敌望着。</div>`;
+    showActionResult(`${icon} 赌坊丑闻`, msg);
+    addActionLog("赌坊丑闻", `${jobName}${rankName}出入赌坊被察觉，${effects.join("，")}`);
 }
 
 document.getElementById("closeGambling").onclick = ()=>{
@@ -9533,7 +9598,7 @@ function applyCourtesanMaintenance(){
 function toggleCourtesanMaintenance(){
     gameData._courtesanMaintenanceOn = !gameData._courtesanMaintenanceOn;
     saveData();
-    popMsg(gameData._courtesanMaintenanceOn ? "🧴 自动保养已开启，每半年将从你的存银中扣除保养费。" : "💤 自动保养已关闭。30岁之后容颜会自然衰老，届时请记得重新开启。");
+    popMsg(gameData._courtesanMaintenanceOn ? "🧴 自动保养已开启，每年将从你的存银中扣除保养费。" : "💤 自动保养已关闭。30岁之后容颜会自然衰老，届时请记得重新开启。");
     showCourtesanHomePage();
 }
 
@@ -9547,7 +9612,7 @@ function advancedMaintenance(){
     gameData.money -= COURTESAN_ADVANCED_MAINTENANCE_COST;
     gameData.appearance = Math.min(100, gameData.appearance + 2);
     gameData._lastAdvancedMaintenanceYear = gameData.age;
-    popMsg(`💄 高级保养后容光焕发！颜值+2（永久）`);
+    popMsg(`💄 高级保养后容光焕发！颜值+2`);
     addActionLog("高级保养", `花费${COURTESAN_ADVANCED_MAINTENANCE_COST}文，颜值+2`);
     saveData();
     refreshPage();
@@ -9596,11 +9661,11 @@ function showCourtesanHomePage(){
     let maintCost = courtesanHasOwnHouse() ? Math.floor(COURTESAN_MAINTENANCE_COST * 1.5) : COURTESAN_MAINTENANCE_COST;
     let ageHint = gameData.age < 30 ? `<span style="color:#c08060;">（30岁前容颜不会自然衰老，保养暂非必须）</span>` : `<span style="color:#8a6a3a;">（30岁后容颜自然衰老，保养可抵消一部分）</span>`;
     body += `<div class="cfh-maintenance-toggle" onclick="toggleCourtesanMaintenance()">
-        <div class="cfh-mt-label">🧴 <b>自动保养</b><span>每半年${maintCost}文 · 抵消衰老降颜 ${ageHint}</span></div>
+        <div class="cfh-mt-label">🧴 <b>自动保养</b><span>每年${maintCost}文 · 抵消衰老降颜 ${ageHint}</span></div>
         <div class="cfh-toggle-switch${maintOn?' on':''}"></div>
     </div>
     <div style="font-size:11px; color:#b09060; text-align:center; margin-bottom:8px;">
-        💡 自动保养 = 每半年自动扣钱抵御衰老　|　💄 高级保养 = 每年可做一次，永久+2颜值
+        💡 自动保养 = 每年自动扣钱抵御衰老　|　💄 高级保养 = 每年可做一次，+2颜值
     </div>`;
 
     // ═══ 花会筹备 ═══
@@ -10182,7 +10247,7 @@ function patronDoPerform(idx, type){
     if(skillVal < 30) hintText = ` 但${skillName}尚浅，略显不足……`;
     if(jealDrop >= 10) hintText += ` ${genderRef}见你献艺，心中醋意消了大半。`;
     
-    popMsg(`✨ ${flavorText}${hintText}<br>${genderRef}好感+${favorGain}　独占欲+${possessGain}　赏钱+${moneyGain}文`);
+    popMsg(`✨ ${flavorText}${hintText}\n${genderRef}好感+${favorGain}　独占欲+${possessGain}　赏钱+${moneyGain}文`);
     addActionLog("献艺", `为${p.name}献艺（${skillName}${skillVal}），获得${moneyGain}文`);
     
     gameData._patronRoom.performDone = true;
@@ -10233,7 +10298,7 @@ function patronRomanceAct(idx){
     let hintText = "";
     if(skillVal < 30) hintText = " 但略显生涩……";
     
-    popMsg(`✨ ${flavorText}${hintText}<br>${genderRef}好感+${favorGain}　独占欲+${possessGain}　赏钱+${moneyGain}文`);
+    popMsg(`✨ ${flavorText}${hintText}\n${genderRef}好感+${favorGain}　独占欲+${possessGain}　赏钱+${moneyGain}文`);
     addActionLog("花前月下", `与${p.name}共度良宵（${skillName}${skillVal}），获得${moneyGain}文`);
     
     gameData._patronRoom.romanceDone = true;
@@ -10868,7 +10933,7 @@ function selfPractice(skillKey){
         "在练功房挥汗如雨，舞姿愈发轻盈曼妙。" :
         "独坐琴前，反复揣摩指法，琴技有所精进。";
     
-    popMsg(`🧘 ${flavor}<br>${skillName}+${gain}（当前：${skillKey === "dance" ? gameData.dance : gameData.music}）`);
+    popMsg(`🧘 ${flavor}\n${skillName}+${gain}（当前：${skillKey === "dance" ? gameData.dance : gameData.music}）`);
     addActionLog("独自修炼", `${skillName}+${gain}`);
     
     saveData();
@@ -11004,6 +11069,8 @@ function showTalentRecruitmentAsk(){
 
 function acceptTalentRecruitment(){
     hideDiv("talentRecruitmentMask");
+    if(gameData.isCourtesan || gameData.courtesanRank > 0 || gameData.job === "清倌人") return showToast("你已是花魁之人，不便入仕为官。");
+    gameData._talentRecruitmentDone = true;
     hideDiv("careerChoiceMask"); // 征辟优先，关掉成年立业弹窗
     gameData.officerRank = 9;
     gameData.officerTitle = getOfficerTitle(9);
@@ -11019,6 +11086,7 @@ function acceptTalentRecruitment(){
 
 function refuseTalentRecruitment(){
     hideDiv("talentRecruitmentMask");
+    gameData._talentRecruitmentDone = true;
     showToast("你婉言谢绝了朝廷征辟，继续过着闲云野鹤的生活。声望+5。");
     gameData.reputation += 5;
     saveData();
@@ -13031,7 +13099,7 @@ function autoBirth(isSpouse = true, motherName = null){
         let childGenderText = childGender === "男" ? "男婴" : "女婴";
         let birthMotherName = motherObj?.name || mother;
         // 孩子没了，大人没事
-        popMsg(`<span style="color:#e74c3c;">⚕️ ${birthMotherName}难产，${childGenderText}未能保住… 大人平安</span>`);
+        popMsg(`⚕️ ${birthMotherName}难产，${childGenderText}未能保住… 大人平安`);
         addActionLog("难产", `${birthMotherName}难产，${childGenderText}夭折，大人无恙`);
         // 清理对应怀孕状态
         if(isSpouse){
@@ -14032,8 +14100,8 @@ const GALA_DANCE_TYPES = [
     {name:"绿腰", desc:"软舞之冠，纤腰婉转似柳丝"},
     {name:"胡旋舞", desc:"异域风情，裙裾旋转如飞蓬"},
 ];
-// 花魁保养费（每半年扣一次）
-const COURTESAN_MAINTENANCE_COST = 50;   // 基础保养/半年
+// 花魁保养费（每年扣一次）
+const COURTESAN_MAINTENANCE_COST = 50;   // 基础保养/年
 const COURTESAN_ADVANCED_MAINTENANCE_COST = 300; // 高级保养（每年限一次，永久+2颜值）
 
 // 商人晋升阈值（累积净盈利）
@@ -16157,7 +16225,7 @@ function checkOutsidePregnancy(){
             // ===== NPC母亲生产：10%概率难产 =====
             if(Math.random() < 0.1){
                 let childGenderText = gender === "男" ? "男婴" : "女婴";
-                popMsg(`<span style="color:#e74c3c;">⚕️ ${title}${c.name}难产，${childGenderText}未能保住… 大人平安</span>`);
+                popMsg(`⚕️ ${title}${c.name}难产，${childGenderText}未能保住… 大人平安`);
                 addActionLog("难产", `${title}${c.name}难产，${childGenderText}夭折，大人无恙`);
                 c.isPregnant = false;
                 c.pregnancyMonths = 0;
