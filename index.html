@@ -108,28 +108,38 @@
                 background: transparent;
             }
             #trophyIcon {
-                font-size: 24px;
-                top: -10px;
-                right: -10px;
-                padding: 0;
-                border: none;
-                background: transparent;
+                font-size: 32px !important;
+                top: 10px !important;
+                right: 10px !important;
+                padding: 0 !important;
+                border: none !important;
+                background: transparent !important;
             }
             .menu-container {
-                transform: translateY(-250px);
-                gap: 15px;
+                transform: translateY(-45px) !important;
+                gap: 18px;
             }
             .ink-btn {
-                width: 280px;
-                height: 70px;
-                font-size: 28px;
-                letter-spacing: 6px;
+                width: 220px;
+                height: 55px;
+                font-size: 22px;
+                letter-spacing: 4px;
             }
+            .sub-btn {
+                width: 90px;
+                height: 38px;
+                font-size: 14px;
+            }
+            .sub-menu { gap: 35px; }
+            .footer { font-size: 10px !important; bottom: 20px !important; right: 5px !important; }
             body {
                 overflow: hidden !important;
                 position: fixed;
                 width: 100%;
                 height: 100%;
+            }
+            html {
+                overflow: hidden !important;
             }
         }
         .game-title {
@@ -384,21 +394,6 @@
             .sub-menu { gap: 40px; }
             .footer { font-size: 14px; }
         }
-        @media (orientation: portrait) {
-            .ink-btn {
-                width: 240px;
-                height: 60px;
-                font-size: 24px;
-            }
-            .sub-btn {
-                width: 100px;
-                height: 42px;
-                font-size: 16px;
-            }
-            .menu-container { gap: 25px; }
-            .sub-menu { gap: 35px; }
-            .footer { font-size: 12px; bottom: 15px; right: 10px; }
-        }
         @media (max-width: 480px) {
             .ink-btn {
                 width: 200px;
@@ -425,6 +420,8 @@
             transform: none !important;
             box-shadow: none !important;
             border-color: #999 !important;
+            color: #666 !important;
+            background: #ccc !important;
             opacity: 1;
         }
         .mask {
@@ -855,6 +852,55 @@
             margin-top: 2px;
         }
 
+        /* ========== 固定“下一年”按钮 ========== */
+        #floatNextYear {
+            position: fixed;
+            bottom: 90px;
+            right: 24px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c4a06a 0%, #a07a3a 100%);
+            border: 3px solid #8B4513;
+            color: #f5e6d3;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.2;
+            box-shadow: 0 4px 16px rgba(80,50,20,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            transition: transform 0.15s, box-shadow 0.15s;
+            user-select: none;
+        }
+        #floatNextYear:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(80,50,20,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+        #floatNextYear:active {
+            transform: scale(0.95);
+        }
+        /* 花魁线适配 */
+        body.courtesan-theme #floatNextYear {
+            background: linear-gradient(135deg, #d4a0a0 0%, #b06868 100%);
+            border-color: #8a4040;
+            color: #fdf0ec;
+            box-shadow: 0 4px 16px rgba(120,40,40,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+        @media (max-width: 600px) {
+            #floatNextYear {
+                width: 52px;
+                height: 52px;
+                font-size: 12px;
+                bottom: 80px;
+                right: 14px;
+            }
+        }
+
         /* ========== 子Tab导航栏（顶部标签式） ========== */
         .sub-tab-bar {
             display: flex;
@@ -1115,8 +1161,9 @@
             .col-main > .card:first-child .card-title { font-size: 18px; margin-bottom: 8px; }
             .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; }
             .stats-grid .attr-item { font-size: 16px; padding: 5px 0; border-bottom: 1px dashed rgba(160,120,60,0.12); }
-            /* 市集卡片隐藏，改用顶栏小按钮 */
+            /* 市集/芳华阁卡片隐藏，改用顶栏小按钮 */
             #marketCard { display: none !important; }
+            #courtesanEntryCard { display: none !important; }
             .market-mini-btn { display: inline-flex; align-items: center; justify-content: center; }
             /* 行动日志：再加长，滚动查看 */
             .action-log-card { flex: 0 0 250px; min-height: 0; max-height: 350px; overflow-y: auto; }
@@ -1125,8 +1172,6 @@
             /* 日常行动：3列，按钮够大不易误触 */
             .action-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
             .action-grid .action-btn { font-size: 13px; padding: 10px 6px; }
-            /* 增长年岁：满宽长条，和上面行动网格等宽 */
-            #btnGrowAge { width: 100% !important; padding: 10px !important; display: block; margin: 8px 0 0 0 !important; font-size: 15px !important; letter-spacing: 2px !important; }
             .card { padding: 14px; margin-bottom: 10px; }
             .card-title { font-size: 18px; margin-bottom: 8px; }
             .attr-item { font-size: 16px; }
@@ -1137,10 +1182,21 @@
             .shop-item .item-btn button { width: 100%; padding: 8px 12px; font-size: 13px; }
             .shop-item .item-name { font-size: 14px; }
             .shop-item .item-info { font-size: 12px; }
-            .full-page-mask .modal { max-width: 94vw; max-height: 92vh; padding: 0; }
+            .full-page-mask .modal { max-width: 94vw; width: 94vw; max-height: 92vh; padding: 0; }
             .full-page-mask .modal-header { padding: 16px 16px 0 16px; }
             .full-page-mask .modal-body { padding: 12px 16px 16px 16px; }
-            .modal { max-width: 92vw; min-width: auto; padding: 20px; }
+            .modal { max-width: 92vw; width: 92vw; min-width: auto; padding: 20px; }
+            /* 存档读档弹窗：手机版加宽 */
+            .save-slot-modal { max-width: 92vw !important; width: 92vw !important; }
+            /* 市集/商店弹窗：手机版加宽+内容等比缩小 */
+            #shopMask .modal { width: 94vw; max-width: 94vw; max-height: 85vh; }
+            #shopMask .modal-title { font-size: 17px; }
+            #shopContent { padding: 10px 14px 16px 14px !important; }
+            #shopContent > div { gap: 10px !important; }
+            #shopContent > div > div[onclick] { padding: 14px !important; }
+            #shopContent > div > div[onclick] > div:first-child { font-size: 28px !important; }
+            #shopContent > div > div[onclick] > div:nth-child(2) { font-size: 15px !important; margin: 4px 0 !important; }
+            #shopContent > div > div[onclick] > div:last-child { font-size: 11px !important; }
             .member-card { flex-direction: column; align-items: flex-start; gap: 4px; padding: 6px 8px; margin: 4px 0; }
             .member-actions { width: 100%; justify-content: flex-start; margin-left: 0; gap: 3px; }
             .member-name { font-size: 14px; }
@@ -1181,8 +1237,9 @@
             .col-main > .card:first-child .card-title { font-size: 18px; margin-bottom: 6px; }
             .stats-grid { grid-template-columns: 1fr 1fr; gap: 5px 12px; }
             .stats-grid .attr-item { font-size: 15px; }
-            /* 市集隐藏 + 小按钮 */
+            /* 市集/芳华阁隐藏 + 小按钮 */
             #marketCard { display: none !important; }
+            #courtesanEntryCard { display: none !important; }
             .market-mini-btn { display: inline-flex; align-items: center; justify-content: center; }
             .card { padding: 12px; margin-bottom: 8px; }
             .card-title { font-size: 17px; }
@@ -1190,8 +1247,6 @@
             .action-log-card { flex: 0 0 200px; min-height: 0; max-height: 280px; overflow-y: auto; }
             .action-log-card .card-title { font-size: 18px; margin-bottom: 2px; }
             .action-log-card .log-placeholder { font-size: 11px; }
-            /* 增长年岁：满宽长条 */
-            #btnGrowAge { width: 100% !important; padding: 9px !important; font-size: 14px !important; display: block; margin: 6px 0 0 0 !important; letter-spacing: 2px !important; }
             /* 商店：小屏保持双列 */
             .category-items { grid-template-columns: 1fr 1fr; gap: 4px; }
             .shop-item { padding: 8px; gap: 4px; }
@@ -1211,10 +1266,20 @@
             .member-name { font-size: 13px; }
             .member-detail { font-size: 11px; line-height: 1.3; margin-top: 0px; }
             .member-actions .action-btn { padding: 2px 6px; font-size: 10px; }
-            .full-page-mask .modal { max-width: 96vw; padding: 0; }
+            .full-page-mask .modal { max-width: 96vw; width: 96vw; padding: 0; }
             .full-page-mask .modal-header { padding: 14px 14px 0 14px; }
             .full-page-mask .modal-body { padding: 10px 14px 14px 14px; }
-            .modal { max-width: 96vw; padding: 14px; }
+            .modal { max-width: 96vw; width: 96vw; padding: 14px; }
+            /* 存档读档弹窗：小屏加宽 */
+            .save-slot-modal { max-width: 96vw !important; width: 96vw !important; }
+            /* 市集/商店弹窗：小屏进一步优化 */
+            #shopMask .modal { width: 96vw; max-width: 96vw; }
+            #shopContent { padding: 8px 12px 14px 12px !important; }
+            #shopContent > div { gap: 8px !important; }
+            #shopContent > div > div[onclick] { padding: 12px !important; }
+            #shopContent > div > div[onclick] > div:first-child { font-size: 24px !important; }
+            #shopContent > div > div[onclick] > div:nth-child(2) { font-size: 14px !important; margin: 4px 0 !important; }
+            #shopContent > div > div[onclick] > div:last-child { font-size: 10px !important; }
             .start-page { padding: 0 20px; display: flex !important; min-height: 100vh; height: auto; }
             .game-title { font-size: 28px; margin-bottom: 32px; letter-spacing: 6px; }
             .start-btn { padding: 12px 32px; font-size: 16px; letter-spacing: 3px; }
@@ -1367,19 +1432,100 @@
         .dice-container {
             text-align: center;
             padding: 20px 0;
+            perspective: 400px;
         }
-        .dice-face {
+        .dice-3d-wrap {
             display: inline-block;
             width: 100px;
             height: 100px;
-            background: linear-gradient(145deg, #f5ead5 0%, #e8d8b8 100%);
-            border: 2px solid rgba(140,90,40,0.45);
-            border-radius: 16px;
-            box-shadow: 4px 4px 14px rgba(60,30,15,0.18), inset 0 1px 0 rgba(255,255,255,0.6);
-            font-size: 60px;
-            line-height: 100px;
+            perspective: 600px;
+        }
+        .dice-3d {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+            margin: 0 auto;
+        }
+        .dice-3d-wrap {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            perspective: 600px;
+            position: relative;
+        }
+        .dice-question {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            font-weight: bold;
             color: #5a3818;
-            transition: transform 0.15s;
+            background: linear-gradient(145deg, #faf5e8 0%, #e8d8b8 100%);
+            border: 2px solid rgba(140,90,40,0.4);
+            border-radius: 14px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -2px 4px rgba(100,60,20,0.1);
+            z-index: 10;
+            transition: opacity 0.2s;
+        }
+        .dice-question.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .dice-3d.rolling {
+            animation: diceRoll3D 0.15s infinite;
+        }
+        @keyframes diceRoll3D {
+            0%   { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            25%  { transform: rotateX(180deg) rotateY(90deg) rotateZ(45deg); }
+            50%  { transform: rotateX(360deg) rotateY(180deg) rotateZ(90deg); }
+            75%  { transform: rotateX(540deg) rotateY(270deg) rotateZ(135deg); }
+            100% { transform: rotateX(720deg) rotateY(360deg) rotateZ(180deg); }
+        }
+        .dice-3d-face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(145deg, #faf5e8 0%, #e8d8b8 100%);
+            border: 2px solid rgba(140,90,40,0.4);
+            border-radius: 14px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -2px 4px rgba(100,60,20,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dice-3d-face.front  { transform: translateZ(50px); }
+        .dice-3d-face.back   { transform: rotateY(180deg) translateZ(50px); }
+        .dice-3d-face.right  { transform: rotateY(90deg) translateZ(50px); }
+        .dice-3d-face.left   { transform: rotateY(-90deg) translateZ(50px); }
+        .dice-3d-face.top    { transform: rotateX(90deg) translateZ(50px); }
+        .dice-3d-face.bottom { transform: rotateX(-90deg) translateZ(50px); }
+        .dice-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #5a3818, #2a1a0a);
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .dice-dot.small {
+            width: 14px;
+            height: 14px;
+        }
+        /* 点数布局 */
+        .dice-face-1 { display:flex; align-items:center; justify-content:center; }
+        .dice-face-2 { display:flex; justify-content:space-between; padding:14px; flex-direction:column; }
+        .dice-face-3 { display:flex; justify-content:space-between; padding:14px; flex-direction:column; }
+        .dice-face-4 { display:flex; justify-content:space-around; align-items:center; }
+        .dice-face-5 { display:flex; justify-content:space-around; align-items:center; }
+        .dice-face-6 { display:flex; flex-direction:column; justify-content:space-around; padding:12px; }
+        .dice-face-2 .row, .dice-face-3 .row, .dice-face-4 .row, .dice-face-5 .row, .dice-face-6 .row {
+            display:flex; justify-content:space-around; width:100%;
         }
         .dice-face.rolling {
             animation: diceShake 0.1s infinite;
@@ -1421,6 +1567,17 @@
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
+        }
+        .custom-odds-btn, .custom-game-btn {
+            padding: 10px 8px !important;
+            font-size: 14px !important;
+            transition: all 0.2s;
+        }
+        .custom-odds-btn.selected, .custom-game-btn.selected {
+            background: #8B4513 !important;
+            color: #f5e6d3 !important;
+            border-color: #6b3408 !important;
+            box-shadow: 0 0 8px rgba(139,69,19,0.4);
         }
         .dice-result {
             font-size: 20px;
@@ -2577,11 +2734,71 @@
 <div class="mask hidden" id="gamblingMask">
     <div class="modal">
         <h2 class="modal-title">赌坊（可玩2局）</h2>
+        <p style="text-align:center; color:#888; font-size:13px; margin-bottom:12px;">选择玩法</p>
         <div class="modal-btn-group">
-            <button class="modal-btn" onclick="playGamblingRound(100, 0.55, 2)">押注 100 文</button>
-            <button class="modal-btn" onclick="playGamblingRound(300, 0.45, 3)">押注 300 文</button>
-            <button class="modal-btn" onclick="playGamblingRound(1000, 0.30, 4)">押注 1000 文</button>
+            <button class="modal-btn" onclick="selectGambleGame('dice')" style="font-size:16px;">🎲 骰子</button>
+            <button class="modal-btn" onclick="selectGambleGame('wheel')" style="font-size:16px;">🎯 转盘</button>
+            <button class="modal-btn" style="opacity:0.5; cursor:not-allowed;" disabled>❓ 敬请期待</button>
             <button class="modal-btn" id="closeGambling">离开赌坊</button>
+        </div>
+    </div>
+</div>
+
+<div class="mask hidden" id="gambleBetMask">
+    <div class="modal">
+        <h2 class="modal-title" id="gambleBetTitle">选择押注</h2>
+        <p style="text-align:center; color:#888; font-size:13px; margin-bottom:12px;">选择押注金额</p>
+        <div class="modal-btn-group">
+            <button class="modal-btn" onclick="confirmGambleBet(100, 2)">押注 100 文（1赔2）</button>
+            <button class="modal-btn" onclick="confirmGambleBet(300, 3)">押注 300 文（1赔3）</button>
+            <button class="modal-btn" onclick="confirmGambleBet(1000, 4)">押注 1000 文（1赔4）</button>
+            <button class="modal-btn" onclick="openCustomGamble()" style="background:linear-gradient(180deg,#8b6914,#6b4914);color:#f5e6d3;">自定义押注</button>
+            <button class="modal-btn" onclick="hideDiv('gambleBetMask'); showDiv('gamblingMask');">返回</button>
+        </div>
+    </div>
+</div>
+
+<div class="mask hidden" id="customGambleMask">
+    <div class="modal">
+        <h2 class="modal-title">自定义押注</h2>
+        <div id="customGambleContent" style="padding:10px;">
+            <p style="text-align:center; color:#888; font-size:13px; margin-bottom:12px;">押注金额越大、赔率越高，风险越大</p>
+            <div style="margin-bottom:16px;">
+                <label style="display:block; font-size:14px; color:#8B4513; margin-bottom:6px;">押注金额（最低1000文）</label>
+                <input type="number" id="customBetAmount" min="1000" step="100" placeholder="输入金额" style="width:100%; padding:10px; border:2px solid #8B4513; border-radius:6px; font-size:16px; text-align:center;">
+            </div>
+            <div style="margin-bottom:16px;">
+                <label style="display:block; font-size:14px; color:#8B4513; margin-bottom:6px;">选择赔率</label>
+                <div id="customOddsOptions" style="display:flex; gap:6px; flex-wrap:wrap;">
+                    <button class="modal-btn custom-odds-btn" onclick="selectCustomOdds(2)" style="flex:1; min-width:60px;">2倍</button>
+                    <button class="modal-btn custom-odds-btn" onclick="selectCustomOdds(3)" style="flex:1; min-width:60px;">3倍</button>
+                    <button class="modal-btn custom-odds-btn" onclick="selectCustomOdds(4)" style="flex:1; min-width:60px;">4倍</button>
+                    <button class="modal-btn custom-odds-btn" onclick="selectCustomOdds(5)" style="flex:1; min-width:60px;">5倍</button>
+                </div>
+            </div>
+            <div class="modal-btn-group">
+                <button class="modal-btn" onclick="startCustomGamble()" style="background:#8B4513; color:#f5e6d3;">开始下注</button>
+                <button class="modal-btn" onclick="hideDiv('customGambleMask'); showDiv('gambleBetMask');">返回</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mask hidden" id="wheelGameMask">
+    <div class="modal">
+        <h2 class="modal-title" id="wheelGameTitle">赌坊转盘</h2>
+        <p style="text-align:center; color:#8B4513;" id="wheelBetInfo"></p>
+        <div style="display:flex; justify-content:center; margin:20px 0;">
+            <div style="position:relative; width:220px; height:220px;">
+                <canvas id="wheelCanvas" width="220" height="220" style="border-radius:50%; border:4px solid #8B4513; box-shadow:0 4px 20px rgba(80,50,20,0.3);"></canvas>
+                <div id="wheelPointer" style="position:absolute; top:-14px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-top:18px solid #c0392b; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));"></div>
+                <div id="wheelCenter" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:36px; height:36px; background:radial-gradient(circle,#a07a3a,#6b4914); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#f5e6d3; font-size:13px; font-weight:bold; box-shadow:inset 0 1px 2px rgba(255,255,255,0.3), 0 2px 6px rgba(0,0,0,0.3); border:2px solid #8B4513;">转</div>
+            </div>
+        </div>
+        <div class="dice-result" id="wheelResult"></div>
+        <div class="modal-btn-group" style="margin-top:10px;">
+            <button class="modal-btn" id="wheelStartBtn" onclick="spinWheel()" style="background:#8B4513; color:#f5e6d3; font-size:16px;">开始转盘</button>
+            <button class="modal-btn hidden" id="wheelContinueBtn">继续</button>
         </div>
     </div>
 </div>
@@ -2591,7 +2808,49 @@
         <h2 class="modal-title" id="diceGameTitle">赌坊对赌</h2>
         <p style="text-align:center; color:#8B4513;" id="diceBetInfo"></p>
         <div class="dice-container">
-            <div class="dice-face" id="diceFace">?</div>
+            <div class="dice-3d-wrap">
+                <div class="dice-question" id="diceQuestion">?</div>
+                <div class="dice-3d" id="dice3D">
+                    <div class="dice-3d-face front">
+                        <div style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;">
+                            <div class="dice-dot"></div>
+                        </div>
+                    </div>
+                    <div class="dice-3d-face back">
+                        <div style="display:flex; flex-direction:column; justify-content:space-between; width:100%; height:100%; padding:16px 20px; box-sizing:border-box;">
+                            <div style="display:flex; justify-content:space-between;"><div class="dice-dot"></div><div class="dice-dot"></div></div>
+                            <div style="display:flex; justify-content:space-between;"><div class="dice-dot"></div><div class="dice-dot"></div></div>
+                            <div style="display:flex; justify-content:space-between;"><div class="dice-dot"></div><div class="dice-dot"></div></div>
+                        </div>
+                    </div>
+                    <div class="dice-3d-face right">
+                        <div style="display:flex; flex-direction:column; justify-content:space-between; width:100%; height:100%; padding:16px 20px; box-sizing:border-box;">
+                            <div style="display:flex; justify-content:flex-start;"><div class="dice-dot"></div></div>
+                            <div style="display:flex; justify-content:flex-end;"><div class="dice-dot"></div></div>
+                        </div>
+                    </div>
+                    <div class="dice-3d-face left">
+                        <div style="display:flex; flex-direction:column; justify-content:space-between; width:100%; height:100%; padding:16px 20px; box-sizing:border-box;">
+                            <div style="display:flex; justify-content:space-between;"><div class="dice-dot"></div><div class="dice-dot"></div></div>
+                            <div style="display:flex; justify-content:center;"><div class="dice-dot"></div></div>
+                            <div style="display:flex; justify-content:space-between;"><div class="dice-dot"></div><div class="dice-dot"></div></div>
+                        </div>
+                    </div>
+                    <div class="dice-3d-face top">
+                        <div style="display:flex; flex-direction:column; justify-content:space-between; width:100%; height:100%; padding:16px 20px; box-sizing:border-box;">
+                            <div style="display:flex; justify-content:flex-start;"><div class="dice-dot"></div></div>
+                            <div style="display:flex; justify-content:center;"><div class="dice-dot"></div></div>
+                            <div style="display:flex; justify-content:flex-end;"><div class="dice-dot"></div></div>
+                        </div>
+                    </div>
+                    <div class="dice-3d-face bottom">
+                        <div style="display:flex; flex-direction:column; justify-content:space-between; width:100%; height:100%; padding:16px 20px; box-sizing:border-box;">
+                            <div style="display:flex; justify-content:space-between;"><div class="dice-dot"></div><div class="dice-dot"></div></div>
+                            <div style="display:flex; justify-content:space-between;"><div class="dice-dot"></div><div class="dice-dot"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <p style="text-align:center; margin:8px 0; color:#666;">猜骰子点数：</p>
         <div style="text-align:center;">
@@ -3062,7 +3321,7 @@
                 &nbsp;&nbsp;年龄：<span id="charAge"></span>岁
                 &nbsp;&nbsp;状态：<span id="charStatus"></span>
                 &nbsp;&nbsp;职业：<span id="charJob"></span>
-                &nbsp;&nbsp;官职：<span id="charOfficer"></span>
+                &nbsp;&nbsp;<span id="charOfficerLabel">官职</span>：<span id="charOfficer"></span>
                 &nbsp;&nbsp;|&nbsp;&nbsp;成就：<span id="achieveBar"></span>
             </div>
             <div class="info-text" id="careerProgress" style="display:none;">
@@ -3073,7 +3332,8 @@
             </div>
             <div class="info-text money" style="display:flex;align-items:center;">
                 现有钱财：<span id="charMoney">0</span> 文
-                <button class="market-mini-btn" id="marketMiniBtn" onclick="showShop()" title="市集">🏪</button>
+                <button class="market-mini-btn" id="marketMiniBtn" onclick="showMarketPage()" title="市集">🏪</button>
+                <button class="market-mini-btn" id="fanhuaMiniBtn" onclick="enterFanhuaGe()" title="芳华阁" style="background:rgba(252,240,242,0.7); border-color:rgba(200,120,136,0.4); display:none;">🌸</button>
                 <div class="menu-wrapper">
                     <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
                         <span class="menu-btn-line"></span>
@@ -3151,7 +3411,6 @@
                         <button class="action-btn courtesan-btn hidden" id="btnCourtesanPractice" onclick="showSelfPractice()">🧘 独自修炼</button>
                     </div>
                     <div style="margin-top:8px;">
-                        <button class="action-btn" id="btnGrowAge" style="width:100%;padding:10px;font-size:16px;font-weight:700;letter-spacing:3px;">📅 增长年岁</button>
                     </div>
                 </div>
 
@@ -3169,13 +3428,15 @@
                     <div id="eventCardBrief" style="font-size:12px; color:#8B7355; margin-bottom:8px;"></div>
                     <button class="action-btn" id="openEventPanelBtn" onclick="showYearlyEventPanel()" style="width:100%;padding:12px;font-size:15px;">处理执务</button>
                 </div>
-                <div class="card hidden" id="courtesanEntryCard" style="cursor:pointer;" onclick="showCourtesanHomePage()">
-                    <h3 class="card-title">🌸 芳华阁</h3>
-                </div>
-                <div class="card" id="marketCard">
-                    <h3 class="card-title" id="marketTitle">🏪 市集</h3>
-                    <button class="action-btn" style="width:100%;padding:14px;font-size:16px;margin-bottom:8px;" onclick="showShop();">🛒 购买物品</button>
-                    <button class="action-btn" style="width:100%;padding:14px;font-size:16px;" onclick="openPawnShop();">🏷️ 典当行</button>
+                <div style="display:flex; gap:10px;">
+                    <div class="card" id="courtesanEntryCard" style="flex:1;">
+                        <h3 class="card-title">🌸 芳华阁</h3>
+                        <button class="action-btn" style="width:100%;padding:14px;font-size:16px;background:linear-gradient(180deg,#d46a8a,#b04a6a);color:#f8e8ec;border-color:#c05a7a;" onclick="enterFanhuaGe();">进入</button>
+                    </div>
+                    <div class="card" id="marketCard" style="flex:1;">
+                        <h3 class="card-title" id="marketTitle">🏪 市集</h3>
+                        <button class="action-btn" style="width:100%;padding:14px;font-size:16px;" onclick="showMarketPage();">进入市集</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3213,6 +3474,8 @@
                 <span class="bn-label">资产</span>
             </div>
         </div>
+        <!-- 固定“下一年”按钮 -->
+        <button id="floatNextYear" onclick="growAge()">下一年</button>
     </div>
 </div>
 
@@ -3404,9 +3667,11 @@ let currentGamble = null; // 当前赌局数据 {bet, rate, multi}
 
 // 成就定义 {id, name, icon, desc, check()}
 const achieveDefs = [
-    {id:"achievementDushen", name:"赌神", icon:"🎲", desc:"在1000文赌局中连赢6次，获得成就称号"},
-    {id:"achievementDuwang", name:"赌王", icon:"💰", desc:"累计在赌坊赚得10万文，获得成就称号"},
-    {id:"achievementJuedaimingling", name:"绝代名伶", icon:"🌸", desc:"花魁线晋升至绝代名伶，名动天下"}
+    {id:"achievementDushen", name:"赌神", icon:"", desc:"在1000文赌局中连赢6次，获得成就称号"},
+    {id:"achievementDuwang", name:"赌王", icon:"", desc:"累计在赌坊赚得10万文，获得成就称号"},
+    {id:"achievementDugui", name:"赌鬼", icon:"", desc:"在赌场连续赌输8次，获得成就称号"},
+    {id:"achievementDugou", name:"赌狗", icon:"", desc:"累计在赌场消耗十万文，获得成就称号"},
+    {id:"achievementJuedaimingling", name:"绝代名伶", icon:"", desc:"花魁线晋升至绝代名伶，名动天下"}
 ];
 
 function refreshAchievements(){
@@ -3450,6 +3715,18 @@ function confirmAchieveUnlock(){
         gameData.reputation += 10;
         recordToHallOfFame("achievementDuwang");
     }
+    if(!gameData.achievementDugui && gameData.gambleConsecutiveLose >= 8){
+        gameData.achievementDugui = true;
+        gameData.achievement++;
+        gameData.reputation += 5;
+        recordToHallOfFame("achievementDugui");
+    }
+    if(!gameData.achievementDugou && gameData.gambleTotalSpent >= 100000){
+        gameData.achievementDugou = true;
+        gameData.achievement++;
+        gameData.reputation += 5;
+        recordToHallOfFame("achievementDugou");
+    }
     if(!gameData.achievementJuedaimingling && gameData.courtesanRank >= 5){
         gameData.achievementJuedaimingling = true;
         gameData.achievement++;
@@ -3472,9 +3749,11 @@ const HOF_KEY = "gameSave_hallOfFame";
 
 // 成就馆的所有成就定义（可随时扩展）
 const hofAchieveDefs = [
-    {id:"achievementDushen", name:"赌神", icon:"🎲", desc:"在1000文赌局中连赢6次，获得成就称号"},
-    {id:"achievementDuwang", name:"赌王", icon:"💰", desc:"累计在赌坊赚得10万文，获得成就称号"},
-    {id:"achievementJuedaimingling", name:"绝代名伶", icon:"🌸", desc:"花魁线晋升至绝代名伶，名动天下"}
+    {id:"achievementDushen", name:"赌神", icon:"", desc:"在1000文赌局中连赢6次，获得成就称号"},
+    {id:"achievementDuwang", name:"赌王", icon:"", desc:"累计在赌坊赚得10万文，获得成就称号"},
+    {id:"achievementDugui", name:"赌鬼", icon:"", desc:"在赌场连续赌输8次，获得成就称号"},
+    {id:"achievementDugou", name:"赌狗", icon:"", desc:"累计在赌场消耗十万文，获得成就称号"},
+    {id:"achievementJuedaimingling", name:"绝代名伶", icon:"", desc:"花魁线晋升至绝代名伶，名动天下"}
 ];
 
 function loadHallOfFame(){
@@ -3637,7 +3916,9 @@ function getDefaultGameData() { return {
     highestOfficerRank:0,highestMilitaryRank:0,familyDegradationCount:0,
     politicalMerit:0,militaryMerit:0,merchantWealth:0,yearlyEvents:[],yearlyEventsDone:false,
     richMerchantUnlocked:false,
-    gambleConsecutiveWin:0,gambleTotalEarned:0,achievementDushen:false,achievementDuwang:false,achievementJuedaimingling:false,
+    gambleConsecutiveWin:0,gambleTotalEarned:0,gambleConsecutiveLose:0,gambleTotalSpent:0,achievementDushen:false,achievementDuwang:false,achievementDugui:false,achievementDugou:false,achievementJuedaimingling:false,
+    debtAmount:0,debtDueAge:0,debtBaseInterest:0,debtLateYears:0,debtCollectorVisited:false,debtInherited:false,
+    fanhuaGeVisits:{},fanhuaGePerformers:[],fanhuaGeLastPerformer:"",
     isRoyal:false, // 是否为皇室成员（皇子/公主/世子/郡主）
     royalType:null, // "direct"=直系(皇子/公主) "branch"=旁系(世子/郡主)
     // 花魁线
@@ -4442,7 +4723,7 @@ function showSaveSlotPicker(mode){ // mode: "save" | "load"
         }
     }
     let html = `<div class="mask" id="saveSlotMask" onclick="event.target===this&&hideDiv('saveSlotMask')">
-        <div class="modal" style="max-width:460px; max-height:85vh; overflow-y:auto;">
+        <div class="modal save-slot-modal" style="max-width:460px; max-height:85vh; overflow-y:auto;">
             <h2 class="modal-title">${title}</h2>
             <div style="display:flex; gap:12px;">
                 ${slotHtml(0, meta0)}
@@ -5563,8 +5844,12 @@ function initPlayer() {
     // 赌坊数据初始化
     gameData.gambleConsecutiveWin = 0;
     gameData.gambleTotalEarned = 0;
+    gameData.gambleConsecutiveLose = 0;
+    gameData.gambleTotalSpent = 0;
     gameData.achievementDushen = false;
     gameData.achievementDuwang = false;
+    gameData.achievementDugui = false;
+    gameData.achievementDugou = false;
     // 婚姻系统初始化
     gameData.spouse = null;
     gameData.children = [];
@@ -5648,11 +5933,28 @@ function refreshPage() {
         document.body.classList.add("courtesan-theme");
         showDiv("courtesanHelpBtn");
         showDiv("courtesanEntryCard");
+        let marketCard = document.getElementById("marketCard");
+        if(marketCard) marketCard.style.flex = "1";
+        let fanhuaBtn = document.getElementById("fanhuaMiniBtn");
+        if(fanhuaBtn) fanhuaBtn.style.display = "";
         // 行动网格改成四列，压缩高度
         document.querySelector(".action-grid").style.gridTemplateColumns = "repeat(4, 1fr)";
     } else {
         document.body.classList.remove("courtesan-theme");
-        hideDiv("courtesanHelpBtn"); hideDiv("courtesanEntryCard");
+        hideDiv("courtesanHelpBtn");
+        let marketCard = document.getElementById("marketCard");
+        // 非花魁玩家也能看到芳华阁（作为客人消费）
+        if(gameData.age >= 18){
+            showDiv("courtesanEntryCard");
+            if(marketCard) marketCard.style.flex = "1";
+            let fanhuaBtn = document.getElementById("fanhuaMiniBtn");
+            if(fanhuaBtn) fanhuaBtn.style.display = "";
+        } else {
+            hideDiv("courtesanEntryCard");
+            if(marketCard) marketCard.style.flex = "0 0 100%";
+            let fanhuaBtn = document.getElementById("fanhuaMiniBtn");
+            if(fanhuaBtn) fanhuaBtn.style.display = "none";
+        }
         // 恢复三列
         document.querySelector(".action-grid").style.gridTemplateColumns = "";
     }
@@ -5663,17 +5965,23 @@ function refreshPage() {
     document.getElementById("charJob").innerText = gameData.job || "未就业";
     // 根据职业显示官职或军衔
     let officerText = "无";
+    let officerLabel = "官职";
     if (gameData.job === officerJob) {
         officerText = gameData.officerTitle || "无";
+        officerLabel = "官职";
     } else if (gameData.job === "从军") {
         officerText = getMilitaryTitle(gameData.militaryRank || 9);
+        officerLabel = "军衔";
     } else if (gameData.job === "商人") {
         officerText = gameData.merchantTitle || "行脚商";
+        officerLabel = "商衔";
     }
     // 花魁线：显示花魁等级
     if (gameData.isCourtesan) {
         officerText = courtesanTitles[gameData.courtesanRank] || "无";
+        officerLabel = "名号";
     }
+    document.getElementById("charOfficerLabel").innerText = officerLabel;
     document.getElementById("charOfficer").innerText = officerText;
     // 职业进度（下一级条件）
     let progDiv = document.getElementById("careerProgress");
@@ -5740,7 +6048,9 @@ function refreshPage() {
     document.getElementById("attrStrength").innerText = gameData.hasStrength ? gameData.strength : "未解锁";
     gameData.hasStrength ? showDiv("trainStrength") : hideDiv("trainStrength");
     let isAnyPregnant = gameData.pregnancy || (gameData.concubines || []).some(c => c.isPregnant && gameData.playerGender === "女");
-    document.getElementById("charStatus").innerText = gameData.isSick ? "生病" : (isAnyPregnant ? "怀孕" : "健康");
+    let charStatusEl = document.getElementById("charStatus");
+    charStatusEl.innerText = gameData.isSick ? "生病" : (isAnyPregnant ? "怀孕" : "健康");
+    charStatusEl.style.color = gameData.isSick ? "#e74c3c" : "";
     document.getElementById("eraName").innerText = gameData.era.name;
 
     hideDiv("btnErrand"); hideDiv("btnCopy"); hideDiv("btnWork"); hideDiv("takeExam");
@@ -6889,6 +7199,8 @@ function growAge(){
     gameData.age++;
     journalCache = null; // 每年清空日志缓存；玩家打开日志时重新生成
     
+    checkDebtStatus();
+    
     // 玩家死亡检测（65岁后开始有自然死亡概率）—— 必须最先执行
     let deathCause = checkPlayerDeath();
     if(deathCause){
@@ -7367,7 +7679,20 @@ document.getElementById("openGambling").onclick = function(){
     showDiv("gamblingMask");
 };
 
-function playGamblingRound(bet, rate, multi){
+function selectGambleGame(gameType){
+    currentGambleGame = gameType;
+    hideDiv("gamblingMask");
+    let title = gameType === 'dice' ? "🎲 骰子" : "🎯 转盘";
+    document.getElementById("gambleBetTitle").innerText = title + " · 选择押注";
+    showDiv("gambleBetMask");
+}
+
+function confirmGambleBet(bet, multi){
+    let rate = bet === 100 ? 0.55 : (bet === 300 ? 0.45 : 0.30);
+    playGamblingRound(bet, rate, multi, currentGambleGame);
+}
+
+function playGamblingRound(bet, rate, multi, gameType){
     if(gamblingRound >= 2){
         showToast("今日已玩2局，不能再玩");
         return;
@@ -7385,89 +7710,314 @@ function playGamblingRound(bet, rate, multi){
     gameData.money -= bet;
     
     gamblingRound++;
-    currentGamble = {bet, rate, multi};
+    currentGamble = {bet, rate, multi, gameType: gameType || 'dice'};
     
-    // 显示骰子游戏界面
-    document.getElementById("diceBetInfo").innerText = `押注 ${bet} 文 | 赔率 1赔${multi}`;
-    document.getElementById("diceFace").innerText = "?";
-    document.getElementById("diceFace").classList.remove("rolling");
-    document.getElementById("diceResult").innerText = "";
-    document.getElementById("guessBig").disabled = false;
-    document.getElementById("guessSmall").disabled = false;
-    document.getElementById("diceContinueBtn").classList.add("hidden");
-    hideDiv("gamblingMask");
-    showDiv("diceGameMask");
+    if(currentGamble.gameType === 'wheel'){
+        // 转盘：显示界面，等玩家点"开始"
+        document.getElementById("wheelBetInfo").innerText = `押注 ${bet} 文 | 赔率 1赔${multi}`;
+        document.getElementById("wheelResult").innerText = "";
+        document.getElementById("wheelContinueBtn").classList.add("hidden");
+        document.getElementById("wheelStartBtn").classList.remove("hidden");
+        document.getElementById("wheelStartBtn").disabled = false;
+        hideDiv("gamblingMask");
+        hideDiv("gambleBetMask");
+        hideDiv("customGambleMask");
+        showDiv("wheelGameMask");
+        drawWheel(0);
+    } else {
+        // 骰子：显示猜大小界面
+        document.getElementById("diceBetInfo").innerText = `押注 ${bet} 文 | 赔率 1赔${multi}`;
+        document.getElementById("dice3D").style.transform = "rotateX(0deg) rotateY(0deg)";
+        document.getElementById("dice3D").classList.remove("rolling");
+        document.getElementById("diceQuestion").classList.remove("hidden");
+        document.getElementById("diceResult").innerText = "";
+        document.getElementById("guessBig").disabled = false;
+        document.getElementById("guessSmall").disabled = false;
+        document.getElementById("diceContinueBtn").classList.add("hidden");
+        hideDiv("gamblingMask");
+        hideDiv("gambleBetMask");
+        hideDiv("customGambleMask");
+        showDiv("diceGameMask");
+    }
 }
 
-function makeDiceGuess(guess){
+// ========== 自定义押注 ==========
+let customGambleConfig = { amount: 0, odds: 2 };
+let currentGambleGame = 'dice';
+
+function openCustomGamble(){
+    hideDiv("gambleBetMask");
+    showDiv("customGambleMask");
+    customGambleConfig = { amount: 0, odds: 2 };
+    document.getElementById("customBetAmount").value = "";
+    document.querySelectorAll(".custom-odds-btn").forEach(b => b.classList.remove("selected"));
+    document.querySelector(".custom-odds-btn").classList.add("selected");
+}
+
+function selectCustomOdds(odds){
+    customGambleConfig.odds = odds;
+    document.querySelectorAll(".custom-odds-btn").forEach(b => b.classList.remove("selected"));
+    event.target.classList.add("selected");
+}
+
+function calcCustomWinRate(amount, odds){
+    let baseRate = (1 / odds) * 0.9;
+    let amountPenalty = Math.min(0.5, (amount / 1000) * 0.03);
+    let finalRate = baseRate * (1 - amountPenalty);
+    return Math.max(0.02, Math.min(0.85, finalRate));
+}
+
+function startCustomGamble(){
+    let amount = parseInt(document.getElementById("customBetAmount").value) || 0;
+    let odds = customGambleConfig.odds;
+    
+    if(amount < 1000){
+        showToast("最低押注1000文");
+        return;
+    }
+    if(amount > 100000){
+        showToast("最高押注100000文");
+        return;
+    }
+    if(gameData.money < amount){
+        showToast("银两不足");
+        return;
+    }
+    
+    let winRate = calcCustomWinRate(amount, odds);
+    hideDiv("customGambleMask");
+    playGamblingRound(amount, winRate, odds, currentGambleGame);
+}
+
+// ========== 转盘游戏 ==========
+function drawWheel(rotation){
+    let canvas = document.getElementById("wheelCanvas");
+    if(!canvas) return;
+    let ctx = canvas.getContext("2d");
+    let cx = 110, cy = 110, radius = 105;
+    
+    let winRate = currentGamble ? currentGamble.rate : 0.5;
+    let redAngle = winRate * Math.PI * 2;
+    
+    ctx.clearRect(0, 0, 220, 220);
+    
+    // 外圈装饰
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius + 2, 0, Math.PI * 2);
+    ctx.fillStyle = "#6b4914";
+    ctx.fill();
+    
+    // 红色扇区（赢）— 渐变
+    let redGrad = ctx.createRadialGradient(cx, cy, 20, cx, cy, radius);
+    redGrad.addColorStop(0, "#e74c3c");
+    redGrad.addColorStop(1, "#a93226");
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, radius, rotation - Math.PI/2, rotation - Math.PI/2 + redAngle);
+    ctx.closePath();
+    ctx.fillStyle = redGrad;
+    ctx.fill();
+    
+    // 黑色扇区（输）— 渐变
+    let blackGrad = ctx.createRadialGradient(cx, cy, 20, cx, cy, radius);
+    blackGrad.addColorStop(0, "#34495e");
+    blackGrad.addColorStop(1, "#1a252f");
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, radius, rotation - Math.PI/2 + redAngle, rotation - Math.PI/2 + Math.PI * 2);
+    ctx.closePath();
+    ctx.fillStyle = blackGrad;
+    ctx.fill();
+    
+    // 分隔线
+    ctx.strokeStyle = "#f5e6d3";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(rotation - Math.PI/2) * radius, cy + Math.sin(rotation - Math.PI/2) * radius);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(rotation - Math.PI/2 + redAngle) * radius, cy + Math.sin(rotation - Math.PI/2 + redAngle) * radius);
+    ctx.stroke();
+    
+    // 文字
+    ctx.fillStyle = "#f5e6d3";
+    ctx.font = "bold 16px serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    let redMidAngle = rotation - Math.PI/2 + redAngle/2;
+    ctx.fillText("赢", cx + Math.cos(redMidAngle) * 55, cy + Math.sin(redMidAngle) * 55);
+    let blackMidAngle = rotation - Math.PI/2 + redAngle + (Math.PI*2 - redAngle)/2;
+    ctx.fillText("输", cx + Math.cos(blackMidAngle) * 55, cy + Math.sin(blackMidAngle) * 55);
+    
+    // 外圈金点装饰
+    for(let i = 0; i < 16; i++){
+        let angle = (i / 16) * Math.PI * 2;
+        let x = cx + Math.cos(angle) * (radius - 6);
+        let y = cy + Math.sin(angle) * (radius - 6);
+        ctx.beginPath();
+        ctx.arc(x, y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = "#d4a858";
+        ctx.fill();
+    }
+}
+
+function spinWheel(){
     if(!currentGamble) return;
     
-    // 禁用按钮防止重复点击
-    document.getElementById("guessBig").disabled = true;
-    document.getElementById("guessSmall").disabled = true;
+    document.getElementById("wheelStartBtn").disabled = true;
     
     let {bet, rate, multi} = currentGamble;
-    let dice = document.getElementById("diceFace");
-    let resultDiv = document.getElementById("diceResult");
+    let resultDiv = document.getElementById("wheelResult");
     
-    // 骰子滚动动画
-    dice.classList.add("rolling");
-    let rollCount = 0;
-    let maxRolls = 6 + Math.floor(Math.random() * 5); // 6~10次翻滚
-    let rollInterval = setInterval(() => {
-        dice.innerText = "⚀⚁⚂⚃⚄⚅"[Math.floor(Math.random() * 6)];
-        rollCount++;
-        if(rollCount >= maxRolls){
-            clearInterval(rollInterval);
-            dice.classList.remove("rolling");
-            resolveDiceResult(guess, rate, bet, multi, dice, resultDiv);
+    let rotation = 0;
+    let spinCount = 0;
+    let maxSpins = 20 + Math.floor(Math.random() * 10);
+    let spinInterval = setInterval(() => {
+        rotation += 0.3 + (maxSpins - spinCount) * 0.02;
+        spinCount++;
+        drawWheel(rotation);
+        if(spinCount >= maxSpins){
+            clearInterval(spinInterval);
+            resolveWheelResult(rate, bet, multi, rotation, resultDiv);
         }
-    }, 120);
+    }, 50);
 }
 
-function resolveDiceResult(guess, rate, bet, multi, dice, resultDiv){
+function resolveWheelResult(rate, bet, multi, rotation, resultDiv){
     let won = Math.random() < rate;
-    let dicePoints, actualSide;
+    let redAngle = rate * Math.PI * 2;
+    let twoPi = Math.PI * 2;
+    
+    // 计算当前rotation的模数值
+    let r = rotation % twoPi;
+    if(r < 0) r += twoPi;
+    
+    // 指针在顶部（-Math.PI/2方向），红色扇区从(rotation - Math.PI/2)开始
+    // 指针落在红色区域的条件：finalRotation mod 2π 在 [2π - redAngle, 2π] 范围内
+    let target;
+    if(won){
+        // 停在红色区域（赢区）
+        target = twoPi - redAngle + Math.random() * redAngle;
+    } else {
+        // 停在黑色区域（输区）
+        target = Math.random() * (twoPi - redAngle);
+    }
+    
+    // 计算从当前角度到目标角度的增量（保证向前转）
+    let delta = target - r;
+    if(delta < 0) delta += twoPi;
+    
+    let finalRotation = rotation + delta;
+    drawWheel(finalRotation);
     
     if(won){
-        // 赢了：骰子显示玩家猜的那边
-        if(guess === "big"){
-            dicePoints = 4 + Math.floor(Math.random() * 3); // 4,5,6
-        } else {
-            dicePoints = 1 + Math.floor(Math.random() * 3); // 1,2,3
-        }
         let win = bet * (multi - 1);
         gameData.money += bet + win;
-        gameData.gambleTotalEarned += win; // 累计赌坊盈利
-        actualSide = dicePoints >= 4 ? "大" : "小";
-        dice.innerText = "⚀⚁⚂⚃⚄⚅"[dicePoints - 1];
-        resultDiv.innerHTML = `<span style="color:#27ae60;">${dicePoints}点（${actualSide}）——猜中了！赢得 ${win} 文</span>`;
-        // 追踪1000下注连胜
-        if(bet === 1000){
+        gameData.gambleTotalEarned += win;
+        resultDiv.innerHTML = `<span style="color:#27ae60; font-size:18px;">运气很好！获得 ${win} 文</span>`;
+        if(bet >= 1000 && multi >= 3){
             gameData.gambleConsecutiveWin++;
         } else {
             gameData.gambleConsecutiveWin = 0;
         }
     } else {
-        // 输了：骰子显示相反的
+        resultDiv.innerHTML = `<span style="color:#e74c3c; font-size:18px;">运气不好，损失 ${bet} 文</span>`;
+        gameData.gambleTotalEarned -= bet;
+        gameData.gambleConsecutiveWin = 0;
+        gameData.gambleConsecutiveLose = (gameData.gambleConsecutiveLose || 0) + 1;
+    }
+    gameData.gambleTotalSpent = (gameData.gambleTotalSpent || 0) + bet;
+    if(won){
+        gameData.gambleConsecutiveLose = 0;
+    }
+    
+    let triggered = checkGambleAchievements();
+    
+    document.getElementById("wheelStartBtn").classList.add("hidden");
+    document.getElementById("wheelContinueBtn").classList.remove("hidden");
+    currentGamble = null;
+    
+    checkGamblingScandal();
+    
+    if(triggered){
+        refreshPage();
+        triggerAchieveUnlock(triggered);
+    } else {
+        saveData();
+        refreshPage();
+    }
+}
+
+function makeDiceGuess(guess){
+    if(!currentGamble) return;
+    
+    document.getElementById("guessBig").disabled = true;
+    document.getElementById("guessSmall").disabled = true;
+    document.getElementById("diceQuestion").classList.add("hidden");
+    
+    let {bet, rate, multi} = currentGamble;
+    let dice = document.getElementById("dice3D");
+    let resultDiv = document.getElementById("diceResult");
+    
+    // 3D骰子滚动动画
+    dice.classList.add("rolling");
+    dice.style.transform = "";
+    let rollTime = 1200;
+    setTimeout(() => {
+        dice.classList.remove("rolling");
+        resolveDiceResult(guess, rate, bet, multi, dice, resultDiv);
+    }, rollTime);
+}
+
+function resolveDiceResult(guess, rate, bet, multi, dice, resultDiv){
+    let won = Math.random() < rate;
+    let dicePoints;
+    
+    if(won){
         if(guess === "big"){
-            dicePoints = 1 + Math.floor(Math.random() * 3); // 1,2,3
+            dicePoints = 4 + Math.floor(Math.random() * 3);
         } else {
-            dicePoints = 4 + Math.floor(Math.random() * 3); // 4,5,6
+            dicePoints = 1 + Math.floor(Math.random() * 3);
         }
-        actualSide = dicePoints >= 4 ? "大" : "小";
-        dice.innerText = "⚀⚁⚂⚃⚄⚅"[dicePoints - 1];
-        resultDiv.innerHTML = `<span style="color:#e74c3c;">${dicePoints}点（${actualSide}）——猜错了！损失 ${bet} 文</span>`;
-        gameData.gambleTotalEarned -= bet; // 累计亏损
-        gameData.gambleConsecutiveWin = 0;  // 连胜中断
+        let win = bet * (multi - 1);
+        gameData.money += bet + win;
+        gameData.gambleTotalEarned += win;
+        resultDiv.innerHTML = `<span style="color:#27ae60; font-size:18px;">运气很好！获得 ${win} 文</span>`;
+        if(bet >= 1000 && multi >= 3){
+            gameData.gambleConsecutiveWin++;
+        } else {
+            gameData.gambleConsecutiveWin = 0;
+        }
+    } else {
+        if(guess === "big"){
+            dicePoints = 1 + Math.floor(Math.random() * 3);
+        } else {
+            dicePoints = 4 + Math.floor(Math.random() * 3);
+        }
+        resultDiv.innerHTML = `<span style="color:#e74c3c; font-size:18px;">运气不好，损失 ${bet} 文</span>`;
+        gameData.gambleTotalEarned -= bet;
+        gameData.gambleConsecutiveWin = 0;
+        gameData.gambleConsecutiveLose = (gameData.gambleConsecutiveLose || 0) + 1;
     }
+    gameData.gambleTotalSpent = (gameData.gambleTotalSpent || 0) + bet;
+    if(won){
+        gameData.gambleConsecutiveLose = 0;
+    }
+    
+    // 根据点数旋转3D骰子到对应面
+    let rotations = {
+        1: "rotateX(0deg) rotateY(0deg)",
+        2: "rotateY(-90deg)",
+        3: "rotateX(-90deg)",
+        4: "rotateX(90deg)",
+        5: "rotateY(90deg)",
+        6: "rotateY(180deg)"
+    };
+    dice.style.transform = rotations[dicePoints] || "rotateX(0deg) rotateY(0deg)";
     // 检查成就
-    let triggered = null;
-    if(!gameData.achievementDushen && gameData.gambleConsecutiveWin >= 6){
-        triggered = "achievementDushen";
-    } else if(!gameData.achievementDuwang && gameData.gambleTotalEarned >= 100000){
-        triggered = "achievementDuwang";
-    }
+    let triggered = checkGambleAchievements();
     
     document.getElementById("diceContinueBtn").classList.remove("hidden");
     currentGamble = null;
@@ -7483,6 +8033,23 @@ function resolveDiceResult(guess, rate, bet, multi, dice, resultDiv){
         saveData();
         refreshPage();
     }
+}
+
+// 赌坊成就检查（骰子和转盘共用）
+function checkGambleAchievements(){
+    if(!gameData.achievementDushen && gameData.gambleConsecutiveWin >= 6){
+        return "achievementDushen";
+    }
+    if(!gameData.achievementDuwang && gameData.gambleTotalEarned >= 100000){
+        return "achievementDuwang";
+    }
+    if(!gameData.achievementDugui && gameData.gambleConsecutiveLose >= 8){
+        return "achievementDugui";
+    }
+    if(!gameData.achievementDugou && gameData.gambleTotalSpent >= 100000){
+        return "achievementDugou";
+    }
+    return null;
 }
 
 // 官员/武将赌坊被发现检查
@@ -7552,7 +8119,21 @@ document.getElementById("closeGambling").onclick = ()=>{
 };
 document.getElementById("diceContinueBtn").onclick = ()=>{
     hideDiv("diceGameMask");
-    showDiv("gamblingMask");
+    if(gamblingRound >= 2){
+        showToast("今日已玩2局，赌坊打烊了");
+        refreshPage();
+    } else {
+        showDiv("gambleBetMask");
+    }
+};
+document.getElementById("wheelContinueBtn").onclick = ()=>{
+    hideDiv("wheelGameMask");
+    if(gamblingRound >= 2){
+        showToast("今日已玩2局，赌坊打烊了");
+        refreshPage();
+    } else {
+        showDiv("gambleBetMask");
+    }
 };
 
 // 备份当前进度：新游戏开始前调用，将未保存进度移入回收站
@@ -9040,7 +9621,8 @@ function adoptStreetChild(friendName){
 // ========== 相亲对象管理 ==========
 
 // 生成相亲对象
-function generateMatchmakingCandidate(){
+function generateMatchmakingCandidate(quality){
+    if(!quality) quality = "normal";
     let g = gameData.playerGender === "男" ? "女" : "男";
     let s = getRandom(surnameList);
     let exist = getAllExistingNames();
@@ -9051,19 +9633,30 @@ function generateMatchmakingCandidate(){
     let str = getRandRange(20, 80);
     let age = getRandRange(gameData.age - 3, gameData.age + 5);
     
-    // 家庭背景等级：0-贫穷 1-普通 2-富裕 3-官宦 4-权贵
+    // 媒人品质只影响数值，不影响家境
+    if(quality === "normal"){
+        // 普通媒人：整体偏低，上限70
+        app = Math.min(app, getRandRange(30, 70));
+        tal = Math.min(tal, getRandRange(20, 70));
+        str = Math.min(str, getRandRange(20, 70));
+    }else if(quality === "premium"){
+        // 优质媒人：下限45，上限不限
+        app = Math.max(app, getRandRange(45, 80));
+        tal = Math.max(tal, getRandRange(45, 80));
+        str = Math.max(str, getRandRange(45, 80));
+    }
+    
+    // 家庭背景：只根据玩家自己的家境来判断
     let famTypes = ["贫穷","普通","富裕","官宦","权贵"];
     let playerFamIndex = famTypes.indexOf(gameData.familyType);
-    if(playerFamIndex === -1) playerFamIndex = 1; // 默认普通
+    if(playerFamIndex === -1) playerFamIndex = 1;
     
     let fam = "";
     if(gameData.playerGender === "男"){
-        // 男玩家：家庭背景不能超过两个阶级
         let minIndex = Math.max(0, playerFamIndex - 1);
         let maxIndex = Math.min(4, playerFamIndex + 1);
         fam = famTypes[getRandRange(minIndex, maxIndex)];
     }else{
-        // 女玩家：颜值>70时可出现所有家庭背景
         if(gameData.appearance > 70){
             fam = famTypes[getRandRange(0, 4)];
         }else{
@@ -9074,7 +9667,6 @@ function generateMatchmakingCandidate(){
     }
     
     let job = getRandomJob(g, fam, tal, str);
-    // AI性格描述（简化版）
     let personalities = ["温婉贤淑","活泼开朗","知书达理","内向害羞","大方得体","独立自主"];
     let personality = getRandom(personalities);
     return {name:n, gender:g, appearance:app, talent:tal, strength:str, age:age, job:job, family:fam, favor:50, personality:personality};
@@ -9128,7 +9720,7 @@ function showParentMatchmakingAsk(){
 function acceptParentMatchmaking(){
     hideDiv("parentMatchmakingMask");
     if(gameData.isCourtesan) return showToast("身在芳华阁，不能接受相亲");
-    triggerMatchmaking();
+    triggerMatchmaking(true);
 }
 
 function refuseParentMatchmaking(){
@@ -9214,7 +9806,7 @@ const COURTESAN_NAME_SUGGESTIONS = ["念卿","如烟","清歌","弄影","玉楼"
 
 // 花街偶遇剧情文案（随机选一则）
 const COURTESAN_TRIGGER_STORIES = [
-    `这日你走在街上，一位衣着华贵的妇人忽然拦住了你。她上下打量了一番，眼中露出惊艳之色："好标致的姑娘！"她自称是芳华阁的掌事，说你这般容貌，若是埋没在市井之间实在可惜。她邀你到芳华阁一叙，说凭你的姿色，一年便能名动全城……`,
+    `这日你走在街上，一位衣着华贵的妇人忽然拦住了你。她上下打量了一番，眼中露出惊艳之色："好标致的姑娘！"她自称是芳华阁的阁主，说你这般容貌，若是埋没在市井之间实在可惜。她邀你到芳华阁一叙，说凭你的姿色，一年便能名动全城……`,
     `年关将近，你正为生计发愁。一位涂脂抹粉的妇人从轿中探出头来，盯着你看了许久，忽然叫停了轿子。她递来一方香帕，笑道："姑娘生得这般好模样，何必清贫度日？芳华阁正在寻一位淸倌人，你若有兴趣，明日便来寻我。"`,
     `庙会上人潮涌动，你正看杂耍入神，忽然发现周围几位公子都在偷偷看你。其中一位摇着折扇上前搭话，被随行的老妇拦住。老妇拉你到一旁，悄声道："姑娘莫怕，老身是芳华阁的教习。你这般容貌，若肯来阁里学艺，将来必是头牌的花魁。"`,
     `你在河边浣衣，一位撑伞的妇人驻足良久。她夸你手如柔荑、肤如凝脂，说这样的好底子不该浪费。她将芳华阁的名帖塞进你手里，低声道："想清楚了随时来找我。凭你的姿色，多少达官贵人抢着为你一掷千金。"`
@@ -11141,6 +11733,20 @@ function showComingOfAgeStory(job){
     let html = `<p style="line-height:2.4; font-size:17px; text-align:justify; text-indent:2em;">
         ${story}
     </p>
+    <div style="margin:20px 0; padding:16px 20px; background:rgba(248,240,225,0.6); border-radius:8px; border:1px solid rgba(170,130,70,0.25);">
+        <p style="font-weight:bold; color:#6b4a1a; margin-bottom:12px; font-size:15px;">成年新启：</p>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:13px; color:#5a4525; line-height:1.7;">
+            <div>
+                <b>宴会</b>　宴请宾客，结识各路友人，提升声望与人脉
+            </div>
+            <div>
+                <b>钱庄</b>　暂借银两周转，解燃眉之急，也可到期归还
+            </div>
+            <div>
+                <b>芳华阁</b>　听曲观舞消遣时光，结识伶人发展情谊
+            </div>
+        </div>
+    </div>
     <div class="modal-btn-group" style="justify-content:center;">
         <button class="modal-btn" onclick="closeComingOfAgeStory()">踏上征途</button>
     </div>`;
@@ -11231,14 +11837,69 @@ function closeFamilyDegradationStory(){
 }
 
 // 触发相亲
-function triggerMatchmaking(){
-    let count = (gameData.familyType === "贫穷" || gameData.familyType === "普通") ? 1 : getRandRange(2, 3);
+function triggerMatchmaking(fromParent){
+    if(fromParent){
+        // 父母安排的相亲，不扣钱，70%普通30%优质
+        let quality = Math.random() < 0.3 ? "premium" : "normal";
+        let count = (gameData.familyType === "贫穷" || gameData.familyType === "普通") ? 1 : getRandRange(2, 3);
+        let candidates = [];
+        for(let i = 0; i < count; i++){
+            candidates.push(generateMatchmakingCandidate(quality));
+        }
+        gameData.matchmakingCandidates = candidates;
+        document.querySelector("#matchmakingMask .modal-title").innerText = "相亲";
+        showMatchmaking();
+        return;
+    }
+    let html = `
+        <p style="line-height:1.8; margin-bottom:20px; color:#5a4525; text-align:center;">
+            想找个什么样的媒人说亲？
+        </p>
+        <div style="display:flex; gap:16px; margin-bottom:20px;">
+            <div style="flex:1; padding:16px; border:1px solid #c9a96e; border-radius:8px; background:rgba(248,240,225,0.4); cursor:pointer; text-align:center;"
+                 onclick="confirmMatchmaker('normal')">
+                <div style="font-weight:bold; margin-bottom:8px; color:#6b4a1a;">王婆</div>
+                <div style="font-size:13px; color:#7a6545; margin-bottom:10px; line-height:1.6;">
+                    寻常媒人，认识的人家不少<br/>但条件嘛，就普普通通
+                </div>
+                <div style="color:#c0392b; font-weight:bold;">500文</div>
+            </div>
+            <div style="flex:1; padding:16px; border:1px solid #c9a96e; border-radius:8px; background:rgba(248,240,225,0.4); cursor:pointer; text-align:center;"
+                 onclick="confirmMatchmaker('premium')">
+                <div style="font-weight:bold; margin-bottom:8px; color:#6b4a1a;">金媒婆</div>
+                <div style="font-size:13px; color:#7a6545; margin-bottom:10px; line-height:1.6;">
+                    资深红娘，人脉广路子野<br/>介绍的人家普遍好些
+                </div>
+                <div style="color:#c0392b; font-weight:bold;">1000文</div>
+            </div>
+        </div>
+    `;
+    document.getElementById("matchmakingList").innerHTML = html;
+    document.querySelector("#matchmakingMask .modal-title").innerText = "找媒人说亲";
+    showDiv("matchmakingMask");
+}
+
+function confirmMatchmaker(quality){
+    let cost = quality === "premium" ? 1000 : 500;
+    if(gameData.money < cost){
+        showToast("银钱不足");
+        return;
+    }
+    gameData.money -= cost;
+    let count;
+    if(quality === "premium"){
+        count = 3; // 优质媒人至少3个
+    }else{
+        count = getRandRange(2, 3); // 普通媒人2~3个
+    }
     let candidates = [];
     for(let i = 0; i < count; i++){
-        candidates.push(generateMatchmakingCandidate());
+        candidates.push(generateMatchmakingCandidate(quality));
     }
     gameData.matchmakingCandidates = candidates;
+    document.querySelector("#matchmakingMask .modal-title").innerText = "相亲";
     showMatchmaking();
+    saveData();
 }
 
 // 显示相亲界面
@@ -14520,6 +15181,9 @@ function useItemFromInventory(itemId, target) {
     
     saveData();
     refreshPage();
+    if(currentMainTab === "assets" && currentAssetSub === "inventory"){
+        renderAssetsInventory();
+    }
 }
 
 function getItemEffectText(item) {
@@ -14718,9 +15382,9 @@ function updateMarriageUI(){
 
 // 检查是否满足相亲条件（不修改状态）
 function canTriggerMatchmaking(){
-    if(gameData.isCourtesan) return false; // 花魁不参与相亲
+    if(gameData.isCourtesan) return false;
     if(gameData.spouse) return false;
-    if(gameData.age < 20) return false;
+    if(gameData.age < 18) return false;
     let qualifiedFriend = gameData.friendList.find(f => f.gender !== gameData.playerGender && f.favor >= 75);
     if(qualifiedFriend) return false;
     return true;
@@ -14757,13 +15421,13 @@ document.getElementById("replaceArmyBtn").onclick=()=>{
     if(gameData.money < 1000){showToast("钱财不足1000文");return;}
     gameData.money -= 1000; showToast("雇人代役，花费1000文");hideDiv("conscriptionMask");saveData();refreshPage();
 };
-document.getElementById("btnGrowAge").onclick=growAge;
+document.getElementById("floatNextYear").onclick=growAge;
 document.getElementById("seekDoctor").onclick=openDoctorConfirm;
 document.getElementById("confirmDoctor").onclick=confirmDoctorDeal;
 document.getElementById("cancelDoctor").onclick=()=>{hideDiv("doctorConfirmMask");};
 
 // 婚姻系统按钮
-document.getElementById("btnMatchmaking").onclick=triggerMatchmaking;
+document.getElementById("btnMatchmaking").onclick=()=>triggerMatchmaking(false);
 document.getElementById("closeMatchmaking").onclick=()=>{hideDiv("matchmakingMask");};
 document.getElementById("acceptMarriage").onclick=acceptMarriage;
 document.getElementById("rejectMarriage").onclick=rejectMarriage;
@@ -15027,10 +15691,826 @@ function showMarketPage(){
         html += '<div style="font-size:12px; color:#999;">年满15岁开放</div>';
         html += '</div>';
     }
+    if(gameData.age >= 18){
+        let hasDebt = gameData.debtAmount > 0;
+        html += '<div onclick="openLoanShop()" style="cursor:pointer; text-align:center; padding:20px; border:2px solid #8b4513; border-radius:12px; background:linear-gradient(135deg,#f8e6d0,#f0d4b0);">';
+        html += '<div style="font-size:36px;">💰</div>';
+        html += '<div style="font-size:18px; font-weight:bold; margin:8px 0;">钱庄</div>';
+        if(hasDebt){
+            let total = gameData.debtAmount + gameData.debtBaseInterest + gameData.debtLateYears * Math.floor(gameData.debtAmount * 0.05);
+            html += `<div style="font-size:12px; color:#c0392b;">尚欠银两：${total}文</div>`;
+        } else {
+            html += '<div style="font-size:12px; color:#888;">手头拮据？可来借贷</div>';
+        }
+        html += '</div>';
+    } else {
+        html += '<div style="text-align:center; padding:20px; border:2px dashed #ccc; border-radius:12px; opacity:0.5;">';
+        html += '<div style="font-size:36px;">💰</div>';
+        html += '<div style="font-size:18px; font-weight:bold; margin:8px 0;">钱庄</div>';
+        html += '<div style="font-size:12px; color:#999;">年满18岁开放</div>';
+        html += '</div>';
+    }
     html += '</div>';
     document.getElementById("shopContent").innerHTML = html;
     showDiv("shopMask");
 }
+
+function enterFanhuaGe(){
+    if(gameData.isCourtesan || gameData.courtesanRank > 0){
+        showCourtesanHomePage();
+    } else {
+        if(gameData.age >= 18){
+            openFanhuaGeGuest();
+        } else {
+            showToast("芳华阁需年满18岁方可进入");
+        }
+    }
+}
+
+// ========== 芳华阁客人系统 ==========
+const performerSurnames = ["柳","苏","花","月","云","风","雪","梅","兰","竹","菊","荷"];
+const femaleStageNames = ["如烟","念卿","清歌","婉清","紫嫣","凝香","雪晴","素心","云裳","怜月","琼华","碧瑶","凤仙","秋娘","如姬","玉箫","灵犀","雨桐","梦蝶"];
+const maleStageNames = ["子安","景明","文远","伯言","仲卿","叔达","少游","承恩","志远","维扬","彦之","玄德","奉先","长卿","子期","云舟","墨卿","长风","慕白"];
+
+function getFanhuaGeVisits(){
+    return gameData.fanhuaGeVisits || {};
+}
+
+function setFanhuaGeVisits(visits){
+    gameData.fanhuaGeVisits = visits;
+}
+
+function getPerformerVisitCount(stageName){
+    let visits = getFanhuaGeVisits();
+    return visits[stageName] || 0;
+}
+
+function recordPerformerVisit(stageName){
+    let visits = getFanhuaGeVisits();
+    visits[stageName] = (visits[stageName] || 0) + 1;
+    setFanhuaGeVisits(visits);
+}
+
+function getFanhuaGePerformers(){
+    if(!gameData.fanhuaGePerformers) gameData.fanhuaGePerformers = [];
+    return gameData.fanhuaGePerformers;
+}
+
+function setFanhuaGePerformers(performers){
+    gameData.fanhuaGePerformers = performers;
+}
+
+function createPerformer(){
+    let isFemale = Math.random() < 0.7;
+    let surname = performerSurnames[Math.floor(Math.random() * performerSurnames.length)];
+    let stageNames = isFemale ? femaleStageNames : maleStageNames;
+    let stageName = stageNames[Math.floor(Math.random() * stageNames.length)];
+    
+    let tier = 1;
+    let rand = Math.random();
+    if(rand < 0.5) tier = 1;
+    else if(rand < 0.8) tier = 2;
+    else tier = 3;
+    
+    return {
+        id: `performer_${Date.now()}_${Math.random().toString(36).substr(2,9)}`,
+        surname: surname,
+        stageName: stageName,
+        gender: isFemale ? "女" : "男",
+        tier: tier,
+        visited: false
+    };
+}
+
+function refreshPerformers(){
+    let visits = getFanhuaGeVisits();
+    let current = getFanhuaGePerformers();
+    
+    let favorites = current.filter(p => visits[p.stageName] >= 3);
+    
+    let usedNames = new Set(current.map(p => p.stageName));
+    let newPerformers = [...favorites];
+    
+    while(newPerformers.length < 5){
+        let p = createPerformer();
+        if(!usedNames.has(p.stageName)){
+            newPerformers.push(p);
+            usedNames.add(p.stageName);
+        }
+    }
+    
+    setFanhuaGePerformers(newPerformers);
+    saveData();
+}
+
+function openFanhuaGeGuest(){
+    document.getElementById("shopModalTitle").innerText = "🌸 芳华阁";
+    document.getElementById("shopPriceTag").innerText = "";
+    
+    let html = `<div style="margin-bottom:10px; cursor:pointer; color:#8b6914; font-size:12px;" onclick="showMarketPage()">← 返回市集</div>`;
+    
+    html += `<div style="padding:12px; background:rgba(253,242,248,0.6); border-radius:8px; margin-bottom:16px; border:1px solid rgba(201,122,136,0.3);">
+        <p style="font-size:13px; color:#8a5a6a; line-height:1.6;">
+            芳华阁里，丝竹之声不绝于耳。空气中弥漫着淡淡的脂粉香。
+            芳华阁的阁主走上前来，笑吟吟地问道："客官，是想看表演，还是想找人陪陪？"
+        </p>
+    </div>`;
+    
+    html += `<p style="color:#666; margin-bottom:12px;">选择消遣方式：</p>`;
+    html += `<div style="display:flex; flex-direction:column; gap:12px;">`;
+    
+    html += `<div style="padding:16px; border:2px solid #c97a88; border-radius:8px; background:rgba(253,242,248,0.4);">`;
+    html += `<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">`;
+    html += `<div style="display:flex; align-items:center; gap:12px;">`;
+    html += `<span style="font-size:28px;">🎭</span>`;
+    html += `<div>`;
+    html += `<div style="font-weight:bold; font-size:16px;">看表演</div>`;
+    html += `<div style="font-size:12px; color:#888;">听歌、看曲、观舞，任选其一</div>`;
+    html += `</div>`;
+    html += `</div>`;
+    html += `<div style="text-align:right;">`;
+    html += `<div style="font-weight:bold; color:#c0392b;">300文</div>`;
+    html += `<div style="font-size:11px; color:#8a9a50;">体质+8，运气+5</div>`;
+    html += `</div>`;
+    html += `</div>`;
+    html += `<button class="modal-btn" onclick="openFanhuaGePerformance()" style="margin-top:8px; width:100%;">🎭 去看表演</button>`;
+    html += `</div>`;
+    
+    html += `<div style="padding:16px; border:2px solid #c97a88; border-radius:8px; background:rgba(253,242,248,0.4);">`;
+    html += `<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">`;
+    html += `<div style="display:flex; align-items:center; gap:12px;">`;
+    html += `<span style="font-size:28px;">🌸</span>`;
+    html += `<div>`;
+    html += `<div style="font-weight:bold; font-size:16px;">寻芳</div>`;
+    html += `<div style="font-size:12px; color:#888;">与伶人独处，共度时光</div>`;
+    html += `</div>`;
+    html += `</div>`;
+    html += `<div style="text-align:right;">`;
+    html += `<div style="font-weight:bold; color:#c0392b;">800文起</div>`;
+    html += `<div style="font-size:11px; color:#8a9a50;">根据伶人等级定价</div>`;
+    html += `</div>`;
+    html += `</div>`;
+    html += `<button class="modal-btn" onclick="openFanhuaGeSelectPerformer()" style="margin-top:8px; width:100%;">🌸 寻芳</button>`;
+    html += `</div>`;
+    
+    html += `</div>`;
+    
+    document.getElementById("shopContent").innerHTML = html;
+    showDiv("shopMask");
+}
+
+function openFanhuaGePerformance(){
+    if(gameData.money < 300){
+        showToast("银两不足，还差 " + (300 - gameData.money) + " 文");
+        return;
+    }
+    
+    gameData.money -= 300;
+    gameData.stamina = Math.min(100, gameData.stamina + 8);
+    gameData.luck = Math.min(100, gameData.luck + 5);
+    
+    let performances = [
+        {name:"听曲", icon:"🎵", desc:"琴箫和鸣，余音绕梁", stories:[
+            "一位青衣女子端坐抚琴，琴声悠扬，如流水般清澈动人。你闭上眼，沉醉在这美妙的旋律中。",
+            "箫声呜咽，琴声低回，一曲《广陵散》听得你心神荡漾，忘却了世间烦恼。",
+            "琵琶声声，清脆悦耳，配上婉转的歌声，真是人间难得几回闻。"
+        ]},
+        {name:"看舞", icon:"💃", desc:"霓裳羽衣，舞姿曼妙", stories:[
+            "舞姬们身着霓裳羽衣，翩翩起舞，身姿轻盈如燕。她们的舞姿优美绝伦，让你目不转睛。",
+            "红绸飞舞，身姿曼妙，这支《飞天舞》仿佛将你带入了仙境。",
+            "舞姿婀娜，风情万种，舞者们的每一个动作都充满了诱惑，让你心跳加速。"
+        ]},
+        {name:"听戏", icon:"🎭", desc:"品茗听戏，梨园风情", stories:[
+            "台上的戏子唱得声情并茂，你听得如痴如醉。一曲终了，你不禁拍手叫好。",
+            "戏台上才子佳人的故事让你沉醉其中，仿佛自己也置身于那个浪漫的世界。",
+            "锣鼓喧天，唱腔婉转，这出《牡丹亭》唱得荡气回肠，让你回味无穷。"
+        ]}
+    ];
+    
+    let performance = performances[Math.floor(Math.random() * performances.length)];
+    let story = performance.stories[Math.floor(Math.random() * performance.stories.length)];
+    
+    saveData();
+    refreshPage();
+    
+    showActionResult(performance.name, `<p>${story}</p><p>花费：300文</p><p>体质+8，运气+5</p>`);
+    
+    openFanhuaGeGuest();
+}
+
+function openFanhuaGeSelectPerformer(){
+    document.getElementById("shopModalTitle").innerText = "🌸 芳华阁 · 寻芳";
+    document.getElementById("shopPriceTag").innerText = "";
+    
+    let performers = getFanhuaGePerformers();
+    let visits = getFanhuaGeVisits();
+    
+    if(performers.length === 0){
+        for(let i=0; i<5; i++){
+            performers.push(createPerformer());
+        }
+        setFanhuaGePerformers(performers);
+    }
+    
+    let html = `<div style="margin-bottom:10px; cursor:pointer; color:#8b6914; font-size:12px;" onclick="openFanhuaGeGuest()">← 返回</div>`;
+    
+    html += `<div style="padding:12px; background:rgba(253,242,248,0.6); border-radius:8px; margin-bottom:16px; border:1px solid rgba(201,122,136,0.3);">
+        <p style="font-size:13px; color:#8a5a6a; line-height:1.6;">
+            芳华阁阁主笑眯眯地走出来："客官眼光真好！我们这儿有几位出色的孩子，您看看想选哪位？"
+        </p>
+    </div>`;
+    
+    html += `<p style="color:#666; margin-bottom:12px; text-align:center;">请选择一位伶人：</p>`;
+    html += `<div style="display:flex; flex-direction:column; gap:10px;">`;
+    
+    performers.forEach(p => {
+        let visitCount = visits[p.stageName] || 0;
+        let visited = visitCount > 0;
+        let displayName = visited ? p.stageName : `${p.surname}${p.gender === "女" ? "姑娘" : "公子"}`;
+        
+        let tierLabel = p.tier === 1 ? "普通" : (p.tier === 2 ? "出众" : "头牌");
+        let tierColor = p.tier === 1 ? "#888" : (p.tier === 2 ? "#c0a030" : "#c0392b");
+        
+        html += `<div onclick="selectPerformer('${p.stageName}', '${p.gender}', ${p.tier})" style="cursor:pointer; padding:14px; border:2px solid #c97a88; border-radius:8px; background:rgba(253,242,248,0.4); text-align:center;">`;
+        html += `<div style="display:flex; justify-content:center; align-items:center; gap:8px;">`;
+        html += `<div style="font-weight:bold; font-size:16px; color:#8a5a6a;">${displayName}</div>`;
+        html += `<span style="font-size:11px; color:${tierColor}; padding:2px 6px; border:1px solid ${tierColor}; border-radius:4px;">${tierLabel}</span>`;
+        html += `</div>`;
+        if(visitCount >= 3){
+            html += `<div style="font-size:11px; color:#c0392b; margin-top:4px;">❤️ 已倾心 ${visitCount} 次</div>`;
+        } else if(visited){
+            html += `<div style="font-size:11px; color:#8a9a50; margin-top:4px;">已见过 ${visitCount} 次</div>`;
+        } else {
+            html += `<div style="font-size:11px; color:#999; margin-top:4px;">初次相见</div>`;
+        }
+        html += `</div>`;
+    });
+    
+    html += `</div>`;
+    
+    html += `<div style="margin-top:16px;">`;
+    html += `<button class="modal-btn" onclick="refreshPerformers(); openFanhuaGeSelectPerformer();" style="width:100%; background:rgba(201,122,136,0.2); color:#8a5a6a; border-color:#c97a88;">🔄 换一批</button>`;
+    html += `</div>`;
+    
+    document.getElementById("shopContent").innerHTML = html;
+}
+
+function selectPerformer(stageName, gender, tier){
+    let visits = getPerformerVisitCount(stageName);
+    recordPerformerVisit(stageName);
+    
+    saveData();
+    refreshPage();
+    
+    let tierMultiplier = tier === 1 ? 1 : (tier === 2 ? 1.5 : 2);
+    let prices = {
+        perform: Math.floor(800 * tierMultiplier),
+        whisper: Math.floor(1500 * tierMultiplier),
+        intimate: Math.floor(4000 * tierMultiplier)
+    };
+    
+    showDoorTransition(() => {
+        document.getElementById("shopModalTitle").innerText = "🌸 " + stageName;
+        document.getElementById("shopPriceTag").innerText = "";
+        
+        let isFemale = gender === "女";
+        let pronoun = isFemale ? "她" : "他";
+        let pronoun2 = isFemale ? "她的" : "他的";
+        let genderName = isFemale ? "姑娘" : "公子";
+        let tierLabel = tier === 1 ? "普通" : (tier === 2 ? "出众" : "头牌");
+        
+        let html = `<div style="margin-bottom:10px; cursor:pointer; color:#8b6914; font-size:12px;" onclick="openFanhuaGeSelectPerformer()">← 返回选择</div>`;
+        
+        html += `<div style="padding:12px; background:rgba(253,242,248,0.6); border-radius:8px; margin-bottom:16px; border:1px solid rgba(201,122,136,0.3);">`;
+        html += `<p style="font-size:13px; color:#8a5a6a; line-height:1.6;">
+            阁主笑着说道："客官真是好眼光！这位${stageName}${genderName}可是我们这儿的${tierLabel}呢。"
+            话音刚落，一扇雕花木门缓缓打开，${stageName}${genderName}从里面走了出来。
+        </p>
+        </div>`;
+        
+        html += `<div style="text-align:center; margin-bottom:16px;">`;
+        html += `<div style="font-size:24px; margin-bottom:8px;">🎭</div>`;
+        html += `<div style="font-size:20px; font-weight:bold; color:#8a5a6a;">${stageName}</div>`;
+        html += `<div style="font-size:13px; color:#999; margin-top:4px;">${tierLabel} · 已相见 ${visits + 1} 次</div>`;
+        html += `</div>`;
+        
+        html += `<p style="color:#666; margin-bottom:12px;">想与${stageName}做点什么？</p>`;
+        html += `<div style="display:flex; flex-direction:column; gap:10px;">`;
+        
+        html += `<div style="padding:14px; border:2px solid #c97a88; border-radius:8px; background:rgba(253,242,248,0.4);">`;
+        html += `<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">`;
+        html += `<div>`;
+        html += `<div style="font-weight:bold; font-size:16px;">🎵 单独献艺</div>`;
+        html += `<div style="font-size:12px; color:#888;">为你弹奏一曲或跳一支舞</div>`;
+        html += `</div>`;
+        html += `<div style="text-align:right;">`;
+        html += `<div style="font-weight:bold; color:#c0392b;">${prices.perform}文</div>`;
+        html += `<div style="font-size:11px; color:#8a9a50;">体质+${8 + tier * 2}，运气+${6 + tier}</div>`;
+        html += `</div>`;
+        html += `</div>`;
+        html += `<button class="modal-btn" onclick="performerPerform('${stageName}', '${gender}', ${tier})" style="margin-top:8px; width:100%;">🎵 请${pronoun}献艺</button>`;
+        html += `</div>`;
+        
+        html += `<div style="padding:14px; border:2px solid #c97a88; border-radius:8px; background:rgba(253,242,248,0.4);">`;
+        html += `<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">`;
+        html += `<div>`;
+        html += `<div style="font-weight:bold; font-size:16px;">💬 私密私语</div>`;
+        html += `<div style="font-size:12px; color:#888;">与${pronoun}亲密交谈，情意绵绵</div>`;
+        html += `</div>`;
+        html += `<div style="text-align:right;">`;
+        html += `<div style="font-weight:bold; color:#c0392b;">${prices.whisper}文</div>`;
+        html += `<div style="font-size:11px; color:#8a9a50;">体质+${12 + tier * 3}，运气+${8 + tier * 2}</div>`;
+        html += `</div>`;
+        html += `</div>`;
+        html += `<button class="modal-btn" onclick="performerWhisper('${stageName}', '${gender}', ${tier})" style="margin-top:8px; width:100%;">💬 与${pronoun}私语</button>`;
+        html += `</div>`;
+        
+        if(visits >= 2){
+            html += `<div style="padding:14px; border:2px solid #c0392b; border-radius:8px; background:rgba(248,230,230,0.6);">`;
+            html += `<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">`;
+            html += `<div>`;
+            html += `<div style="font-weight:bold; font-size:16px; color:#c0392b;">🔥 共度良宵</div>`;
+            html += `<div style="font-size:12px; color:#c0392b;">与${pronoun}共度销魂一夜</div>`;
+            html += `</div>`;
+            html += `<div style="text-align:right;">`;
+            html += `<div style="font-weight:bold; color:#c0392b;">${prices.intimate}文</div>`;
+            html += `<div style="font-size:11px; color:#8a9a50;">体质+${20 + tier * 5}，运气+${12 + tier * 3}</div>`;
+            html += `</div>`;
+            html += `</div>`;
+            html += `<button class="modal-btn" onclick="performerIntimate('${stageName}', '${gender}', ${tier})" style="margin-top:8px; width:100%; background:#c0392b; color:#fff;">🔥 共度良宵</button>`;
+            html += `</div>`;
+        } else {
+            html += `<div style="padding:14px; border:2px dashed #ccc; border-radius:8px; background:rgba(240,240,240,0.4); opacity:0.6;">`;
+            html += `<div style="font-weight:bold; font-size:16px; color:#999;">🔥 共度良宵</div>`;
+            html += `<div style="font-size:12px; color:#999; margin-top:4px;">需与${stageName}${genderName}相见满3次方可解锁</div>`;
+            html += `<div style="font-size:12px; color:#999;">当前：${visits + 1}/3</div>`;
+            html += `</div>`;
+        }
+        
+        html += `</div>`;
+        
+        document.getElementById("shopContent").innerHTML = html;
+    });
+}
+
+function showDoorTransition(callback){
+    let mask = document.createElement("div");
+    mask.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    `;
+    
+    let doorContainer = document.createElement("div");
+    doorContainer.style.cssText = `
+        position: relative;
+        width: 300px;
+        height: 400px;
+        perspective: 1000px;
+    `;
+    
+    let doorLeft = document.createElement("div");
+    doorLeft.style.cssText = `
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+        border: 4px solid #4a2c0a;
+        border-right: 2px solid #4a2c0a;
+        border-radius: 8px 0 0 8px;
+        transform-origin: left;
+        transition: transform 0.6s ease-in-out;
+        box-shadow: inset -5px 0 15px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    `;
+    doorLeft.innerHTML = `<div style="font-size:48px;">🚪</div>`;
+    
+    let doorRight = document.createElement("div");
+    doorRight.style.cssText = `
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+        border: 4px solid #4a2c0a;
+        border-left: 2px solid #4a2c0a;
+        border-radius: 0 8px 8px 0;
+        transform-origin: right;
+        transition: transform 0.6s ease-in-out;
+        box-shadow: inset 5px 0 15px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    `;
+    doorRight.innerHTML = `<div style="font-size:48px;">🚪</div>`;
+    
+    doorContainer.appendChild(doorLeft);
+    doorContainer.appendChild(doorRight);
+    mask.appendChild(doorContainer);
+    document.body.appendChild(mask);
+    
+    setTimeout(() => {
+        doorLeft.style.transform = "rotateY(-100deg)";
+        doorRight.style.transform = "rotateY(100deg)";
+    }, 100);
+    
+    setTimeout(() => {
+        if(callback) callback();
+    }, 700);
+    
+    setTimeout(() => {
+        doorLeft.style.transform = "rotateY(0deg)";
+        doorRight.style.transform = "rotateY(0deg)";
+    }, 900);
+    
+    setTimeout(() => {
+        document.body.removeChild(mask);
+    }, 1500);
+}
+
+function performerPerform(stageName, gender, tier){
+    let tierMultiplier = tier === 1 ? 1 : (tier === 2 ? 1.5 : 2);
+    let cost = Math.floor(800 * tierMultiplier);
+    
+    if(gameData.money < cost){
+        showToast("银两不足，还差 " + (cost - gameData.money) + " 文");
+        return;
+    }
+    
+    gameData.money -= cost;
+    gameData.stamina = Math.min(100, gameData.stamina + 8 + tier * 2);
+    gameData.luck = Math.min(100, gameData.luck + 6 + tier);
+    
+    let isFemale = gender === "女";
+    let pronoun = isFemale ? "她" : "他";
+    let pronoun2 = isFemale ? "她的" : "他的";
+    
+    let stories = [
+        `${stageName}轻拨琴弦，一曲《高山流水》缓缓响起。${pronoun2}指尖在琴弦上飞舞，琴声时而高亢激昂，时而婉转低回。`,
+        `只见${stageName}翩翩起舞，身姿轻盈如蝶。${pronoun}舞动长袖，衣袂飘飘，仿佛仙子下凡。`,
+        `${stageName}清歌一曲，歌声婉转悠扬，余音绕梁。${pronoun}唱到动情处，眼中泛起泪光，让你深深沉醉。`,
+        `琴箫合奏，${stageName}与乐师配合默契。${pronoun2}演奏如行云流水，让你忘却了世间一切烦恼。`
+    ];
+    
+    let story = stories[Math.floor(Math.random() * stories.length)];
+    
+    saveData();
+    refreshPage();
+    
+    showActionResult("单独献艺", `<p>${story}</p><p>你听得如痴如醉，情不自禁地为${pronoun}鼓掌叫好。</p><p>花费：${cost}文</p><p>体质+${8 + tier * 2}，运气+${6 + tier}</p>`);
+    
+    selectPerformer(stageName, gender, tier);
+}
+
+function performerWhisper(stageName, gender, tier){
+    let tierMultiplier = tier === 1 ? 1 : (tier === 2 ? 1.5 : 2);
+    let cost = Math.floor(1500 * tierMultiplier);
+    
+    if(gameData.money < cost){
+        showToast("银两不足，还差 " + (cost - gameData.money) + " 文");
+        return;
+    }
+    
+    gameData.money -= cost;
+    gameData.stamina = Math.min(100, gameData.stamina + 12 + tier * 3);
+    gameData.luck = Math.min(100, gameData.luck + 8 + tier * 2);
+    
+    let isFemale = gender === "女";
+    let pronoun = isFemale ? "她" : "他";
+    let pronoun2 = isFemale ? "她的" : "他的";
+    
+    let stories = [
+        `${stageName}轻轻靠在你身旁，${pronoun}的气息拂过你的耳畔："客官，你知道吗？我从未对别人说过这些..."`,
+        `烛光摇曳，${stageName}与你四目相对。${pronoun}轻声说道："每次看到你来，我都很开心..."`,
+        `${stageName}纤手轻抚你的脸颊，${pronoun}眼眸含情："客官，你觉得我美吗？"`,
+        `你们相谈甚欢，${stageName}渐渐放开了拘束。${pronoun}悄悄告诉你一些闺房趣事，让你心跳加速。`,
+        `${stageName}为你斟上一杯美酒，${pronoun}的手指不经意间划过你的手背："今夜月色真美..."`,
+        `你与${stageName}聊起诗词歌赋，${pronoun}眼中闪过惊喜："没想到客官也懂这些..."`
+    ];
+    
+    let story = stories[Math.floor(Math.random() * stories.length)];
+    
+    saveData();
+    refreshPage();
+    
+    showActionResult("私密私语", `<p>${story}</p><p>空气中弥漫着暧昧的气息，你与${pronoun}的距离越来越近...</p><p>花费：${cost}文</p><p>体质+${12 + tier * 3}，运气+${8 + tier * 2}</p>`);
+    
+    selectPerformer(stageName, gender, tier);
+}
+
+function performerIntimate(stageName, gender, tier){
+    let tierMultiplier = tier === 1 ? 1 : (tier === 2 ? 1.5 : 2);
+    let cost = Math.floor(4000 * tierMultiplier);
+    
+    if(gameData.money < cost){
+        showToast("银两不足，还差 " + (cost - gameData.money) + " 文");
+        return;
+    }
+    
+    gameData.money -= cost;
+    gameData.stamina = Math.min(100, gameData.stamina + 20 + tier * 5);
+    gameData.luck = Math.min(100, gameData.luck + 12 + tier * 3);
+    
+    let isFemale = gender === "女";
+    let pronoun = isFemale ? "她" : "他";
+    let pronoun2 = isFemale ? "她的" : "他的";
+    
+    let stories = [
+        `夜深了，${stageName}轻轻为你褪去衣衫。在这温柔乡中，你们共度了一个销魂的夜晚。${pronoun2}温柔体贴让你感受到了前所未有的满足。`,
+        `红烛高照，春意盎然。${stageName}与你紧紧相拥，${pronoun}的吻落在你的额头、脸颊、唇上...一夜缠绵，情深意浓。`,
+        `${stageName}依偎在你怀中，${pronoun}轻声说道："今夜，我只属于你..." 月光透过窗棂洒落，你们共度了一个难忘的良宵。`,
+        `你与${stageName}在锦被中缠绵，${pronoun2}每一个动作都充满了诱惑。直到东方泛起鱼肚白，你们才依依不舍地分开。`
+    ];
+    
+    let story = stories[Math.floor(Math.random() * stories.length)];
+    
+    saveData();
+    refreshPage();
+    
+    showActionResult("共度良宵", `<p>${story}</p><p>花费：${cost}文</p><p>体质+${20 + tier * 5}，运气+${12 + tier * 3}</p>`);
+    
+    openFanhuaGeGuest();
+}
+
+// ========== 高利贷系统 ==========
+const loanOptions = [
+    {amount: 5000, months: 3, interestRate: 0.3},
+    {amount: 10000, months: 6, interestRate: 0.4},
+    {amount: 20000, months: 9, interestRate: 0.5},
+    {amount: 50000, months: 12, interestRate: 0.6}
+];
+
+function getLoanLimit(){
+    let familyLimit = {
+        "贫穷": 2000,
+        "普通": 5000,
+        "富裕": 10000,
+        "官宦": 20000,
+        "权贵": 30000
+    }[gameData.familyType] || 2000;
+    
+    let jobLimit = 0;
+    if(gameData.job === officerJob){
+        let officerBase = [3000, 6000, 10000, 15000, 25000, 40000, 60000, 80000, 100000];
+        let idx = Math.min(gameData.officerRank, 8);
+        jobLimit = officerBase[idx];
+    } else if(gameData.job === "从军"){
+        let militaryBase = [3000, 6000, 10000, 14000, 22000, 35000, 50000, 70000, 90000];
+        let idx = Math.min(gameData.militaryRank, 8);
+        jobLimit = militaryBase[idx];
+    } else if(gameData.job === "商人"){
+        let merchantBase = [10000, 20000, 35000, 55000, 80000, 150000];
+        let idx = Math.min(gameData.merchantRank, 5);
+        jobLimit = merchantBase[idx];
+    } else {
+        jobLimit = 2000;
+    }
+    
+    let baseLimit = Math.max(familyLimit, jobLimit);
+    
+    let reputation = gameData.reputation || 0;
+    let repMultiplier = 1;
+    if(reputation < 30){
+        repMultiplier = 0.8;
+    } else if(reputation >= 30 && reputation < 60){
+        repMultiplier = 1;
+    } else if(reputation >= 60 && reputation < 80){
+        repMultiplier = 1.1;
+    } else if(reputation >= 80 && reputation < 200){
+        repMultiplier = 1.2;
+    } else {
+        repMultiplier = 1.3;
+    }
+    
+    return Math.floor(baseLimit * repMultiplier);
+}
+
+function openLoanShop(){
+    document.getElementById("shopModalTitle").innerText = "💰 钱庄";
+    document.getElementById("shopPriceTag").innerText = "";
+    
+    let html = `<div style="margin-bottom:10px; cursor:pointer; color:#8b6914; font-size:12px;" onclick="showMarketPage()">← 返回市集</div>`;
+    
+    let hasDebt = gameData.debtAmount > 0;
+    let loanLimit = getLoanLimit();
+    
+    html += `<div style="padding:10px; background:rgba(255,248,240,0.8); border-radius:6px; margin-bottom:12px; font-size:12px; color:#666; line-height:1.6;">
+        钱庄掌柜捋着胡须道："客官，银钱周转乃常事，但丑话说在前头——借了我的钱，可得按时还，逾期不还，利息可就不是一点点了..."
+    </div>`;
+    
+    if(hasDebt){
+        let baseInterest = gameData.debtBaseInterest;
+        let lateInterest = gameData.debtLateYears * Math.floor(gameData.debtAmount * 0.05);
+        let totalDebt = gameData.debtAmount + baseInterest + lateInterest;
+        
+        html += `<div style="padding:16px; background:rgba(248,230,230,0.8); border-radius:8px; margin-bottom:16px; border:1px solid #e74c3c;">`;
+        html += `<p style="font-weight:bold; color:#c0392b; margin-bottom:8px;">⚠️ 尚欠银两</p>`;
+        html += `<p style="margin-bottom:4px;">本金：${gameData.debtAmount}文</p>`;
+        html += `<p style="margin-bottom:4px;">利息：${baseInterest}文</p>`;
+        if(lateInterest > 0){
+            html += `<p style="margin-bottom:4px; color:#e74c3c;">逾期利息：${lateInterest}文（${gameData.debtLateYears}年未还）</p>`;
+        }
+        html += `<p style="font-weight:bold; color:#c0392b; margin-top:8px;">总计：${totalDebt}文</p>`;
+        html += `<button class="modal-btn" onclick="repayDebt()" style="margin-top:12px; width:100%;">还清银两</button>`;
+        html += `</div>`;
+        
+        html += `<p style="color:#666; text-align:center;">尚欠银两未清，暂不可继续借贷</p>`;
+    } else {
+        html += `<p style="color:#666; margin-bottom:12px;">请输入借贷金额（最多 ${loanLimit} 文）：</p>`;
+        
+        html += `<div style="padding:16px; background:rgba(248,232,210,0.6); border-radius:8px; border:2px solid #8b4513; margin-bottom:12px;">`;
+        html += `<div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">`;
+        html += `<input type="number" id="loanAmountInput" placeholder="输入金额" min="1000" max="${loanLimit}" step="1000" style="flex:1; padding:10px; border:2px solid #8b4513; border-radius:6px; font-size:16px; text-align:center;" oninput="calculateLoanPreview()">`;
+        html += `<span style="font-weight:bold; color:#8b4513;">文</span>`;
+        html += `</div>`;
+        
+        html += `<div style="font-size:13px; color:#666; margin-bottom:8px;">`;
+        html += `<p style="margin-bottom:4px;"><span style="color:#8b4513;">📅 借款期限：</span><span id="loanYearsPreview">-</span> 年</p>`;
+        html += `<p style="margin-bottom:4px;"><span style="color:#8b4513;">📊 利息：</span><span id="loanInterestPreview">-</span> 文 <span style="color:#c0392b;">(约 <span id="loanRatePreview">-</span>%)</span></p>`;
+        html += `<p style="font-weight:bold; color:#c0392b;"><span style="color:#8b4513;">💸 到期需还：</span><span id="loanTotalPreview">-</span> 文</p>`;
+        html += `</div>`;
+        
+        html += `<button class="modal-btn" onclick="submitLoan()" style="width:100%;">确认借贷</button>`;
+        html += `</div>`;
+        
+        html += `<div style="margin-top:16px; padding:12px; background:rgba(248,230,230,0.6); border-radius:6px; border:1px dashed #e74c3c;">`;
+        html += `<p style="font-size:12px; color:#c0392b; font-weight:bold; margin-bottom:4px;">⚠️ 逾期后果：</p>`;
+        html += `<p style="font-size:12px; color:#c0392b; line-height:1.6;">到期未还，每年增加本金5%的逾期利息！若拖欠过久，掌柜会派人登门催讨，届时场面可就难堪了...</p>`;
+        html += `</div>`;
+    }
+    
+    document.getElementById("shopContent").innerHTML = html;
+    
+    if(!hasDebt){
+        setTimeout(() => {
+            calculateLoanPreview();
+        }, 100);
+    }
+}
+
+function calculateLoanPreview(){
+    let input = document.getElementById("loanAmountInput");
+    if(!input) return;
+    
+    let amount = parseInt(input.value) || 0;
+    let limit = getLoanLimit();
+    
+    if(amount > limit){
+        amount = limit;
+        input.value = limit;
+    }
+    
+    if(amount <= 0){
+        document.getElementById("loanYearsPreview").innerText = "-";
+        document.getElementById("loanInterestPreview").innerText = "-";
+        document.getElementById("loanRatePreview").innerText = "-";
+        document.getElementById("loanTotalPreview").innerText = "-";
+        return;
+    }
+    
+    let years = Math.max(1, Math.ceil(Math.log2(amount / 5000) + 1));
+    let interestRate = 0.2;
+    if(amount > 10000) interestRate = 0.25;
+    if(amount > 30000) interestRate = 0.3;
+    if(amount > 50000) interestRate = 0.35;
+    if(amount > 100000) interestRate = 0.4;
+    let interest = Math.floor(amount * interestRate);
+    let total = amount + interest;
+    
+    document.getElementById("loanYearsPreview").innerText = years;
+    document.getElementById("loanInterestPreview").innerText = interest;
+    document.getElementById("loanRatePreview").innerText = Math.round(interestRate * 100);
+    document.getElementById("loanTotalPreview").innerText = total;
+}
+
+function submitLoan(){
+    let input = document.getElementById("loanAmountInput");
+    if(!input) return;
+    
+    let amount = parseInt(input.value) || 0;
+    let limit = getLoanLimit();
+    
+    if(amount < 1000){
+        showToast("最少借贷1000文");
+        return;
+    }
+    
+    if(amount > limit){
+        showToast(`最多可借贷 ${limit} 文`);
+        return;
+    }
+    
+    let years = Math.max(1, Math.ceil(Math.log2(amount / 5000) + 1));
+    let interestRate = 0.2;
+    if(amount > 10000) interestRate = 0.25;
+    if(amount > 30000) interestRate = 0.3;
+    if(amount > 50000) interestRate = 0.35;
+    if(amount > 100000) interestRate = 0.4;
+    let interest = Math.floor(amount * interestRate);
+    let total = amount + interest;
+    
+    gameData.money += amount;
+    gameData.debtAmount = amount;
+    gameData.debtBaseInterest = interest;
+    gameData.debtDueAge = gameData.age + years;
+    gameData.debtLateYears = 0;
+    gameData.debtCollectorVisited = false;
+    
+    saveData();
+    refreshPage();
+    
+    showActionResult("借贷成功", `<p>钱庄掌柜笑眯眯地将 ${amount} 文银子推到你面前："客官慢用，记得按时归还哦。"</p><p>利息：${interest}文 (${Math.round(interestRate*100)}%)</p><p>到期需还：${total}文</p><p>期限：${years}年</p>`);
+    
+    openLoanShop();
+}
+
+function repayDebt(){
+    let baseInterest = gameData.debtBaseInterest;
+    let lateInterest = gameData.debtLateYears * Math.floor(gameData.debtAmount * 0.05);
+    let totalDebt = gameData.debtAmount + baseInterest + lateInterest;
+    
+    if(gameData.money < totalDebt){
+        showToast(`银两不足，还差 ${totalDebt - gameData.money} 文`);
+        return;
+    }
+    
+    gameData.money -= totalDebt;
+    gameData.debtAmount = 0;
+    gameData.debtBaseInterest = 0;
+    gameData.debtDueAge = 0;
+    gameData.debtLateYears = 0;
+    gameData.debtCollectorVisited = false;
+    
+    saveData();
+    refreshPage();
+    
+    showActionResult("还清银两", `<p>你将 ${totalDebt} 文银子如数交还掌柜。</p><p>掌柜收起银两，笑容满面："客官果然守信，日后若有需要，随时再来！"</p>`);
+    
+    openLoanShop();
+}
+
+function checkDebtStatus(){
+    if(gameData.debtAmount <= 0) return;
+    
+    let yearsLate = Math.max(0, gameData.age - gameData.debtDueAge);
+    
+    if(yearsLate !== gameData.debtLateYears){
+        gameData.debtLateYears = yearsLate;
+        
+        if(yearsLate > 0){
+            let debtStories = [
+                {
+                    title: "⚔️ 讨债上门",
+                    content: `<p>这天清晨，你家大门被人拍得震天响。</p><p>开门一看，只见几个凶神恶煞的汉子堵在门口，为首的是个满脸横肉的大汉，手里攥着你当初写的借据。</p><p>"欠债还钱，天经地义！"大汉嗓门粗得吓人，"你欠我们掌柜的钱，拖了 ${yearsLate} 年了，今天必须还！"</p><p>街坊邻居纷纷探出头来观望，指指点点，让你脸上一阵发烫。</p><p>"识相的赶紧把钱拿出来，不然别怪我们不客气！"旁边一个瘦猴般的汉子阴阳怪气地说道。</p>`
+                },
+                {
+                    title: "🔥 债主临门",
+                    content: `<p>一阵急促的敲门声打破了午后的宁静。</p><p>你打开门，只见钱庄掌柜亲自来了，身后还跟着两个膀大腰圆的伙计。</p><p>掌柜脸上堆着假笑，语气却带着威胁："客官，咱们说好的日子早就过了，这钱..."</p><p>他顿了顿，目光扫过你家的摆设："我这也是没办法，上头催得紧。你看，是不是今天就把账结了？"</p><p>两个伙计故意把拳头捏得咯咯作响，眼神不善地盯着你。</p><p>你心里明白，要是再拖下去，事情怕是没这么容易善了...</p>`
+                },
+                {
+                    title: "💀 催命鬼到",
+                    content: `<p>夜深人静时，你被一阵粗暴的砸门声惊醒。</p><p>"开门！开门！欠钱不还，想躲到什么时候！"</p><p>你披衣起身，透过门缝看到门外火光闪烁，几个人影手持火把站在门口。</p><p>"再不开门，我们可就自己进来了！"</p><p>无奈之下，你只好打开门。为首的是个刀疤脸，手里提着一把明晃晃的钢刀，在火把映照下显得格外狰狞。</p><p>"小子，欠了钱就想赖？今天不把钱拿出来，这门你别想关上！"刀疤脸恶狠狠地说道。</p>`
+                },
+                {
+                    title: "⚡ 强龙压境",
+                    content: `<p>这天，你正在家中休息，突然听到院子里传来一阵喧哗。</p><p>跑出去一看，只见一群人已经闯进了院子，为首的竟是镇上有名的地痞头子。</p><p>"听说你欠了钱庄的钱？"地痞头子斜着眼打量你，"掌柜的托我来跟你打个招呼。"</p><p>他身后的几个手下开始在院子里乱翻，桌椅板凳被踢得东倒西歪。</p><p>"我劝你识相点，赶紧把钱还了。"地痞头子冷笑一声，"不然的话，这院子里的东西，可就保不住了..."</p>`
+                },
+                {
+                    title: "🔪 恶客临门",
+                    content: `<p>你正在吃饭，突然大门被一脚踹开。</p><p>"砰！"的一声，桌子上的碗筷都被震得跳了起来。</p><p>几个黑衣汉子气势汹汹地走了进来，为首的人手里把玩着一把匕首，在指尖转了几个圈。</p><p>"掌柜的让我来问问，这笔钱你打算什么时候还？"他慢悠悠地说道，目光却像刀子一样盯着你。</p><p>你下意识地握紧了拳头，但看着对方人多势众，终究没敢动手...</p>`
+                },
+                {
+                    title: "⛓️ 锁链加身",
+                    content: `<p>"当当当——"沉重的锁链敲击声从门外传来。</p><p>你打开门，只见两个差役模样的人站在门口，手里拿着铁链和拘票。</p><p>"奉知县大人之命，传你到县衙问话！"其中一人冷冷地说道，"有人告你欠债不还，意图赖账！"</p><p>街坊邻居们议论纷纷，你脸色铁青，却又无可奈何。这要是被带到县衙，脸面可就彻底丢尽了...</p>`
+                }
+            ];
+            
+            let intensity = Math.min(yearsLate - 1, debtStories.length - 1);
+            let availableStories = debtStories.slice(Math.max(0, intensity));
+            let story = availableStories[Math.floor(Math.random() * availableStories.length)];
+            
+            let totalDebt = gameData.debtAmount + gameData.debtBaseInterest + gameData.debtLateYears * Math.floor(gameData.debtAmount * 0.05);
+            
+            showActionResult(story.title, `${story.content}<p><span style="color:#c0392b; font-weight:bold;">当前欠款：${totalDebt}文</span></p><p>逾期 ${yearsLate} 年，每年逾期利息增加本金的5%，请尽快还清！</p>`);
+        }
+        
+        saveData();
+        refreshPage();
+    }
+}
+
 function showShop() {
     let html = "";
     let finalPrice = 0;
@@ -15406,7 +16886,8 @@ function showGiftTarget(itemType, itemId, isFromInventory){
         return;
     }
     
-    let html = `<div class="modal" id="giftTargetMask">
+    let html = `<div class="mask hidden" id="giftTargetMask">
+        <div class="modal">
         <p style="font-size:18px; margin-bottom:15px;">选择赠送对象</p>
         <div style="max-height:300px; overflow-y:auto;">`;
     
@@ -15428,6 +16909,7 @@ function showGiftTarget(itemType, itemId, isFromInventory){
     
     html += `</div>
         <button class="modal-btn" style="margin-top:10px;" onclick="closeGiftTarget('${itemType}')">取消</button>
+        </div>
     </div>`;
     document.body.insertAdjacentHTML('beforeend', html);
     showDiv("giftTargetMask");
@@ -15454,8 +16936,11 @@ function confirmGiftTarget(itemType, itemId, targetType, targetName, isFromInven
         return;
     }
     
-    // 获取物品信息
-    let item = shopItems.find(i => i.id === itemId);
+    // 获取物品信息：先从背包找，再从商店找
+    let item = gameData.inventory.find(i => i.id === itemId);
+    if(!item){
+        item = shopItems.find(i => i.id === itemId);
+    }
     if(!item){
         showToast("物品不存在");
         return;
@@ -15518,6 +17003,9 @@ function confirmGiftTarget(itemType, itemId, targetType, targetName, isFromInven
     
     saveData();
     refreshPage();
+    if(currentMainTab === "assets" && currentAssetSub === "inventory"){
+        renderAssetsInventory();
+    }
 }
 
 function closeGiftTarget(itemType){
@@ -15662,6 +17150,9 @@ function confirmGift(){
     hideDiv("giftMask");
     saveData();
     refreshPage();
+    if(currentMainTab === "assets" && currentAssetSub === "inventory"){
+        renderAssetsInventory();
+    }
 }
 
 // ========== 好友互动 ==========
@@ -16670,6 +18161,11 @@ function confirmInheritance(childName){
     let oldSpouse = gameData.spouse ? {...gameData.spouse} : null;
     let oldConcubines = gameData.concubines ? gameData.concubines.map(c => ({...c})) : [];
     
+    // 保存旧债务（传代前）
+    let oldDebtAmount = gameData.debtAmount || 0;
+    let oldDebtBaseInterest = gameData.debtBaseInterest || 0;
+    let oldDebtLateYears = gameData.debtLateYears || 0;
+    
     // 重置游戏数据，继承属性
     initPlayer();
     gameData.isDead = false; // 继承人开始新的人生
@@ -16687,6 +18183,22 @@ function confirmInheritance(childName){
     gameData.strength = selectedHeir.strength;
     gameData.stamina = getRandRange(10, 50);
     gameData.luck = getRandRange(0, 30);
+    
+    // 债务继承：继承人只需偿还一半
+    if(oldDebtAmount > 0){
+        let totalOldDebt = oldDebtAmount + oldDebtBaseInterest + oldDebtLateYears * Math.floor(oldDebtAmount * 0.05);
+        let inheritedDebt = Math.floor(totalOldDebt * 0.5);
+        let inheritedPrincipal = Math.floor(oldDebtAmount * 0.5);
+        let inheritedInterest = inheritedDebt - inheritedPrincipal;
+        
+        gameData.debtAmount = inheritedPrincipal;
+        gameData.debtBaseInterest = inheritedInterest;
+        gameData.debtLateYears = 0;
+        gameData.debtDueAge = gameData.age + 2; // 2年内还清
+        gameData.debtCollectorVisited = false;
+        
+        gameData.debtInherited = true; // 标记为继承的债务
+    }
     
     // 继承配偶：子女的配偶成为玩家的配偶
     if(heirSpouse){
@@ -16826,10 +18338,18 @@ function confirmInheritance(childName){
         }
     }
     
-    popMsg(`${selectedHeir.name}继承了家业，开始新的人生！`);
+    let msg = `${selectedHeir.name}继承了家业，开始新的人生！`;
+    if(oldDebtAmount > 0){
+        let totalOldDebt = oldDebtAmount + oldDebtBaseInterest + oldDebtLateMonths * Math.floor(oldDebtAmount * 0.02);
+        let inheritedDebt = Math.floor(totalOldDebt * 0.5);
+        msg += `\n⚠️ 继承了先父/先母的债务：需偿还 ${inheritedDebt} 文（原债 ${totalOldDebt} 文，减半继承）`;
+    }
+    popMsg(msg);
     gameData.actionNum += getCarriageActionBonus(); // 继承后加上马车加成
     gameData.gambleConsecutiveWin = 0; // 传代后连胜清零
     gameData.gambleTotalEarned = 0;    // 传代后累计盈利清零
+    gameData.gambleConsecutiveLose = 0; // 传代后连输清零
+    gameData.gambleTotalSpent = 0;     // 传代后累计消耗清零
     gameData.familyDegradationCount = degradationCount; // 恢复降级计数器
     
     if (willDegrade) {
